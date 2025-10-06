@@ -80,3 +80,8 @@ __recovery/
 
 # Boss dependency manager vendor folder https://github.com/HashLoad/boss
 modules/
+#Diretórios excluidos 
+bin
+Instalador
+src_cte
+
