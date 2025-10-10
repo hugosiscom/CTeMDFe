@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, JvgGroupBox;
+  FireDAC.Comp.Client, JvgGroupBox, ACBrXmlBase;
 
 type
   TfrmMDFEcancela = class(TfrmDefaultClean)
@@ -42,13 +42,13 @@ begin
   if Length(Trim(memJustificativa.Text)) < 15 then
     raise Exception.Create('A justificativa deve ter ao menos 15 caracteres!');
 
-  if Application.MessageBox('Deseja realmente cancelar o MDF-e ?','Cancelamento', MB_YESNO) = mrYes then
+  if Application.MessageBox('Deseja realmente cancelar o MDF-e ?', 'Cancelamento', MB_YESNO) = mrYes then
   begin
     dtmMDFE.Configurar;
 
     // numero do lote de envio
     DataHoraEvento := NOW;
-    NumeroLote     := dtmMDFE.tabMDFEID_MDFE.AsInteger;//StrToInt64(FormatDateTime('yymmddhhmm', NOW));
+    NumeroLote := dtmMDFE.tabMDFEID_MDFE.AsInteger; // StrToInt64(FormatDateTime('yymmddhhmm', NOW));
 
     // carregar o XML do MDFe-OS
     dtmMDFE.ACBrMDFe.Manifestos.Clear;
@@ -56,7 +56,7 @@ begin
 
     // dados do MDFe-OS
     vID := dtmMDFE.ACBrMDFe.Manifestos.Items[0].MDFe.Ide.nMDF;
-    vID_SERIE  := dtmMDFE.ACBrMDFe.Manifestos.Items[0].MDFe.Ide.serie;
+    vID_SERIE := dtmMDFE.ACBrMDFe.Manifestos.Items[0].MDFe.Ide.serie;
 
     // Preenchimento do cancelamento
     dtmMDFE.ACBrMDFe.EventoMDFe.Evento.Clear;
@@ -64,10 +64,10 @@ begin
 
     with dtmMDFE.ACBrMDFe.EventoMDFe.Evento.Add do
     begin
-      infEvento.CNPJCPF         := oEmpresa.CNPJ;
-      infEvento.dhEvento        := DataHoraEvento;
-      infEvento.tpEvento        := teCancelamento;
-      infEvento.chMDFe          := dtmMDFE.ACBrMDFe.Manifestos.Items[0].MDFe.procMDFe.chDFe;
+      infEvento.CNPJCPF := oEmpresa.CNPJ;
+      infEvento.dhEvento := DataHoraEvento;
+      infEvento.tpEvento := teCancelamento;
+      infEvento.chMDFe := dtmMDFE.ACBrMDFe.Manifestos.Items[0].MDFe.procMDFe.chDFe;
       infEvento.detEvento.nProt := dtmMDFE.ACBrMDFe.Manifestos.Items[0].MDFe.procMDFe.nProt;
       infEvento.detEvento.xJust := memJustificativa.Text;
     end;
@@ -80,20 +80,17 @@ begin
 
         if EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.cStat <> 135 then
         begin
-          raise Exception.CreateFmt(
-            'Ocorreu o seguinte erro ao cancelar o MDF-e:'  + sLineBreak +
-            'Código:%d' + sLineBreak +
-            'Motivo: %s', [
-              EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
-              EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo
-          ]);
+          raise Exception.CreateFmt('Ocorreu o seguinte erro ao cancelar o MDF-e:' + sLineBreak + 'Código:%d' + sLineBreak +
+            'Motivo: %s', [EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
+            EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo]);
         end;
 
         try
           updCancelado.ParamByName('ID_EMPRESA').Value := oEmpresa.ID;
           updCancelado.ParamByName('ID_MDFE').Value := vID;
           updCancelado.ParamByName('ID_SERIE').Value := vID_SERIE;
-          updCancelado.ParamByName('XML_CANC_DATAHORA').Value := EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento;
+          updCancelado.ParamByName('XML_CANC_DATAHORA').Value := EnvEvento.EventoRetorno.retEvento.Items[0]
+            .RetInfEvento.dhRegEvento;
           updCancelado.ParamByName('XML_CANC_PROTOCOLO').Value := EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.nProt;
           updCancelado.ParamByName('XML_CANC_STRING').Value := EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.XML;
           updCancelado.ParamByName('XML_STATUS_CODIGO').Value := EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.cStat;
@@ -101,18 +98,12 @@ begin
           updCancelado.Prepare;
           updCancelado.ExecSQL;
 
-          dtmMDFE.SalvarEvento(
-            vID,
-            vID_SERIE,
-            NumeroLote,
-            EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento,
-            memJustificativa.Text,
-            'CANC'
-          );
+          dtmMDFE.SalvarEvento(vID, vID_SERIE, NumeroLote, EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento,
+            memJustificativa.Text, 'CANC');
 
           dtmDefault.cnx_BD.CommitRetaining;
 
-          Application.MessageBox('Cancelamento efetuado!', 'Cancelamento efetuado com sucesso!',MB_ICONINFORMATION);
+          Application.MessageBox('Cancelamento efetuado!', 'Cancelamento efetuado com sucesso!', MB_ICONINFORMATION);
           FFecharOK := True;
 
           Self.Close;
@@ -122,10 +113,7 @@ begin
           begin
             dtmDefault.cnx_BD.RollbackRetaining;
 
-            raise Exception.Create(
-              'Ocorreram erros ao gravar o evento no banco de dados' + sLineBreak +
-              E.Message
-            );
+            raise Exception.Create('Ocorreram erros ao gravar o evento no banco de dados' + sLineBreak + E.Message);
           end;
         end;
       end;
@@ -134,14 +122,12 @@ begin
     begin
       with dtmMDFE.ACBrMDFe.WebServices.EnvEvento do
       begin
-        raise Exception.Create(
-          'Ocorreram erros ao tentar efetuar o cancelamento:' + sLineBreak +
-          'Lote: '     + IntToStr(EventoRetorno.idLote) + sLineBreak +
-          'Ambiente: ' + TpAmbToStr(EventoRetorno.tpAmb) + sLineBreak +
-          'Orgao: '    + IntToStr(EventoRetorno.cOrgao) + sLineBreak +
-          'Status: '   + IntToStr(EventoRetorno.cStat) + sLineBreak +
-          'Motivo: '   + EventoRetorno.xMotivo
-        );
+        raise Exception.Create('Ocorreram erros ao tentar efetuar o cancelamento:' + sLineBreak +
+        'Lote: ' +IntToStr(EventoRetorno.idLote) + sLineBreak +
+        'Ambiente: ' + TipoAmbienteToStr(EventoRetorno.tpAmb) + sLineBreak +
+        'Orgao: ' + IntToStr(EventoRetorno.cOrgao) + sLineBreak +
+        'Status: ' + IntToStr(EventoRetorno.cStat) + sLineBreak +
+        'Motivo: ' + EventoRetorno.xMotivo);
       end;
     end;
   end;

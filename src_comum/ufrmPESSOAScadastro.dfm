@@ -183,7 +183,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Height = 21
           DataField = 'RAZAOSOCIAL'
           DataSource = dtsDefault
-          TabOrder = 7
+          TabOrder = 5
           EditMask = ''
         end
         object CEP: TJvDBMaskEdit
@@ -193,7 +193,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Height = 21
           DataField = 'CEP'
           DataSource = dtsDefault
-          TabOrder = 10
+          TabOrder = 8
           EditMask = ''
           OnChange = TEditMascaraCEP
         end
@@ -204,7 +204,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Height = 21
           DataField = 'ENDERECO'
           DataSource = dtsDefault
-          TabOrder = 14
+          TabOrder = 12
           EditMask = ''
         end
         object COMPLEMENTO: TJvDBMaskEdit
@@ -214,7 +214,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Height = 21
           DataField = 'COMPLEMENTO'
           DataSource = dtsDefault
-          TabOrder = 15
+          TabOrder = 13
           EditMask = ''
         end
         object NUMERO: TJvDBMaskEdit
@@ -224,7 +224,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Height = 21
           DataField = 'NUMERO'
           DataSource = dtsDefault
-          TabOrder = 16
+          TabOrder = 14
           EditMask = ''
         end
         object BAIRRO: TJvDBMaskEdit
@@ -234,7 +234,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Height = 21
           DataField = 'BAIRRO'
           DataSource = dtsDefault
-          TabOrder = 17
+          TabOrder = 15
           EditMask = ''
         end
         object ID_CIDADES_UF: TJvDBLookupCombo
@@ -247,7 +247,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           LookupField = 'ID_CIDADES_UF'
           LookupDisplay = 'ID_CIDADES_UF'
           LookupSource = dtscnsCIDADES_UF
-          TabOrder = 18
+          TabOrder = 16
           OnChange = ID_CIDADES_UFChange
         end
         object ID_CIDADES_IBGE: TJvDBLookupCombo
@@ -260,7 +260,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           LookupField = 'ID_CIDADES_IBGE'
           LookupDisplay = 'DESCRICAO'
           LookupSource = dtscnsCIDADES
-          TabOrder = 19
+          TabOrder = 17
         end
         object EMAIL: TJvDBMaskEdit
           Left = 5
@@ -269,35 +269,8 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Height = 21
           DataField = 'EMAIL'
           DataSource = dtsDefault
-          TabOrder = 9
+          TabOrder = 7
           EditMask = ''
-        end
-        object ID_JURIDICA: TJvDBCheckBox
-          Left = 168
-          Top = 35
-          Width = 97
-          Height = 17
-          TabStop = False
-          Caption = 'Pessoa Jur'#237'dica'
-          DataField = 'ID_JURIDICA'
-          DataSource = dtsDefault
-          TabOrder = 2
-          ValueChecked = '1'
-          ValueUnchecked = '0'
-          OnChange = ID_JURIDICAChange
-        end
-        object ID_FORNECEDOR: TJvDBCheckBox
-          Left = 282
-          Top = 35
-          Width = 78
-          Height = 17
-          TabStop = False
-          Caption = 'Fornecedor'
-          DataField = 'ID_FORNECEDOR'
-          DataSource = dtsDefault
-          TabOrder = 3
-          ValueChecked = '1'
-          ValueUnchecked = '0'
         end
         object ID_TRANSPORTADORA: TJvDBCheckBox
           Left = 389
@@ -308,7 +281,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Caption = 'Transportadora'
           DataField = 'ID_TRANSPORTADORA'
           DataSource = dtsDefault
-          TabOrder = 4
+          TabOrder = 2
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
@@ -321,7 +294,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Caption = 'Produtor Rural'
           DataField = 'ID_PRODUTOR'
           DataSource = dtsDefault
-          TabOrder = 5
+          TabOrder = 3
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
@@ -336,7 +309,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
             '1 - CONTRIBUINTE'
             '2 - ISENTO'
             '3 - N'#195'O CONTRIBUINTE')
-          TabOrder = 8
+          TabOrder = 6
           Values.Strings = (
             '1'
             '2'
@@ -354,7 +327,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Height = 122
           DataField = 'FOTO'
           DataSource = dtsDefault
-          TabOrder = 6
+          TabOrder = 4
           TabStop = False
         end
         object ID_ATIVO: TJvDBCheckBox
@@ -377,7 +350,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Height = 21
           DataField = 'TELEFONETRABALHO'
           DataSource = dtsDefault
-          TabOrder = 13
+          TabOrder = 11
           EditMask = ''
           OnChange = TEditMascaraTELEFONE
         end
@@ -388,7 +361,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Height = 21
           DataField = 'CELULAR'
           DataSource = dtsDefault
-          TabOrder = 12
+          TabOrder = 10
           EditMask = ''
           OnChange = TEditMascaraTELEFONE
         end
@@ -399,9 +372,77 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           Height = 21
           DataField = 'TELEFONEFIXO'
           DataSource = dtsDefault
-          TabOrder = 11
+          TabOrder = 9
           EditMask = ''
           OnChange = TEditMascaraTELEFONE
+        end
+        object btnpesquisar: TBitBtn
+          Left = 316
+          Top = 33
+          Width = 33
+          Height = 21
+          Hint = 'Consulta Cliente'
+          Glyph.Data = {
+            36050000424D3605000000000000360400002800000010000000100000000100
+            08000000000000010000320B0000320B000000010000000100005A6B7300AD7B
+            73004A637B00EFBD8400B58C8C00A5948C00C6948C00B59C8C00BD9C8C00F7BD
+            8C00BD949400C6949400CE949400C69C9400CEAD9400F7CE9400C6A59C00CEA5
+            9C00D6A59C00C6AD9C00CEAD9C00D6AD9C00F7CE9C00F7D69C004A7BA500CEAD
+            A500D6B5A500DEBDA500F7D6A500DEBDAD00DEC6AD00E7C6AD00FFDEAD00FFE7
+            AD00CEB5B500F7DEB500F7E7B500FFE7B500FFEFB500D6BDBD00DED6BD00E7DE
+            BD00FFE7BD006B9CC600EFDEC600FFEFC600FFF7C600F7E7CE00FFF7CE00F7EF
+            D600F7F7D600FFF7D600FFFFD6002184DE00F7F7DE00FFFFDE001884E700188C
+            E700FFFFE700188CEF00218CEF00B5D6EF00F7F7EF00FFF7EF00FFFFEF00FFFF
+            F700FF00FF004AB5FF0052B5FF0052BDFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0042020A424242
+            424242424242424242422B39180B42424242424242424242424243443C180B42
+            4242424242424242424242444438180B42424242424242424242424244433918
+            0A424242424242424242424242444335004201101A114242424242424242453D
+            05072F343434291942424242424242221A2D34343437403E0442424242424206
+            231C303437404146284242424242421B210F30373A414140310D42424242421F
+            20032434373A3A37321342424242421D25030F2D37373737311042424242420D
+            2D2D1C162430333429424242424242421E463F0F0316252E0842424242424242
+            4227312D21252314424242424242424242420E141B1B42424242}
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 18
+          TabStop = False
+        end
+        object rgPessoa: TRadioGroup
+          Left = 168
+          Top = 15
+          Width = 142
+          Height = 46
+          Caption = 'Pessoa'
+          Columns = 2
+          ItemIndex = 0
+          Items.Strings = (
+            'F'#237'sica'
+            'Jur'#237'dica')
+          TabOrder = 19
+          OnClick = rgPessoaClick
         end
       end
     end
@@ -857,14 +898,14 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
   object dtscnsCIDADES_UF: TDataSource
     DataSet = cnsCIDADES_UF
     Left = 338
-    Top = 86
+    Top = 142
   end
   object cnsCIDADES_UF: TFDQuery
     Connection = dtmDefault.cnx_BD
     SQL.Strings = (
       'SELECT * FROM CIDADES_UF ORDER BY ID_CIDADES_UF')
-    Left = 330
-    Top = 22
+    Left = 226
+    Top = 134
     object cnsCIDADES_UFID_CIDADES_UF: TStringField
       FieldName = 'ID_CIDADES_UF'
       Origin = 'ID_CIDADES_UF'

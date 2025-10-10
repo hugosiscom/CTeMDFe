@@ -3,11 +3,11 @@
         <ProjectGuid>{352B9E22-C74C-45DD-B83A-9D4D3A0AE92F}</ProjectGuid>
         <MainSource>mdfe.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <TargetedPlatforms>693377</TargetedPlatforms>
         <AppType>Application</AppType>
         <FrameworkType>VCL</FrameworkType>
-        <ProjectVersion>20.2</ProjectVersion>
+        <ProjectVersion>20.3</ProjectVersion>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <ProjectName Condition="'$(ProjectName)'==''">mdfe</ProjectName>
     </PropertyGroup>
@@ -369,6 +369,7 @@
             <Form>FrmConsultaNFe</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="C:\Trabalho Atual\Compartilhado\UUtilidade.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -407,6 +408,12 @@
             </Platforms>
             <Deployment Version="5">
                 <DeployFile LocalName="..\bin\mdfe.exe" Configuration="Debug" Class="ProjectOutput"/>
+                <DeployFile LocalName="..\bin\mdfe.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>mdfe.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\bin\mdfe.exe" Configuration="Release" Class="ProjectOutput"/>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
@@ -519,6 +526,16 @@
                     </Platform>
                     <Platform Name="Android64">
                         <RemoteDir>res\values-v31</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AndroidSplashStylesV35">
+                    <Platform Name="Android">
+                        <RemoteDir>res\values-v35</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\values-v35</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>

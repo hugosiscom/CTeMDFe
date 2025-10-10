@@ -12,7 +12,7 @@ uses
   Vcl.DBCtrls, JvDBControls, JvLabel, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Mask,
   JvExMask, JvToolEdit, JvMaskEdit, JvExControls, JvSpeedButton,
   JvExExtCtrls, JvImage, JvExStdCtrls, JvGroupBox,
-  Vcl.ComCtrls, JvExComCtrls, JvStatusBar;
+  Vcl.ComCtrls, JvExComCtrls, JvStatusBar, Vcl.Buttons;
 
 type
   TfrmPESSOASmanutencao = class(TfrmDefaultConsulta)

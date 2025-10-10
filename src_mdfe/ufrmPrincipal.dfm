@@ -41,8 +41,6 @@ object frmPrincipal: TfrmPrincipal
       item
         Width = 50
       end>
-    ExplicitTop = 678
-    ExplicitWidth = 1074
   end
   object pnlMaster: TJvPanel
     Left = 177
@@ -53,8 +51,6 @@ object frmPrincipal: TfrmPrincipal
     BevelOuter = bvNone
     BorderStyle = bsSingle
     TabOrder = 1
-    ExplicitWidth = 897
-    ExplicitHeight = 678
   end
   object JvOutlookBar1: TJvOutlookBar
     Left = 5
@@ -206,6 +202,7 @@ object frmPrincipal: TfrmPrincipal
     LargeImages = img_ico_32x32
     PageImages = img_ico_32x32_menu
     PageButtonHeight = 25
+    ActivePageIndex = 1
     OnButtonClick = JvOutlookBar1ButtonClick
     OnPageChange = JvOutlookBar1PageChange
     OnPageChanging = JvOutlookBar1PageChanging
@@ -220,7 +217,6 @@ object frmPrincipal: TfrmPrincipal
     PopupMenu = popOL
     TabOrder = 2
     OnContextPopup = JvOutlookBar1ContextPopup
-    ExplicitHeight = 678
   end
   object popOL: TPopupMenu
     Left = 176

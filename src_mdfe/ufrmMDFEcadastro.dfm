@@ -5,6 +5,20 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
   ExplicitWidth = 921
   ExplicitHeight = 587
   TextHeight = 13
+  object Label84: TLabel [0]
+    Left = 152
+    Top = 349
+    Width = 28
+    Height = 13
+    Caption = 'Bairro'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+  end
   inherited pnlComandos: TPanel
     Top = 493
     Width = 899
@@ -23,6 +37,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
   inherited pageDefault: TJvPageControl
     Width = 899
     Height = 484
+    ActivePage = tabRodoviario
     TabOrder = 0
     ExplicitWidth = 899
     ExplicitHeight = 484
@@ -929,6 +944,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         ActivePage = tabVeiculoTracao
         Align = alClient
         TabOrder = 0
+        ExplicitLeft = -48
+        ExplicitTop = -3
         object tabVeiculoTracao: TTabSheet
           Caption = 'Ve'#237'culo de Tra'#231#227'o'
           object Panel15: TPanel
@@ -1188,6 +1205,20 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 ParentFont = False
                 Transparent = True
               end
+              object Label89: TLabel
+                Left = 5
+                Top = 70
+                Width = 31
+                Height = 13
+                Caption = 'Chassi'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = []
+                ParentFont = False
+                Transparent = True
+              end
               object VEICULO_TIPO_CARROCERIA: TJvDBComboBox
                 Left = 305
                 Top = 16
@@ -1371,7 +1402,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               object JvDBMaskEdit1: TJvDBMaskEdit
                 Tag = 1
                 Left = 571
-                Top = 65
+                Top = 67
                 Width = 78
                 Height = 21
                 TabStop = False
@@ -1385,6 +1416,14 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 ParentFont = False
                 TabOrder = 9
                 EditMask = ''
+              end
+              object edtChassi: TMaskEdit
+                Left = 38
+                Top = 67
+                Width = 157
+                Height = 21
+                TabOrder = 10
+                Text = 'edtChassi'
               end
             end
           end
@@ -1655,7 +1694,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 TabOrder = 0
                 object Label33: TLabel
                   Left = 3
-                  Top = 118
+                  Top = 202
                   Width = 40
                   Height = 13
                   Caption = 'RNTRC*'
@@ -1668,8 +1707,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Transparent = True
                 end
                 object Label32: TLabel
-                  Left = 143
-                  Top = 118
+                  Left = 137
+                  Top = 202
                   Width = 19
                   Height = 13
                   Caption = 'UF*'
@@ -1727,11 +1766,95 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Transparent = True
                 end
                 object Label41: TLabel
-                  Left = 206
-                  Top = 118
+                  Left = 200
+                  Top = 202
                   Width = 94
                   Height = 13
                   Caption = 'Tipo de Propriet'#225'rio'
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'Tahoma'
+                  Font.Style = []
+                  ParentFont = False
+                  Transparent = True
+                end
+                object Label83: TLabel
+                  Left = 3
+                  Top = 115
+                  Width = 28
+                  Height = 13
+                  Caption = 'Bairro'
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'Tahoma'
+                  Font.Style = []
+                  ParentFont = False
+                  Transparent = True
+                end
+                object Label85: TLabel
+                  Left = 137
+                  Top = 115
+                  Width = 19
+                  Height = 13
+                  Caption = 'Rua'
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'Tahoma'
+                  Font.Style = []
+                  ParentFont = False
+                  Transparent = True
+                end
+                object Label86: TLabel
+                  Left = 264
+                  Top = 115
+                  Width = 65
+                  Height = 13
+                  Caption = 'Complemento'
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'Tahoma'
+                  Font.Style = []
+                  ParentFont = False
+                  Transparent = True
+                end
+                object labelseila: TLabel
+                  Left = 3
+                  Top = 156
+                  Width = 19
+                  Height = 13
+                  Caption = 'CEP'
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'Tahoma'
+                  Font.Style = []
+                  ParentFont = False
+                  Transparent = True
+                end
+                object Label87: TLabel
+                  Left = 137
+                  Top = 161
+                  Width = 37
+                  Height = 13
+                  Caption = 'Numero'
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'Tahoma'
+                  Font.Style = []
+                  ParentFont = False
+                  Transparent = True
+                end
+                object Label88: TLabel
+                  Left = 271
+                  Top = 161
+                  Width = 69
+                  Height = 13
+                  Caption = 'C'#243'd. Municipio'
                   Font.Charset = DEFAULT_CHARSET
                   Font.Color = clWindowText
                   Font.Height = -11
@@ -1758,8 +1881,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 object EMI_N_PROP_RNTRC: TJvDBMaskEdit
                   Tag = 1
                   Left = 3
-                  Top = 132
-                  Width = 134
+                  Top = 216
+                  Width = 128
                   Height = 21
                   TabStop = False
                   DataField = 'EMI_N_PROP_RNTRC'
@@ -1774,8 +1897,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   EditMask = ''
                 end
                 object EMI_N_PROP_TIPO: TJvDBComboBox
-                  Left = 206
-                  Top = 132
+                  Left = 200
+                  Top = 216
                   Width = 191
                   Height = 21
                   DataField = 'EMI_N_PROP_TIPO'
@@ -1818,8 +1941,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   EditMask = ''
                 end
                 object EMI_N_PROP_UF: TJvDBLookupCombo
-                  Left = 143
-                  Top = 132
+                  Left = 137
+                  Top = 216
                   Width = 57
                   Height = 21
                   DataField = 'EMI_N_PROP_UF'
@@ -1864,6 +1987,48 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   ParentFont = False
                   TabOrder = 3
                   EditMask = ''
+                end
+                object edtBairroProprietario: TEdit
+                  Left = 3
+                  Top = 134
+                  Width = 128
+                  Height = 21
+                  TabOrder = 7
+                end
+                object edtRuaProprietario: TEdit
+                  Left = 137
+                  Top = 134
+                  Width = 121
+                  Height = 21
+                  TabOrder = 8
+                end
+                object edtComplementoProprietario: TEdit
+                  Left = 264
+                  Top = 134
+                  Width = 129
+                  Height = 21
+                  TabOrder = 9
+                end
+                object edtCEPProprietario: TEdit
+                  Left = 3
+                  Top = 175
+                  Width = 128
+                  Height = 21
+                  TabOrder = 10
+                end
+                object edtNumeroProprietario: TEdit
+                  Left = 137
+                  Top = 175
+                  Width = 128
+                  Height = 21
+                  TabOrder = 11
+                end
+                object edCodigoMunicipioProprietario: TEdit
+                  Left = 271
+                  Top = 175
+                  Width = 122
+                  Height = 21
+                  TabOrder = 12
                 end
               end
             end
@@ -2286,7 +2451,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 ParentFont = False
                 Transparent = True
               end
-              object CIOT: TJvMaskEdit
+              object edtCIOT: TJvMaskEdit
                 Left = 3
                 Top = 17
                 Width = 236
@@ -2328,6 +2493,15 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 TabOrder = 3
                 OnClick = opCNPJClick
                 LinkedControls = <>
+              end
+              object btnGerarCIOT: TBitBtn
+                Left = 770
+                Top = 0
+                Width = 89
+                Height = 38
+                Caption = 'Gerar CIOT'
+                TabOrder = 4
+                OnClick = btnGerarCIOTClick
               end
             end
             object Panel19: TPanel
@@ -2845,6 +3019,596 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                     Visible = True
                   end>
               end
+            end
+          end
+        end
+        object TabSheet1: TTabSheet
+          Caption = 'Configura'#231#245'es CIOT'
+          ImageIndex = 5
+          object GroupBox4: TGroupBox
+            Left = 3
+            Top = 3
+            Width = 265
+            Height = 190
+            Caption = 'WebService'
+            TabOrder = 0
+            object Label65: TLabel
+              Left = 8
+              Top = 16
+              Width = 126
+              Height = 13
+              Caption = 'Selecione UF do Emitente:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+            end
+            object Label66: TLabel
+              Left = 167
+              Top = 116
+              Width = 40
+              Height = 13
+              Caption = 'TimeOut'
+              Color = clBtnFace
+              ParentColor = False
+            end
+            object Label67: TLabel
+              Left = 19
+              Top = 168
+              Width = 41
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'SSLType'
+              Color = clBtnFace
+              ParentColor = False
+            end
+            object cbxVisualizar: TCheckBox
+              Left = 8
+              Top = 118
+              Width = 153
+              Height = 17
+              Caption = 'Visualizar Mensagem'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+            end
+            object cbUF: TComboBox
+              Left = 8
+              Top = 32
+              Width = 249
+              Height = 24
+              Style = csDropDownList
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -13
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ItemIndex = 24
+              ParentFont = False
+              TabOrder = 1
+              Text = 'SP'
+              Items.Strings = (
+                'AC'
+                'AL'
+                'AP'
+                'AM'
+                'BA'
+                'CE'
+                'DF'
+                'ES'
+                'GO'
+                'MA'
+                'MT'
+                'MS'
+                'MG'
+                'PA'
+                'PB'
+                'PR'
+                'PE'
+                'PI'
+                'RJ'
+                'RN'
+                'RS'
+                'RO'
+                'RR'
+                'SC'
+                'SP'
+                'SE'
+                'TO')
+            end
+            object rgTipoAmb: TRadioGroup
+              Left = 8
+              Top = 61
+              Width = 249
+              Height = 52
+              Caption = 'Selecione o Ambiente de Destino'
+              Columns = 2
+              ItemIndex = 1
+              Items.Strings = (
+                'Produ'#231#227'o'
+                'Homologa'#231#227'o')
+              TabOrder = 2
+            end
+            object cbxSalvarSOAP: TCheckBox
+              Left = 8
+              Top = 136
+              Width = 153
+              Height = 17
+              Caption = 'Salvar envelope SOAP'
+              TabOrder = 3
+            end
+            object seTimeOut: TSpinEdit
+              Left = 167
+              Top = 132
+              Width = 66
+              Height = 22
+              Increment = 10
+              MaxValue = 999999
+              MinValue = 1000
+              TabOrder = 4
+              Value = 5000
+            end
+            object cbSSLType: TComboBox
+              Left = 72
+              Top = 160
+              Width = 160
+              Height = 21
+              Hint = 'Depende de configura'#231#227'o de  SSL.HttpLib'
+              Style = csDropDownList
+              TabOrder = 5
+            end
+          end
+          object gbxRetornoEnvio: TGroupBox
+            Left = 5
+            Top = 200
+            Width = 265
+            Height = 77
+            Caption = 'Retorno de Envio'
+            TabOrder = 1
+            object Label64: TLabel
+              Left = 93
+              Top = 27
+              Width = 51
+              Height = 13
+              Caption = 'Tentativas'
+            end
+            object Label68: TLabel
+              Left = 176
+              Top = 27
+              Width = 44
+              Height = 13
+              Caption = 'Intervalo'
+            end
+            object Label69: TLabel
+              Left = 8
+              Top = 27
+              Width = 45
+              Height = 13
+              Hint = 
+                'Aguardar quantos segundos para primeira consulta de retorno de e' +
+                'nvio'
+              Caption = 'Aguardar'
+            end
+            object cbxAjustarAut: TCheckBox
+              Left = 8
+              Top = 12
+              Width = 234
+              Height = 17
+              Caption = 'Ajustar Automaticamente prop. "Aguardar"'
+              TabOrder = 0
+            end
+            object edtTentativas: TEdit
+              Left = 93
+              Top = 43
+              Width = 57
+              Height = 21
+              TabOrder = 2
+            end
+            object edtIntervalo: TEdit
+              Left = 176
+              Top = 43
+              Width = 57
+              Height = 21
+              TabOrder = 3
+            end
+            object edtAguardar: TEdit
+              Left = 8
+              Top = 43
+              Width = 57
+              Height = 21
+              Hint = 
+                'Aguardar quantos segundos para primeira consulta de retorno de e' +
+                'nvio'
+              TabOrder = 1
+            end
+          end
+          object gbProxy: TGroupBox
+            Left = 5
+            Top = 283
+            Width = 265
+            Height = 104
+            Caption = 'Proxy'
+            TabOrder = 2
+            object Label70: TLabel
+              Left = 8
+              Top = 16
+              Width = 22
+              Height = 13
+              Caption = 'Host'
+            end
+            object Label71: TLabel
+              Left = 208
+              Top = 16
+              Width = 26
+              Height = 13
+              Caption = 'Porta'
+            end
+            object Label72: TLabel
+              Left = 8
+              Top = 56
+              Width = 36
+              Height = 13
+              Caption = 'Usu'#225'rio'
+            end
+            object Label73: TLabel
+              Left = 138
+              Top = 56
+              Width = 30
+              Height = 13
+              Caption = 'Senha'
+            end
+            object edtProxyHost: TEdit
+              Left = 8
+              Top = 32
+              Width = 193
+              Height = 21
+              TabOrder = 0
+            end
+            object edtProxyPorta: TEdit
+              Left = 208
+              Top = 32
+              Width = 50
+              Height = 21
+              TabOrder = 1
+            end
+            object edtProxyUser: TEdit
+              Left = 8
+              Top = 72
+              Width = 123
+              Height = 21
+              TabOrder = 2
+            end
+            object edtProxySenha: TEdit
+              Left = 135
+              Top = 72
+              Width = 123
+              Height = 21
+              PasswordChar = '*'
+              TabOrder = 3
+            end
+          end
+          object gbCertificado: TGroupBox
+            Left = 274
+            Top = 3
+            Width = 263
+            Height = 144
+            Caption = 'Certificado'
+            TabOrder = 3
+            object Label74: TLabel
+              Left = 8
+              Top = 16
+              Width = 41
+              Height = 13
+              Caption = 'Caminho'
+            end
+            object Label75: TLabel
+              Left = 8
+              Top = 56
+              Width = 30
+              Height = 13
+              Caption = 'Senha'
+            end
+            object sbtnCaminhoCert: TSpeedButton
+              Left = 235
+              Top = 27
+              Width = 23
+              Height = 24
+              Glyph.Data = {
+                76010000424D7601000000000000760000002800000020000000100000000100
+                04000000000000010000130B0000130B00001000000000000000000000000000
+                800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+                333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+                0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+                07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+                07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+                0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+                33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+                B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+                3BB33773333773333773B333333B3333333B7333333733333337}
+              NumGlyphs = 2
+            end
+            object Label76: TLabel
+              Left = 8
+              Top = 96
+              Width = 79
+              Height = 13
+              Caption = 'N'#250'mero de S'#233'rie'
+            end
+            object sbtnGetCert: TSpeedButton
+              Left = 235
+              Top = 110
+              Width = 23
+              Height = 24
+              Glyph.Data = {
+                76010000424D7601000000000000760000002800000020000000100000000100
+                04000000000000010000130B0000130B00001000000000000000000000000000
+                800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+                333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+                0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+                07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+                07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+                0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+                33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+                B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+                3BB33773333773333773B333333B3333333B7333333733333337}
+              NumGlyphs = 2
+            end
+            object sbtnNumSerie: TSpeedButton
+              Left = 206
+              Top = 110
+              Width = 23
+              Height = 24
+              Glyph.Data = {
+                76010000424D7601000000000000760000002800000020000000100000000100
+                04000000000000010000130B0000130B00001000000000000000000000000000
+                800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+                333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+                0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+                07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+                07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+                0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+                33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+                B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+                3BB33773333773333773B333333B3333333B7333333733333337}
+              NumGlyphs = 2
+            end
+            object edtSenha: TEdit
+              Left = 8
+              Top = 72
+              Width = 249
+              Height = 21
+              PasswordChar = '*'
+              TabOrder = 0
+            end
+            object edtNumSerie: TEdit
+              Left = 8
+              Top = 112
+              Width = 193
+              Height = 21
+              TabOrder = 1
+            end
+            object edtCaminho: TEdit
+              Left = 10
+              Top = 30
+              Width = 219
+              Height = 21
+              TabOrder = 2
+            end
+          end
+          object GroupBox1: TGroupBox
+            Left = 276
+            Top = 153
+            Width = 263
+            Height = 76
+            Caption = 'Calculo de Hash e assinatura'
+            TabOrder = 4
+            object Edit1: TEdit
+              Left = 3
+              Top = 14
+              Width = 249
+              Height = 21
+              TabOrder = 0
+              Text = '0548133600013704583493000190'
+            end
+            object btnSha256: TButton
+              Left = 8
+              Top = 41
+              Width = 99
+              Height = 25
+              Caption = 'SHA256+RSA'
+              TabOrder = 1
+            end
+            object cbAssinar: TCheckBox
+              Left = 144
+              Top = 44
+              Width = 54
+              Height = 19
+              Caption = 'Assinar'
+              Checked = True
+              State = cbChecked
+              TabOrder = 2
+            end
+          end
+          object GroupBox2: TGroupBox
+            Left = 545
+            Top = 3
+            Width = 192
+            Height = 210
+            Caption = 'Libs'
+            TabOrder = 5
+            object lSSLLib: TLabel
+              Left = 19
+              Top = 16
+              Width = 30
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'SSLLib'
+              Color = clBtnFace
+              ParentColor = False
+            end
+            object lCryptLib: TLabel
+              Left = 19
+              Top = 57
+              Width = 40
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'CryptLib'
+              Color = clBtnFace
+              ParentColor = False
+            end
+            object lHttpLib: TLabel
+              Left = 19
+              Top = 103
+              Width = 34
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'HttpLib'
+              Color = clBtnFace
+              ParentColor = False
+            end
+            object lXmlSign: TLabel
+              Left = 19
+              Top = 149
+              Width = 52
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'XMLSignLib'
+              Color = clBtnFace
+              ParentColor = False
+            end
+            object cbXmlSignLib: TComboBox
+              Left = 15
+              Top = 168
+              Width = 160
+              Height = 21
+              Style = csDropDownList
+              TabOrder = 0
+            end
+            object cbHttpLib: TComboBox
+              Left = 15
+              Top = 122
+              Width = 160
+              Height = 21
+              Style = csDropDownList
+              TabOrder = 1
+            end
+            object cbCryptLib: TComboBox
+              Left = 15
+              Top = 76
+              Width = 160
+              Height = 21
+              Style = csDropDownList
+              TabOrder = 2
+            end
+            object cbSSLLib: TComboBox
+              Left = 15
+              Top = 30
+              Width = 160
+              Height = 21
+              Style = csDropDownList
+              TabOrder = 3
+            end
+          end
+          object GroupBox3: TGroupBox
+            Left = 276
+            Top = 235
+            Width = 541
+            Height = 168
+            Caption = 'Geral'
+            TabOrder = 6
+            object Label77: TLabel
+              Left = 11
+              Top = 67
+              Width = 119
+              Height = 13
+              Caption = 'Vers'#227'o Documento Fiscal'
+            end
+            object Label78: TLabel
+              Left = 10
+              Top = 21
+              Width = 86
+              Height = 13
+              Caption = 'Forma de Emiss'#227'o'
+            end
+            object Label79: TLabel
+              Left = 13
+              Top = 113
+              Width = 62
+              Height = 13
+              Caption = 'Integrardora'
+            end
+            object Label80: TLabel
+              Left = 264
+              Top = 19
+              Width = 36
+              Height = 13
+              Caption = 'Usu'#225'rio'
+            end
+            object Label81: TLabel
+              Left = 391
+              Top = 19
+              Width = 30
+              Height = 13
+              Caption = 'Senha'
+            end
+            object Label82: TLabel
+              Left = 264
+              Top = 65
+              Width = 79
+              Height = 13
+              Caption = 'Hash Integrador'
+            end
+            object cbFormaEmissao: TComboBox
+              Left = 10
+              Top = 40
+              Width = 239
+              Height = 21
+              TabOrder = 0
+            end
+            object cbVersaoDF: TComboBox
+              Left = 10
+              Top = 86
+              Width = 239
+              Height = 21
+              TabOrder = 1
+            end
+            object cbbIntegradora: TComboBox
+              Left = 12
+              Top = 132
+              Width = 237
+              Height = 21
+              TabOrder = 2
+            end
+            object edtSenhaWebService: TEdit
+              Left = 391
+              Top = 38
+              Width = 123
+              Height = 21
+              PasswordChar = '*'
+              TabOrder = 3
+            end
+            object edtUsuarioWebService: TEdit
+              Left = 262
+              Top = 38
+              Width = 123
+              Height = 21
+              TabOrder = 4
+            end
+            object edtHashIntegrador: TEdit
+              Left = 264
+              Top = 84
+              Width = 249
+              Height = 21
+              TabOrder = 5
             end
           end
         end

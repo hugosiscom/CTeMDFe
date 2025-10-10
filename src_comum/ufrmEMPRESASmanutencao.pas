@@ -12,7 +12,7 @@ uses
   Vcl.DBGrids, JvExDBGrids, JvDBGrid, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Mask,
   JvExMask, JvToolEdit, JvMaskEdit, JvExExtCtrls, JvImage,
   JvExStdCtrls, JvGroupBox, JvExControls, JvSpeedButton, Vcl.Menus, JvMenus,
-  Vcl.ComCtrls, JvExComCtrls, JvStatusBar;
+  Vcl.ComCtrls, JvExComCtrls, JvStatusBar, Vcl.Buttons;
 
 type
   TfrmEMPRESASmanutencao = class(TfrmDefaultConsulta)

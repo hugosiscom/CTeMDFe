@@ -52,7 +52,8 @@ uses
   ufrmUSUARIOScadastro in '..\src_comum\ufrmUSUARIOScadastro.pas' {frmUSUARIOScadastro},
   ufrmLOGIN in '..\src_comum\ufrmLOGIN.pas' {frmLogin},
   encrypt_decrypt in 'C:\Trabalho Atual\Compartilhado\encrypt_decrypt.pas',
-  ufrmConsultaNFe in '..\src_comum\ufrmConsultaNFe.pas' {FrmConsultaNFe};
+  ufrmConsultaNFe in '..\src_comum\ufrmConsultaNFe.pas' {FrmConsultaNFe},
+  UUtilidade in 'C:\Trabalho Atual\Compartilhado\UUtilidade.pas';
 
 {$R *.res}
 

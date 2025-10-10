@@ -1,47 +1,54 @@
 unit uclassUSUARIO;
 
 interface
+
 uses
   FireDAC.Comp.Client, Forms, SysUtils, Data.DB, System.Classes,
   uclassEMPRESA;
+
 type
   TUSUARIOINFORMACOES = RECORD
   public
-    ID_USUARIO : Integer;
-    USUARIO    : String;
-    SENHA      : String;
-    DATAHORA   : TDateTime;
+    ID_USUARIO: Integer;
+    USUARIO: String;
+    SENHA: String;
+    DATAHORA: TDateTime;
   end;
- TUSUARIOCONSULTA = RECORD
+
+  TUSUARIOCONSULTA = RECORD
     USUARIO: STRING;
     SENHA: STRING;
 
     PROCEDURE CLEAR;
   END;
- TUsuario = class(TObject)
+
+  TUsuario = class(TObject)
   private
     fInformacoes: TUSUARIOINFORMACOES;
   public
-    function Procurar(AID_Usuario:Integer):TUSUARIOINFORMACOES;
-    function ValidaUsuario(Usuario,Senha:String):TUSUARIOINFORMACOES;
+    function Procurar(AID_Usuario: Integer): TUSUARIOINFORMACOES;
+    function ValidaUsuario(USUARIO, SENHA: String): TUSUARIOINFORMACOES;
 
-    function GetNewID:Integer;
+    function GetNewID: Integer;
   end;
+
 var
   oUsuario: TUsuario;
 
 implementation
- uses
+
+uses
   udtmDefault;
+
 { TCPFConsulta }
-function TUsuario.Procurar(AID_Usuario: Integer):TUSUARIOINFORMACOES;
+function TUsuario.Procurar(AID_Usuario: Integer): TUSUARIOINFORMACOES;
 begin
   fInformacoes.ID_USUARIO := -1;
   fInformacoes.USUARIO := EmptyStr;
 
   try
     dtmDefault.qryTmp.Close;
-    dtmDefault.qryTmp.SQL.Clear;
+    dtmDefault.qryTmp.SQL.CLEAR;
     dtmDefault.qryTmp.SQL.Text := 'SELECT * FROM USUARIO WHERE ID_USUARIO = ' + AID_Usuario.ToString;
     dtmDefault.qryTmp.Open;
 
@@ -49,7 +56,7 @@ begin
     begin
       fInformacoes.ID_USUARIO := dtmDefault.qryTmp.FieldByName('ID_USUARIO').AsInteger;
       fInformacoes.USUARIO := dtmDefault.qryTmp.FieldByName('USUARIO').AsString.Trim;
-      fInformacoes.SENHA :=  dtmDefault.qryTmp.FieldByName('SENHA').AsString.Trim;
+      fInformacoes.SENHA := dtmDefault.qryTmp.FieldByName('SENHA').AsString.Trim;
     end;
 
     Result := fInformacoes;
@@ -58,17 +65,17 @@ begin
   end;
 end;
 
-function TUsuario.ValidaUsuario(Usuario, Senha: String): TUSUARIOINFORMACOES;
+function TUsuario.ValidaUsuario(USUARIO, SENHA: String): TUSUARIOINFORMACOES;
 begin
- fInformacoes.ID_USUARIO := -1;
+  fInformacoes.ID_USUARIO := -1;
   fInformacoes.USUARIO := EmptyStr;
 
   try
     dtmDefault.qryTmp.Close;
-    dtmDefault.qryTmp.SQL.Clear;
+    dtmDefault.qryTmp.SQL.CLEAR;
     dtmDefault.qryTmp.SQL.Text := ' SELECT us.* FROM USUARIO us WHERE us.usuario =:nome and us.senha =:senha  ';
-    dtmDefault.qryTmp.Params[0].AsString := Usuario;
-    dtmDefault.qryTmp.Params[1].AsString := Senha;
+    dtmDefault.qryTmp.Params[0].AsString := USUARIO;
+    dtmDefault.qryTmp.Params[1].AsString := SENHA;
 
     dtmDefault.qryTmp.Open;
 
@@ -76,7 +83,7 @@ begin
     begin
       fInformacoes.ID_USUARIO := dtmDefault.qryTmp.FieldByName('ID_USUARIO').AsInteger;
       fInformacoes.USUARIO := dtmDefault.qryTmp.FieldByName('USUARIO').AsString.Trim;
-      fInformacoes.SENHA :=  dtmDefault.qryTmp.FieldByName('SENHA').AsString.Trim;
+      fInformacoes.SENHA := dtmDefault.qryTmp.FieldByName('SENHA').AsString.Trim;
     end;
 
     Result := fInformacoes;
@@ -94,7 +101,7 @@ begin
 
   try
     dtmDefault.qryTmp.Close;
-    dtmDefault.qryTmp.SQL.Clear;
+    dtmDefault.qryTmp.SQL.CLEAR;
     dtmDefault.qryTmp.SQL.Text := 'select MAX(ID_USUARIO) as ID from USUARIO ';
     dtmDefault.qryTmp.Open;
 
@@ -109,16 +116,18 @@ begin
 
 end;
 
-procedure TUSUARIOConsulta.Clear;
+procedure TUSUARIOCONSULTA.CLEAR;
 begin
   USUARIO := EmptyStr;
-  Senha := EmptyStr;
+  SENHA := EmptyStr;
 end;
 
 initialization
-  oUsuario := TUsuario.Create;
+
+oUsuario := TUsuario.Create;
 
 finalization
-  FreeAndNil(oUsuario);
+
+FreeAndNil(oUsuario);
 
 end.

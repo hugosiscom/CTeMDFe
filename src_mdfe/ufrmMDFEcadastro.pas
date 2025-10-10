@@ -1,4 +1,4 @@
-unit ufrmMDFEcadastro;
+ï»¿unit ufrmMDFEcadastro;
 
 interface
 
@@ -14,7 +14,15 @@ uses
   Vcl.Mask, JvExMask, JvToolEdit, JvMaskEdit, JvGroupBox, Vcl.Buttons,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, JvgGroupBox, Vcl.Grids,
   Vcl.DBGrids, JvExDBGrids, JvDBGrid, JvDBCheckBox, JvRadioButton,
-  JvAutoComplete, ufrmDefault;
+  JvAutoComplete, ufrmDefault, udtmMDFE, udtmDefault, ufuncoes, ufrmMDFEsegurosCADASTRO,
+  ufrmMDFEreboqueCADASTRO, ufrmMDFEvalepedagioCADASTRO, ufrmMDFEcteCADASTRO,
+  uclassMDFE, ufrmMDFEnfeCADASTRO, ACBrValidador, ACBrUtil, uclassEMPRESA,
+  uclassCONFIGini, ACBrCIOTConversao, pcnCIOT, pcnCIOTW_eFrete, ACBrCIOTConfiguracoes, ACBrCIOTWebServices,
+  ACBrDFeSSL, ACBrDFeOpenSSL, ACBrDFeUtil, ACBrCIOT, ACBrDFe, ACBrUtil.Strings,
+  ACBrUtil.DateTime,
+  ACBrUtil.FilesIO,
+  ACBrUtil.XMLHTML,
+  pcnConversao, Vcl.Samples.Spin, blcksock, System.TypInfo, IniFiles;
 
 type
   TfrmMDFEcadastro = class(TfrmDefaultCadastro)
@@ -151,7 +159,7 @@ type
     Panel18: TPanel;
     Label3: TLabel;
     Label6: TLabel;
-    CIOT: TJvMaskEdit;
+    edtCIOT: TJvMaskEdit;
     CIOT_DOC: TJvMaskEdit;
     Panel19: TPanel;
     JvDBGrid6: TJvDBGrid;
@@ -328,6 +336,86 @@ type
     Label20: TLabel;
     JvDBMaskEdit2: TJvDBMaskEdit;
     Label63: TLabel;
+    btnGerarCIOT: TBitBtn;
+    TabSheet1: TTabSheet;
+    GroupBox4: TGroupBox;
+    Label65: TLabel;
+    Label66: TLabel;
+    Label67: TLabel;
+    cbxVisualizar: TCheckBox;
+    cbUF: TComboBox;
+    rgTipoAmb: TRadioGroup;
+    cbxSalvarSOAP: TCheckBox;
+    seTimeOut: TSpinEdit;
+    gbxRetornoEnvio: TGroupBox;
+    Label64: TLabel;
+    Label68: TLabel;
+    Label69: TLabel;
+    cbxAjustarAut: TCheckBox;
+    edtTentativas: TEdit;
+    edtIntervalo: TEdit;
+    edtAguardar: TEdit;
+    gbProxy: TGroupBox;
+    Label70: TLabel;
+    Label71: TLabel;
+    Label72: TLabel;
+    Label73: TLabel;
+    edtProxyHost: TEdit;
+    edtProxyPorta: TEdit;
+    edtProxyUser: TEdit;
+    edtProxySenha: TEdit;
+    gbCertificado: TGroupBox;
+    Label74: TLabel;
+    Label75: TLabel;
+    sbtnCaminhoCert: TSpeedButton;
+    Label76: TLabel;
+    sbtnGetCert: TSpeedButton;
+    sbtnNumSerie: TSpeedButton;
+    edtSenha: TEdit;
+    edtNumSerie: TEdit;
+    GroupBox1: TGroupBox;
+    Edit1: TEdit;
+    btnSha256: TButton;
+    cbAssinar: TCheckBox;
+    GroupBox2: TGroupBox;
+    cbXmlSignLib: TComboBox;
+    cbHttpLib: TComboBox;
+    cbCryptLib: TComboBox;
+    cbSSLLib: TComboBox;
+    edtCaminho: TEdit;
+    lSSLLib: TLabel;
+    lCryptLib: TLabel;
+    lHttpLib: TLabel;
+    lXmlSign: TLabel;
+    cbSSLType: TComboBox;
+    GroupBox3: TGroupBox;
+    Label77: TLabel;
+    Label78: TLabel;
+    cbFormaEmissao: TComboBox;
+    cbVersaoDF: TComboBox;
+    Label79: TLabel;
+    cbbIntegradora: TComboBox;
+    edtSenhaWebService: TEdit;
+    Label80: TLabel;
+    edtUsuarioWebService: TEdit;
+    Label81: TLabel;
+    edtHashIntegrador: TEdit;
+    Label82: TLabel;
+    Label83: TLabel;
+    edtBairroProprietario: TEdit;
+    Label84: TLabel;
+    edtRuaProprietario: TEdit;
+    Label85: TLabel;
+    edtComplementoProprietario: TEdit;
+    Label86: TLabel;
+    edtCEPProprietario: TEdit;
+    edtNumeroProprietario: TEdit;
+    edCodigoMunicipioProprietario: TEdit;
+    labelseila: TLabel;
+    Label87: TLabel;
+    Label88: TLabel;
+    Label89: TLabel;
+    edtChassi: TMaskEdit;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -359,8 +447,7 @@ type
     procedure btnVALEPEDAGIOalterarClick(Sender: TObject);
     procedure btnVALEPEDAGIOexcluirClick(Sender: TObject);
     procedure btnLOCALdescarregamentoINCLUIRClick(Sender: TObject);
-    procedure dtstabMDFE_LOCAL_DESCARREGAMENTODataChange(Sender: TObject;
-      Field: TField);
+    procedure dtstabMDFE_LOCAL_DESCARREGAMENTODataChange(Sender: TObject; Field: TField);
     procedure FormShow(Sender: TObject);
     procedure btnLOCALdescarregamentoEXCLUIRClick(Sender: TObject);
     procedure dtstabMDFE_CTEDataChange(Sender: TObject; Field: TField);
@@ -383,30 +470,32 @@ type
     procedure opCPFClick(Sender: TObject);
     procedure opCNPJClick(Sender: TObject);
     procedure ID_MODALIDADEChange(Sender: TObject);
-    procedure dtstabMDFE_AQUA_TERMINAL_CARREGDataChange(Sender: TObject;
-      Field: TField);
+    procedure dtstabMDFE_AQUA_TERMINAL_CARREGDataChange(Sender: TObject; Field: TField);
     procedure btnAQUAtermcarregINCLUIRClick(Sender: TObject);
-    procedure dtstabMDFE_AQUA_TERMINAL_DESCARREGDataChange(Sender: TObject;
-      Field: TField);
+    procedure dtstabMDFE_AQUA_TERMINAL_DESCARREGDataChange(Sender: TObject; Field: TField);
     procedure btnAQUAtermdescarregINCLUIRClick(Sender: TObject);
     procedure btnAQUAtermcarregEXCLUIRClick(Sender: TObject);
     procedure btnAQUAtermdescarregEXCLUIRClick(Sender: TObject);
-    procedure dtstabMDFE_AQUA_COMBOIODataChange(Sender: TObject;
-      Field: TField);
+    procedure dtstabMDFE_AQUA_COMBOIODataChange(Sender: TObject; Field: TField);
     procedure btnAQUAcomboioINCLUIRClick(Sender: TObject);
     procedure btnAQUAcomboioEXCLUIRClick(Sender: TObject);
     procedure btnAQUAunidcargaEXCLUIRClick(Sender: TObject);
     procedure btnAQUAunidcargaINCLUIRClick(Sender: TObject);
-    procedure dtstabMDFE_AQUA_UNID_CARGADataChange(Sender: TObject;
-      Field: TField);
-    procedure dtstabMDFE_AQUA_UNID_TRANSDataChange(Sender: TObject;
-      Field: TField);
+    procedure dtstabMDFE_AQUA_UNID_CARGADataChange(Sender: TObject; Field: TField);
+    procedure dtstabMDFE_AQUA_UNID_TRANSDataChange(Sender: TObject; Field: TField);
     procedure btnAQUAunidtransEXCLUIRClick(Sender: TObject);
     procedure btnAQUAunidtransINCLUIRClick(Sender: TObject);
     procedure LcbxVeiculoClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure btnGerarCIOTClick(Sender: TObject);
   private
+    FACBrCIOT: TACBrCIOT;
+    sToken: string;
     procedure InserirRegistroDefault;
+    procedure cadastrarVeiculo;
+    procedure LerConfiguracao;
+    procedure GravarConfiguracao;
+
   public
     class function RegistroDefault: TRetornoCadastro;
     procedure CalculaTotal;
@@ -419,14 +508,7 @@ implementation
 
 {$R *.dfm}
 
-uses udtmMDFE, udtmDefault, ufuncoes, ufrmMDFEsegurosCADASTRO,
-  ufrmMDFEreboqueCADASTRO, ufrmMDFEvalepedagioCADASTRO, ufrmMDFEcteCADASTRO,
-  uclassMDFE, ufrmMDFEnfeCADASTRO, ACBrValidador, ACBrUtil, uclassEMPRESA,
-  uclassCONFIGini;
-
 class function TfrmMDFEcadastro.RegistroDefault: TRetornoCadastro;
-var
-  vID_MDFE, vID_SERIE: Integer;
 begin
   frmMDFEcadastro := TfrmMDFEcadastro.Create(Nil);
   try
@@ -445,16 +527,16 @@ begin
     begin
       ID_SERIE.Enabled := FOperacao <> TRegistroDefault;
       ID_MDFE.Enabled := FOperacao <> TRegistroDefault;
-      pagCONTRATANTES.TabVisible :=  FOperacao <> TRegistroDefault;
-      pagREBOQUE.TabVisible :=  FOperacao <> TRegistroDefault;
-      pagCIOT.TabVisible :=  FOperacao <> TRegistroDefault;
-      pagCONTRATANTES.TabVisible :=  FOperacao <> TRegistroDefault;
-      pagVALEpedagio.TabVisible :=  FOperacao <> TRegistroDefault;
-      tabAquaviario.TabVisible :=  FOperacao <> TRegistroDefault;
-      pageINFdoc.TabVisible :=  FOperacao <> TRegistroDefault;
-      tabInformacoesCarga.TabVisible :=  FOperacao <> TRegistroDefault;
-      tabTotalizadores.TabVisible :=  FOperacao <> TRegistroDefault;
-      tabInformacoesAdicionais.TabVisible :=  FOperacao <> TRegistroDefault;
+      pagCONTRATANTES.TabVisible := FOperacao <> TRegistroDefault;
+      pagREBOQUE.TabVisible := FOperacao <> TRegistroDefault;
+      pagCIOT.TabVisible := FOperacao <> TRegistroDefault;
+      pagCONTRATANTES.TabVisible := FOperacao <> TRegistroDefault;
+      pagVALEpedagio.TabVisible := FOperacao <> TRegistroDefault;
+      tabAquaviario.TabVisible := FOperacao <> TRegistroDefault;
+      pageINFdoc.TabVisible := FOperacao <> TRegistroDefault;
+      tabInformacoesCarga.TabVisible := FOperacao <> TRegistroDefault;
+      tabTotalizadores.TabVisible := FOperacao <> TRegistroDefault;
+      tabInformacoesAdicionais.TabVisible := FOperacao <> TRegistroDefault;
     end;
 
     frmMDFEcadastro.ShowModal;
@@ -475,7 +557,7 @@ procedure TfrmMDFEcadastro.btnCondutoresIncluirClick(Sender: TObject);
 var
   iErr: String;
 begin
-  iErr := ACBrValidador.ValidarCPF( ACBrUtil.OnlyNumber(LkCbxMotorista.KeyValue));
+  iErr := ACBrValidador.ValidarCPF(ACBrUtil.OnlyNumber(LkCbxMotorista.KeyValue));
 
   if iErr.Trim.Length > 0 then
     raise Exception.Create(iErr);
@@ -486,22 +568,24 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
-    {if (CONDUTOR_NOME.Text = '') and (CONDUTOR_CPF.Text = '')  then
-      CONDUTOR_NOME.SetFocus;}
+    { if (CONDUTOR_NOME.Text = '') and (CONDUTOR_CPF.Text = '')  then
+      CONDUTOR_NOME.SetFocus; }
 
     try
       TFDQuery(dtstabMDFE_CONDUTORES.DataSet).Append;
       TFDQuery(dtstabMDFE_CONDUTORES.DataSet).FieldByName('NOME').Value := dtmMDFE.QryMotoristaNOME.AsString;
-      TFDQuery(dtstabMDFE_CONDUTORES.DataSet).FieldByName('ID_CPF').Value := LkCbxMotorista.KeyValue ;//ACBrUtil.OnlyNumber(CONDUTOR_CPF.Text);
+      TFDQuery(dtstabMDFE_CONDUTORES.DataSet).FieldByName('ID_CPF').Value := LkCbxMotorista.KeyValue;
+      // ACBrUtil.OnlyNumber(CONDUTOR_CPF.Text);
       TFDQuery(dtstabMDFE_CONDUTORES.DataSet).Prepare;
       TFDQuery(dtstabMDFE_CONDUTORES.DataSet).Post;
-      LkCbxMotorista.KeyValue :='';
-    except on e:exception do
+      LkCbxMotorista.KeyValue := '';
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabMDFE_CONDUTORES.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
   end;
@@ -509,88 +593,88 @@ end;
 
 procedure TfrmMDFEcadastro.btnConfirmarClick(Sender: TObject);
 begin
-  Self.Perform(WM_NEXTDLGCTL,0,0);
+  Self.Perform(WM_NEXTDLGCTL, 0, 0);
 
   case FOperacao of
     TIncluir:
-    begin
-      dtmMDFE.tabMDFEEMI_N_PROP_RNTRC.Required := dtmMDFE.tabMDFEEMI_N_PROP.AsString = 'S';
-      dtmMDFE.tabMDFEEMI_N_PROP_TIPO.Required := dtmMDFE.tabMDFEEMI_N_PROP.AsString = 'S';
-      dtmMDFE.tabMDFEEMI_N_PROP_UF.Required := dtmMDFE.tabMDFEEMI_N_PROP.AsString = 'S';
-      dtmMDFE.tabMDFEEMI_N_PROP_RZSOCIAL.Required := dtmMDFE.tabMDFEEMI_N_PROP.AsString = 'S';
+      begin
+        dtmMDFE.tabMDFEEMI_N_PROP_RNTRC.Required := dtmMDFE.tabMDFEEMI_N_PROP.AsString = 'S';
+        dtmMDFE.tabMDFEEMI_N_PROP_TIPO.Required := dtmMDFE.tabMDFEEMI_N_PROP.AsString = 'S';
+        dtmMDFE.tabMDFEEMI_N_PROP_UF.Required := dtmMDFE.tabMDFEEMI_N_PROP.AsString = 'S';
+        dtmMDFE.tabMDFEEMI_N_PROP_RZSOCIAL.Required := dtmMDFE.tabMDFEEMI_N_PROP.AsString = 'S';
 
-      if dtmMDFE.tabMDFE_LOCAL_CARREGAMENTO.RecordCount = 0 then
-        raise Exception.Create('Favor informar ao menos 1 local de carregamento.');
+        if dtmMDFE.tabMDFE_LOCAL_CARREGAMENTO.RecordCount = 0 then
+          raise Exception.Create('Favor informar ao menos 1 local de carregamento.');
 
-      if EMI_N_PROP.Checked then
-         begin
-          { if dtmMDFE.tabMDFEEMI_N_PROP_CPF_CNPJ.AsString.Trim.Length = 0 then
-              raise Exception.Create('Favor informar o CPF/CNPJ proprietário veiuculo! ');
-           if dtmMDFE.tabMDFEEMI_N_PROP_IE.AsString.Trim.Length = 0 then
-              raise Exception.Create('Favor informar o IE proprietário veiuculo! ');}
-           if dtmMDFE.tabMDFEEMI_N_PROP_RZSOCIAL.AsString.Trim.Length = 0 then
-              raise Exception.Create('Favor informar o Razão Social proprietário veiuculo! ');
-           if dtmMDFE.tabMDFEEMI_N_PROP_RNTRC.AsString.Trim.Length = 0 then
-              raise Exception.Create('Favor informar a RNTRC proprietário veiuculo! ');
-           if dtmMDFE.tabMDFEEMI_N_PROP_UF.AsString.Trim.Length = 0 then
-              raise Exception.Create('Favor informar a UF proprietário veiuculo! ');
-
-
-         end;
-      if dtmMDFE.tabMDFEID_UF_FINAL.AsString.Trim.Length = 0 then
-        raise Exception.Create('Favor informar o local de descarregamento.');
-
-      case dtmMDFE.tabMDFEID_MODALIDADE.AsInteger of
-        0:
+        if EMI_N_PROP.Checked then
         begin
-          if dtmMDFE.tabMDFEVEICULO_TIPO_CARROCERIA.AsString.Trim.Length = 0 then
-            raise Exception.Create('Favor informar o tipo de carroceria do veículo.');
+          { if dtmMDFE.tabMDFEEMI_N_PROP_CPF_CNPJ.AsString.Trim.Length = 0 then
+            raise Exception.Create('Favor informar o CPF/CNPJ proprietï¿½rio veiuculo! ');
+            if dtmMDFE.tabMDFEEMI_N_PROP_IE.AsString.Trim.Length = 0 then
+            raise Exception.Create('Favor informar o IE proprietï¿½rio veiuculo! '); }
+          if dtmMDFE.tabMDFEEMI_N_PROP_RZSOCIAL.AsString.Trim.Length = 0 then
+            raise Exception.Create('Favor informar o Razï¿½o Social proprietï¿½rio veiuculo! ');
+          if dtmMDFE.tabMDFEEMI_N_PROP_RNTRC.AsString.Trim.Length = 0 then
+            raise Exception.Create('Favor informar a RNTRC proprietï¿½rio veiuculo! ');
+          if dtmMDFE.tabMDFEEMI_N_PROP_UF.AsString.Trim.Length = 0 then
+            raise Exception.Create('Favor informar a UF proprietï¿½rio veiuculo! ');
 
-          if dtmMDFE.tabMDFEVEICULO_PLACA.AsString.Trim.Length = 0 then
-            raise Exception.Create('Favor informar o tipo a Placa do veículo.');
-
-          if dtmMDFE.tabMDFEVEICULO_TARA.AsString.Trim.Length = 0 then
-            raise Exception.Create('Favor informar o tipo a Tara do veículo.');
-
-          if dtmMDFE.tabMDFEVEICULO_UF.AsString.Trim.Length = 0 then
-            raise Exception.Create('Favor informar a UF do veículo.');
-
-          if dtmMDFE.tabMDFEVEICULO_TIPO_RODADO.AsString.Trim.Length = 0 then
-            raise Exception.Create('Favor informar o tipo rodado do veículo.');
-
-          if dtmMDFE.tabMDFE_CONDUTORES.RecordCount = 0 then
-            raise Exception.Create('Favor informar ao menos 1 condutor.');
-
-          case dtmMDFE.tabMDFEID_TIPO_EMITENTE.AsInteger of
-            0:
-              begin
-                if dtmMDFE.tabMDFE_CIOT.RecordCount = 0 then
-                  raise Exception.Create('Favor informar ao menos 1 CIOT.');
-              end;
-          end;
         end;
-        2:;
-      end;
+        if dtmMDFE.tabMDFEID_UF_FINAL.AsString.Trim.Length = 0 then
+          raise Exception.Create('Favor informar o local de descarregamento.');
 
-      case dtmMDFE.tabMDFEID_TIPO_EMITENTE.AsInteger of
-        0:
-          begin
-            if dtmMDFE.tabMDFE_CTE.RecordCount = 0 then
-              raise Exception.Create('Favor informar ao menos um CT-e.');
+        case dtmMDFE.tabMDFEID_MODALIDADE.AsInteger of
+          0:
+            begin
+              if dtmMDFE.tabMDFEVEICULO_TIPO_CARROCERIA.AsString.Trim.Length = 0 then
+                raise Exception.Create('Favor informar o tipo de carroceria do veï¿½culo.');
 
-            if dtmMDFE.tabMDFE_SEGUROS.RecordCount = 0 then
-              raise Exception.Create('Favor informar os dados do Seguro.');
-          end;
-        1:
-          begin
-            if dtmMDFE.tabMDFE_NFE.RecordCount = 0 then
-              raise Exception.Create('Favor informar ao menos uma NF-e.');
-          end;
+              if dtmMDFE.tabMDFEVEICULO_PLACA.AsString.Trim.Length = 0 then
+                raise Exception.Create('Favor informar o tipo a Placa do veï¿½culo.');
+
+              if dtmMDFE.tabMDFEVEICULO_TARA.AsString.Trim.Length = 0 then
+                raise Exception.Create('Favor informar o tipo a Tara do veï¿½culo.');
+
+              if dtmMDFE.tabMDFEVEICULO_UF.AsString.Trim.Length = 0 then
+                raise Exception.Create('Favor informar a UF do veï¿½culo.');
+
+              if dtmMDFE.tabMDFEVEICULO_TIPO_RODADO.AsString.Trim.Length = 0 then
+                raise Exception.Create('Favor informar o tipo rodado do veï¿½culo.');
+
+              if dtmMDFE.tabMDFE_CONDUTORES.RecordCount = 0 then
+                raise Exception.Create('Favor informar ao menos 1 condutor.');
+
+              case dtmMDFE.tabMDFEID_TIPO_EMITENTE.AsInteger of
+                0:
+                  begin
+                    if dtmMDFE.tabMDFE_CIOT.RecordCount = 0 then
+                      raise Exception.Create('Favor informar ao menos 1 CIOT.');
+                  end;
+              end;
+            end;
+          2:
+            ;
+        end;
+
+        case dtmMDFE.tabMDFEID_TIPO_EMITENTE.AsInteger of
+          0:
+            begin
+              if dtmMDFE.tabMDFE_CTE.RecordCount = 0 then
+                raise Exception.Create('Favor informar ao menos um CT-e.');
+
+              if dtmMDFE.tabMDFE_SEGUROS.RecordCount = 0 then
+                raise Exception.Create('Favor informar os dados do Seguro.');
+            end;
+          1:
+            begin
+              if dtmMDFE.tabMDFE_NFE.RecordCount = 0 then
+                raise Exception.Create('Favor informar ao menos uma NF-e.');
+            end;
+        end;
+        if (FOperacao = TIncluir) or (dtmMDFE.tabMDFEID_MDFE.Value <= 0) then
+          dtmMDFE.tabMDFEID_MDFE.AsInteger := oMDFE.NumeracaoMDFe;
+        // dtmMDFE.tabMDFEID_MDFE.AsInteger := oMDFE.GetNEW_ID_MDFE
       end;
-      if (FOperacao = TIncluir) or ( dtmMDFE.tabMDFEID_MDFE.Value <=0 ) then
-         dtmMDFE.tabMDFEID_MDFE.AsInteger := oMDFE.NumeracaoMDFe;
-        //dtmMDFE.tabMDFEID_MDFE.AsInteger := oMDFE.GetNEW_ID_MDFE
-    end;
   end;
 
   inherited;
@@ -609,7 +693,7 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
     if N_LACRE.Text = '' then
       N_LACRE.SetFocus;
@@ -619,10 +703,11 @@ begin
       TFDQuery(dtstabMDFE_LACRE.DataSet).FieldByName('LACRE').Value := N_LACRE.Text;
       TFDQuery(dtstabMDFE_LACRE.DataSet).Prepare;
       TFDQuery(dtstabMDFE_LACRE.DataSet).Post;
-    except on e:exception do
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabMDFE_LACRE.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
   end;
@@ -644,9 +729,9 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
-    if (ID_UF_LOCAL_CARREGAMENTO.Text = '') and (ID_MUNICIPIO_INICIAL.Text = '')  then
+    if (ID_UF_LOCAL_CARREGAMENTO.Text = '') and (ID_MUNICIPIO_INICIAL.Text = '') then
       ID_UF_LOCAL_CARREGAMENTO.SetFocus;
 
     try
@@ -656,10 +741,11 @@ begin
       TFDQuery(dtstabCIDADES_LOCAL_CARREGAMENTO.DataSet).FieldByName('DTHR').Value := Now;
       TFDQuery(dtstabCIDADES_LOCAL_CARREGAMENTO.DataSet).Prepare;
       TFDQuery(dtstabCIDADES_LOCAL_CARREGAMENTO.DataSet).Post;
-    except on e:exception do
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabCIDADES_LOCAL_CARREGAMENTO.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
   end;
@@ -681,9 +767,9 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
-    if (UF_DESCARREGAMENTO.Text = '') and (MUNICIPIO_DESCARREGAMENTO.Text = '')  then
+    if (UF_DESCARREGAMENTO.Text = '') and (MUNICIPIO_DESCARREGAMENTO.Text = '') then
       MUNICIPIO_DESCARREGAMENTO.SetFocus;
 
     try
@@ -692,10 +778,11 @@ begin
       TFDQuery(dtstabMDFE_LOCAL_DESCARREGAMENTO.DataSet).FieldByName('ID_CIDADES_IBGE').Value := MUNICIPIO_DESCARREGAMENTO.Value;
       TFDQuery(dtstabMDFE_LOCAL_DESCARREGAMENTO.DataSet).Prepare;
       TFDQuery(dtstabMDFE_LOCAL_DESCARREGAMENTO.DataSet).Post;
-    except on e:exception do
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabMDFE_LOCAL_DESCARREGAMENTO.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
   end;
@@ -717,7 +804,7 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
 
     if ID_UF_PERCURSO.Text = '' then
@@ -729,10 +816,11 @@ begin
       TFDQuery(dtstabMDFE_UF_PERCURSO.DataSet).FieldByName('DTHR').Value := Now;
       TFDQuery(dtstabMDFE_UF_PERCURSO.DataSet).Prepare;
       TFDQuery(dtstabMDFE_UF_PERCURSO.DataSet).Post;
-    except on e:exception do
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabMDFE_UF_PERCURSO.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
 
@@ -781,7 +869,7 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
     TfrmMDFEsegurosCADASTRO.Novo;
   end;
@@ -808,7 +896,7 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
     TfrmMDFEvalepedagioCADASTRO.Novo;
   end;
@@ -817,20 +905,20 @@ end;
 procedure TfrmMDFEcadastro.CalculaTotal;
 var
   TotalPeso: Double;
-  ValorTotal : Double;
+  ValorTotal: Double;
 begin
   try
-    TotalPeso:= 0;
-    ValorTotal:= 0;
+    TotalPeso := 0;
+    ValorTotal := 0;
 
     dtmMDFE.tabMDFE_NFE.BeginBatch;
     dtmMDFE.tabMDFE_NFE.First;
-    while not dtmMDFE.tabMDFE_NFE.Eof  do
-      begin
-        TotalPeso := TotalPeso + dtmMDFE.tabMDFE_NFEPESO.AsCurrency;
-        ValorTotal := ValorTotal + dtmMDFE.tabMDFE_NFEVALOR.AsCurrency;
-        dtmMDFE.tabMDFE_NFE.Next;
-      end;
+    while not dtmMDFE.tabMDFE_NFE.Eof do
+    begin
+      TotalPeso := TotalPeso + dtmMDFE.tabMDFE_NFEPESO.AsCurrency;
+      ValorTotal := ValorTotal + dtmMDFE.tabMDFE_NFEVALOR.AsCurrency;
+      dtmMDFE.tabMDFE_NFE.Next;
+    end;
   finally
     dtmMDFE.tabMDFETOTF_VLR_TOT_MERCADORIA.AsCurrency := ValorTotal;
     dtmMDFE.tabMDFETOTF_PES_BRUTO.AsCurrency := TotalPeso;
@@ -859,12 +947,7 @@ begin
     with dtmDefault.qryTmp do
     begin
       Close;
-      Open(
-        Format(
-          'SELECT * FROM MDFE WHERE ID_EMPRESA = %d AND ID_MDFE = 1 AND ID_SERIE = 10000',
-          [oEmpresa.ID]
-        )
-      );
+      Open(Format('SELECT * FROM MDFE WHERE ID_EMPRESA = %d AND ID_MDFE = 1 AND ID_SERIE = 10000', [oEmpresa.ID]));
       FetchAll;
     end;
 
@@ -903,12 +986,8 @@ begin
     with dtmDefault.qryTmp do
     begin
       Close;
-      Open(
-        Format(
-          'SELECT * FROM MDFE_LOCAL_CARREGAMENTO WHERE ID_EMPRESA = %d AND ID_MDFE = 1 AND ID_SERIE = 10000',
-          [oEmpresa.ID]
-        )
-      );
+      Open(Format('SELECT * FROM MDFE_LOCAL_CARREGAMENTO WHERE ID_EMPRESA = %d AND ID_MDFE = 1 AND ID_SERIE = 10000',
+        [oEmpresa.ID]));
       FetchAll;
     end;
 
@@ -930,12 +1009,7 @@ begin
     with dtmDefault.qryTmp do
     begin
       Close;
-      Open(
-        Format(
-          'SELECT * FROM MDFE_UF_PERCURSO WHERE ID_EMPRESA = %d AND ID_MDFE = 1 AND ID_SERIE = 10000',
-          [oEmpresa.ID]
-        )
-      );
+      Open(Format('SELECT * FROM MDFE_UF_PERCURSO WHERE ID_EMPRESA = %d AND ID_MDFE = 1 AND ID_SERIE = 10000', [oEmpresa.ID]));
       FetchAll;
     end;
 
@@ -956,12 +1030,8 @@ begin
     with dtmDefault.qryTmp do
     begin
       Close;
-      Open(
-        Format(
-          'SELECT * FROM MDFE_LOCAL_DESCARREGAMENTO WHERE ID_EMPRESA = %d AND ID_MDFE = 1 AND ID_SERIE = 10000',
-          [oEmpresa.ID]
-        )
-      );
+      Open(Format('SELECT * FROM MDFE_LOCAL_DESCARREGAMENTO WHERE ID_EMPRESA = %d AND ID_MDFE = 1 AND ID_SERIE = 10000',
+        [oEmpresa.ID]));
       FetchAll;
     end;
 
@@ -982,12 +1052,7 @@ begin
     with dtmDefault.qryTmp do
     begin
       Close;
-      Open(
-        Format(
-          'SELECT * FROM MDFE_CONDUTORES WHERE ID_EMPRESA = %d AND ID_MDFE = 1 AND ID_SERIE = 10000',
-          [oEmpresa.ID]
-        )
-      );
+      Open(Format('SELECT * FROM MDFE_CONDUTORES WHERE ID_EMPRESA = %d AND ID_MDFE = 1 AND ID_SERIE = 10000', [oEmpresa.ID]));
       FetchAll;
     end;
 
@@ -1015,71 +1080,61 @@ begin
     btnLocalCarregamentoExcluir.Enabled := TFDQuery(dtstabCIDADES_LOCAL_CARREGAMENTO.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_AQUA_TERMINAL_CARREGDataChange(
-  Sender: TObject; Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_AQUA_TERMINAL_CARREGDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_AQUA_TERMINAL_CARREG.DataSet) then
     btnAQUAtermcarregEXCLUIR.Enabled := TFDQuery(dtstabMDFE_AQUA_TERMINAL_CARREG.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_AQUA_COMBOIODataChange(
-  Sender: TObject; Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_AQUA_COMBOIODataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_AQUA_COMBOIO.DataSet) then
     btnAQUAcomboioEXCLUIR.Enabled := TFDQuery(dtstabMDFE_AQUA_COMBOIO.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_AQUA_TERMINAL_DESCARREGDataChange(
-  Sender: TObject; Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_AQUA_TERMINAL_DESCARREGDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_AQUA_TERMINAL_DESCARREG.DataSet) then
     btnAQUAtermdescarregEXCLUIR.Enabled := TFDQuery(dtstabMDFE_AQUA_TERMINAL_DESCARREG.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_AQUA_UNID_CARGADataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_AQUA_UNID_CARGADataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_AQUA_UNID_CARGA.DataSet) then
     btnAQUAunidcargaEXCLUIR.Enabled := TFDQuery(dtstabMDFE_AQUA_UNID_CARGA.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_AQUA_UNID_TRANSDataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_AQUA_UNID_TRANSDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_AQUA_UNID_TRANS.DataSet) then
     btnAQUAunidtransEXCLUIR.Enabled := TFDQuery(dtstabMDFE_AQUA_UNID_TRANS.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_AUT_DOWNLOADDataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_AUT_DOWNLOADDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_AUT_DOWNLOAD.DataSet) then
     btnDOCDOWNexcluir.Enabled := TFDQuery(dtstabMDFE_AUT_DOWNLOAD.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_CIOTDataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_CIOTDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_CIOT.DataSet) then
     btnCIOTexcluir.Enabled := TFDQuery(dtstabMDFE_CIOT.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_CONDUTORESDataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_CONDUTORESDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_CONDUTORES.DataSet) then
     btnCondutoresExcluir.Enabled := TFDQuery(dtstabMDFE_CONDUTORES.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_CONTRATANTESDataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_CONTRATANTESDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_CONTRATANTES.DataSet) then
     btnCONTRATANTESexcluir.Enabled := TFDQuery(dtstabMDFE_CONTRATANTES.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_CTEDataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_CTEDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_CTE.DataSet) then
   begin
@@ -1088,22 +1143,19 @@ begin
   end;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_LACREDataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_LACREDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_LACRE.DataSet) then
     btnLacresExcluir.Enabled := TFDQuery(dtstabMDFE_LACRE.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_LOCAL_DESCARREGAMENTODataChange(
-  Sender: TObject; Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_LOCAL_DESCARREGAMENTODataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_LOCAL_DESCARREGAMENTO.DataSet) then
     btnLOCALdescarregamentoEXCLUIR.Enabled := TFDQuery(dtstabMDFE_LOCAL_DESCARREGAMENTO.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_REBOQUEDataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_REBOQUEDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_REBOQUE.DataSet) then
   begin
@@ -1112,8 +1164,7 @@ begin
   end;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_SEGUROSDataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_SEGUROSDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_SEGUROS.DataSet) then
   begin
@@ -1122,15 +1173,13 @@ begin
   end;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_UF_PERCURSODataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_UF_PERCURSODataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_UF_PERCURSO.DataSet) then
     btnLocalPercursoExcluir.Enabled := TFDQuery(dtstabMDFE_UF_PERCURSO.DataSet).RecordCount > 0;
 end;
 
-procedure TfrmMDFEcadastro.dtstabMDFE_VALEPEDAGIODataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEcadastro.dtstabMDFE_VALEPEDAGIODataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_VALEPEDAGIO.DataSet) then
   begin
@@ -1143,16 +1192,261 @@ procedure TfrmMDFEcadastro.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   TFDQuery(dtsDefault.DataSet).Close;
 
+  FACBrCIOT.Free;
   inherited;
 end;
 
 procedure TfrmMDFEcadastro.FormCreate(Sender: TObject);
+var
+  T: TSSLLib;
+  i: TpcnTipoEmissao;
+  K: TVersaoCIOT;
+  U: TSSLCryptLib;
+  V: TSSLHttpLib;
+  X: TSSLXmlSignLib;
+  Y: TSSLType;
+  Integradora: TCIOTIntegradora;
 begin
   inherited;
+
+  FACBrCIOT := TACBrCIOT.Create(Self);
 
   pageDefault.TabIndex := 0;
   pageRodo.TabIndex := 0;
   pagINFdoc.TabIndex := 0;
+
+  // Variavel para armazenar o Token retornado pelo serviÃ§o Login
+  // NecessÃ¡rio quando o componente nÃ£o esta configurado com o
+  // Certificado Digital
+  sToken := '';
+
+  cbSSLLib.Items.Clear;
+  for T := Low(TSSLLib) to High(TSSLLib) do
+    cbSSLLib.Items.Add(GetEnumName(TypeInfo(TSSLLib), Integer(T)));
+  cbSSLLib.ItemIndex := 0;
+
+  cbCryptLib.Items.Clear;
+  for U := Low(TSSLCryptLib) to High(TSSLCryptLib) do
+    cbCryptLib.Items.Add(GetEnumName(TypeInfo(TSSLCryptLib), Integer(U)));
+  cbCryptLib.ItemIndex := 0;
+
+  cbHttpLib.Items.Clear;
+  for V := Low(TSSLHttpLib) to High(TSSLHttpLib) do
+    cbHttpLib.Items.Add(GetEnumName(TypeInfo(TSSLHttpLib), Integer(V)));
+  cbHttpLib.ItemIndex := 0;
+
+  cbXmlSignLib.Items.Clear;
+  for X := Low(TSSLXmlSignLib) to High(TSSLXmlSignLib) do
+    cbXmlSignLib.Items.Add(GetEnumName(TypeInfo(TSSLXmlSignLib), Integer(X)));
+  cbXmlSignLib.ItemIndex := 0;
+
+  cbSSLType.Items.Clear;
+  for Y := Low(TSSLType) to High(TSSLType) do
+    cbSSLType.Items.Add(GetEnumName(TypeInfo(TSSLType), Integer(Y)));
+  cbSSLType.ItemIndex := 0;
+
+  cbFormaEmissao.Items.Clear;
+  for i := Low(TpcnTipoEmissao) to High(TpcnTipoEmissao) do
+    cbFormaEmissao.Items.Add(GetEnumName(TypeInfo(TpcnTipoEmissao), Integer(i)));
+  cbFormaEmissao.ItemIndex := 0;
+
+  cbVersaoDF.Items.Clear;
+  for K := Low(TVersaoCIOT) to High(TVersaoCIOT) do
+    cbVersaoDF.Items.Add(GetEnumName(TypeInfo(TVersaoCIOT), Integer(K)));
+  cbVersaoDF.ItemIndex := 0;
+
+  cbbIntegradora.Items.Clear;
+  for Integradora := Low(TCIOTIntegradora) to High(TCIOTIntegradora) do
+    cbbIntegradora.Items.Add(GetEnumName(TypeInfo(TCIOTIntegradora), Integer(Integradora)));
+  cbbIntegradora.ItemIndex := 0;
+
+  LerConfiguracao;
+end;
+
+procedure TfrmMDFEcadastro.GravarConfiguracao;
+var
+  IniFile: String;
+  Ini: TIniFile;
+  StreamMemo: TMemoryStream;
+begin
+  IniFile := ChangeFileExt(Application.ExeName, '.ini');
+
+  Ini := TIniFile.Create(IniFile);
+  try
+    Ini.WriteInteger('Certificado', 'SSLLib', cbSSLLib.ItemIndex);
+    Ini.WriteInteger('Certificado', 'CryptLib', cbCryptLib.ItemIndex);
+    Ini.WriteInteger('Certificado', 'HttpLib', cbHttpLib.ItemIndex);
+    Ini.WriteInteger('Certificado', 'XmlSignLib', cbXmlSignLib.ItemIndex);
+    Ini.WriteString('Certificado', 'Caminho', edtCaminho.Text);
+    Ini.WriteString('Certificado', 'Senha', edtSenha.Text);
+    Ini.WriteString('Certificado', 'NumSerie', edtNumSerie.Text);
+
+    // Ini.WriteBool('Geral', 'AtualizarXML', cbxAtualizarXML.Checked);
+    // Ini.WriteBool('Geral', 'ExibirErroSchema', cbxExibirErroSchema.Checked);
+    // Ini.WriteString('Geral', 'FormatoAlerta', edtFormatoAlerta.Text);
+    Ini.WriteInteger('Geral', 'FormaEmissao', cbFormaEmissao.ItemIndex);
+    Ini.WriteInteger('Geral', 'VersaoDF', cbVersaoDF.ItemIndex);
+    // Ini.WriteBool('Geral', 'RetirarAcentos', cbxRetirarAcentos.Checked);
+    // Ini.WriteBool('Geral', 'Salvar', ckSalvar.Checked);
+    // Ini.WriteString('Geral', 'PathSalvar', edtPathLogs.Text);
+    // Ini.WriteString('Geral', 'PathSchemas', edtPathSchemas.Text);
+    Ini.WriteInteger('Geral', 'Integradora', cbbIntegradora.ItemIndex);
+    Ini.WriteString('Geral', 'UsuarioWebS', edtUsuarioWebService.Text);
+    Ini.WriteString('Geral', 'SenhaWebS', edtSenhaWebService.Text);
+    Ini.WriteString('Geral', 'HashIntegrador', edtHashIntegrador.Text);
+
+    Ini.WriteString('WebService', 'UF', cbUF.Text);
+    Ini.WriteInteger('WebService', 'Ambiente', rgTipoAmb.ItemIndex);
+    Ini.WriteBool('WebService', 'Visualizar', cbxVisualizar.Checked);
+    Ini.WriteBool('WebService', 'SalvarSOAP', cbxSalvarSOAP.Checked);
+    Ini.WriteBool('WebService', 'AjustarAut', cbxAjustarAut.Checked);
+    Ini.WriteString('WebService', 'Aguardar', edtAguardar.Text);
+    Ini.WriteString('WebService', 'Tentativas', edtTentativas.Text);
+    Ini.WriteString('WebService', 'Intervalo', edtIntervalo.Text);
+    Ini.WriteInteger('WebService', 'TimeOut', seTimeOut.Value);
+    Ini.WriteInteger('WebService', 'SSLType', cbSSLType.ItemIndex);
+
+    Ini.WriteString('Proxy', 'Host', edtProxyHost.Text);
+    Ini.WriteString('Proxy', 'Porta', edtProxyPorta.Text);
+    Ini.WriteString('Proxy', 'User', edtProxyUser.Text);
+    Ini.WriteString('Proxy', 'Pass', edtProxySenha.Text);
+
+    // Ini.WriteBool('Arquivos', 'Salvar', cbxSalvarArqs.Checked);
+    // Ini.WriteBool('Arquivos', 'PastaMensal', cbxPastaMensal.Checked);
+    // Ini.WriteBool('Arquivos', 'AddLiteral', cbxAdicionaLiteral.Checked);
+    // Ini.WriteBool('Arquivos', 'EmissaoPathCIOT', cbxEmissaoPathCIOT.Checked);
+    // Ini.WriteBool('Arquivos', 'SalvarPathEvento', cbxSalvaPathEvento.Checked);
+
+    { if (edtCaminho.Text = '') and (edtSenha.Text = '') and (edtNumSerie.Text = '') then
+      cbxSepararPorCNPJ.Checked := False; }
+
+    // Ini.WriteBool('Arquivos', 'SepararPorCNPJ', cbxSepararPorCNPJ.Checked);
+    // Ini.WriteBool('Arquivos', 'SepararPorModelo', cbxSepararPorModelo.Checked);
+    // Ini.WriteString('Arquivos', 'PathCIOT', edtPathCIOT.Text);
+    // Ini.WriteString('Arquivos', 'PathEvento', edtPathEvento.Text);
+
+    { Ini.WriteString('Emitente', 'CNPJ', edtEmitCNPJ.Text);
+      Ini.WriteString('Emitente', 'IE', edtEmitIE.Text);
+      Ini.WriteString('Emitente', 'RazaoSocial', edtEmitRazao.Text);
+      Ini.WriteString('Emitente', 'Fantasia', edtEmitFantasia.Text);
+      Ini.WriteString('Emitente', 'Fone', edtEmitFone.Text);
+      Ini.WriteString('Emitente', 'CEP', edtEmitCEP.Text);
+      Ini.WriteString('Emitente', 'Logradouro', edtEmitLogradouro.Text);
+      Ini.WriteString('Emitente', 'Numero', edtEmitNumero.Text);
+      Ini.WriteString('Emitente', 'Complemento', edtEmitComp.Text);
+      Ini.WriteString('Emitente', 'Bairro', edtEmitBairro.Text);
+      Ini.WriteString('Emitente', 'CodCidade', edtEmitCodCidade.Text);
+      Ini.WriteString('Emitente', 'Cidade', edtEmitCidade.Text);
+      Ini.WriteString('Emitente', 'UF', edtEmitUF.Text);
+
+      Ini.WriteString('Email', 'Host', edtSmtpHost.Text);
+      Ini.WriteString('Email', 'Port', edtSmtpPort.Text);
+      Ini.WriteString('Email', 'User', edtSmtpUser.Text);
+      Ini.WriteString('Email', 'Pass', edtSmtpPass.Text);
+      Ini.WriteString('Email', 'Assunto', edtEmailAssunto.Text);
+      Ini.WriteBool('Email', 'SSL', cbEmailSSL.Checked); }
+
+    StreamMemo := TMemoryStream.Create;
+    // mmEmailMsg.Lines.SaveToStream(StreamMemo);
+    StreamMemo.Seek(0, soFromBeginning);
+
+    Ini.WriteBinaryStream('Email', 'Mensagem', StreamMemo);
+
+    StreamMemo.Free;
+  finally
+    Ini.Free;
+  end;
+end;
+
+procedure TfrmMDFEcadastro.LerConfiguracao;
+var
+  IniFile: String;
+  Ini: TIniFile;
+  StreamMemo: TMemoryStream;
+begin
+  IniFile := ChangeFileExt(Application.ExeName, '.ini');
+
+  Ini := TIniFile.Create(IniFile);
+  try
+    cbSSLLib.ItemIndex := Ini.ReadInteger('Certificado', 'SSLLib', 0);
+    cbCryptLib.ItemIndex := Ini.ReadInteger('Certificado', 'CryptLib', 0);
+    cbHttpLib.ItemIndex := Ini.ReadInteger('Certificado', 'HttpLib', 0);
+    cbXmlSignLib.ItemIndex := Ini.ReadInteger('Certificado', 'XmlSignLib', 0);
+    edtCaminho.Text := Ini.ReadString('Certificado', 'Caminho', '');
+    edtSenha.Text := Ini.ReadString('Certificado', 'Senha', '');
+    edtNumSerie.Text := Ini.ReadString('Certificado', 'NumSerie', '');
+
+    { cbxAtualizarXML.Checked := Ini.ReadBool('Geral', 'AtualizarXML', True);
+      cbxExibirErroSchema.Checked := Ini.ReadBool('Geral', 'ExibirErroSchema', True);
+      edtFormatoAlerta.Text := Ini.ReadString('Geral', 'FormatoAlerta', 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'); }
+    cbFormaEmissao.ItemIndex := Ini.ReadInteger('Geral', 'FormaEmissao', 0);
+
+    cbVersaoDF.ItemIndex := Ini.ReadInteger('Geral', 'VersaoDF', 0);
+    { ckSalvar.Checked := Ini.ReadBool('Geral', 'Salvar', True);
+      cbxRetirarAcentos.Checked := Ini.ReadBool('Geral', 'RetirarAcentos', True);
+      edtPathLogs.Text := Ini.ReadString('Geral', 'PathSalvar', PathWithDelim(ExtractFilePath(Application.ExeName)) + 'Logs');
+      edtPathSchemas.Text := Ini.ReadString('Geral', 'PathSchemas', PathWithDelim(ExtractFilePath(Application.ExeName)) + 'Schemas\'
+      + GetEnumName(TypeInfo(TVersaoCIOT), Integer(cbVersaoDF.ItemIndex))); }
+    cbbIntegradora.ItemIndex := Ini.ReadInteger('Geral', 'Integradora', 1);
+    edtUsuarioWebService.Text := Ini.ReadString('Geral', 'UsuarioWebS', '');
+    edtSenhaWebService.Text := Ini.ReadString('Geral', 'SenhaWebS', '');
+    edtHashIntegrador.Text := Ini.ReadString('Geral', 'HashIntegrador', '');
+
+    cbUF.ItemIndex := cbUF.Items.IndexOf(Ini.ReadString('WebService', 'UF', 'SP'));
+
+    rgTipoAmb.ItemIndex := Ini.ReadInteger('WebService', 'Ambiente', 0);
+    cbxVisualizar.Checked := Ini.ReadBool('WebService', 'Visualizar', False);
+    cbxSalvarSOAP.Checked := Ini.ReadBool('WebService', 'SalvarSOAP', False);
+    cbxAjustarAut.Checked := Ini.ReadBool('WebService', 'AjustarAut', False);
+    edtAguardar.Text := Ini.ReadString('WebService', 'Aguardar', '0');
+    edtTentativas.Text := Ini.ReadString('WebService', 'Tentativas', '5');
+    edtIntervalo.Text := Ini.ReadString('WebService', 'Intervalo', '0');
+    seTimeOut.Value := Ini.ReadInteger('WebService', 'TimeOut', 5000);
+    cbSSLType.ItemIndex := Ini.ReadInteger('WebService', 'SSLType', 0);
+
+    edtProxyHost.Text := Ini.ReadString('Proxy', 'Host', '');
+    edtProxyPorta.Text := Ini.ReadString('Proxy', 'Porta', '');
+    edtProxyUser.Text := Ini.ReadString('Proxy', 'User', '');
+    edtProxySenha.Text := Ini.ReadString('Proxy', 'Pass', '');
+
+    StreamMemo := TMemoryStream.Create;
+    Ini.ReadBinaryStream('Email', 'Mensagem', StreamMemo);
+    // mmEmailMsg.Lines.LoadFromStream(StreamMemo);
+    StreamMemo.Free;
+    { cbxSalvarArqs.Checked := Ini.ReadBool('Arquivos', 'Salvar', False);
+      cbxPastaMensal.Checked := Ini.ReadBool('Arquivos', 'PastaMensal', False);
+      cbxAdicionaLiteral.Checked := Ini.ReadBool('Arquivos', 'AddLiteral', False);
+      cbxEmissaoPathCIOT.Checked := Ini.ReadBool('Arquivos', 'EmissaoPathCIOT', False);
+      cbxSalvaPathEvento.Checked := Ini.ReadBool('Arquivos', 'SalvarPathEvento', False);
+      cbxSepararPorCNPJ.Checked := Ini.ReadBool('Arquivos', 'SepararPorCNPJ', False);
+      cbxSepararPorModelo.Checked := Ini.ReadBool('Arquivos', 'SepararPorModelo', False);
+      edtPathCIOT.Text := Ini.ReadString('Arquivos', 'PathCIOT', '');
+      edtPathEvento.Text := Ini.ReadString('Arquivos', 'PathEvento', '');
+
+      edtEmitCNPJ.Text := Ini.ReadString('Emitente', 'CNPJ', '');
+      edtEmitIE.Text := Ini.ReadString('Emitente', 'IE', '');
+      edtEmitRazao.Text := Ini.ReadString('Emitente', 'RazaoSocial', '');
+      edtEmitFantasia.Text := Ini.ReadString('Emitente', 'Fantasia', '');
+      edtEmitFone.Text := Ini.ReadString('Emitente', 'Fone', '');
+      edtEmitCEP.Text := Ini.ReadString('Emitente', 'CEP', '');
+      edtEmitLogradouro.Text := Ini.ReadString('Emitente', 'Logradouro', '');
+      edtEmitNumero.Text := Ini.ReadString('Emitente', 'Numero', '');
+      edtEmitComp.Text := Ini.ReadString('Emitente', 'Complemento', '');
+      edtEmitBairro.Text := Ini.ReadString('Emitente', 'Bairro', '');
+      edtEmitCodCidade.Text := Ini.ReadString('Emitente', 'CodCidade', '');
+      edtEmitCidade.Text := Ini.ReadString('Emitente', 'Cidade', '');
+      edtEmitUF.Text := Ini.ReadString('Emitente', 'UF', '');
+
+      edtSmtpHost.Text := Ini.ReadString('Email', 'Host', '');
+      edtSmtpPort.Text := Ini.ReadString('Email', 'Port', '');
+      edtSmtpUser.Text := Ini.ReadString('Email', 'User', '');
+      edtSmtpPass.Text := Ini.ReadString('Email', 'Pass', '');
+      edtEmailAssunto.Text := Ini.ReadString('Email', 'Assunto', '');
+      cbEmailSSL.Checked := Ini.ReadBool('Email', 'SSL', False);
+      ConfigurarComponente; }
+  finally
+    Ini.Free;
+  end;
 end;
 
 procedure TfrmMDFEcadastro.FormShow(Sender: TObject);
@@ -1200,7 +1494,7 @@ begin
     dtsDefault.DataSet.Edit;
 
   TFDQuery(dtstabMDFE_NFE.DataSet).Delete;
-  CalculaTotaL;
+  CalculaTotal;
 end;
 
 procedure TfrmMDFEcadastro.JvSpeedButton2Click(Sender: TObject);
@@ -1215,17 +1509,17 @@ begin
   if MUN_DESC_NFE.Value.Trim.Length = 0 then
   begin
     MUN_DESC_NFE.SetFocus;
-    raise Exception.Create('Selecione o município para descarregamento.');
+    raise Exception.Create('Selecione o municï¿½pio para descarregamento.');
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
     TfrmMDFEnfeCADASTRO.Novo;
     if not dtstabMDFE_NFE.DataSet.Active then
-       dtstabMDFE_NFE.DataSet.Active := true;
+      dtstabMDFE_NFE.DataSet.Active := True;
   end;
   if dtsDefault.DataSet.State in [dsBrowse] then
-     dtsDefault.DataSet.Edit;
+    dtsDefault.DataSet.Edit;
   CalculaTotal;
 end;
 
@@ -1233,7 +1527,7 @@ procedure TfrmMDFEcadastro.JvSpeedButton3Click(Sender: TObject);
 begin
   TfrmMDFEnfeCADASTRO.Alterar;
   if dtsDefault.DataSet.State in [dsBrowse] then
-     dtsDefault.DataSet.Edit;
+    dtsDefault.DataSet.Edit;
   CalculaTotal;
 end;
 
@@ -1242,9 +1536,9 @@ begin
   inherited;
   if Assigned(dtmMDFE.QryVeiculo) then
   begin
-    if dtmMDFE.QryVeiculoID_VEICULO.AsString  <> '' then
+    if dtmMDFE.QryVeiculoID_VEICULO.AsString <> '' then
     begin
-      dtmMDFE.tabMDFEVEICULO_CODIGO_INTERNO.Value := dtmMDFE.QryVeiculoCODIGO_INTERNO.value;
+      dtmMDFE.tabMDFEVEICULO_CODIGO_INTERNO.Value := dtmMDFE.QryVeiculoCODIGO_INTERNO.Value;
       dtmMDFE.tabMDFEVEICULO_TIPO_CARROCERIA.Value := dtmMDFE.QryVeiculoTIPO_CARROCERIA.Value;
       dtmMDFE.tabMDFEVEICULO_UF.Value := dtmMDFE.QryVeiculoUF.Value;
       dtmMDFE.tabMDFEVEICULO_TIPO_RODADO.Value := dtmMDFE.QryVeiculoTIPO_RODADO.Value;
@@ -1255,10 +1549,10 @@ begin
       dtmMDFE.tabMDFEVEICULO_RENAVAN.Value := dtmMDFE.QryVeiculoRENAVAN.Value;
       dtmMDFE.tabMDFEVEICULO_RNTRC.Value := dtmMDFE.QryVeiculoRNTRC.Value;
 
-      if dtmMDFE.QryVeiculoTIPO_VEICULO.value = 0  then
-         dtmMDFE.tabMDFEEMI_N_PROP.Value :='N'
-         else
-         dtmMDFE.tabMDFEEMI_N_PROP.Value :='S';
+      if dtmMDFE.QryVeiculoTIPO_VEICULO.Value = 0 then
+        dtmMDFE.tabMDFEEMI_N_PROP.Value := 'N'
+      else
+        dtmMDFE.tabMDFEEMI_N_PROP.Value := 'S';
     end;
   end;
 end;
@@ -1301,7 +1595,7 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
     if DOC_CONTRATANTE.Text = '' then
     begin
@@ -1314,10 +1608,11 @@ begin
       TFDQuery(dtstabMDFE_CONTRATANTES.DataSet).FieldByName('CNPJ').Value := Trim(DOC_CONTRATANTE.Text);
       TFDQuery(dtstabMDFE_CONTRATANTES.DataSet).Prepare;
       TFDQuery(dtstabMDFE_CONTRATANTES.DataSet).Post;
-    except on e:exception do
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabMDFE_CONTRATANTES.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
   end;
@@ -1347,10 +1642,10 @@ begin
   if MUN_DESC_CTE.Value.Trim.Length = 0 then
   begin
     MUN_DESC_CTE.SetFocus;
-    raise Exception.Create('Selecione o município para descarregamento.');
+    raise Exception.Create('Selecione o municï¿½pio para descarregamento.');
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
     TfrmMDFEcteCADASTRO.Novo;
   end;
@@ -1369,7 +1664,7 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
     if N_DOC_DOWNLOAD.Text = '' then
       N_DOC_DOWNLOAD.SetFocus;
@@ -1379,14 +1674,89 @@ begin
       TFDQuery(dtstabMDFE_AUT_DOWNLOAD.DataSet).FieldByName('N_DOC').Value := N_DOC_DOWNLOAD.Text;
       TFDQuery(dtstabMDFE_AUT_DOWNLOAD.DataSet).Prepare;
       TFDQuery(dtstabMDFE_AUT_DOWNLOAD.DataSet).Post;
-    except on e:exception do
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabMDFE_AUT_DOWNLOAD.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
   end;
 end;
+
+procedure TfrmMDFEcadastro.btnGerarCIOTClick(Sender: TObject);
+begin
+  inherited;
+  var
+    ciotFinal: String;
+
+  edtCIOT.Text := ciotFinal;
+  // No fim deve haver o preenchimento do campo "CIOT" com o valor que foi gerado.
+end;
+
+procedure TfrmMDFEcadastro.cadastrarVeiculo;
+begin
+
+  with dtmMDFE.ACBrCIOT.Contratos.Add.CIOT do
+  begin
+    // Cadastrar Veiculo
+    Integradora.Operacao := opGravarVeiculo;
+
+    with GravarVeiculo do
+    begin
+      Placa := 'KBV3355';
+      Renavam := '110564030';
+      Chassi := '9BSG4X200A3654938';
+      RNTRC := '00168810';
+      NumeroDeEixos := 2;
+      CodigoMunicipio := 3512345;
+      Marca := 'VW';
+      Modelo := 'XYZ';
+      AnoFabricacao := 2010;
+      AnoModelo := 2010;
+      Cor := 'Preto';
+      Tara := 100;
+      CapacidadeKg := 10000;
+      CapacidadeM3 := 10000;
+      TipoRodado := trToco;
+      TipoCarroceria := tcFechadaOuBau;
+    end;
+  end;
+end;
+
+procedure TfrmMDFEcadastro.cadastrarMotorista;
+begin
+  // Cadastrar Motorista
+  Integradora := Integradora.eFrete;
+  Integradora.Operacao := opGravarMotorista;
+
+  with Integradora.Request.GravarMotorista do
+  begin
+    CPF := '27654630182';
+    Nome := 'TRANS NALE TRANSPORTES LTDA ME';
+    CNH := '2020917156';
+    DataNascimento := StrToDate('10/10/1970');
+    NomeDeSolteiraDaMae := 'joana pereira';
+
+    Endereco.Bairro := 'teste';
+    Endereco.Rua := 'teste';
+    Endereco.Numero := '200';
+    Endereco.Complemento := 'teste';
+    Endereco.CEP := '89870000';
+    Endereco.CodigoMunicipio := 4212908;
+
+    Telefones.Celular.DDD := 11;
+    Telefones.Celular.Numero := StrToIntDef(edtEmitFone.Text, 0);
+
+    Telefones.Fixo.DDD := 49;
+    Telefones.Fixo.Numero := 33661011;
+
+    Telefones.Fax.DDD := 0;
+    Telefones.Fax.Numero := 0;
+  end;
+end;
+
+{ procedure TfrmMDFEcadastro.cadastrar }
 
 procedure TfrmMDFEcadastro.btnAQUAcomboioEXCLUIRClick(Sender: TObject);
 begin
@@ -1404,9 +1774,9 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
-    if (AQUA_COMBOIO_CODIGO.Text = '') and (AQUA_COMBOIO_BALSA.Text = '')  then
+    if (AQUA_COMBOIO_CODIGO.Text = '') and (AQUA_COMBOIO_BALSA.Text = '') then
     begin
       AQUA_COMBOIO_CODIGO.SetFocus;
       Exit;
@@ -1418,10 +1788,11 @@ begin
       TFDQuery(dtstabMDFE_AQUA_COMBOIO.DataSet).FieldByName('BALSA').Value := AQUA_COMBOIO_BALSA.Text;
       TFDQuery(dtstabMDFE_AQUA_COMBOIO.DataSet).Prepare;
       TFDQuery(dtstabMDFE_AQUA_COMBOIO.DataSet).Post;
-    except on e:exception do
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabMDFE_AQUA_COMBOIO.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
   end;
@@ -1443,9 +1814,9 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
-    if (AQUA_LOC_CARR_TERMINAL.Text = '') and (AQUA_LOC_CARR_TEMINAL_NOME.Text = '')  then
+    if (AQUA_LOC_CARR_TERMINAL.Text = '') and (AQUA_LOC_CARR_TEMINAL_NOME.Text = '') then
       AQUA_LOC_CARR_TERMINAL.SetFocus;
 
     try
@@ -1454,10 +1825,11 @@ begin
       TFDQuery(dtstabMDFE_AQUA_TERMINAL_CARREG.DataSet).FieldByName('ID_NOME').Value := AQUA_LOC_CARR_TEMINAL_NOME.Text;
       TFDQuery(dtstabMDFE_AQUA_TERMINAL_CARREG.DataSet).Prepare;
       TFDQuery(dtstabMDFE_AQUA_TERMINAL_CARREG.DataSet).Post;
-    except on e:exception do
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabMDFE_AQUA_TERMINAL_CARREG.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
   end;
@@ -1479,9 +1851,9 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
-    if (AQUA_LOC_DESCARR_TERMINAL.Text = '') and (AQUA_LOC_DESCARR_TEMINAL_NOME.Text = '')  then
+    if (AQUA_LOC_DESCARR_TERMINAL.Text = '') and (AQUA_LOC_DESCARR_TEMINAL_NOME.Text = '') then
       AQUA_LOC_DESCARR_TERMINAL.SetFocus;
 
     try
@@ -1490,10 +1862,11 @@ begin
       TFDQuery(dtstabMDFE_AQUA_TERMINAL_DESCARREG.DataSet).FieldByName('ID_NOME').Value := AQUA_LOC_DESCARR_TEMINAL_NOME.Text;
       TFDQuery(dtstabMDFE_AQUA_TERMINAL_DESCARREG.DataSet).Prepare;
       TFDQuery(dtstabMDFE_AQUA_TERMINAL_DESCARREG.DataSet).Post;
-    except on e:exception do
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabMDFE_AQUA_TERMINAL_DESCARREG.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
   end;
@@ -1515,9 +1888,9 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
-    if (AQUA_UNIDCARGA_IDENT.Text = '') and (AQUA_UNIDCARGA_TIPO.Text = '')  then
+    if (AQUA_UNIDCARGA_IDENT.Text = '') and (AQUA_UNIDCARGA_TIPO.Text = '') then
     begin
       AQUA_UNIDCARGA_IDENT.SetFocus;
       Exit;
@@ -1529,10 +1902,11 @@ begin
       TFDQuery(dtstabMDFE_AQUA_UNID_CARGA.DataSet).FieldByName('ID_UNIDADE').Value := AQUA_UNIDCARGA_TIPO.ItemIndex;
       TFDQuery(dtstabMDFE_AQUA_UNID_CARGA.DataSet).Prepare;
       TFDQuery(dtstabMDFE_AQUA_UNID_CARGA.DataSet).Post;
-    except on e:exception do
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabMDFE_AQUA_UNID_CARGA.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
   end;
@@ -1554,9 +1928,9 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
-    if (AQUA_UNID_TRANS_IDENT.Text = '') and (AQUA_UNIDTRANS_TIPO.Text = '')  then
+    if (AQUA_UNID_TRANS_IDENT.Text = '') and (AQUA_UNIDTRANS_TIPO.Text = '') then
     begin
       AQUA_UNID_TRANS_IDENT.SetFocus;
       Exit;
@@ -1568,10 +1942,11 @@ begin
       TFDQuery(dtstabMDFE_AQUA_UNID_TRANS.DataSet).FieldByName('ID_UNIDADE').Value := AQUA_UNIDTRANS_TIPO.ItemIndex;
       TFDQuery(dtstabMDFE_AQUA_UNID_TRANS.DataSet).Prepare;
       TFDQuery(dtstabMDFE_AQUA_UNID_TRANS.DataSet).Post;
-    except on e:exception do
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabMDFE_AQUA_UNID_TRANS.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
   end;
@@ -1602,24 +1977,25 @@ begin
     TFDQuery(dtsDefault.DataSet).Edit;
   end;
 
-  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse,dsEdit] then
+  if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
-    if CIOT.Text = '' then
+    if edtCIOT.Text = '' then
     begin
-      CIOT.SetFocus;
+      edtCIOT.SetFocus;
       Exit
     end;
 
     try
       TFDQuery(dtstabMDFE_CIOT.DataSet).Append;
-      TFDQuery(dtstabMDFE_CIOT.DataSet).FieldByName('CIOT').Value := Trim(CIOT.Text);
+      TFDQuery(dtstabMDFE_CIOT.DataSet).FieldByName('CIOT').Value := Trim(edtCIOT.Text);
       TFDQuery(dtstabMDFE_CIOT.DataSet).FieldByName('CNPJ').Value := ACBrUtil.OnlyNumber(CIOT_DOC.Text);
       TFDQuery(dtstabMDFE_CIOT.DataSet).Prepare;
       TFDQuery(dtstabMDFE_CIOT.DataSet).Post;
-    except on e:exception do
+    except
+      on e: Exception do
       begin
         TFDQuery(dtstabMDFE_CIOT.DataSet).Cancel;
-        raise Exception.Create(E.Message);
+        raise Exception.Create(e.Message);
       end;
     end;
   end;

@@ -3,6 +3,9 @@ inherited frmPESSOASmanutencao: TfrmPESSOASmanutencao
   TextHeight = 13
   inherited boxPesquisa: TJvGroupBox
     inherited pnlNavigator: TPanel
+      inherited labNavigator: TJvLabel
+        Height = 14
+      end
       inherited navDefault: TJvDBNavigator
         Hints.Strings = ()
       end

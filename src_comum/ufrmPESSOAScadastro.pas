@@ -12,7 +12,7 @@ uses
   JvExExtCtrls, JvShape, JvLabel, JvgGroupBox, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, JvBaseEdits;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, JvBaseEdits, Vcl.Buttons;
 
 type
   TfrmPESSOAScadastro = class(TfrmDefaultCadastro)
@@ -45,8 +45,6 @@ type
     IE: TJvDBMaskEdit;
     NOMEFANTASIA: TJvDBMaskEdit;
     CONTATO: TJvDBMaskEdit;
-    ID_JURIDICA: TJvDBCheckBox;
-    ID_FORNECEDOR: TJvDBCheckBox;
     ID_TRANSPORTADORA: TJvDBCheckBox;
     ID_PRODUTOR: TJvDBCheckBox;
     JvLabel1: TJvLabel;
@@ -98,9 +96,12 @@ type
     JvLabel22: TJvLabel;
     CBR_HISTORICO: TJvDBMaskEdit;
     CBR_VALOR: TJvDBCalcEdit;
+    btnpesquisar: TBitBtn;
+    rgPessoa: TRadioGroup;
     procedure FormCreate(Sender: TObject);
     procedure ID_CIDADES_UFChange(Sender: TObject);
     procedure ID_JURIDICAChange(Sender: TObject);
+    procedure rgPessoaClick(Sender: TObject);
   private
     procedure SetFisica;
     procedure SetJuridica;
@@ -117,7 +118,7 @@ implementation
 
 {$R *.dfm}
 
-uses udtmDefault, ufuncoes, ACBrUtil, ufrmMensagemEspera;
+uses udtmDefault, ufuncoes, ufrmMensagemEspera;
 
 procedure TfrmPESSOAScadastro.FormCreate(Sender: TObject);
 begin
@@ -130,12 +131,12 @@ procedure TfrmPESSOAScadastro.ID_CIDADES_UFChange(Sender: TObject);
 begin
   if Assigned(dtsDefault.DataSet) then
   begin
-    if dtsDefault.DataSet.State in [dsInsert,dsEdit,dsBrowse] then
+    if dtsDefault.DataSet.State in [dsInsert, dsEdit, dsBrowse] then
     begin
       cnsCIDADES.Close;
       cnsCIDADES.Params[0].AsString := cnsCIDADES_UFID_CIDADES_UF.AsString.Trim;
       cnsCIDADES.Open;
-       SetarMascaraIE;
+      SetarMascaraIE;
     end
   end;
 end;
@@ -144,9 +145,11 @@ procedure TfrmPESSOAScadastro.ID_JURIDICAChange(Sender: TObject);
 begin
   if TipoOperacao <> TExcluir then
   begin
-    case ID_JURIDICA.Checked.ToInteger of
-      0:SetFisica;
-      1:SetJuridica;
+    case rgPessoa.ItemIndex of
+      0:
+        SetFisica;
+      1:
+        SetJuridica;
     end;
     SetarMascaraIE;
   end;
@@ -157,7 +160,24 @@ begin
   inherited;
 
   ID_CIDADES_UFChange(ID_CIDADES_UF);
-  ID_JURIDICAChange(ID_JURIDICA);
+  ID_JURIDICAChange(rgPessoa);
+end;
+
+procedure TfrmPESSOAScadastro.rgPessoaClick(Sender: TObject);
+begin
+  inherited;
+
+  if rgPessoa.ItemIndex = 0 then
+  begin
+    btnpesquisar.Visible := false;
+    SetFisica
+  end
+  else
+  begin
+    btnpesquisar.Visible := true;
+    SetJuridica;
+  end;
+  SetarMascaraIE;
 end;
 
 procedure TfrmPESSOAScadastro.SetFisica;
@@ -165,13 +185,13 @@ begin
   lbCNPJ.Caption := 'CPF';
   CPF_CNPJ.OnChange := TEditMascaraCPF;
   CPF_CNPJ.MaxLength := 14;
-  tabFisica.TabVisible := True;
+  tabFisica.TabVisible := true;
   lbRazaoSocial.Caption := 'Nome';
-  tabJuridica.TabVisible := False;
+  tabJuridica.TabVisible := false;
 
   if Assigned(dtsDefault.DataSet) then
   begin
-    if dtsDefault.DataSet.State in [dsEdit,dsInsert] then
+    if dtsDefault.DataSet.State in [dsEdit, dsInsert] then
     begin
       dtmDefault.tabPESSOASIE_RG.Clear;
       dtmDefault.tabPESSOASCPF_CNPJ.Clear;
@@ -182,7 +202,7 @@ begin
     end;
   end;
 
-  ID_JURIDICA.Checked := False;
+  rgPessoa.ItemIndex := 0
 end;
 
 procedure TfrmPESSOAScadastro.SetJuridica;
@@ -190,13 +210,13 @@ begin
   lbCNPJ.Caption := 'CNPJ';
   CPF_CNPJ.OnChange := TEditMascaraCNPJ;
   CPF_CNPJ.MaxLength := 18;
-  tabFisica.TabVisible := False;
-  tabJuridica.TabVisible := True;
+  tabFisica.TabVisible := false;
+  tabJuridica.TabVisible := true;
   lbRazaoSocial.Caption := 'Razão Social';
 
   if Assigned(dtsDefault.DataSet) then
   begin
-    if dtsDefault.DataSet.State in [dsEdit,dsInsert] then
+    if dtsDefault.DataSet.State in [dsEdit, dsInsert] then
     begin
       dtmDefault.tabPESSOASIE_RG.Clear;
       dtmDefault.tabPESSOASCONTATO.Clear;
@@ -211,14 +231,14 @@ begin
     end;
   end;
 
-  ID_JURIDICA.Checked := False;
+  rgPessoa.ItemIndex := 0;
 end;
 
 procedure TfrmPESSOAScadastro.SetarMascaraIE;
 begin
   if Assigned(dtsDefault.DataSet) then
   begin
-    if dtsDefault.DataSet.State in [dsEdit,dsInsert,dsBrowse] then
+    if dtsDefault.DataSet.State in [dsEdit, dsInsert, dsBrowse] then
     begin
       if not VarIsNull(dtmDefault.tabPESSOASID_JURIDICA.AsVariant) then
       begin
@@ -226,15 +246,14 @@ begin
         if dtmDefault.tabPESSOASID_JURIDICA.AsInteger = 1 then
         begin
           if not VarIsNull(ID_CIDADES_UF.Value) then
-             begin
-               dtmDefault.tabPESSOASIE_RG.EditMask := uFuncoes.MascaraInscEstadual(ID_CIDADES_UF.Value.Trim);
-               IE.EditMask := uFuncoes.MascaraInscEstadual(ID_CIDADES_UF.Value.Trim);
-             end;
+          begin
+            dtmDefault.tabPESSOASIE_RG.EditMask := ufuncoes.MascaraInscEstadual(ID_CIDADES_UF.Value.Trim);
+            IE.EditMask := ufuncoes.MascaraInscEstadual(ID_CIDADES_UF.Value.Trim);
+          end;
         end;
       end;
     end;
   end;
 end;
-
 
 end.

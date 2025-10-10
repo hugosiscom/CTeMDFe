@@ -3,15 +3,16 @@ object dtmDefault: TdtmDefault
   Width = 702
   object cnx_BD: TFDConnection
     Params.Strings = (
-      'Database=D:\Fontes Regys\EmissorCTeMDFe\bin\BD_CERRADO\BD.FDB'
+      'Database=C:\SISCOM\BD_Cerrado_CTeMDFe\BD.FDB'
       'User_Name=SYSDBA'
-      'Password=hfwarp'
+      'Password=masterkey'
       'Protocol=TCPIP'
       'Server=127.0.0.1'
       'Port=3051'
       'CharacterSet=WIN1252'
       'DriverID=FB')
     TxOptions.AutoStop = False
+    Connected = True
     LoginPrompt = False
     BeforeConnect = cnx_BDBeforeConnect
     Left = 24
@@ -255,8 +256,8 @@ object dtmDefault: TdtmDefault
   end
   object dtstabCIDADES_UF: TDataSource
     DataSet = tabCIDADES_UF
-    Left = 222
-    Top = 59
+    Left = 230
+    Top = 19
   end
   object OpenDialog: TOpenDialog
     Left = 248
@@ -474,6 +475,8 @@ object dtmDefault: TdtmDefault
   end
   object qryTmp: TFDQuery
     Connection = cnx_BD
+    SQL.Strings = (
+      '')
     Left = 320
     Top = 16
   end

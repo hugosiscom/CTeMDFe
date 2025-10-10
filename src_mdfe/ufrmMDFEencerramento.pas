@@ -11,7 +11,7 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, JvgGroupBox, JvDBLookup, JvMaskEdit, Vcl.ComCtrls,
   JvExComCtrls, JvDateTimePicker, JvDBDateTimePicker, JvExStdCtrls, JvCombobox,
-  JvDBCombobox, Vcl.Mask, JvExMask, JvToolEdit, JvDBControls;
+  JvDBCombobox, Vcl.Mask, JvExMask, JvToolEdit, JvDBControls, ACBrXmlBase;
 
 type
   TfrmMDFEencerramento = class(TfrmDefaultClean)
@@ -151,7 +151,7 @@ begin
         raise Exception.Create(
           'Ocorreram erros ao tentar efetuar o encerramento:' + sLineBreak +
           'Lote: '     + IntToStr(EventoRetorno.idLote) + sLineBreak +
-          'Ambiente: ' + TpAmbToStr(EventoRetorno.tpAmb) + sLineBreak +
+          'Ambiente: ' + TipoAmbienteToStr(EventoRetorno.tpAmb) + sLineBreak +
           'Orgao: '    + IntToStr(EventoRetorno.cOrgao) + sLineBreak +
           'Status: '   + IntToStr(EventoRetorno.cStat) + sLineBreak +
           'Motivo: '   + EventoRetorno.xMotivo
