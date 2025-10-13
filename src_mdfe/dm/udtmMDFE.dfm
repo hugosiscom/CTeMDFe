@@ -2261,7 +2261,7 @@ object dtmMDFE: TdtmMDFE
     end
   end
   object dtstabMDFE_CTE: TDataSource
-    DataSet = tabMDFE_CTE
+    DataSet = tabMDFE
     Left = 314
     Top = 496
   end
@@ -3796,7 +3796,7 @@ object dtmMDFE: TdtmMDFE
     end
   end
   object dtstabMDFE_NFE: TDataSource
-    DataSet = tabMDFE_NFE
+    DataSet = tabMDFE_CTE
     Left = 527
     Top = 488
   end

@@ -2,8 +2,8 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
   Caption = 'Ve'#237'culos'
   ClientHeight = 362
   ClientWidth = 769
-  ExplicitWidth = 783
-  ExplicitHeight = 397
+  ExplicitWidth = 785
+  ExplicitHeight = 401
   TextHeight = 13
   object Label7: TLabel [0]
     Left = 298
@@ -15,8 +15,8 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
   inherited pnlComandos: TPanel
     Top = 307
     Width = 763
-    ExplicitTop = 303
-    ExplicitWidth = 761
+    ExplicitTop = 307
+    ExplicitWidth = 763
     inherited btnCancelar: TJvSpeedButton
       Left = 650
       ExplicitLeft = 707
@@ -29,8 +29,8 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
   inherited pageDefault: TJvPageControl
     Width = 763
     Height = 298
-    ExplicitWidth = 761
-    ExplicitHeight = 294
+    ExplicitWidth = 763
+    ExplicitHeight = 298
     inherited tabDefault: TTabSheet
       ExplicitWidth = 755
       ExplicitHeight = 270
@@ -64,15 +64,13 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
         Gradient.Active = False
         Gradient.Orientation = fgdHorizontal
         Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
-        ExplicitWidth = 747
-        ExplicitHeight = 260
         FullHeight = 0
         object Label1: TLabel
           Left = 16
           Top = 64
-          Width = 82
+          Width = 88
           Height = 13
-          Caption = 'Descri'#231#227'o Ve'#237'culo'
+          Caption = 'Descri'#231#227'o Ve'#237'culo*'
         end
         object Label2: TLabel
           Left = 16
@@ -106,9 +104,9 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
         object Label5: TLabel
           Left = 594
           Top = 64
-          Width = 25
+          Width = 31
           Height = 13
-          Caption = 'Placa'
+          Caption = 'Placa*'
         end
         object Label6: TLabel
           Left = 16
@@ -494,8 +492,8 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
   inherited statDefault: TJvStatusBar
     Top = 343
     Width = 769
-    ExplicitTop = 339
-    ExplicitWidth = 767
+    ExplicitTop = 343
+    ExplicitWidth = 769
   end
   inherited dtsDefault: TDataSource
     DataSet = dtmDefault.tabVEICULOS

@@ -944,8 +944,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         ActivePage = tabVeiculoTracao
         Align = alClient
         TabOrder = 0
-        ExplicitLeft = -48
-        ExplicitTop = -3
         object tabVeiculoTracao: TTabSheet
           Caption = 'Ve'#237'culo de Tra'#231#227'o'
           object Panel15: TPanel
@@ -1193,10 +1191,10 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               end
               object Label20: TLabel
                 Left = 488
-                Top = 69
-                Width = 27
+                Top = 70
+                Width = 34
                 Height = 13
-                Caption = 'RNTC'
+                Caption = 'RNTRC'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWindowText
                 Font.Height = -11
@@ -1399,7 +1397,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 ListSource = dtsqryCIDADES_UF
                 TabOrder = 6
               end
-              object JvDBMaskEdit1: TJvDBMaskEdit
+              object VEICULO_RNTRC: TJvDBMaskEdit
                 Tag = 1
                 Left = 571
                 Top = 67
@@ -1417,13 +1415,22 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 TabOrder = 9
                 EditMask = ''
               end
-              object edtChassi: TMaskEdit
-                Left = 38
+              object VEICULO_CHASSI: TJvDBMaskEdit
+                Left = 74
                 Top = 67
-                Width = 157
+                Width = 121
                 Height = 21
+                TabStop = False
+                DataField = 'VEICULO_CHASSI'
+                DataSource = dtsDefault
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = []
+                ParentFont = False
                 TabOrder = 10
-                Text = 'edtChassi'
+                EditMask = ''
               end
             end
           end
@@ -1738,7 +1745,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 object Label37: TLabel
                   AlignWithMargins = True
                   Left = 268
-                  Top = 37
+                  Top = 32
                   Width = 10
                   Height = 13
                   Caption = 'IE'
@@ -1863,14 +1870,20 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   ParentFont = False
                   Transparent = True
                 end
+                object Label90: TLabel
+                  Left = 225
+                  Top = 5
+                  Width = 33
+                  Height = 13
+                  Caption = 'Celular'
+                end
                 object EMI_N_PROP: TJvDBCheckBox
                   AlignWithMargins = True
                   Left = 3
                   Top = 3
-                  Width = 399
+                  Width = 206
                   Height = 20
-                  Align = alTop
-                  Caption = 'O propriet'#225'rio n'#227'o '#233' o emitente iniciado no Aplicativo'
+                  Caption = 'n'#227'o '#233' o emitente iniciado no Aplicativo'
                   DataField = 'EMI_N_PROP'
                   DataSource = dtsDefault
                   TabOrder = 0
@@ -1956,7 +1969,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Tag = 1
                   Left = 268
                   Top = 51
-                  Width = 129
+                  Width = 125
                   Height = 21
                   TabStop = False
                   DataField = 'EMI_N_PROP_IE'
@@ -1974,7 +1987,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Tag = 1
                   Left = 3
                   Top = 91
-                  Width = 394
+                  Width = 390
                   Height = 21
                   TabStop = False
                   DataField = 'EMI_N_PROP_RZSOCIAL'
@@ -1988,47 +2001,55 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   TabOrder = 3
                   EditMask = ''
                 end
-                object edtBairroProprietario: TEdit
+                object EMI_N_PROP_BAIRRO: TEdit
                   Left = 3
                   Top = 134
                   Width = 128
                   Height = 21
                   TabOrder = 7
                 end
-                object edtRuaProprietario: TEdit
+                object EMI_N_PROP_RUA: TEdit
                   Left = 137
                   Top = 134
                   Width = 121
                   Height = 21
                   TabOrder = 8
                 end
-                object edtComplementoProprietario: TEdit
+                object EMI_N_PROP_COMPLEMENTO: TEdit
                   Left = 264
                   Top = 134
                   Width = 129
                   Height = 21
                   TabOrder = 9
                 end
-                object edtCEPProprietario: TEdit
+                object EMI_N_PROP_CEP: TEdit
                   Left = 3
                   Top = 175
                   Width = 128
                   Height = 21
                   TabOrder = 10
                 end
-                object edtNumeroProprietario: TEdit
+                object EMI_N_PROP_NUMERO: TEdit
                   Left = 137
                   Top = 175
                   Width = 128
                   Height = 21
                   TabOrder = 11
                 end
-                object edCodigoMunicipioProprietario: TEdit
+                object EMI_N_PROP_COD_MUNICIPIO: TEdit
                   Left = 271
                   Top = 175
                   Width = 122
                   Height = 21
                   TabOrder = 12
+                end
+                object EMI_N_PROP_CELULAR: TJvDBMaskEdit
+                  Left = 271
+                  Top = 2
+                  Width = 119
+                  Height = 21
+                  TabOrder = 13
+                  EditMask = ''
                 end
               end
             end
@@ -2771,6 +2792,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Height = 21
                 TabOrder = 0
                 Text = ''
+                OnChange = DOC_CONTRATANTEChange
               end
             end
           end
@@ -3911,6 +3933,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Carregamento'
+                  Width = 64
                   Visible = True
                 end>
             end
@@ -4294,6 +4317,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Descarregamento'
+                  Width = 64
                   Visible = True
                 end>
             end
@@ -4966,7 +4990,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Top = 3
         Width = 885
         Height = 450
-        ActivePage = tabNFe
+        ActivePage = TabSheet7
         Align = alClient
         TabOrder = 0
         object TabSheet7: TTabSheet
@@ -6695,7 +6719,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Width = 885
         Height = 238
         Align = alClient
-        Caption = 'Informa'#231#245'es adocionais de interesse do fisco'
+        Caption = 'Informa'#231#245'es adicionais de interesse do fisco'
         TabOrder = 0
         Border.Inner = bvSpace
         Border.Outer = bvNone
@@ -6826,8 +6850,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
   object dtstabMDFE_CTE: TDataSource
     DataSet = dtmMDFE.tabMDFE_CTE
     OnDataChange = dtstabMDFE_CTEDataChange
-    Left = 142
-    Top = 168
+    Left = 70
+    Top = 112
   end
   object dtstabMDFE_AUT_DOWNLOAD: TDataSource
     DataSet = dtmMDFE.tabMDFE_AUT_DOWNLOAD

@@ -16,7 +16,7 @@ uses
   Vcl.DBGrids, JvExDBGrids, JvDBGrid, JvDBCheckBox, JvRadioButton,
   JvAutoComplete, ufrmDefault, udtmMDFE, udtmDefault, ufuncoes, ufrmMDFEsegurosCADASTRO,
   ufrmMDFEreboqueCADASTRO, ufrmMDFEvalepedagioCADASTRO, ufrmMDFEcteCADASTRO,
-  uclassMDFE, ufrmMDFEnfeCADASTRO, ACBrValidador, ACBrUtil, uclassEMPRESA,
+  uclassMDFE, ufrmMDFEnfeCADASTRO, ACBrValidador, uclassEMPRESA,
   uclassCONFIGini, ACBrCIOTConversao, pcnCIOT, pcnCIOTW_eFrete, ACBrCIOTConfiguracoes, ACBrCIOTWebServices,
   ACBrDFeSSL, ACBrDFeOpenSSL, ACBrDFeUtil, ACBrCIOT, ACBrDFe, ACBrUtil.Strings,
   ACBrUtil.DateTime,
@@ -45,35 +45,10 @@ type
     btnSegurosAlterar: TJvSpeedButton;
     dtstabMDFE_SEGUROS: TDataSource;
     tabRodoviario: TTabSheet;
-    pageRodo: TJvPageControl;
-    tabVeiculoTracao: TTabSheet;
     dtstabMDFE_CONDUTORES: TDataSource;
-    pagREBOQUE: TTabSheet;
-    JvgGroupBox4: TJvgGroupBox;
-    Panel8: TPanel;
-    btnReboqueExcluir: TJvSpeedButton;
-    btnReboqueIncluir: TJvSpeedButton;
-    btnReboqueAlterar: TJvSpeedButton;
-    JvDBGrid5: TJvDBGrid;
     dtstabMDFE_REBOQUE: TDataSource;
     dtstabMDFE_CIOT: TDataSource;
-    pagCIOT: TTabSheet;
-    JvgGroupBox5: TJvgGroupBox;
-    Panel7: TPanel;
-    btnCIOTexcluir: TJvSpeedButton;
-    btnCIOTIncluir: TJvSpeedButton;
-    pagCONTRATANTES: TTabSheet;
-    JvgGroupBox6: TJvgGroupBox;
-    Panel9: TPanel;
-    btnCONTRATANTESexcluir: TJvSpeedButton;
-    btnCONTRATANTESincluir: TJvSpeedButton;
     dtstabMDFE_CONTRATANTES: TDataSource;
-    pagVALEpedagio: TTabSheet;
-    JvgGroupBox8: TJvgGroupBox;
-    Panel10: TPanel;
-    btnVALEPEDAGIOexcluir: TJvSpeedButton;
-    btnVALEPEDAGIOincluir: TJvSpeedButton;
-    btnVALEPEDAGIOalterar: TJvSpeedButton;
     dtstabMDFE_VALEPEDAGIO: TDataSource;
     pageINFdoc: TTabSheet;
     pagINFdoc: TJvPageControl;
@@ -125,51 +100,6 @@ type
     JvDBGrid1: TJvDBGrid;
     JvgGroupBox7: TJvgGroupBox;
     Label5: TLabel;
-    Panel15: TPanel;
-    Label14: TLabel;
-    Label30: TLabel;
-    VEICULO_COD_AGENDA_PORT: TJvDBMaskEdit;
-    Panel16: TPanel;
-    JvgGroupBox15: TJvgGroupBox;
-    Label16: TLabel;
-    Label19: TLabel;
-    Label29: TLabel;
-    Label34: TLabel;
-    Label35: TLabel;
-    Label36: TLabel;
-    Label38: TLabel;
-    Label43: TLabel;
-    Label44: TLabel;
-    VEICULO_TIPO_CARROCERIA: TJvDBComboBox;
-    VEICULO_CODIGO_INTERNO: TJvDBMaskEdit;
-    VEICULO_TIPO_RODADO: TJvDBComboBox;
-    VEICULO_PLACA: TJvDBMaskEdit;
-    VEICULO_CAPACIDADE_KG: TJvDBMaskEdit;
-    VEICULO_TARA: TJvDBMaskEdit;
-    VEICULO_CAPACIDADE_M3: TJvDBMaskEdit;
-    VEICULO_RENAVAN: TJvDBMaskEdit;
-    Panel17: TPanel;
-    JvgGroupBox16: TJvgGroupBox;
-    Panel6: TPanel;
-    btnCondutoresExcluir: TJvSpeedButton;
-    btnCondutoresIncluir: TJvSpeedButton;
-    JvDBGrid4: TJvDBGrid;
-    Panel14: TPanel;
-    Label28: TLabel;
-    Panel18: TPanel;
-    Label3: TLabel;
-    Label6: TLabel;
-    edtCIOT: TJvMaskEdit;
-    CIOT_DOC: TJvMaskEdit;
-    Panel19: TPanel;
-    JvDBGrid6: TJvDBGrid;
-    Panel20: TPanel;
-    JvDBGrid7: TJvDBGrid;
-    Panel21: TPanel;
-    DOC_CONTRATANTE: TJvMaskEdit;
-    Label22: TLabel;
-    Panel22: TPanel;
-    JvDBGrid8: TJvDBGrid;
     Panel24: TPanel;
     Label23: TLabel;
     Label25: TLabel;
@@ -190,21 +120,6 @@ type
     Label31: TLabel;
     MUN_DESC_CTE: TJvDBLookupCombo;
     JvDBLookupCombo2: TJvDBLookupCombo;
-    JvgGroupBox18: TJvgGroupBox;
-    Panel32: TPanel;
-    Label33: TLabel;
-    EMI_N_PROP_RNTRC: TJvDBMaskEdit;
-    EMI_N_PROP: TJvDBCheckBox;
-    Label32: TLabel;
-    EMI_N_PROP_TIPO: TJvDBComboBox;
-    Label39: TLabel;
-    EMI_N_PROP_CPF_CNPJ: TJvDBMaskEdit;
-    EMI_N_PROP_UF: TJvDBLookupCombo;
-    Label37: TLabel;
-    EMI_N_PROP_IE: TJvDBMaskEdit;
-    Label40: TLabel;
-    EMI_N_PROP_RZSOCIAL: TJvDBMaskEdit;
-    Label41: TLabel;
     Panel31: TPanel;
     JvgGroupBox13: TJvgGroupBox;
     Label11: TLabel;
@@ -248,9 +163,6 @@ type
     dtstabMDFE_NFE: TDataSource;
     ID_UF_FINAL: TDBLookupComboBox;
     ID_MUNICIPIO_INICIAL: TDBLookupComboBox;
-    VEICULO_UF: TDBLookupComboBox;
-    opCPF: TJvRadioButton;
-    opCNPJ: TJvRadioButton;
     tabAquaviario: TTabSheet;
     Panel40: TPanel;
     Label46: TLabel;
@@ -330,13 +242,117 @@ type
     JvDBGrid17: TJvDBGrid;
     ID_UF_LOCAL_CARREGAMENTO: TJvDBLookupCombo;
     ID_UF_PERCURSO: TJvDBLookupCombo;
-    LkCbxMotorista: TDBLookupComboBox;
-    LcbxVeiculo: TDBLookupComboBox;
-    JvDBMaskEdit1: TJvDBMaskEdit;
-    Label20: TLabel;
     JvDBMaskEdit2: TJvDBMaskEdit;
     Label63: TLabel;
+    Label84: TLabel;
+    pageRodo: TJvPageControl;
+    tabVeiculoTracao: TTabSheet;
+    Panel15: TPanel;
+    Label14: TLabel;
+    Label30: TLabel;
+    VEICULO_COD_AGENDA_PORT: TJvDBMaskEdit;
+    LcbxVeiculo: TDBLookupComboBox;
+    Panel16: TPanel;
+    JvgGroupBox15: TJvgGroupBox;
+    Label16: TLabel;
+    Label19: TLabel;
+    Label29: TLabel;
+    Label34: TLabel;
+    Label35: TLabel;
+    Label36: TLabel;
+    Label38: TLabel;
+    Label43: TLabel;
+    Label44: TLabel;
+    Label20: TLabel;
+    Label89: TLabel;
+    VEICULO_TIPO_CARROCERIA: TJvDBComboBox;
+    VEICULO_CODIGO_INTERNO: TJvDBMaskEdit;
+    VEICULO_TIPO_RODADO: TJvDBComboBox;
+    VEICULO_PLACA: TJvDBMaskEdit;
+    VEICULO_CAPACIDADE_KG: TJvDBMaskEdit;
+    VEICULO_TARA: TJvDBMaskEdit;
+    VEICULO_CAPACIDADE_M3: TJvDBMaskEdit;
+    VEICULO_RENAVAN: TJvDBMaskEdit;
+    VEICULO_UF: TDBLookupComboBox;
+    VEICULO_RNTRC: TJvDBMaskEdit;
+    Panel17: TPanel;
+    JvgGroupBox16: TJvgGroupBox;
+    Panel6: TPanel;
+    btnCondutoresExcluir: TJvSpeedButton;
+    btnCondutoresIncluir: TJvSpeedButton;
+    JvDBGrid4: TJvDBGrid;
+    Panel14: TPanel;
+    Label28: TLabel;
+    LkCbxMotorista: TDBLookupComboBox;
+    JvgGroupBox18: TJvgGroupBox;
+    Panel32: TPanel;
+    Label33: TLabel;
+    Label32: TLabel;
+    Label39: TLabel;
+    Label37: TLabel;
+    Label40: TLabel;
+    Label41: TLabel;
+    Label83: TLabel;
+    Label85: TLabel;
+    Label86: TLabel;
+    labelseila: TLabel;
+    Label87: TLabel;
+    Label88: TLabel;
+    Label90: TLabel;
+    EMI_N_PROP: TJvDBCheckBox;
+    EMI_N_PROP_RNTRC: TJvDBMaskEdit;
+    EMI_N_PROP_TIPO: TJvDBComboBox;
+    EMI_N_PROP_CPF_CNPJ: TJvDBMaskEdit;
+    EMI_N_PROP_UF: TJvDBLookupCombo;
+    EMI_N_PROP_IE: TJvDBMaskEdit;
+    EMI_N_PROP_RZSOCIAL: TJvDBMaskEdit;
+    EMI_N_PROP_BAIRRO: TEdit;
+    EMI_N_PROP_RUA: TEdit;
+    EMI_N_PROP_COMPLEMENTO: TEdit;
+    EMI_N_PROP_CEP: TEdit;
+    EMI_N_PROP_NUMERO: TEdit;
+    EMI_N_PROP_COD_MUNICIPIO: TEdit;
+    EMI_N_PROP_CELULAR: TJvDBMaskEdit;
+    pagREBOQUE: TTabSheet;
+    JvgGroupBox4: TJvgGroupBox;
+    Panel8: TPanel;
+    btnReboqueExcluir: TJvSpeedButton;
+    btnReboqueIncluir: TJvSpeedButton;
+    btnReboqueAlterar: TJvSpeedButton;
+    JvDBGrid5: TJvDBGrid;
+    pagCIOT: TTabSheet;
+    JvgGroupBox5: TJvgGroupBox;
+    Panel7: TPanel;
+    btnCIOTexcluir: TJvSpeedButton;
+    btnCIOTIncluir: TJvSpeedButton;
+    Panel18: TPanel;
+    Label3: TLabel;
+    Label6: TLabel;
+    edtCIOT: TJvMaskEdit;
+    CIOT_DOC: TJvMaskEdit;
+    opCPF: TJvRadioButton;
+    opCNPJ: TJvRadioButton;
     btnGerarCIOT: TBitBtn;
+    Panel19: TPanel;
+    JvDBGrid6: TJvDBGrid;
+    pagCONTRATANTES: TTabSheet;
+    JvgGroupBox6: TJvgGroupBox;
+    Panel9: TPanel;
+    btnCONTRATANTESexcluir: TJvSpeedButton;
+    btnCONTRATANTESincluir: TJvSpeedButton;
+    Panel20: TPanel;
+    JvDBGrid7: TJvDBGrid;
+    Panel21: TPanel;
+    Label22: TLabel;
+    DOC_CONTRATANTE: TJvMaskEdit;
+    pagVALEpedagio: TTabSheet;
+    JvgGroupBox8: TJvgGroupBox;
+    Panel10: TPanel;
+    btnVALEPEDAGIOexcluir: TJvSpeedButton;
+    btnVALEPEDAGIOincluir: TJvSpeedButton;
+    btnVALEPEDAGIOalterar: TJvSpeedButton;
+    Panel22: TPanel;
+    JvDBGrid8: TJvDBGrid;
     TabSheet1: TTabSheet;
     GroupBox4: TGroupBox;
     Label65: TLabel;
@@ -347,6 +363,7 @@ type
     rgTipoAmb: TRadioGroup;
     cbxSalvarSOAP: TCheckBox;
     seTimeOut: TSpinEdit;
+    cbSSLType: TComboBox;
     gbxRetornoEnvio: TGroupBox;
     Label64: TLabel;
     Label68: TLabel;
@@ -373,49 +390,34 @@ type
     sbtnNumSerie: TSpeedButton;
     edtSenha: TEdit;
     edtNumSerie: TEdit;
+    edtCaminho: TEdit;
     GroupBox1: TGroupBox;
     Edit1: TEdit;
     btnSha256: TButton;
     cbAssinar: TCheckBox;
     GroupBox2: TGroupBox;
-    cbXmlSignLib: TComboBox;
-    cbHttpLib: TComboBox;
-    cbCryptLib: TComboBox;
-    cbSSLLib: TComboBox;
-    edtCaminho: TEdit;
     lSSLLib: TLabel;
     lCryptLib: TLabel;
     lHttpLib: TLabel;
     lXmlSign: TLabel;
-    cbSSLType: TComboBox;
+    cbXmlSignLib: TComboBox;
+    cbHttpLib: TComboBox;
+    cbCryptLib: TComboBox;
+    cbSSLLib: TComboBox;
     GroupBox3: TGroupBox;
     Label77: TLabel;
     Label78: TLabel;
+    Label79: TLabel;
+    Label80: TLabel;
+    Label81: TLabel;
+    Label82: TLabel;
     cbFormaEmissao: TComboBox;
     cbVersaoDF: TComboBox;
-    Label79: TLabel;
     cbbIntegradora: TComboBox;
     edtSenhaWebService: TEdit;
-    Label80: TLabel;
     edtUsuarioWebService: TEdit;
-    Label81: TLabel;
     edtHashIntegrador: TEdit;
-    Label82: TLabel;
-    Label83: TLabel;
-    edtBairroProprietario: TEdit;
-    Label84: TLabel;
-    edtRuaProprietario: TEdit;
-    Label85: TLabel;
-    edtComplementoProprietario: TEdit;
-    Label86: TLabel;
-    edtCEPProprietario: TEdit;
-    edtNumeroProprietario: TEdit;
-    edCodigoMunicipioProprietario: TEdit;
-    labelseila: TLabel;
-    Label87: TLabel;
-    Label88: TLabel;
-    Label89: TLabel;
-    edtChassi: TMaskEdit;
+    VEICULO_CHASSI: TJvDBMaskEdit;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -488,13 +490,18 @@ type
     procedure LcbxVeiculoClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnGerarCIOTClick(Sender: TObject);
+    procedure DOC_CONTRATANTEChange(Sender: TObject);
   private
     FACBrCIOT: TACBrCIOT;
     sToken: string;
     procedure InserirRegistroDefault;
+    procedure solicitarToken;
     procedure cadastrarVeiculo;
+    procedure cadastrarProprietarioDoVeiculo;
+    procedure cadastrarMotorista;
     procedure LerConfiguracao;
     procedure GravarConfiguracao;
+    procedure adicionarOperacaoTransporter;
 
   public
     class function RegistroDefault: TRetornoCadastro;
@@ -557,7 +564,7 @@ procedure TfrmMDFEcadastro.btnCondutoresIncluirClick(Sender: TObject);
 var
   iErr: String;
 begin
-  iErr := ACBrValidador.ValidarCPF(ACBrUtil.OnlyNumber(LkCbxMotorista.KeyValue));
+  iErr := ACBrValidador.ValidarCPF(ACBrUtil.Strings.OnlyNumber(LkCbxMotorista.KeyValue));
 
   if iErr.Trim.Length > 0 then
     raise Exception.Create(iErr);
@@ -925,6 +932,28 @@ begin
     dtmMDFE.tabMDFE_NFE.EndBatch;
   end;
 
+end;
+
+procedure TfrmMDFEcadastro.DOC_CONTRATANTEChange(Sender: TObject);
+begin
+  inherited;
+
+  // Remove todos os caracteres não numéricos para verificar o comprimento
+  var
+  TextoNumerico := StringReplace(DOC_CONTRATANTE.Text, '.', '', [rfReplaceAll]);
+  TextoNumerico := StringReplace(TextoNumerico, '-', '', [rfReplaceAll]);
+  TextoNumerico := StringReplace(TextoNumerico, '/', '', [rfReplaceAll]);
+
+  if Length(TextoNumerico) <= 11 then
+  begin
+    // Se tiver 11 ou menos dígitos, aplica a máscara de CPF
+    DOC_CONTRATANTE.EditMask := '999.999.999-99;1;_';
+  end
+  else
+  begin
+    // Se tiver mais de 11 dígitos, aplica a máscara de CNPJ
+    DOC_CONTRATANTE.EditMask := '99.999.999/9999-99;1;_';
+  end;
 end;
 
 procedure TfrmMDFEcadastro.ID_UF_LOCAL_CARREGAMENTOClick(Sender: TObject);
@@ -1421,9 +1450,9 @@ begin
       cbxSepararPorCNPJ.Checked := Ini.ReadBool('Arquivos', 'SepararPorCNPJ', False);
       cbxSepararPorModelo.Checked := Ini.ReadBool('Arquivos', 'SepararPorModelo', False);
       edtPathCIOT.Text := Ini.ReadString('Arquivos', 'PathCIOT', '');
-      edtPathEvento.Text := Ini.ReadString('Arquivos', 'PathEvento', '');
+      edtPathEvento.Text := Ini.ReadString('Arquivos', 'PathEvento', ''); }
 
-      edtEmitCNPJ.Text := Ini.ReadString('Emitente', 'CNPJ', '');
+    { edtEmitCNPJ.Text := Ini.ReadString('Emitente', 'CNPJ', '');
       edtEmitIE.Text := Ini.ReadString('Emitente', 'IE', '');
       edtEmitRazao.Text := Ini.ReadString('Emitente', 'RazaoSocial', '');
       edtEmitFantasia.Text := Ini.ReadString('Emitente', 'Fantasia', '');
@@ -1435,9 +1464,9 @@ begin
       edtEmitBairro.Text := Ini.ReadString('Emitente', 'Bairro', '');
       edtEmitCodCidade.Text := Ini.ReadString('Emitente', 'CodCidade', '');
       edtEmitCidade.Text := Ini.ReadString('Emitente', 'Cidade', '');
-      edtEmitUF.Text := Ini.ReadString('Emitente', 'UF', '');
+      edtEmitUF.Text := Ini.ReadString('Emitente', 'UF', ''); }
 
-      edtSmtpHost.Text := Ini.ReadString('Email', 'Host', '');
+    { edtSmtpHost.Text := Ini.ReadString('Email', 'Host', '');
       edtSmtpPort.Text := Ini.ReadString('Email', 'Port', '');
       edtSmtpUser.Text := Ini.ReadString('Email', 'User', '');
       edtSmtpPass.Text := Ini.ReadString('Email', 'Pass', '');
@@ -1696,7 +1725,6 @@ end;
 
 procedure TfrmMDFEcadastro.cadastrarVeiculo;
 begin
-
   with dtmMDFE.ACBrCIOT.Contratos.Add.CIOT do
   begin
     // Cadastrar Veiculo
@@ -1704,10 +1732,10 @@ begin
 
     with GravarVeiculo do
     begin
-      Placa := 'KBV3355';
-      Renavam := '110564030';
-      Chassi := '9BSG4X200A3654938';
-      RNTRC := '00168810';
+      Placa := VEICULO_PLACA.Text;
+      Renavam := VEICULO_RENAVAN.Text;
+      Chassi := VEICULO_CHASSI.Text;
+      RNTRC := VEICULO_RNTRC.Text;
       NumeroDeEixos := 2;
       CodigoMunicipio := 3512345;
       Marca := 'VW';
@@ -1718,8 +1746,34 @@ begin
       Tara := 100;
       CapacidadeKg := 10000;
       CapacidadeM3 := 10000;
-      TipoRodado := trToco;
-      TipoCarroceria := tcFechadaOuBau;
+      TipoRodado := TpTipoRodado.trToco;
+
+      if VEICULO_TIPO_CARROCERIA.ItemIndex <> -1 then
+      begin
+        ShowMessage('Selecione o Tipo da Carroceria no cadastro de Veículo de Tração');
+        Exit;
+      end
+      else
+      begin
+        if VEICULO_TIPO_CARROCERIA.ItemIndex = 0 then
+          tipoCarroceria := TpTipoCarroceria.tcNaoAplicavel
+        else if VEICULO_TIPO_CARROCERIA.ItemIndex = 1 then
+          tipoCarroceria := TpTipoCarroceria.tcAberta
+        else if VEICULO_TIPO_CARROCERIA.ItemIndex = 2 then
+          tipoCarroceria := TpTipoCarroceria.tcFechadaOuBau
+        else if VEICULO_TIPO_CARROCERIA.ItemIndex = 3 then
+          tipoCarroceria := TpTipoCarroceria.tcGranelera
+        else if VEICULO_TIPO_CARROCERIA.ItemIndex = 4 then
+          tipoCarroceria := TpTipoCarroceria.tcPortaContainer
+        else if VEICULO_TIPO_CARROCERIA.ItemIndex = 5 then
+          tipoCarroceria := TpTipoCarroceria.tcSider
+        else
+        begin
+          ShowMessage('Tipo de carroceria não mapeado!');
+          Exit;
+        end;
+
+      end;
     end;
   end;
 end;
@@ -1727,36 +1781,404 @@ end;
 procedure TfrmMDFEcadastro.cadastrarMotorista;
 begin
   // Cadastrar Motorista
-  Integradora := Integradora.eFrete;
-  Integradora.Operacao := opGravarMotorista;
-
-  with Integradora.Request.GravarMotorista do
+  with dtmMDFE.ACBrCIOT.Contratos.Add.CIOT do
   begin
-    CPF := '27654630182';
-    Nome := 'TRANS NALE TRANSPORTES LTDA ME';
-    CNH := '2020917156';
-    DataNascimento := StrToDate('10/10/1970');
-    NomeDeSolteiraDaMae := 'joana pereira';
+    Integradora.Operacao := opGravarMotorista;
 
-    Endereco.Bairro := 'teste';
-    Endereco.Rua := 'teste';
-    Endereco.Numero := '200';
-    Endereco.Complemento := 'teste';
-    Endereco.CEP := '89870000';
-    Endereco.CodigoMunicipio := 4212908;
+    with GravarMotorista do
+    begin
+      CPF := '27654630182';
+      Nome := 'TRANS NALE TRANSPORTES LTDA ME';
+      CNH := '2020917156';
+      DataNascimento := StrToDate('10/10/1970');
+      NomeDeSolteiraDaMae := 'joana pereira';
 
-    Telefones.Celular.DDD := 11;
-    Telefones.Celular.Numero := StrToIntDef(edtEmitFone.Text, 0);
+      Endereco.Bairro := 'teste';
+      Endereco.Rua := 'teste';
+      Endereco.Numero := '200';
+      Endereco.Complemento := 'teste';
+      Endereco.CEP := '89870000';
+      Endereco.CodigoMunicipio := 4212908;
 
-    Telefones.Fixo.DDD := 49;
-    Telefones.Fixo.Numero := 33661011;
+      Telefones.Celular.DDD := 11;
+      Telefones.Celular.Numero := StrToIntDef(EMI_N_PROP_CELULAR.Text, 0);
 
-    Telefones.Fax.DDD := 0;
-    Telefones.Fax.Numero := 0;
+      // Telefones.Fixo.DDD := 49;
+      // Telefones.Fixo.Numero := 33661011;
+
+      // Telefones.Fax.DDD := 0;
+      // Telefones.Fax.Numero := 0;
+    end;
   end;
 end;
 
-{ procedure TfrmMDFEcadastro.cadastrar }
+procedure TfrmMDFEcadastro.cadastrarProprietarioDoVeiculo;
+begin
+
+  with dtmMDFE.ACBrCIOT.Contratos.Add.CIOT do
+  begin
+    Integradora.Operacao := opGravarProprietario;
+
+    with GravarProprietario do
+    begin
+      CNPJ := EMI_N_PROP_CPF_CNPJ.Text;
+
+      if CNPJ.Length = 13 then
+        TipoPessoa := tpJuridica
+      else if CNPJ.Length = 11 then
+        TipoPessoa := tpFisica;
+
+      RazaoSocial := EMI_N_PROP_RZSOCIAL.Text;
+      RNTRC := EMI_N_PROP_RNTRC.Text;
+
+      Endereco.Bairro := EMI_N_PROP_BAIRRO.Text;
+      Endereco.Rua := EMI_N_PROP_RUA.Text;
+      Endereco.Numero := EMI_N_PROP_NUMERO.Text;
+      Endereco.Complemento := EMI_N_PROP_COMPLEMENTO.Text;
+      Endereco.CEP := EMI_N_PROP_CEP.Text;
+      Endereco.CodigoMunicipio := StrToIntDef(EMI_N_PROP_COD_MUNICIPIO.Text, 0);
+
+      Telefones.Celular.DDD := 11;
+      Telefones.Celular.Numero := StrToIntDef(EMI_N_PROP_CELULAR.Text, 0);
+
+      // Telefones.Fixo.DDD := 49;
+      // Telefones.Fixo.Numero := 33661011;
+
+      // Telefones.Fax.DDD := 0;
+      // Telefones.Fax.Numero := 0;
+    end;
+  end;
+end;
+
+procedure TfrmMDFEcadastro.solicitarToken;
+begin
+  with dtmMDFE.ACBrCIOT.Contratos.Add.CIOT do
+  begin
+    // Só é necessario se usar usuario e senha e não o certificado
+    Integradora.Token := sToken;
+
+    // Login - Solicita Token
+    Integradora.Operacao := opLogin;
+  end;
+end;
+
+procedure TfrmMDFEcadastro.adicionarOperacaoTransporter;
+begin
+  with dtmMDFE.ACBrCIOT.Contratos.Add.CIOT do
+  begin
+    // Adicionar uma operação de transporte
+    Integradora.Operacao := opAdicionar;
+
+    with AdicionarOperacao do
+    begin
+      (* ***************  DADOS DO CONTRATO  ************* *)
+      TipoViagem := Padrao; // TAC_Agregado;
+      TipoPagamento := eFRETE;
+      EmissaoGratuita := (TipoPagamento = TransferenciaBancaria);
+      BloquearNaoEquiparado := False;
+      MatrizCNPJ := dtmDefault.tabEMPRESACNPJ.AsString;
+      FilialCNPJ := dtmDefault.tabEMPRESACNPJ.AsString;
+      // Id / Chave primária da Tabela do banco de dados do CIOT
+      IdOperacaoCliente := '1';
+      DataInicioViagem := Now;
+      DataFimViagem := Now;
+      CodigoNCMNaturezaCarga := 5501;
+      PesoCarga := 10;
+      // utilizado somente para as viagens do tipo Padrão
+      TipoEmbalagem := tePallet;
+
+      // Somente para TipoViagem TAC_Agregado
+      with Viagens.New do
+      begin
+        DocumentoViagem := 'CTe';
+        CodigoMunicipioOrigem := 4212908; // Pinhalzinho SC
+        CodigoMunicipioDestino := 4217303; // Saudades SC
+        CepOrigem := '';
+        CepDestino := '';
+        DistanciaPercorrida := 100;
+
+        Valores.TotalOperacao := 50;
+        Valores.TotalViagem := 50;
+        Valores.TotalDeAdiantamento := 10;
+        Valores.TotalDeQuitacao := 10;
+        Valores.Combustivel := 20;
+        Valores.Pedagio := 10;
+        Valores.OutrosCreditos := 1;
+        Valores.JustificativaOutrosCreditos := 'Teste';
+        Valores.Seguro := 10;
+        Valores.OutrosDebitos := 1;
+        Valores.JustificativaOutrosDebitos := 'Teste outros Debitos';
+
+        TipoPagamento := eFRETE;
+
+        with NotasFiscais.New do
+        begin
+          Numero := '12345';
+          Serie := '1';
+          Data := Date;
+          ValorTotal := 100;
+
+          ValorDaMercadoriaPorUnidade := 100;
+          CodigoNCMNaturezaCarga := 5501;
+          DescricaoDaMercadoria := 'Produto Teste';
+          UnidadeDeMedidaDaMercadoria := umKg;
+          TipoDeCalculo := SemQuebra;
+          ValorDoFretePorUnidadeDeMercadoria := 0; // Se tiver quebra deve ser informado
+          QuantidadeDaMercadoriaNoEmbarque := 1;
+
+          ToleranciaDePerdaDeMercadoria.Tipo := tpPorcentagem;
+          ToleranciaDePerdaDeMercadoria.Valor := 2; // Valor da tolerância admitido.
+
+          DiferencaDeFrete.Tipo := Integral;
+          DiferencaDeFrete.Base := QuantidadeDesembarque;
+
+          DiferencaDeFrete.Tolerancia.Tipo := tpPorcentagem;
+          DiferencaDeFrete.Tolerancia.Valor := 5;
+          // Valor da tolerância admitido(Nenhum: 0; Porcentagem: 0.00 – 100.00; Absoluto: Livre)
+
+          DiferencaDeFrete.MargemGanho.Tipo := tpPorcentagem;
+          DiferencaDeFrete.MargemGanho.Valor := 5;
+
+          DiferencaDeFrete.MargemPerda.Tipo := tpPorcentagem;
+          DiferencaDeFrete.MargemPerda.Valor := 5;
+        end;
+      end;
+
+      // Não esperado para TipoViagem Frota.
+      with Impostos do
+      begin
+        IRRF := 0;
+        SestSenat := 0;
+        INSS := 0;
+        ISSQN := 0;
+        OutrosImpostos := 0;
+        DescricaoOutrosImpostos := '';
+      end;
+
+      with Pagamentos.New do
+      begin
+        IdPagamentoCliente := '1';
+        DataDeLiberacao := Date;
+        Valor := 10;
+        TipoPagamento := eFRETE;
+        // TransferenciaBancaria(EmissaoGratuita = true); eFRETE (EmissaoGratuita = false)
+        Categoria := tcpSemCategoria;
+        // Para os TipoViagem Frota e TAC_Agregado são suportadas as Categorias Frota e SemCategoria. Para o TipoViagem Padrão todas as categorias são suportadas.
+        Documento := ''; // Documento relacionado a viagem.
+
+        InformacoesBancarias.InstituicaoBancaria := '756'; // Bancoob
+        InformacoesBancarias.Agencia := '';
+        InformacoesBancarias.Conta := '';
+        InformacoesBancarias.TipoConta := tcContaCorrente;
+
+        InformacaoAdicional := '';
+        // CNPJ que deve ser gerada a Nota Fiscal do abastecimento,
+        // sendo da mesma raíz do CNPJ da matriz do contratante,
+        // apenas aplicável para Categoria Frota (Abastecimento)
+        CnpjFilialAbastecimento := AdicionarOperacao.MatrizCNPJ;
+      end;
+
+      // TAC ou seu equiparado, que efetuar o transporte rodoviário de cargas por
+      // conta de terceiros e mediante remuneração, indicado no cadastramento da Operação de Transporte.
+      // Para o TipoViagem Frota o Contratado será a própria empresa que está declarando a operação.
+      with Contratado do
+      begin
+        CpfOuCnpj := '27654630182';
+        RNTRC := '00168810';
+      end;
+
+      with Motorista do
+      begin
+        CpfOuCnpj := '27654630182';
+        CNH := '2020917156';
+
+        Celular.DDD := 49;
+        Celular.Numero := 123456789;
+      end;
+
+      // Destinatário da carga.
+      // Na emissão com TipoViagem Padrão seu preenchimento é obrigatório.
+      // Na emissão com TipoViagem TAC_Agregado o campo não deve ser preenchido.
+      // Não esperado para TipoViagem Frota.
+      with Destinatario do
+      begin
+        NomeOuRazaoSocial := 'sisomcosftteste';
+        CpfOuCnpj := '79679396037';
+
+        EMail := 'teste@gmail.com';
+        ResponsavelPeloPagamento := False;
+
+        Endereco.Bairro := 'teste 2';
+        Endereco.Rua := 'Alabama';
+        Endereco.Numero := '34';
+        Endereco.Complemento := 'q. 100, l. 2';
+        Endereco.CEP := '74000000';
+        Endereco.CodigoMunicipio := 0;
+
+        { Telefones.Celular.DDD := 0;
+          Telefones.Celular.Numero := 0;
+
+          Telefones.Fixo.DDD := 0;
+          Telefones.Fixo.Numero := 0;
+
+          Telefones.Fax.DDD := 0;
+          Telefones.Fax.Numero := 0; }
+      end;
+
+      with Contratante do
+      begin
+        NomeOuRazaoSocial := 'teste';
+        CpfOuCnpj := '12345678910';
+
+        EMail := 'teste@teste.com.br';
+        ResponsavelPeloPagamento := False;
+        RNTRC := '12345678';
+
+        Endereco.Bairro := 'Bela Vista';
+        Endereco.Rua := 'Rua Vitória';
+        Endereco.Numero := '';
+        Endereco.Complemento := '';
+        Endereco.CEP := '89870000';
+        Endereco.CodigoMunicipio := 4212908;
+
+        Telefones.Celular.DDD := 0;
+        Telefones.Celular.Numero := 0;
+
+        Telefones.Fixo.DDD := 49;
+        Telefones.Fixo.Numero := 33661012;
+
+        Telefones.Fax.DDD := 0;
+        Telefones.Fax.Numero := 0;
+      end;
+
+      // É o transportador que contratar outro transportador para realização do
+      // transporte de cargas para o qual fora anteriormente contratado,
+      // indicado no cadastramento da Operação de Transporte.
+      // Não esperado para TipoViagem Frota.
+      with Subcontratante do
+      begin
+        NomeOuRazaoSocial := '';
+        CpfOuCnpj := '';
+
+        EMail := '';
+        ResponsavelPeloPagamento := False;
+
+        Endereco.Bairro := '';
+        Endereco.Rua := '';
+        Endereco.Numero := '';
+        Endereco.Complemento := '';
+        Endereco.CEP := '';
+        Endereco.CodigoMunicipio := 0;
+
+        Telefones.Celular.DDD := 0;
+        Telefones.Celular.Numero := 0;
+
+        Telefones.Fixo.DDD := 0;
+        Telefones.Fixo.Numero := 0;
+
+        Telefones.Fax.DDD := 0;
+        Telefones.Fax.Numero := 0;
+      end;
+
+      // Aquele que receberá as mercadorias transportadas em consignação,
+      // indicado no cadastramento da Operação de Transporte ou nos respectivos documentos fiscais.
+      // Não esperado para TipoViagem Frota
+      with Consignatario do
+      begin
+        NomeOuRazaoSocial := '';
+        CpfOuCnpj := '';
+
+        EMail := '';
+        ResponsavelPeloPagamento := False;
+
+        Endereco.Bairro := '';
+        Endereco.Rua := '';
+        Endereco.Numero := '';
+        Endereco.Complemento := '';
+        Endereco.CEP := '';
+        Endereco.CodigoMunicipio := 0;
+
+        Telefones.Celular.DDD := 0;
+        Telefones.Celular.Numero := 0;
+
+        Telefones.Fixo.DDD := 0;
+        Telefones.Fixo.Numero := 0;
+
+        Telefones.Fax.DDD := 0;
+        Telefones.Fax.Numero := 0;
+      end;
+
+      // Pessoa (física ou jurídica) que contratou o frete pela transportadora.
+      // Na emissão com TipoViagem Padrão seu preenchimento é obrigatório.
+      // Na emissão com TipoViagem TAC_Agregado o campo não deve ser preenchido.
+      with TomadorServico do
+      begin
+        NomeOuRazaoSocial := '';
+        CpfOuCnpj := '';
+
+        EMail := '';
+        ResponsavelPeloPagamento := False;
+
+        Endereco.Bairro := '';
+        Endereco.Rua := '';
+        Endereco.Numero := '';
+        Endereco.Complemento := '';
+        Endereco.CEP := '';
+        Endereco.CodigoMunicipio := 0;
+
+        Telefones.Celular.DDD := 0;
+        Telefones.Celular.Numero := 0;
+
+        Telefones.Fixo.DDD := 0;
+        Telefones.Fixo.Numero := 0;
+
+        Telefones.Fax.DDD := 0;
+        Telefones.Fax.Numero := 0;
+      end;
+
+      with Veiculos.New do
+      begin
+        Placa := 'AAA1234';
+      end;
+
+      // Informar um CIOT (se existente) que esteja relacionado à operação de transporte.
+      // Por exemplo: No caso da presença de um Subcontratante na operação de transporte
+      // informar o CIOT onde o Subcontratante foi o Contratado
+      CodigoIdentificacaoOperacaoPrincipal := '';
+
+      with ObservacoesAoTransportador.New do
+      begin
+        Mensagem := 'teste de obsevação ao transportador';
+      end;
+
+      with ObservacoesAoCredenciado.New do
+      begin
+        Mensagem := 'teste de obsevação ao Credenciado';
+      end;
+
+      EntregaDocumentacao := edRedeCredenciada; // Ver como funciona
+      QuantidadeSaques := 0; // Quantidade saques que serão realizados pelo Contratado na operação de transporte.
+      QuantidadeTransferencias := 0;
+      // Quantidade de Transferências  Bancárias que serão solicitadas pelo Contratado na operação de transporte.
+      ValorSaques := 0;
+      ValorTransferencias := 0;
+
+      // se o tipo de viagem for padrão (TipoViagem := Padrao) devemos
+      // informar o valor tpNaoAplicavel ao campo CodigoTipoCarga
+      // valores permitidos para o campo:
+      // tpNaoAplicavel, tpGranelsolido, tpGranelLiquido, tpFrigorificada,
+      // tpConteinerizada, tpCargaGeral, tpNeogranel, tpPerigosaGranelSolido,
+      // tpPerigosaGranelLiquido, tpPerigosaCargaFrigorificada,
+      // tpPerigosaConteinerizada, tpPerigosaCargaGeral
+      CodigoTipoCarga := tpNaoAplicavel;
+      AltoDesempenho := True;
+      DestinacaoComercial := True;
+      FreteRetorno := False;
+      CepRetorno := '';
+      DistanciaRetorno := 100;
+    end;
+  end;
+end;
 
 procedure TfrmMDFEcadastro.btnAQUAcomboioEXCLUIRClick(Sender: TObject);
 begin
@@ -1988,7 +2410,7 @@ begin
     try
       TFDQuery(dtstabMDFE_CIOT.DataSet).Append;
       TFDQuery(dtstabMDFE_CIOT.DataSet).FieldByName('CIOT').Value := Trim(edtCIOT.Text);
-      TFDQuery(dtstabMDFE_CIOT.DataSet).FieldByName('CNPJ').Value := ACBrUtil.OnlyNumber(CIOT_DOC.Text);
+      TFDQuery(dtstabMDFE_CIOT.DataSet).FieldByName('CNPJ').Value := ACBrUtil.Strings.OnlyNumber(CIOT_DOC.Text);
       TFDQuery(dtstabMDFE_CIOT.DataSet).Prepare;
       TFDQuery(dtstabMDFE_CIOT.DataSet).Post;
     except
