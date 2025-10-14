@@ -1699,6 +1699,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Align = alClient
                 BevelOuter = bvNone
                 TabOrder = 0
+                ExplicitLeft = 3
+                ExplicitTop = 21
                 object Label33: TLabel
                   Left = 3
                   Top = 202
@@ -1815,7 +1817,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Transparent = True
                 end
                 object Label86: TLabel
-                  Left = 264
+                  Left = 271
                   Top = 115
                   Width = 65
                   Height = 13
@@ -1830,7 +1832,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 end
                 object labelseila: TLabel
                   Left = 3
-                  Top = 156
+                  Top = 161
                   Width = 19
                   Height = 13
                   Caption = 'CEP'
@@ -2001,53 +2003,121 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   TabOrder = 3
                   EditMask = ''
                 end
-                object EMI_N_PROP_BAIRRO: TEdit
-                  Left = 3
-                  Top = 134
-                  Width = 128
-                  Height = 21
-                  TabOrder = 7
-                end
-                object EMI_N_PROP_RUA: TEdit
-                  Left = 137
-                  Top = 134
-                  Width = 121
-                  Height = 21
-                  TabOrder = 8
-                end
-                object EMI_N_PROP_COMPLEMENTO: TEdit
-                  Left = 264
-                  Top = 134
-                  Width = 129
-                  Height = 21
-                  TabOrder = 9
-                end
-                object EMI_N_PROP_CEP: TEdit
-                  Left = 3
-                  Top = 175
-                  Width = 128
-                  Height = 21
-                  TabOrder = 10
-                end
-                object EMI_N_PROP_NUMERO: TEdit
-                  Left = 137
-                  Top = 175
-                  Width = 128
-                  Height = 21
-                  TabOrder = 11
-                end
-                object EMI_N_PROP_COD_MUNICIPIO: TEdit
-                  Left = 271
-                  Top = 175
-                  Width = 122
-                  Height = 21
-                  TabOrder = 12
-                end
                 object EMI_N_PROP_CELULAR: TJvDBMaskEdit
                   Left = 271
                   Top = 2
                   Width = 119
                   Height = 21
+                  DataField = 'EMI_N_PROP_CELULAR'
+                  DataSource = dtsDefault
+                  TabOrder = 7
+                  EditMask = ''
+                end
+                object EMI_N_PROP_BAIRRO: TJvDBMaskEdit
+                  Tag = 1
+                  Left = 3
+                  Top = 134
+                  Width = 128
+                  Height = 21
+                  TabStop = False
+                  DataField = 'EMI_N_PROP_BAIRRO'
+                  DataSource = dtsDefault
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'Tahoma'
+                  Font.Style = []
+                  ParentFont = False
+                  TabOrder = 8
+                  EditMask = ''
+                end
+                object EMI_N_PROP_RUA: TJvDBMaskEdit
+                  Tag = 1
+                  Left = 137
+                  Top = 134
+                  Width = 128
+                  Height = 21
+                  TabStop = False
+                  DataField = 'EMI_N_PROP_RUA'
+                  DataSource = dtsDefault
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'Tahoma'
+                  Font.Style = []
+                  ParentFont = False
+                  TabOrder = 9
+                  EditMask = ''
+                end
+                object EMI_N_PROP_COMPLEMENTO: TJvDBMaskEdit
+                  Tag = 1
+                  Left = 271
+                  Top = 134
+                  Width = 122
+                  Height = 21
+                  TabStop = False
+                  DataField = 'EMI_N_PROP_COMPLEMENTO'
+                  DataSource = dtsDefault
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'Tahoma'
+                  Font.Style = []
+                  ParentFont = False
+                  TabOrder = 10
+                  EditMask = ''
+                end
+                object EMI_N_PROP_CEP: TJvDBMaskEdit
+                  Tag = 1
+                  Left = 0
+                  Top = 175
+                  Width = 131
+                  Height = 21
+                  TabStop = False
+                  DataField = 'EMI_N_PROP_CEP'
+                  DataSource = dtsDefault
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'Tahoma'
+                  Font.Style = []
+                  ParentFont = False
+                  TabOrder = 11
+                  EditMask = ''
+                end
+                object EMI_N_PROP_NUMERO: TJvDBMaskEdit
+                  Tag = 1
+                  Left = 137
+                  Top = 175
+                  Width = 128
+                  Height = 21
+                  TabStop = False
+                  DataField = 'EMI_N_PROP_NUMERO'
+                  DataSource = dtsDefault
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'Tahoma'
+                  Font.Style = []
+                  ParentFont = False
+                  TabOrder = 12
+                  EditMask = ''
+                end
+                object EMI_N_PROP_CODIGO_MUNICIPIO: TJvDBMaskEdit
+                  Tag = 1
+                  Left = 271
+                  Top = 175
+                  Width = 122
+                  Height = 21
+                  TabStop = False
+                  DataField = 'EMI_N_PROP_CODIGO_MUNICIPIO'
+                  DataSource = dtsDefault
+                  Font.Charset = DEFAULT_CHARSET
+                  Font.Color = clWindowText
+                  Font.Height = -11
+                  Font.Name = 'Tahoma'
+                  Font.Style = []
+                  ParentFont = False
                   TabOrder = 13
                   EditMask = ''
                 end

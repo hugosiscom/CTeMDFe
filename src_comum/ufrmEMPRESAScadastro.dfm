@@ -2,14 +2,14 @@ inherited frmEMPRESAScadastro: TfrmEMPRESAScadastro
   Caption = 'Empresas/Emitentes'
   ClientHeight = 565
   ClientWidth = 708
-  ExplicitWidth = 722
-  ExplicitHeight = 601
+  ExplicitWidth = 724
+  ExplicitHeight = 604
   TextHeight = 13
   inherited pnlComandos: TPanel
     Top = 510
     Width = 702
-    ExplicitTop = 507
-    ExplicitWidth = 700
+    ExplicitTop = 510
+    ExplicitWidth = 702
     inherited btnCancelar: TJvSpeedButton
       Left = 589
       ExplicitLeft = 589
@@ -22,8 +22,8 @@ inherited frmEMPRESAScadastro: TfrmEMPRESAScadastro
   inherited pageDefault: TJvPageControl
     Width = 702
     Height = 501
-    ExplicitWidth = 700
-    ExplicitHeight = 498
+    ExplicitWidth = 702
+    ExplicitHeight = 501
     inherited tabDefault: TTabSheet
       ExplicitWidth = 694
       ExplicitHeight = 473
@@ -57,8 +57,6 @@ inherited frmEMPRESAScadastro: TfrmEMPRESAScadastro
         Gradient.Active = False
         Gradient.Orientation = fgdHorizontal
         Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
-        ExplicitWidth = 686
-        ExplicitHeight = 464
         FullHeight = 0
         object JvLabel1: TJvLabel
           AlignWithMargins = True
@@ -845,8 +843,8 @@ inherited frmEMPRESAScadastro: TfrmEMPRESAScadastro
   inherited statDefault: TJvStatusBar
     Top = 546
     Width = 708
-    ExplicitTop = 543
-    ExplicitWidth = 706
+    ExplicitTop = 546
+    ExplicitWidth = 708
   end
   inherited dtsDefault: TDataSource
     DataSet = dtmDefault.tabEMPRESA

@@ -174,7 +174,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
           DataSource = dtsDefault
           TabOrder = 1
           EditMask = ''
-          OnChange = TEditMascaraCPFCNPJ
+          OnChange = CPF_CNPJChange
         end
         object RAZAOSOCIAL: TJvDBMaskEdit
           Left = 5

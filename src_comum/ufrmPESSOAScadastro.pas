@@ -102,6 +102,7 @@ type
     procedure ID_CIDADES_UFChange(Sender: TObject);
     procedure ID_JURIDICAChange(Sender: TObject);
     procedure rgPessoaClick(Sender: TObject);
+    procedure CPF_CNPJChange(Sender: TObject);
   private
     procedure SetFisica;
     procedure SetJuridica;
@@ -119,6 +120,28 @@ implementation
 {$R *.dfm}
 
 uses udtmDefault, ufuncoes, ufrmMensagemEspera;
+
+procedure TfrmPESSOAScadastro.CPF_CNPJChange(Sender: TObject);
+begin
+  inherited;
+
+  // Remova a máscara para contar o número de dígitos
+  var
+  TextoPuro := StringReplace(CPF_CNPJ.Text, '.', '', [rfReplaceAll]);
+  TextoPuro := StringReplace(TextoPuro, '/', '', [rfReplaceAll]);
+  TextoPuro := StringReplace(TextoPuro, '-', '', [rfReplaceAll]);
+
+  // Se for digitado até 11 dígitos, aplica a máscara de CPF
+  if Length(TextoPuro) <= 11 then
+  begin
+    CPF_CNPJ.EditMask := '999.999.999-99;1;_';
+  end
+  // Se for digitado mais que 11, aplica a máscara de CNPJ
+  else
+  begin
+    CPF_CNPJ.EditMask := '99.999.999/9999-99;1;_';
+  end;
+end;
 
 procedure TfrmPESSOAScadastro.FormCreate(Sender: TObject);
 begin

@@ -403,207 +403,303 @@ object dtmMDFE: TdtmMDFE
       end>
     object tabMDFEID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
+      Origin = 'ID_EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object tabMDFEID_MDFE: TIntegerField
       FieldName = 'ID_MDFE'
+      Origin = 'ID_MDFE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object tabMDFEID_SERIE: TIntegerField
       FieldName = 'ID_SERIE'
+      Origin = 'ID_SERIE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object tabMDFEDATAHORA_EMISSAO: TSQLTimeStampField
       FieldName = 'DATAHORA_EMISSAO'
+      Origin = 'DATAHORA_EMISSAO'
       Required = True
     end
     object tabMDFEDATAHORA_INICIO_VIAGEM: TSQLTimeStampField
       FieldName = 'DATAHORA_INICIO_VIAGEM'
+      Origin = 'DATAHORA_INICIO_VIAGEM'
     end
     object tabMDFEID_UF_INICIAL: TStringField
       FieldName = 'ID_UF_INICIAL'
+      Origin = 'ID_UF_INICIAL'
       FixedChar = True
       Size = 8
     end
     object tabMDFEID_TIPO_EMITENTE: TIntegerField
       FieldName = 'ID_TIPO_EMITENTE'
+      Origin = 'ID_TIPO_EMITENTE'
     end
     object tabMDFEID_TIPO_TRANSPORTADOR: TIntegerField
       FieldName = 'ID_TIPO_TRANSPORTADOR'
+      Origin = 'ID_TIPO_TRANSPORTADOR'
     end
     object tabMDFEID_MODALIDADE: TIntegerField
       FieldName = 'ID_MODALIDADE'
+      Origin = 'ID_MODALIDADE'
     end
     object tabMDFEID_FORMA_EMISSAO: TIntegerField
       FieldName = 'ID_FORMA_EMISSAO'
+      Origin = 'ID_FORMA_EMISSAO'
     end
     object tabMDFEID_UF_FINAL: TStringField
       FieldName = 'ID_UF_FINAL'
+      Origin = 'ID_UF_FINAL'
       FixedChar = True
       Size = 8
     end
     object tabMDFEVEICULO_RNTRC: TStringField
       FieldName = 'VEICULO_RNTRC'
+      Origin = 'VEICULO_RNTRC'
       Size = 10
     end
     object tabMDFEVEICULO_COD_AGENDA_PORT: TStringField
       FieldName = 'VEICULO_COD_AGENDA_PORT'
+      Origin = 'VEICULO_COD_AGENDA_PORT'
     end
     object tabMDFEVEICULO_CODIGO_INTERNO: TStringField
       FieldName = 'VEICULO_CODIGO_INTERNO'
+      Origin = 'VEICULO_CODIGO_INTERNO'
       Size = 10
     end
     object tabMDFEVEICULO_TIPO_CARROCERIA: TIntegerField
       FieldName = 'VEICULO_TIPO_CARROCERIA'
+      Origin = 'VEICULO_TIPO_CARROCERIA'
     end
     object tabMDFEVEICULO_PLACA: TStringField
       FieldName = 'VEICULO_PLACA'
+      Origin = 'VEICULO_PLACA'
       Size = 10
     end
     object tabMDFEVEICULO_TARA: TFMTBCDField
       FieldName = 'VEICULO_TARA'
+      Origin = 'VEICULO_TARA'
       Precision = 18
       Size = 2
     end
     object tabMDFEVEICULO_UF: TStringField
       FieldName = 'VEICULO_UF'
+      Origin = 'VEICULO_UF'
       FixedChar = True
       Size = 2
     end
     object tabMDFEVEICULO_RENAVAN: TStringField
       FieldName = 'VEICULO_RENAVAN'
+      Origin = 'VEICULO_RENAVAN'
       Size = 15
     end
     object tabMDFEVEICULO_TIPO_RODADO: TIntegerField
       FieldName = 'VEICULO_TIPO_RODADO'
+      Origin = 'VEICULO_TIPO_RODADO'
     end
     object tabMDFEVEICULO_CAPACIDADE_KG: TFMTBCDField
       FieldName = 'VEICULO_CAPACIDADE_KG'
+      Origin = 'VEICULO_CAPACIDADE_KG'
       Precision = 18
       Size = 2
     end
     object tabMDFEVEICULO_CAPACIDADE_M3: TFMTBCDField
       FieldName = 'VEICULO_CAPACIDADE_M3'
+      Origin = 'VEICULO_CAPACIDADE_M3'
       Precision = 18
       Size = 2
     end
     object tabMDFEEMI_N_PROP: TStringField
       FieldName = 'EMI_N_PROP'
+      Origin = 'EMI_N_PROP'
       FixedChar = True
       Size = 1
     end
     object tabMDFEEMI_N_PROP_TIPO: TIntegerField
       FieldName = 'EMI_N_PROP_TIPO'
+      Origin = 'EMI_N_PROP_TIPO'
     end
     object tabMDFEEMI_N_PROP_UF: TStringField
       FieldName = 'EMI_N_PROP_UF'
+      Origin = 'EMI_N_PROP_UF'
       FixedChar = True
       Size = 2
     end
     object tabMDFEEMI_N_PROP_RNTRC: TStringField
       FieldName = 'EMI_N_PROP_RNTRC'
+      Origin = 'EMI_N_PROP_RNTRC'
       Size = 10
     end
     object tabMDFEEMI_N_PROP_CPF_CNPJ: TStringField
       FieldName = 'EMI_N_PROP_CPF_CNPJ'
+      Origin = 'EMI_N_PROP_CPF_CNPJ'
     end
     object tabMDFEEMI_N_PROP_RZSOCIAL: TStringField
       FieldName = 'EMI_N_PROP_RZSOCIAL'
+      Origin = 'EMI_N_PROP_RZSOCIAL'
       Size = 100
     end
     object tabMDFEEMI_N_PROP_IE: TStringField
       FieldName = 'EMI_N_PROP_IE'
+      Origin = 'EMI_N_PROP_IE'
     end
     object tabMDFETOTF_VLR_TOT_MERCADORIA: TFMTBCDField
       FieldName = 'TOTF_VLR_TOT_MERCADORIA'
+      Origin = 'TOTF_VLR_TOT_MERCADORIA'
       Precision = 18
       Size = 2
     end
     object tabMDFETOTF_COD_UNIDADE: TIntegerField
       FieldName = 'TOTF_COD_UNIDADE'
+      Origin = 'TOTF_COD_UNIDADE'
     end
     object tabMDFETOTF_PES_BRUTO: TFMTBCDField
       FieldName = 'TOTF_PES_BRUTO'
+      Origin = 'TOTF_PES_BRUTO'
       Precision = 18
       Size = 2
     end
     object tabMDFEINF_ADIC_FISCO: TMemoField
       FieldName = 'INF_ADIC_FISCO'
+      Origin = 'INF_ADIC_FISCO'
       BlobType = ftMemo
     end
     object tabMDFEINF_ADIC_CONTRIBUINTE: TMemoField
       FieldName = 'INF_ADIC_CONTRIBUINTE'
+      Origin = 'INF_ADIC_CONTRIBUINTE'
       BlobType = ftMemo
     end
     object tabMDFEID_SITUACAO: TStringField
       FieldName = 'ID_SITUACAO'
+      Origin = 'ID_SITUACAO'
       FixedChar = True
       Size = 1
     end
     object tabMDFEXML_CHAVE: TStringField
       FieldName = 'XML_CHAVE'
+      Origin = 'XML_CHAVE'
       FixedChar = True
       Size = 44
     end
     object tabMDFEXML_PROTOCOLO: TStringField
       FieldName = 'XML_PROTOCOLO'
+      Origin = 'XML_PROTOCOLO'
       Size = 50
     end
     object tabMDFEXML_PROCOCOLO_DATAHORA: TSQLTimeStampField
       FieldName = 'XML_PROCOCOLO_DATAHORA'
+      Origin = 'XML_PROCOCOLO_DATAHORA'
     end
     object tabMDFEXML_STATUS_CODIGO: TIntegerField
       FieldName = 'XML_STATUS_CODIGO'
+      Origin = 'XML_STATUS_CODIGO'
     end
     object tabMDFEXML_XMOTIVO: TStringField
       FieldName = 'XML_XMOTIVO'
+      Origin = 'XML_XMOTIVO'
       Size = 255
     end
     object tabMDFEXML_STRING: TMemoField
       FieldName = 'XML_STRING'
+      Origin = 'XML_STRING'
       BlobType = ftMemo
     end
     object tabMDFEXML_STRING_PROTOCOLO: TMemoField
       FieldName = 'XML_STRING_PROTOCOLO'
+      Origin = 'XML_STRING_PROTOCOLO'
       BlobType = ftMemo
     end
     object tabMDFEXML_CANC_DATAHORA: TSQLTimeStampField
       FieldName = 'XML_CANC_DATAHORA'
+      Origin = 'XML_CANC_DATAHORA'
     end
     object tabMDFEXML_CANC_PROTOCOLO: TStringField
       FieldName = 'XML_CANC_PROTOCOLO'
+      Origin = 'XML_CANC_PROTOCOLO'
       Size = 50
     end
     object tabMDFEXML_CANC_STRING: TMemoField
       FieldName = 'XML_CANC_STRING'
+      Origin = 'XML_CANC_STRING'
       BlobType = ftMemo
     end
     object tabMDFEAQUA_CNPJ: TStringField
       FieldName = 'AQUA_CNPJ'
+      Origin = 'AQUA_CNPJ'
     end
     object tabMDFEAQUA_EMBARCACAO_TIPO: TStringField
       FieldName = 'AQUA_EMBARCACAO_TIPO'
+      Origin = 'AQUA_EMBARCACAO_TIPO'
       Size = 2
     end
     object tabMDFEAQUA_EMBARCACAO_CODIGO: TStringField
       FieldName = 'AQUA_EMBARCACAO_CODIGO'
+      Origin = 'AQUA_EMBARCACAO_CODIGO'
       Size = 10
     end
     object tabMDFEAQUA_EMBARCACAO_VIAGEM_NUMERO: TStringField
       FieldName = 'AQUA_EMBARCACAO_VIAGEM_NUMERO'
+      Origin = 'AQUA_EMBARCACAO_VIAGEM_NUMERO'
       Size = 10
     end
     object tabMDFEAQUA_EMBARCACAO_NOME: TStringField
       FieldName = 'AQUA_EMBARCACAO_NOME'
+      Origin = 'AQUA_EMBARCACAO_NOME'
       Size = 60
     end
     object tabMDFEAQUA_EMBARCACAO_CODPORTO_EMB: TStringField
       FieldName = 'AQUA_EMBARCACAO_CODPORTO_EMB'
+      Origin = 'AQUA_EMBARCACAO_CODPORTO_EMB'
       Size = 5
     end
     object tabMDFEAQUA_EMBARCACAO_CODPORTO_DEST: TStringField
       FieldName = 'AQUA_EMBARCACAO_CODPORTO_DEST'
+      Origin = 'AQUA_EMBARCACAO_CODPORTO_DEST'
       Size = 5
+    end
+    object tabMDFEVEICULO_CHASSI: TStringField
+      FieldName = 'VEICULO_CHASSI'
+      Origin = 'VEICULO_CHASSI'
+      Size = 17
+    end
+    object tabMDFEMDFE_1FLD: TLargeintField
+      FieldName = 'MDFE_1FLD'
+      Origin = 'MDFE_1FLD'
+    end
+    object tabMDFEEMI_N_PROP_BAIRRO: TStringField
+      FieldName = 'EMI_N_PROP_BAIRRO'
+      Origin = 'EMI_N_PROP_BAIRRO'
+      Size = 60
+    end
+    object tabMDFEEMI_N_PROP_RUA: TStringField
+      FieldName = 'EMI_N_PROP_RUA'
+      Origin = 'EMI_N_PROP_RUA'
+      Size = 60
+    end
+    object tabMDFEEMI_N_PROP_NUMERO: TStringField
+      FieldName = 'EMI_N_PROP_NUMERO'
+      Origin = 'EMI_N_PROP_NUMERO'
+      Size = 60
+    end
+    object tabMDFEEMI_N_PROP_COMPLEMENTO: TStringField
+      FieldName = 'EMI_N_PROP_COMPLEMENTO'
+      Origin = 'EMI_N_PROP_COMPLEMENTO'
+      Size = 30
+    end
+    object tabMDFEEMI_N_PROP_CEP: TIntegerField
+      FieldName = 'EMI_N_PROP_CEP'
+      Origin = 'EMI_N_PROP_CEP'
+    end
+    object tabMDFEEMI_N_PROP_CODIGO_MUNICIPIO: TIntegerField
+      FieldName = 'EMI_N_PROP_CODIGO_MUNICIPIO'
+      Origin = 'EMI_N_PROP_CODIGO_MUNICIPIO'
+    end
+    object tabMDFEEMI_N_PROP_CELULAR: TIntegerField
+      FieldName = 'EMI_N_PROP_CELULAR'
+      Origin = 'EMI_N_PROP_CELULAR'
     end
   end
   object updEvento: TFDQuery
@@ -1583,6 +1679,7 @@ object dtmMDFE: TdtmMDFE
     end
   end
   object tabMDFE_CONDUTORES: TFDQuery
+    Active = True
     BeforePost = tabMDFE_CONDUTORESBeforePost
     IndexFieldNames = 'ID_MDFE;ID_SERIE;ID_EMPRESA'
     MasterSource = dtstabMDFE

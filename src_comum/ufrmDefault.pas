@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, ACBrBase, ACBrEnterTab,
-  Vcl.ImgList, JvMaskEdit, Vcl.Mask, JvExMask, JvToolEdit,
+  Vcl.ImgList, JvMaskEdit, Vcl.Mask, JvExMask, JvToolEdit, ACBrUtil.Strings,
   JvDBControls;
 
 type
@@ -77,7 +77,7 @@ implementation
 
 {$R *.dfm}
 
-uses ufuncoes, ACBrUtil;
+uses ufuncoes;
 
 function TfrmDefault.GetCondicaoSQL: String;
 var
@@ -94,7 +94,7 @@ procedure TfrmDefault.TEditMascaraCNPJ(Sender: TObject);
 var
   ALength: Integer;
 begin
-  TJvDBMaskEdit(Sender).EditText := uFuncoes.FormatarCNPJ(ACBrUTil.OnlyNumber(TJvDBMaskEdit(Sender).Text));
+  TJvDBMaskEdit(Sender).EditText := uFuncoes.FormatarCNPJ(OnlyNumber(TJvDBMaskEdit(Sender).Text));
   ALength := Length(Trim(TJvDBMaskEdit(Sender).EditText));
 
   TJvDBMaskEdit(Sender).SelStart := ALength;
@@ -114,7 +114,7 @@ procedure TfrmDefault.TEditMascaraCPF(Sender: TObject);
 var
   ALength: Integer;
 begin
-  TJvDBMaskEdit(Sender).EditText := uFuncoes.FormatarCPF(ACBrUTil.OnlyNumber(TJvDBMaskEdit(Sender).Text));
+  TJvDBMaskEdit(Sender).EditText := uFuncoes.FormatarCPF(OnlyNumber(TJvDBMaskEdit(Sender).Text));
   ALength := Length(Trim(TJvDBMaskEdit(Sender).EditText));
 
   TJvDBMaskEdit(Sender).SelStart := ALength;
@@ -134,7 +134,7 @@ procedure TfrmDefault.TEditMascaraCEP(Sender: TObject);
 var
   ALength: Integer;
 begin
-  TJvDBMaskEdit(Sender).EditText := uFuncoes.FormatarCEP(ACBrUTil.OnlyNumber(TJvDBMaskEdit(Sender).Text));
+  TJvDBMaskEdit(Sender).EditText := uFuncoes.FormatarCEP(OnlyNumber(TJvDBMaskEdit(Sender).Text));
   ALength := Length(Trim(TJvDBMaskEdit(Sender).EditText));
 
   TJvDBMaskEdit(Sender).SelStart := ALength;
@@ -155,7 +155,7 @@ begin
 
   if ALength <= 11 then
   begin
-    TJvDBMaskEdit(Sender).Text := uFuncoes.FormatarCPF(ACBrUTil.OnlyNumber(TJvDBMaskEdit(Sender).Text));
+    TJvDBMaskEdit(Sender).Text := uFuncoes.FormatarCPF(OnlyNumber(TJvDBMaskEdit(Sender).Text));
     ALength := Length(Trim(OnlyNumber(TJvDBMaskEdit(Sender).Text)));
 
     case ALength of
@@ -180,7 +180,7 @@ begin
   end
   else
   begin
-    TJvDBMaskEdit(Sender).Text := FormatarCNPJ(ACBrUTil.OnlyNumber(TJvDBMaskEdit(Sender).Text));
+    TJvDBMaskEdit(Sender).Text := FormatarCNPJ(OnlyNumber(TJvDBMaskEdit(Sender).Text));
     ALength := Length(Trim(OnlyNumber(TJvDBMaskEdit(Sender).Text)));
 
     case ALength of
@@ -212,7 +212,7 @@ procedure TfrmDefault.TEditMascaraCEST(Sender: TObject);
 var
   ALength: Integer;
 begin
-  TJvDBMaskEdit(Sender).Text := uFuncoes.FormatarCEST(ACBrUTil.OnlyNumber(TJvDBMaskEdit(Sender).Text));
+  TJvDBMaskEdit(Sender).Text := uFuncoes.FormatarCEST(OnlyNumber(TJvDBMaskEdit(Sender).Text));
   ALength := Length(Trim(OnlyNumber(TJvDBMaskEdit(Sender).Text)));
 
   //00.000.00
@@ -263,7 +263,7 @@ procedure TfrmDefault.TEditMascaraIBPT(Sender: TObject);
 var
   ALength: Integer;
 begin
-  TJvDBMaskEdit(Sender).Text := uFuncoes.FormatarNCM(ACBrUTil.OnlyNumber(TJvDBMaskEdit(Sender).Text));
+  TJvDBMaskEdit(Sender).Text := uFuncoes.FormatarNCM(OnlyNumber(TJvDBMaskEdit(Sender).Text));
   ALength := Length(Trim(OnlyNumber(TJvDBMaskEdit(Sender).Text)));
 
   case ALength of
@@ -286,7 +286,7 @@ end;
 
 procedure TfrmDefault.TEditMascaraTELEFONE(Sender: TObject);
 begin
-  TJvDBMaskEdit(Sender).EditText := uFuncoes.FormatarFone(ACBrUTil.OnlyNumber(TJvDBMaskEdit(Sender).Text));
+  TJvDBMaskEdit(Sender).EditText := uFuncoes.FormatarFone(OnlyNumber(TJvDBMaskEdit(Sender).Text));
   if Length(Trim(TJvDBMaskEdit(Sender).EditText)) < 7 then
     TJvDBMaskEdit(Sender).SelStart := Length(Trim(TJvDBMaskEdit(Sender).EditText)) - 1
   else

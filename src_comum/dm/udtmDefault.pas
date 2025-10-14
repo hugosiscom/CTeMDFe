@@ -280,6 +280,18 @@ type
     SqlConsultaNFeNOME: TStringField;
     DtsConsultaNFe: TDataSource;
     tabCERTIFICADO_CONFIGVERSAO_PROCESSO_EMISSAO: TStringField;
+    tabMOTORISTASRENACH: TStringField;
+    tabMOTORISTASNUMERO_REGISTRO: TStringField;
+    tabMOTORISTASCODIGO_SEGURANCA: TStringField;
+    tabMOTORISTASCATEGORIA: TStringField;
+    tabMOTORISTASDATA_NASCIMENTO: TDateField;
+    tabMOTORISTASBAIRRO: TStringField;
+    tabMOTORISTASRUA: TStringField;
+    tabMOTORISTASNUMERO: TStringField;
+    tabMOTORISTASCOMPLEMENTO: TStringField;
+    tabMOTORISTASCEP: TIntegerField;
+    tabMOTORISTASCODIGO_MUNICIPIO: TIntegerField;
+    tabMOTORISTASCELULAR: TIntegerField;
     procedure cnx_BDBeforeConnect(Sender: TObject);
     procedure tabEMPRESAAfterOpen(DataSet: TDataSet);
     procedure tabEMPRESABeforePost(DataSet: TDataSet);

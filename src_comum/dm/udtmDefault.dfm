@@ -12,7 +12,6 @@ object dtmDefault: TdtmDefault
       'CharacterSet=WIN1252'
       'DriverID=FB')
     TxOptions.AutoStop = False
-    Connected = True
     LoginPrompt = False
     BeforeConnect = cnx_BDBeforeConnect
     Left = 24
@@ -1281,6 +1280,7 @@ object dtmDefault: TdtmDefault
       end
       item
         Name = 'ID_MOTORISTA'
+        DataType = ftInteger
         ParamType = ptInput
       end>
     object tabMOTORISTASID_EMPRESA: TIntegerField
@@ -1305,6 +1305,62 @@ object dtmDefault: TdtmDefault
       FieldName = 'CPF'
       Origin = 'CPF'
       Size = 11
+    end
+    object tabMOTORISTASRENACH: TStringField
+      FieldName = 'RENACH'
+      Origin = 'RENACH'
+      Size = 11
+    end
+    object tabMOTORISTASNUMERO_REGISTRO: TStringField
+      FieldName = 'NUMERO_REGISTRO'
+      Origin = 'NUMERO_REGISTRO'
+      Size = 9
+    end
+    object tabMOTORISTASCODIGO_SEGURANCA: TStringField
+      FieldName = 'CODIGO_SEGURANCA'
+      Origin = 'CODIGO_SEGURANCA'
+      Size = 11
+    end
+    object tabMOTORISTASCATEGORIA: TStringField
+      FieldName = 'CATEGORIA'
+      Origin = 'CATEGORIA'
+      Size = 5
+    end
+    object tabMOTORISTASDATA_NASCIMENTO: TDateField
+      FieldName = 'DATA_NASCIMENTO'
+      Origin = 'DATA_NASCIMENTO'
+    end
+    object tabMOTORISTASBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+      Origin = 'BAIRRO'
+      Size = 60
+    end
+    object tabMOTORISTASRUA: TStringField
+      FieldName = 'RUA'
+      Origin = 'RUA'
+      Size = 60
+    end
+    object tabMOTORISTASNUMERO: TStringField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Size = 30
+    end
+    object tabMOTORISTASCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Origin = 'COMPLEMENTO'
+      Size = 60
+    end
+    object tabMOTORISTASCEP: TIntegerField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+    end
+    object tabMOTORISTASCODIGO_MUNICIPIO: TIntegerField
+      FieldName = 'CODIGO_MUNICIPIO'
+      Origin = 'CODIGO_MUNICIPIO'
+    end
+    object tabMOTORISTASCELULAR: TIntegerField
+      FieldName = 'CELULAR'
+      Origin = 'CELULAR'
     end
   end
   object tabVEICULOS: TFDQuery

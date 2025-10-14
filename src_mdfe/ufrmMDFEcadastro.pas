@@ -306,12 +306,6 @@ type
     EMI_N_PROP_UF: TJvDBLookupCombo;
     EMI_N_PROP_IE: TJvDBMaskEdit;
     EMI_N_PROP_RZSOCIAL: TJvDBMaskEdit;
-    EMI_N_PROP_BAIRRO: TEdit;
-    EMI_N_PROP_RUA: TEdit;
-    EMI_N_PROP_COMPLEMENTO: TEdit;
-    EMI_N_PROP_CEP: TEdit;
-    EMI_N_PROP_NUMERO: TEdit;
-    EMI_N_PROP_COD_MUNICIPIO: TEdit;
     EMI_N_PROP_CELULAR: TJvDBMaskEdit;
     pagREBOQUE: TTabSheet;
     JvgGroupBox4: TJvgGroupBox;
@@ -418,6 +412,12 @@ type
     edtUsuarioWebService: TEdit;
     edtHashIntegrador: TEdit;
     VEICULO_CHASSI: TJvDBMaskEdit;
+    EMI_N_PROP_BAIRRO: TJvDBMaskEdit;
+    EMI_N_PROP_RUA: TJvDBMaskEdit;
+    EMI_N_PROP_COMPLEMENTO: TJvDBMaskEdit;
+    EMI_N_PROP_CEP: TJvDBMaskEdit;
+    EMI_N_PROP_NUMERO: TJvDBMaskEdit;
+    EMI_N_PROP_CODIGO_MUNICIPIO: TJvDBMaskEdit;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -616,15 +616,15 @@ begin
         if EMI_N_PROP.Checked then
         begin
           { if dtmMDFE.tabMDFEEMI_N_PROP_CPF_CNPJ.AsString.Trim.Length = 0 then
-            raise Exception.Create('Favor informar o CPF/CNPJ propriet�rio veiuculo! ');
+            raise Exception.Create('Favor informar o CPF/CNPJ proprietário veiuculo! ');
             if dtmMDFE.tabMDFEEMI_N_PROP_IE.AsString.Trim.Length = 0 then
-            raise Exception.Create('Favor informar o IE propriet�rio veiuculo! '); }
+            raise Exception.Create('Favor informar o IE proprietário veiuculo! '); }
           if dtmMDFE.tabMDFEEMI_N_PROP_RZSOCIAL.AsString.Trim.Length = 0 then
-            raise Exception.Create('Favor informar o Raz�o Social propriet�rio veiuculo! ');
+            raise Exception.Create('Favor informar o Razão Social proprietário veiuculo! ');
           if dtmMDFE.tabMDFEEMI_N_PROP_RNTRC.AsString.Trim.Length = 0 then
-            raise Exception.Create('Favor informar a RNTRC propriet�rio veiuculo! ');
+            raise Exception.Create('Favor informar a RNTRC proprietário veiuculo! ');
           if dtmMDFE.tabMDFEEMI_N_PROP_UF.AsString.Trim.Length = 0 then
-            raise Exception.Create('Favor informar a UF propriet�rio veiuculo! ');
+            raise Exception.Create('Favor informar a UF proprietário veiuculo! ');
 
         end;
         if dtmMDFE.tabMDFEID_UF_FINAL.AsString.Trim.Length = 0 then
@@ -634,19 +634,19 @@ begin
           0:
             begin
               if dtmMDFE.tabMDFEVEICULO_TIPO_CARROCERIA.AsString.Trim.Length = 0 then
-                raise Exception.Create('Favor informar o tipo de carroceria do ve�culo.');
+                raise Exception.Create('Favor informar o tipo de carroceria do veículo.');
 
               if dtmMDFE.tabMDFEVEICULO_PLACA.AsString.Trim.Length = 0 then
-                raise Exception.Create('Favor informar o tipo a Placa do ve�culo.');
+                raise Exception.Create('Favor informar o tipo a Placa do veículo.');
 
               if dtmMDFE.tabMDFEVEICULO_TARA.AsString.Trim.Length = 0 then
-                raise Exception.Create('Favor informar o tipo a Tara do ve�culo.');
+                raise Exception.Create('Favor informar o tipo a Tara do veículo.');
 
               if dtmMDFE.tabMDFEVEICULO_UF.AsString.Trim.Length = 0 then
-                raise Exception.Create('Favor informar a UF do ve�culo.');
+                raise Exception.Create('Favor informar a UF do veículo.');
 
               if dtmMDFE.tabMDFEVEICULO_TIPO_RODADO.AsString.Trim.Length = 0 then
-                raise Exception.Create('Favor informar o tipo rodado do ve�culo.');
+                raise Exception.Create('Favor informar o tipo rodado do veículo.');
 
               if dtmMDFE.tabMDFE_CONDUTORES.RecordCount = 0 then
                 raise Exception.Create('Favor informar ao menos 1 condutor.');
@@ -1538,7 +1538,7 @@ begin
   if MUN_DESC_NFE.Value.Trim.Length = 0 then
   begin
     MUN_DESC_NFE.SetFocus;
-    raise Exception.Create('Selecione o munic�pio para descarregamento.');
+    raise Exception.Create('Selecione o município para descarregamento.');
   end;
 
   if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
@@ -1671,7 +1671,7 @@ begin
   if MUN_DESC_CTE.Value.Trim.Length = 0 then
   begin
     MUN_DESC_CTE.SetFocus;
-    raise Exception.Create('Selecione o munic�pio para descarregamento.');
+    raise Exception.Create('Selecione o município para descarregamento.');
   end;
 
   if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
@@ -1836,10 +1836,13 @@ begin
       Endereco.Numero := EMI_N_PROP_NUMERO.Text;
       Endereco.Complemento := EMI_N_PROP_COMPLEMENTO.Text;
       Endereco.CEP := EMI_N_PROP_CEP.Text;
-      Endereco.CodigoMunicipio := StrToIntDef(EMI_N_PROP_COD_MUNICIPIO.Text, 0);
+      Endereco.CodigoMunicipio := StrToIntDef(EMI_N_PROP_CODIGO_MUNICIPIO.Text, 0);
 
-      Telefones.Celular.DDD := 11;
-      Telefones.Celular.Numero := StrToIntDef(EMI_N_PROP_CELULAR.Text, 0);
+      if EMI_N_PROP_CELULAR.ToString <> '' then
+      begin
+        Telefones.Celular.DDD := (EMI_N_PROP_CELULAR.ToString[1] + EMI_N_PROP_CELULAR.ToString[2]).ToInteger;
+        Telefones.Celular.Numero := StrToIntDef(EMI_N_PROP_CELULAR.Text, 0);
+      end;
 
       // Telefones.Fixo.DDD := 49;
       // Telefones.Fixo.Numero := 33661011;
@@ -1882,6 +1885,7 @@ begin
       IdOperacaoCliente := '1';
       DataInicioViagem := Now;
       DataFimViagem := Now;
+      // verificar se essa propriedade se refere à o NCM do produto/item que está sendo transportado
       CodigoNCMNaturezaCarga := 5501;
       PesoCarga := 10;
       // utilizado somente para as viagens do tipo Padrão
