@@ -11,7 +11,8 @@ uses
   FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, ACBrBase, ACBrSocket,
   ACBrCEP, ACBrDFe, ACBrMDFe, ACBrMDFeDAMDFeClass, ACBrMDFeDAMDFeRLClass,
   Vcl.Dialogs, ACBrMail, Winapi.Windows, Data.SqlExpr, Datasnap.DBClient,
-  Datasnap.Win.TConnect, Data.FMTBcd, Datasnap.Provider, FireDAC.Phys.FBDef,IniFiles;
+  Datasnap.Win.TConnect, Data.FMTBcd, Datasnap.Provider, FireDAC.Phys.FBDef, IniFiles,
+  ACBrUtil.Strings;
 
 type
   TdtmDefault = class(TDataModule)
@@ -291,7 +292,7 @@ type
     tabMOTORISTASCOMPLEMENTO: TStringField;
     tabMOTORISTASCEP: TIntegerField;
     tabMOTORISTASCODIGO_MUNICIPIO: TIntegerField;
-    tabMOTORISTASCELULAR: TIntegerField;
+    tabMOTORISTASCELULAR: TLargeintField;
     procedure cnx_BDBeforeConnect(Sender: TObject);
     procedure tabEMPRESAAfterOpen(DataSet: TDataSet);
     procedure tabEMPRESABeforePost(DataSet: TDataSet);
@@ -299,9 +300,8 @@ type
     procedure tabCERTIFICADO_CONFIGBeforeOpen(DataSet: TDataSet);
     procedure tabCERTIFICADO_CONFIGBeforePost(DataSet: TDataSet);
     procedure tabCERTIFICADO_CONFIGNewRecord(DataSet: TDataSet);
-    procedure tabCERTIFICADO_CONFIGUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
+    procedure tabCERTIFICADO_CONFIGUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
     procedure tabPESSOASBeforeOpen(DataSet: TDataSet);
     procedure tabPESSOASBeforePost(DataSet: TDataSet);
     procedure tabPESSOASNewRecord(DataSet: TDataSet);
@@ -329,11 +329,11 @@ type
 
   public
     procedure TratarErro(E: EFDException);
-    //funções para tratar generator - Hugo Fabrício - 08/07/2022
-    function ChecaExisteGen(Nome:String):Boolean;
-    function CriarGen(Nome:String):Boolean;
-    function SetaGen(Nome:String; Numero:Integer):Boolean;
-    function RetornaGen(Nome:String):Integer;
+    // funções para tratar generator - Hugo Fabrício - 08/07/2022
+    function ChecaExisteGen(Nome: String): Boolean;
+    function CriarGen(Nome: String): Boolean;
+    function SetaGen(Nome: String; Numero: Integer): Boolean;
+    function RetornaGen(Nome: String): Integer;
     function IncGen(Generator: string): Integer;
   end;
 
@@ -344,7 +344,7 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses uclassCONFIGini, ufuncoes, uclassEMPRESA, ACBrUtil, ACBrValidador,
+uses uclassCONFIGini, ufuncoes, uclassEMPRESA, ACBrValidador,
   uclassPESSOA, uclassPRODUTO, uclassTRANSPORTADORA, uclassMOTORISTA,
   uclassVEICULO, uclassUSUARIO, encrypt_decrypt;
 
@@ -355,15 +355,13 @@ function TdtmDefault.ChecaExisteGen(Nome: String): Boolean;
 begin
   QryGen.Close;
   QryGen.Sql.Clear;
-  QryGen.sql.Text:=
-  ' select rdb$generator_name from rdb$generators '+
-  ' where rdb$generator_name = '+QuotedStr(Nome);
+  QryGen.Sql.Text := ' select rdb$generator_name from rdb$generators ' + ' where rdb$generator_name = ' + QuotedStr(Nome);
   QryGen.Open;
 
   if QryGen.IsEmpty then
     Result := False
-    else
-    Result :=True;
+  else
+    Result := True;
 end;
 
 procedure TdtmDefault.cnx_BDBeforeConnect(Sender: TObject);
@@ -378,24 +376,19 @@ end;
 
 procedure TdtmDefault.configurarCNX;
 Var
-  Server,
-  Server_Name,
-  Server_Path,
-  Server_Porta,
-  Server_Protocolo,
-  Password: String;
-  UserName : String;
+  Server, Server_Name, Server_Path, Server_Porta, Server_Protocolo, Password: String;
+  UserName: String;
 begin
-  //parametros da conexao com o banco
+  // parametros da conexao com o banco
   Server_Protocolo := 'TCP/IP';
   Server_Porta := oConfigINI.Conexao.Server_Port;
 
-  Server      := oConfigINI.Conexao.Server;
+  Server := oConfigINI.Conexao.Server;
   Server_Name := oConfigINI.Conexao.Server;
   Server_Path := oConfigINI.Conexao.LocalBanco;
-  Password    := oConfigINI.Conexao.Password;
-  UserName    := oConfigINI.Conexao.User_Name;
-  //seta banco local
+  Password := oConfigINI.Conexao.Password;
+  UserName := oConfigINI.Conexao.User_Name;
+  // seta banco local
   if Server = 'LOCAL' then
   begin
     Server := EmptyStr;
@@ -406,10 +399,10 @@ begin
 
   cnx_BD.Params.Clear;
   cnx_BD.Params.Add('DriverID=FB');
-  //cnx_BD.Params.Add('User_Name=SYSDBA');
-  cnx_BD.Params.Add('User_Name='+UserName );
- // cnx_BD.Params.Add('Password=masterkey');
- cnx_BD.Params.Add('Password='+Password);
+  // cnx_BD.Params.Add('User_Name=SYSDBA');
+  cnx_BD.Params.Add('User_Name=' + UserName);
+  // cnx_BD.Params.Add('Password=masterkey');
+  cnx_BD.Params.Add('Password=' + Password);
 
   cnx_BD.Params.Add('Port=' + Server_Porta);
   cnx_BD.Params.Add('Server=' + Server);
@@ -419,44 +412,45 @@ end;
 
 procedure TdtmDefault.configurarCNXSiscom;
 Var
-  SiscomConfig : TIniFile;
-  sFileIni  : string;
+  SiscomConfig: TIniFile;
+  sFileIni: string;
 begin
-  {Verifica dados da conexão FireBird}
-  sFileIni :=ExtractFilePath(application.ExeName)+ 'connections.ini';
+  { Verifica dados da conexão FireBird }
+  sFileIni := ExtractfilePath(Application.ExeName) + 'connections.ini';
   if (NoT FileExists(sFileIni)) then
-     begin
-       Application.MessageBox('Atenção... Falha ao conectar no banco de dados ','Siscomsoft', MB_ok+MB_ICONERROR);
-       Application.Terminate;
-       Exit;
-     end;
-  SiscomConfig        := TIniFile.Create(sFileIni);
+  begin
+    Application.MessageBox('Atenção... Falha ao conectar no banco de dados ', 'Siscomsoft', MB_ok + MB_ICONERROR);
+    Application.Terminate;
+    Exit;
+  end;
+  SiscomConfig := TIniFile.Create(sFileIni);
   try
-    {Ativa conexão FireBird}
-     try
-       With cnx_BDSiscom Do
-       begin
-           Params.Clear;
-           Params.Values['DriverID']  := 'FB';
-           Params.Values['Server']    := SiscomConfig.ReadString('Siscomsoft', 'SERVER', 'localhost');
-           Params.Values['Database']  := SiscomConfig.ReadString('Siscomsoft', 'PATH', ' ');
-           Params.Values['User_Name']  := SiscomConfig.ReadString('Siscomsoft','User_Name',' ');
-           Params.Values['Password']  := Decode(SiscomConfig.ReadString('Siscomsoft','Password',' '));
-           Params.Values['Protocol']  := 'TCP';
-           Params.Values['CharacterSet']  := SiscomConfig.ReadString('Siscomsoft','ServerCharSet',' ');
-           Params.Values['SQLDialect']  := SiscomConfig.ReadString('Siscomsoft','SQLDialect',' ');
-           //Connected := True;
-       end;
-     except on e:exception Do
-       begin
-         Application.MessageBox('Atenção... Falha ao conectar no banco de dados  COMERCIAL.FDB ','Siscomsoft', MB_ok+MB_ICONERROR);
-         cnx_BDSiscom.Connected := False;
-       end;
-     end;
- finally
-   SiscomConfig.Free;
- end;
-
+    { Ativa conexão FireBird }
+    try
+      With cnx_BDSiscom Do
+      begin
+        Params.Clear;
+        Params.Values['DriverID'] := 'FB';
+        Params.Values['Server'] := SiscomConfig.ReadString('Siscomsoft', 'SERVER', 'localhost');
+        Params.Values['Database'] := SiscomConfig.ReadString('Siscomsoft', 'PATH', ' ');
+        Params.Values['User_Name'] := SiscomConfig.ReadString('Siscomsoft', 'User_Name', ' ');
+        Params.Values['Password'] := Decode(SiscomConfig.ReadString('Siscomsoft', 'Password', ' '));
+        Params.Values['Protocol'] := 'TCP';
+        Params.Values['CharacterSet'] := SiscomConfig.ReadString('Siscomsoft', 'ServerCharSet', ' ');
+        Params.Values['SQLDialect'] := SiscomConfig.ReadString('Siscomsoft', 'SQLDialect', ' ');
+        // Connected := True;
+      end;
+    except
+      on E: exception Do
+      begin
+        Application.MessageBox('Atenção... Falha ao conectar no banco de dados  COMERCIAL.FDB ', 'Siscomsoft',
+          MB_ok + MB_ICONERROR);
+        cnx_BDSiscom.Connected := False;
+      end;
+    end;
+  finally
+    SiscomConfig.Free;
+  end;
 
 end;
 
@@ -464,14 +458,15 @@ function TdtmDefault.CriarGen(Nome: String): Boolean;
 begin
   QryGen.Close;
   QryGen.Sql.Clear;
-  QryGen.sql.Add('CREATE SEQUENCE '+Nome);
+  QryGen.Sql.Add('CREATE SEQUENCE ' + Nome);
   try
     QryGen.ExecSQL;
-    Result :=True;
-  except on E: Exception do
+    Result := True;
+  except
+    on E: exception do
     begin
       Result := False;
-      ShowMessage(e.Message);
+      ShowMessage(E.Message);
     end;
   end;
 
@@ -487,7 +482,7 @@ begin
   if DataSet.State in [dsInsert] then
     DataSet.FieldByName('ID_CERTIFICADOCONFIG').AsInteger := GetNEW_ID_CERTIFICADO_CONFIG;
 
-  //seta obrigatório caso email_enviar = 'S'
+  // seta obrigatório caso email_enviar = 'S'
   TFDQuery(DataSet).FieldByName('EMAIL_SERVIDOR').Required := TFDQuery(DataSet).FieldByName('EMAIL_ENVIAR').AsString = 'S';
   TFDQuery(DataSet).FieldByName('EMAIL_PORTA').Required := TFDQuery(DataSet).FieldByName('EMAIL_ENVIAR').AsString = 'S';
   TFDQuery(DataSet).FieldByName('EMAIL_USUARIO').Required := TFDQuery(DataSet).FieldByName('EMAIL_ENVIAR').AsString = 'S';
@@ -515,9 +510,8 @@ begin
   TFDQuery(DataSet).FieldByName('MANTER_ARQUIVOS_TEMPORARIOS').AsString := 'S';
 end;
 
-procedure TdtmDefault.tabCERTIFICADO_CONFIGUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmDefault.tabCERTIFICADO_CONFIGUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   TratarErro(AException);
 end;
@@ -538,13 +532,13 @@ begin
     tabEMPRESACADASTRO_DATA.AsDateTime := Now;
   end;
 
-  ACNPJ := ACBrUtil.OnlyNumber(tabEMPRESACNPJ.AsString);
+  ACNPJ := OnlyNumber(tabEMPRESACNPJ.AsString);
 
   if ACNPJ.Trim.Length > 0 then
     iErr := ACBrValidador.ValidarCNPJ(ACNPJ.Trim);
 
   if iErr.Trim.Length > 0 then
-    raise Exception.Create(iErr);
+    raise exception.Create(iErr);
 
   if tabEMPRESAID_REGIME.AsInteger = 3 then
     tabEMPRESASIMPLES_ALIQ_CREDITO.AsCurrency := 0.00;
@@ -561,7 +555,7 @@ end;
 
 procedure TdtmDefault.tabMOTORISTASBeforeOpen(DataSet: TDataSet);
 begin
-   TFDQuery(DataSet).ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
+  TFDQuery(DataSet).ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
 end;
 
 procedure TdtmDefault.tabMOTORISTASBeforePost(DataSet: TDataSet);
@@ -569,30 +563,28 @@ var
   vResult: String;
 begin
   if DataSet.State in [dsInsert] then
-     tabMOTORISTASID_MOTORISTA.AsInteger := oMotorista.GetNewID;
-
+    tabMOTORISTASID_MOTORISTA.AsInteger := oMotorista.GetNewID;
 
   tabMOTORISTASNOME.Required := True;
   tabMOTORISTASCPF.Required := True;
 
   if tabMOTORISTASCPF.AsString.Trim.Length > 0 then
   begin
-     vResult := ACBrValidador.ValidarCPF(tabMOTORISTASCPF.AsString.Trim);
+    vResult := ACBrValidador.ValidarCPF(tabMOTORISTASCPF.AsString.Trim);
   end;
 
   if vResult.Trim.Length > 0 then
-    begin
-      tabMOTORISTASCPF.FocusControl;
-      raise Exception.CreateFmt('O documento "%s" informado não é válido!',
-        [tabMOTORISTASCPF.AsString.Trim]);
-    end;
+  begin
+    tabMOTORISTASCPF.FocusControl;
+    raise exception.CreateFmt('O documento "%s" informado não é válido!', [tabMOTORISTASCPF.AsString.Trim]);
+  end;
 
 end;
 
 procedure TdtmDefault.tabMOTORISTASNewRecord(DataSet: TDataSet);
 begin
-  //tabMOTORISTASID_ATIVO.AsInteger := 1;
-  tabMOTORISTASID_EMPRESA .AsInteger := oEmpresa.ID;
+  // tabMOTORISTASID_ATIVO.AsInteger := 1;
+  tabMOTORISTASID_EMPRESA.AsInteger := oEmpresa.ID;
 end;
 
 procedure TdtmDefault.tabPESSOASBeforeOpen(DataSet: TDataSet);
@@ -619,15 +611,16 @@ begin
   if tabPESSOASCPF_CNPJ.AsString.Trim.Length > 0 then
   begin
     case tabPESSOASID_JURIDICA.AsInteger of
-      0:vResult := ACBrValidador.ValidarCPF(tabPESSOASCPF_CNPJ.AsString.Trim);
-      1:vResult := ACBrValidador.ValidarCNPJ(tabPESSOASCPF_CNPJ.AsString.Trim);
+      0:
+        vResult := ACBrValidador.ValidarCPF(tabPESSOASCPF_CNPJ.AsString.Trim);
+      1:
+        vResult := ACBrValidador.ValidarCNPJ(tabPESSOASCPF_CNPJ.AsString.Trim);
     end;
 
     if vResult.Trim.Length > 0 then
     begin
       tabPESSOASCPF_CNPJ.FocusControl;
-      raise Exception.CreateFmt('O documento "%s" informado não é válido!',
-        [tabPESSOASCPF_CNPJ.AsString.Trim]);
+      raise exception.CreateFmt('O documento "%s" informado não é válido!', [tabPESSOASCPF_CNPJ.AsString.Trim]);
     end;
   end;
 end;
@@ -678,14 +671,13 @@ begin
   tabTRANSPORTADORACADASTRO_DATA.Required := True;
   if tabTRANSPORTADORACNPJ.AsString.Trim.Length > 0 then
   begin
-    vResult := ACBrValidador.ValidarCNPJ(ACBrUtil.OnlyNumber(tabTRANSPORTADORACNPJ.AsString.Trim));
+    vResult := ACBrValidador.ValidarCNPJ(OnlyNumber(tabTRANSPORTADORACNPJ.AsString.Trim));
   end;
 
   if vResult.Trim.Length > 0 then
   begin
     tabTRANSPORTADORACNPJ.FocusControl;
-    raise Exception.CreateFmt('O documento "%s" informado não é válido!',
-      [tabTRANSPORTADORACNPJ.AsString.Trim]);
+    raise exception.CreateFmt('O documento "%s" informado não é válido!', [tabTRANSPORTADORACNPJ.AsString.Trim]);
   end;
 end;
 
@@ -701,8 +693,7 @@ end;
 procedure TdtmDefault.tabUSUARIOBeforePost(DataSet: TDataSet);
 begin
   if DataSet.State in [dsInsert] then
-     tabUSUARIOID_USUARIO.AsInteger := oUsuario.GetNewID;
-
+    tabUSUARIOID_USUARIO.AsInteger := oUsuario.GetNewID;
 
   tabUSUARIOUSUARIO.Required := True;
   tabUSUARIOSENHA.Required := True;
@@ -711,7 +702,7 @@ end;
 
 procedure TdtmDefault.tabVEICULOSBeforeOpen(DataSet: TDataSet);
 begin
-   TFDQuery(DataSet).ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
+  TFDQuery(DataSet).ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
 end;
 
 procedure TdtmDefault.tabVEICULOSBeforePost(DataSet: TDataSet);
@@ -719,7 +710,7 @@ var
   vResult: String;
 begin
   if DataSet.State in [dsInsert] then
-     tabVEICULOSID_VEICULO.AsInteger := oVeiculo.GetNewID;
+    tabVEICULOSID_VEICULO.AsInteger := oVeiculo.GetNewID;
 
   tabVEICULOSDESCRICAO.Required := True;
   tabVEICULOSPLACA.Required := True;
@@ -728,12 +719,12 @@ end;
 
 procedure TdtmDefault.tabVEICULOSNewRecord(DataSet: TDataSet);
 begin
-  tabVEICULOSID_EMPRESA .AsInteger := oEmpresa.ID;
+  tabVEICULOSID_EMPRESA.AsInteger := oEmpresa.ID;
 end;
 
 procedure TdtmDefault.TFieldSetOnlyNumber(Sender: TField; const Text: string);
 begin
-  Sender.AsString := ACBrUtil.OnlyNumber(Text);
+  Sender.AsString := OnlyNumber(Text);
 end;
 
 procedure TdtmDefault.TratarErro(E: EFDException);
@@ -745,27 +736,35 @@ begin
   if E is EFDDBEngineException then
   begin
 
-   if E is EFDDBEngineException then
+    if E is EFDDBEngineException then
     begin
       case EFDDBEngineException(E).Kind of
-        ekFKViolated:iErrMSG := 'Atenção, ocorreu erro de violação de chave estrangeira, detalhe do erro abaixo, favor repetir todo procedimento.' + sLineBreak + sLineBreak + E.Message;
-        ekUKViolated:iErrMSG := 'Atenção, ocorreu erro de violação de chave primária, detalhe do erro abaixo, favor repetir todo procedimento.' + sLineBreak + sLineBreak + E.Message;
+        ekFKViolated:
+          iErrMSG :=
+            'Atenção, ocorreu erro de violação de chave estrangeira, detalhe do erro abaixo, favor repetir todo procedimento.' +
+            sLineBreak + sLineBreak + E.Message;
+        ekUKViolated:
+          iErrMSG :=
+            'Atenção, ocorreu erro de violação de chave primária, detalhe do erro abaixo, favor repetir todo procedimento.' +
+            sLineBreak + sLineBreak + E.Message;
       else
-        iErrMSG := 'Atenção, ocorreu erro desconhecido, detalhe do erro abaixo, favor repetir todo procedimento.' + sLineBreak + sLineBreak + E.Message;
+        iErrMSG := 'Atenção, ocorreu erro desconhecido, detalhe do erro abaixo, favor repetir todo procedimento.' + sLineBreak +
+          sLineBreak + E.Message;
       end;
     end;
   end;
 
   if iErrMSG.Trim.Length > 0 then
-    Application.MessageBox(PChar(iErrMSG),'Atenção!',MB_ICONEXCLAMATION + MB_ICONASTERISK);
+    Application.MessageBox(PChar(iErrMSG), 'Atenção!', MB_ICONEXCLAMATION + MB_ICONASTERISK);
 end;
 
 function TdtmDefault.GetNEW_ID_CERTIFICADO_CONFIG: Integer;
 begin
   try
     dtmDefault.qryTmp.Close;
-    dtmDefault.qryTmp.SQL.Clear;
-    dtmDefault.qryTmp.SQL.Text := Format('SELECT MAX(ID_CERTIFICADOCONFIG) FROM CERTIFICADO_CONFIG WHERE ID_EMPRESA = %d AND ID_MODELO = 58;',[oEmpresa.ID]);
+    dtmDefault.qryTmp.Sql.Clear;
+    dtmDefault.qryTmp.Sql.Text :=
+      Format('SELECT MAX(ID_CERTIFICADOCONFIG) FROM CERTIFICADO_CONFIG WHERE ID_EMPRESA = %d AND ID_MODELO = 58;', [oEmpresa.ID]);
     dtmDefault.qryTmp.Open;
 
     if dtmDefault.qryTmp.IsEmpty then
@@ -782,12 +781,12 @@ function TdtmDefault.IncGen(Generator: string): Integer;
 begin
   QryGen.Close;
   QryGen.Sql.Clear;
-  QryGen.sql.Add('Select gen_id(' + Generator + ', 1) from RDB$DATABASE');
+  QryGen.Sql.Add('Select gen_id(' + Generator + ', 1) from RDB$DATABASE');
   QryGen.Open;
-  if QryGen.fields[0].AsInteger <= 0 then
-    Result := QryGen.fields[0].AsInteger + 1
+  if QryGen.Fields[0].AsInteger <= 0 then
+    Result := QryGen.Fields[0].AsInteger + 1
   else
-    Result := QryGen.fields[0].AsInteger;
+    Result := QryGen.Fields[0].AsInteger;
   QryGen.Close;
 end;
 
@@ -800,22 +799,22 @@ function TdtmDefault.RetornaGen(Nome: String): Integer;
 begin
   QryGen.Close;
   QryGen.Sql.Clear;
-  QryGen.sql.Add('Select gen_id('+Nome+', 0) from RDB$DATABASE');
+  QryGen.Sql.Add('Select gen_id(' + Nome + ', 0) from RDB$DATABASE');
   QryGen.Open;
-  Result := QryGen.fields[0].AsInteger;
+  Result := QryGen.Fields[0].AsInteger;
 end;
 
 function TdtmDefault.SetaGen(Nome: String; Numero: Integer): Boolean;
 begin
   QryGen.Close;
   QryGen.Sql.Clear;
-  QryGen.sql.Text:=
-  ' SET GENERATOR '+Nome +  ' TO '+IntToStr(Numero);
+  QryGen.Sql.Text := ' SET GENERATOR ' + Nome + ' TO ' + IntToStr(Numero);
   try
     QryGen.ExecSQL;
-    Result :=True;
-  except on E: Exception do
-    Result := False
+    Result := True;
+  except
+    on E: exception do
+      Result := False
   end;
 end;
 

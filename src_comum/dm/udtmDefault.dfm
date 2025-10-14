@@ -12,6 +12,7 @@ object dtmDefault: TdtmDefault
       'CharacterSet=WIN1252'
       'DriverID=FB')
     TxOptions.AutoStop = False
+    Connected = True
     LoginPrompt = False
     BeforeConnect = cnx_BDBeforeConnect
     Left = 24
@@ -1277,6 +1278,7 @@ object dtmDefault: TdtmDefault
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_MOTORISTA'
@@ -1358,7 +1360,7 @@ object dtmDefault: TdtmDefault
       FieldName = 'CODIGO_MUNICIPIO'
       Origin = 'CODIGO_MUNICIPIO'
     end
-    object tabMOTORISTASCELULAR: TIntegerField
+    object tabMOTORISTASCELULAR: TLargeintField
       FieldName = 'CELULAR'
       Origin = 'CELULAR'
     end

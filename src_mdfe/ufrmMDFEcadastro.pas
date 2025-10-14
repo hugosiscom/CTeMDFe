@@ -283,7 +283,6 @@ type
     JvDBGrid4: TJvDBGrid;
     Panel14: TPanel;
     Label28: TLabel;
-    LkCbxMotorista: TDBLookupComboBox;
     JvgGroupBox18: TJvgGroupBox;
     Panel32: TPanel;
     Label33: TLabel;
@@ -418,6 +417,7 @@ type
     EMI_N_PROP_CEP: TJvDBMaskEdit;
     EMI_N_PROP_NUMERO: TJvDBMaskEdit;
     EMI_N_PROP_CODIGO_MUNICIPIO: TJvDBMaskEdit;
+    LkCbxMotorista: TDBLookupComboBox;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -1577,6 +1577,7 @@ begin
       dtmMDFE.tabMDFEVEICULO_TARA.Value := dtmMDFE.QryVeiculoTARA.Value;
       dtmMDFE.tabMDFEVEICULO_RENAVAN.Value := dtmMDFE.QryVeiculoRENAVAN.Value;
       dtmMDFE.tabMDFEVEICULO_RNTRC.Value := dtmMDFE.QryVeiculoRNTRC.Value;
+      dtmMDFE.tabMDFEVEICULO_CHASSI.Value := dtmMDFE.QryVeiculoCHASSI.Value;
 
       if dtmMDFE.QryVeiculoTIPO_VEICULO.Value = 0 then
         dtmMDFE.tabMDFEEMI_N_PROP.Value := 'N'

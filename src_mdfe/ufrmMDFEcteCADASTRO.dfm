@@ -2,14 +2,14 @@
   Caption = 'Conhecimento de Transporte Eletr'#244'nico - CT-e'
   ClientHeight = 542
   ClientWidth = 872
-  ExplicitWidth = 886
-  ExplicitHeight = 577
+  ExplicitWidth = 888
+  ExplicitHeight = 581
   TextHeight = 13
   inherited pnlComandos: TPanel
     Top = 487
     Width = 866
-    ExplicitTop = 483
-    ExplicitWidth = 864
+    ExplicitTop = 487
+    ExplicitWidth = 866
     inherited btnCancelar: TJvSpeedButton
       Left = 753
       Caption = 'Retornar'
@@ -23,8 +23,8 @@
   inherited pageDefault: TJvPageControl
     Width = 866
     Height = 478
-    ExplicitWidth = 864
-    ExplicitHeight = 474
+    ExplicitWidth = 866
+    ExplicitHeight = 478
     inherited tabDefault: TTabSheet
       ExplicitWidth = 858
       ExplicitHeight = 450
@@ -58,8 +58,6 @@
         Gradient.Active = False
         Gradient.Orientation = fgdHorizontal
         Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
-        ExplicitWidth = 850
-        ExplicitHeight = 440
         FullHeight = 0
         object Label16: TLabel
           Left = 9
@@ -146,8 +144,6 @@
           ActivePage = TabSheet1
           Align = alBottom
           TabOrder = 3
-          ExplicitTop = 91
-          ExplicitWidth = 840
           object TabSheet1: TTabSheet
             Caption = 'Unidades de Transporte'
             object JvgGroupBox2: TJvgGroupBox
@@ -180,7 +176,6 @@
               Gradient.Active = False
               Gradient.Orientation = fgdHorizontal
               Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
-              ExplicitWidth = 826
               FullHeight = 0
               object Panel1: TPanel
                 AlignWithMargins = True
@@ -191,7 +186,6 @@
                 Align = alBottom
                 BevelOuter = bvNone
                 TabOrder = 0
-                ExplicitWidth = 816
                 object btnUNIDTRANSexcluir: TJvSpeedButton
                   AlignWithMargins = True
                   Left = 235
@@ -385,8 +379,8 @@
   inherited statDefault: TJvStatusBar
     Top = 523
     Width = 872
-    ExplicitTop = 519
-    ExplicitWidth = 870
+    ExplicitTop = 523
+    ExplicitWidth = 872
   end
   inherited ACBrEnterTab1: TACBrEnterTab
     Left = 437
@@ -400,7 +394,7 @@
   object dtstabMDFE_CTE_UNIDTRANS: TDataSource
     DataSet = dtmMDFE.tabMDFE_CTE_UNIDTRANS
     OnDataChange = dtstabMDFE_CTE_UNIDTRANSDataChange
-    Left = 366
-    Top = 243
+    Left = 478
+    Top = 219
   end
 end

@@ -44,7 +44,7 @@ var
 
 implementation
 
-uses uFuncoes, ACBrUtil, udtmDefault;
+uses uFuncoes, udtmDefault;
 
 {$R *.dfm}
 
@@ -198,8 +198,6 @@ begin
 end;
 
 procedure TfrmDefaultCadastro.btnConfirmarClick(Sender: TObject);
-var
-  iErr: integer;
 begin
   FFecharOK := True;
 

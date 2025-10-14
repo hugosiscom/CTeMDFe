@@ -22,6 +22,7 @@
   inherited pageDefault: TJvPageControl
     Width = 398
     Height = 457
+    ActivePage = Endereço
     ExplicitWidth = 398
     ExplicitHeight = 457
     inherited tabDefault: TTabSheet
@@ -75,7 +76,7 @@
           Caption = 'CPF'
           Transparent = True
         end
-        object JvLabel5: TJvLabel
+        object lbDataNascimento: TJvLabel
           Left = 5
           Top = 114
           Width = 98
@@ -83,7 +84,7 @@
           Caption = 'Data de Nascimento'
           Transparent = True
         end
-        object JvLabel6: TJvLabel
+        object lbCelular: TJvLabel
           AlignWithMargins = True
           Left = 5
           Top = 160
@@ -95,11 +96,11 @@
         object NOME: TJvDBMaskEdit
           Left = 5
           Top = 87
-          Width = 378
+          Width = 364
           Height = 21
           DataField = 'NOME'
           DataSource = dtsDefault
-          TabOrder = 0
+          TabOrder = 1
           EditMask = ''
         end
         object CPF: TJvDBMaskEdit
@@ -110,13 +111,13 @@
           DataField = 'CPF'
           DataSource = dtsDefault
           MaxLength = 14
-          TabOrder = 1
+          TabOrder = 0
           EditMask = '999.999.999-99;0;_'
         end
         object DATA_NASCIMENTO: TJvDBDatePickerEdit
           Left = 5
           Top = 133
-          Width = 121
+          Width = 92
           Height = 21
           AllowNoDate = True
           DataField = 'DATA_NASCIMENTO'
@@ -129,7 +130,7 @@
           Width = 378
           Height = 211
           Caption = 'CNH'
-          TabOrder = 3
+          TabOrder = 4
           object JvLabel1: TJvLabel
             Left = 15
             Top = 18
@@ -210,13 +211,13 @@
         object CELULAR: TJvDBMaskEdit
           Left = 5
           Top = 179
-          Width = 119
+          Width = 92
           Height = 21
           DataField = 'CELULAR'
           DataSource = dtsDefault
           MaxLength = 16
-          TabOrder = 4
-          EditMask = '(99) 9 9999-9999'
+          TabOrder = 3
+          EditMask = '(99) 9 9999-9999;0'
         end
       end
     end
@@ -275,22 +276,24 @@
         object End_CEP: TJvDBMaskEdit
           Left = 11
           Top = 228
-          Width = 302
+          Width = 301
           Height = 21
           DataField = 'CEP'
           DataSource = dtsDefault
-          TabOrder = 0
-          EditMask = ''
+          MaxLength = 9
+          TabOrder = 4
+          EditMask = '99999-999;0; '
         end
         object End_Cod_Municipio: TJvDBMaskEdit
           Left = 11
           Top = 274
-          Width = 302
+          Width = 301
           Height = 21
           DataField = 'CODIGO_MUNICIPIO'
           DataSource = dtsDefault
-          TabOrder = 1
-          EditMask = ''
+          MaxLength = 7
+          TabOrder = 5
+          EditMask = '0000000;0; '
         end
         object End_Bairro: TJvDBMaskEdit
           Left = 11
@@ -299,7 +302,8 @@
           Height = 21
           DataField = 'BAIRRO'
           DataSource = dtsDefault
-          TabOrder = 2
+          MaxLength = 60
+          TabOrder = 3
           EditMask = ''
         end
         object End_Rua: TJvDBMaskEdit
@@ -309,7 +313,8 @@
           Height = 21
           DataField = 'RUA'
           DataSource = dtsDefault
-          TabOrder = 3
+          MaxLength = 60
+          TabOrder = 1
           EditMask = ''
         end
         object End_Complemento: TJvDBMaskEdit
@@ -319,18 +324,20 @@
           Height = 21
           DataField = 'COMPLEMENTO'
           DataSource = dtsDefault
-          TabOrder = 4
+          MaxLength = 60
+          TabOrder = 2
           EditMask = ''
         end
         object End_Numero: TJvDBMaskEdit
           Left = 11
           Top = 40
-          Width = 302
+          Width = 297
           Height = 21
           DataField = 'NUMERO'
           DataSource = dtsDefault
-          TabOrder = 5
-          EditMask = ''
+          MaxLength = 10
+          TabOrder = 0
+          EditMask = '9999999999;0; '
         end
       end
     end

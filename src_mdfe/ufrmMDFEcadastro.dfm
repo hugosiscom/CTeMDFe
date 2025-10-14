@@ -303,9 +303,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             Top = 35
             Width = 163
             Height = 21
-            Date = 43432.000000000000000000
+            Date = 45944.000000000000000000
             Format = 'dd/MM/yyy'
-            Time = 0.629827488417504400
+            Time = 0.723815115743491300
             TabOrder = 3
             DropDownDate = 43177.000000000000000000
             DataField = 'DATAHORA_EMISSAO'
@@ -348,8 +348,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             Top = 35
             Width = 163
             Height = 21
-            Date = 43432.000000000000000000
-            Time = 0.629827476848731700
+            Date = 45944.000000000000000000
+            Time = 0.723815115743491300
             TabOrder = 4
             DropDownDate = 43177.000000000000000000
             DataField = 'DATAHORA_INICIO_VIAGEM'
@@ -1629,6 +1629,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Align = alTop
                 BevelOuter = bvNone
                 TabOrder = 0
+                ExplicitLeft = 37
+                ExplicitTop = 35
                 object Label28: TLabel
                   AlignWithMargins = True
                   Left = 3
@@ -1644,12 +1646,13 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Font.Style = []
                   ParentFont = False
                   Transparent = True
-                  ExplicitWidth = 96
+                  ExplicitLeft = 35
+                  ExplicitTop = 33
                 end
                 object LkCbxMotorista: TDBLookupComboBox
-                  Left = 0
+                  Left = 3
                   Top = 22
-                  Width = 440
+                  Width = 433
                   Height = 21
                   KeyField = 'CPF'
                   ListField = 'NOME;CPF'
@@ -1699,8 +1702,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Align = alClient
                 BevelOuter = bvNone
                 TabOrder = 0
-                ExplicitLeft = 3
-                ExplicitTop = 21
                 object Label33: TLabel
                   Left = 3
                   Top = 202
@@ -4003,7 +4004,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Carregamento'
-                  Width = 64
                   Visible = True
                 end>
             end
@@ -4387,7 +4387,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Descarregamento'
-                  Width = 64
                   Visible = True
                 end>
             end

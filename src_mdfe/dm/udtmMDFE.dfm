@@ -697,7 +697,7 @@ object dtmMDFE: TdtmMDFE
       FieldName = 'EMI_N_PROP_CODIGO_MUNICIPIO'
       Origin = 'EMI_N_PROP_CODIGO_MUNICIPIO'
     end
-    object tabMDFEEMI_N_PROP_CELULAR: TIntegerField
+    object tabMDFEEMI_N_PROP_CELULAR: TLargeintField
       FieldName = 'EMI_N_PROP_CELULAR'
       Origin = 'EMI_N_PROP_CELULAR'
     end
@@ -1373,11 +1373,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object tabMDFE_LOCAL_CARREGAMENTOID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
@@ -1469,8 +1471,8 @@ object dtmMDFE: TdtmMDFE
   end
   object dtstabMDFE: TDataSource
     DataSet = tabMDFE
-    Left = 318
-    Top = 8
+    Left = 302
+    Top = 16
   end
   object qryCIDADES: TFDQuery
     CachedUpdates = True
@@ -1543,11 +1545,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
   end
   object tabMDFE_LACRE: TFDQuery
@@ -1585,11 +1589,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
   end
   object tabMDFE_SEGUROS: TFDQuery
@@ -1625,11 +1631,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object tabMDFE_SEGUROSID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
@@ -1679,7 +1687,6 @@ object dtmMDFE: TdtmMDFE
     end
   end
   object tabMDFE_CONDUTORES: TFDQuery
-    Active = True
     BeforePost = tabMDFE_CONDUTORESBeforePost
     IndexFieldNames = 'ID_MDFE;ID_SERIE;ID_EMPRESA'
     MasterSource = dtstabMDFE
@@ -1712,11 +1719,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object tabMDFE_CONDUTORESID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
@@ -1779,11 +1788,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object tabMDFE_REBOQUEID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
@@ -2003,6 +2014,7 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object tabMDFE_VALEPEDAGIOID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
@@ -2112,11 +2124,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object tabMDFE_LOCAL_DESCARREGAMENTOID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
@@ -2327,38 +2341,50 @@ object dtmMDFE: TdtmMDFE
       end>
     object tabMDFE_CTE_UNIDTRANSID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
+      Origin = 'ID_EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object tabMDFE_CTE_UNIDTRANSID_MDFE: TIntegerField
       FieldName = 'ID_MDFE'
+      Origin = 'ID_MDFE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object tabMDFE_CTE_UNIDTRANSID_SERIE: TIntegerField
       FieldName = 'ID_SERIE'
+      Origin = 'ID_SERIE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object tabMDFE_CTE_UNIDTRANSID_CHAVE: TStringField
       FieldName = 'ID_CHAVE'
+      Origin = 'ID_CHAVE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 50
     end
     object tabMDFE_CTE_UNIDTRANSID_TIPO: TIntegerField
       FieldName = 'ID_TIPO'
+      Origin = 'ID_TIPO'
       Required = True
     end
     object tabMDFE_CTE_UNIDTRANSID_IDENTIFICACAO: TStringField
       FieldName = 'ID_IDENTIFICACAO'
+      Origin = 'ID_IDENTIFICACAO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object tabMDFE_CTE_UNIDTRANSQUANTIDADE: TFMTBCDField
       FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
       Required = True
       Precision = 18
       Size = 2
     end
   end
   object dtstabMDFE_CTE: TDataSource
-    DataSet = tabMDFE
+    DataSet = tabMDFE_CTE
     Left = 314
     Top = 496
   end
@@ -3893,7 +3919,7 @@ object dtmMDFE: TdtmMDFE
     end
   end
   object dtstabMDFE_NFE: TDataSource
-    DataSet = tabMDFE_CTE
+    DataSet = tabMDFE_NFE
     Left = 527
     Top = 488
   end
@@ -4308,11 +4334,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_MDFE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object tabMDFE_AUT_DOWNLOADID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
@@ -4942,11 +4970,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object tabMDFE_AQUA_TERMINAL_CARREGID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
@@ -5084,11 +5114,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object tabMDFE_AQUA_TERMINAL_DESCARREGID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
@@ -5230,11 +5262,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object tabMDFE_AQUA_COMBOIOID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
@@ -5376,11 +5410,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object tabMDFE_AQUA_UNID_CARGAID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
@@ -5518,11 +5554,13 @@ object dtmMDFE: TdtmMDFE
         Name = 'ID_SERIE'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end
       item
         Name = 'ID_EMPRESA'
         DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
     object tabMDFE_AQUA_UNID_TRANSID_EMPRESA: TIntegerField
       FieldName = 'ID_EMPRESA'
@@ -5665,6 +5703,62 @@ object dtmMDFE: TdtmMDFE
       FieldName = 'CPF'
       Origin = 'CPF'
       Size = 11
+    end
+    object QryMotoristaRENACH: TStringField
+      FieldName = 'RENACH'
+      Origin = 'RENACH'
+      Size = 11
+    end
+    object QryMotoristaNUMERO_REGISTRO: TStringField
+      FieldName = 'NUMERO_REGISTRO'
+      Origin = 'NUMERO_REGISTRO'
+      Size = 9
+    end
+    object QryMotoristaCODIGO_SEGURANCA: TStringField
+      FieldName = 'CODIGO_SEGURANCA'
+      Origin = 'CODIGO_SEGURANCA'
+      Size = 11
+    end
+    object QryMotoristaCATEGORIA: TStringField
+      FieldName = 'CATEGORIA'
+      Origin = 'CATEGORIA'
+      Size = 5
+    end
+    object QryMotoristaDATA_NASCIMENTO: TDateField
+      FieldName = 'DATA_NASCIMENTO'
+      Origin = 'DATA_NASCIMENTO'
+    end
+    object QryMotoristaBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+      Origin = 'BAIRRO'
+      Size = 60
+    end
+    object QryMotoristaRUA: TStringField
+      FieldName = 'RUA'
+      Origin = 'RUA'
+      Size = 60
+    end
+    object QryMotoristaNUMERO: TStringField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Size = 30
+    end
+    object QryMotoristaCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Origin = 'COMPLEMENTO'
+      Size = 60
+    end
+    object QryMotoristaCEP: TIntegerField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+    end
+    object QryMotoristaCODIGO_MUNICIPIO: TIntegerField
+      FieldName = 'CODIGO_MUNICIPIO'
+      Origin = 'CODIGO_MUNICIPIO'
+    end
+    object QryMotoristaCELULAR: TLargeintField
+      FieldName = 'CELULAR'
+      Origin = 'CELULAR'
     end
   end
   object DtsMotorista: TDataSource

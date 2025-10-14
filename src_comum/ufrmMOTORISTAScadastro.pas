@@ -16,7 +16,7 @@ type
     NOME: TJvDBMaskEdit;
     CPF: TJvDBMaskEdit;
     lbCNPJ: TJvLabel;
-    JvLabel5: TJvLabel;
+    lbDataNascimento: TJvLabel;
     DATA_NASCIMENTO: TJvDBDatePickerEdit;
     CNH: TGroupBox;
     JvLabel1: TJvLabel;
@@ -29,7 +29,7 @@ type
     CATEGORIA: TJvDBMaskEdit;
     Endereço: TTabSheet;
     CELULAR: TJvDBMaskEdit;
-    JvLabel6: TJvLabel;
+    lbCelular: TJvLabel;
     gbEndereco: TGroupBox;
     Label6: TLabel;
     End_CEP: TJvDBMaskEdit;
