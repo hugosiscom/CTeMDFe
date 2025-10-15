@@ -43,6 +43,8 @@ type
     Label3: TLabel;
     End_Complemento: TJvDBMaskEdit;
     End_Numero: TJvDBMaskEdit;
+    JvLabel5: TJvLabel;
+    NOME_SOLTEIRA_MAE: TJvDBMaskEdit;
   private
     { Private declarations }
   public

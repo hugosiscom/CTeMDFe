@@ -8,7 +8,7 @@ uses
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Vcl.Dialogs, Data.DB,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, ACBrBase, ACBrMail, ACBrMDFeDAMDFeClass,
   ACBrMDFeDAMDFeRLClass, ACBrDFe, ACBrMDFe, pcnConversao, FireDAC.Moni.Base,
-  FireDAC.Moni.RemoteClient, ACBrDFeReport, ufrmDefaultCadastro,blcksock,
+  FireDAC.Moni.RemoteClient, ACBrDFeReport, ufrmDefaultCadastro, blcksock,
   ACBrCIOT;
 
 type
@@ -705,9 +705,8 @@ type
     procedure tabMDFE_NFENewRecord(DataSet: TDataSet);
     procedure tabMDFE_VALEPEDAGIONewRecord(DataSet: TDataSet);
     procedure tabMDFE_CIOTBeforePost(DataSet: TDataSet);
-    procedure tabMDFE_NFE_UNIDTRANS_LACREUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
+    procedure tabMDFE_NFE_UNIDTRANS_LACREUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
     procedure tabMDFE_REBOQUEBeforePost(DataSet: TDataSet);
     procedure tabMDFE_CONTRATANTESBeforePost(DataSet: TDataSet);
     procedure tabMDFE_VALEPEDAGIOBeforePost(DataSet: TDataSet);
@@ -719,93 +718,66 @@ type
     procedure tabMDFE_CTE_CARGTRANS_LACREBeforePost(DataSet: TDataSet);
     procedure tabMDFE_SEGUROS_AVERBACAOBeforePost(DataSet: TDataSet);
     procedure tabMDFE_AUT_DOWNLOADBeforePost(DataSet: TDataSet);
-    procedure tabMDFEUpdateError(ASender: TDataSet; AException: EFDException;
-      ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
+    procedure tabMDFEUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
       var AAction: TFDErrorAction);
-    procedure tabMDFE_LOCAL_CARREGAMENTOUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
+    procedure tabMDFE_LOCAL_CARREGAMENTOUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_UF_PERCURSOUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_CONDUTORESUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_REBOQUEUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_CIOTUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
       var AAction: TFDErrorAction);
-    procedure tabMDFE_UF_PERCURSOUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
+    procedure tabMDFE_CONTRATANTESUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_VALEPEDAGIOUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_LOCAL_DESCARREGAMENTOUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_CTEUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
       var AAction: TFDErrorAction);
-    procedure tabMDFE_CONDUTORESUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
+    procedure tabMDFE_CTE_UNIDTRANSUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_CTE_UNIDTRANS_LACREUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_CTE_CARGTRANSUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_CTE_CARGTRANS_LACREUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_SEGUROSUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_SEGUROS_AVERBACAOUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_LACREUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
       var AAction: TFDErrorAction);
-    procedure tabMDFE_REBOQUEUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
+    procedure tabMDFE_AUT_DOWNLOADUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_NFEUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
       var AAction: TFDErrorAction);
-    procedure tabMDFE_CIOTUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_CONTRATANTESUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_VALEPEDAGIOUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_LOCAL_DESCARREGAMENTOUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_CTEUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_CTE_UNIDTRANSUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_CTE_UNIDTRANS_LACREUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_CTE_CARGTRANSUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_CTE_CARGTRANS_LACREUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_SEGUROSUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_SEGUROS_AVERBACAOUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_LACREUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_AUT_DOWNLOADUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_NFEUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_NFE_UNIDTRANSUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_NFE_CARGTRANSUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
-    procedure tabMDFE_NFE_CARGTRANS_LACREUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
+    procedure tabMDFE_NFE_UNIDTRANSUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_NFE_CARGTRANSUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure tabMDFE_NFE_CARGTRANS_LACREUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
     procedure tabMDFE_NFEBeforePost(DataSet: TDataSet);
     procedure tabMDFE_AQUA_TERMINAL_CARREGBeforePost(DataSet: TDataSet);
-    procedure tabMDFE_AQUA_TERMINAL_CARREGUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
+    procedure tabMDFE_AQUA_TERMINAL_CARREGUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
     procedure tabMDFE_AQUA_TERMINAL_DESCARREGBeforePost(DataSet: TDataSet);
-    procedure tabMDFE_AQUA_TERMINAL_DESCARREGUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
+    procedure tabMDFE_AQUA_TERMINAL_DESCARREGUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
     procedure tabMDFE_AQUA_COMBOIOBeforePost(DataSet: TDataSet);
-    procedure tabMDFE_AQUA_COMBOIOUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
+    procedure tabMDFE_AQUA_COMBOIOUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
     procedure tabMDFE_AQUA_UNID_CARGABeforePost(DataSet: TDataSet);
-    procedure tabMDFE_AQUA_UNID_CARGAUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
+    procedure tabMDFE_AQUA_UNID_CARGAUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
     procedure tabMDFE_AQUA_UNID_TRANSBeforePost(DataSet: TDataSet);
-    procedure tabMDFE_AQUA_UNID_TRANSUpdateError(ASender: TDataSet;
-      AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-      var AAction: TFDErrorAction);
+    procedure tabMDFE_AQUA_UNID_TRANSUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+      ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
     procedure QryMotoristaBeforeOpen(DataSet: TDataSet);
     procedure QryVeiculoBeforeOpen(DataSet: TDataSet);
   private
@@ -815,7 +787,7 @@ type
     procedure Configurar;
     function SalvarEvento(vID, vID_SERIE, vNumeroLote: Integer; vDataHoraEvento: TDateTime;
       vJustificativa, vTipo: String): Boolean;
-    function GerarMDFE(vID: Integer; vID_SERIE: Integer):String;
+    function GerarMDFE(vID: Integer; vID_SERIE: Integer): String;
     procedure Enviar;
   end;
 
@@ -823,37 +795,26 @@ var
   dtmMDFE: TdtmMDFE;
 
 const
-  SQL_COUNT_NFE: String =
-   ' SELECT                                 '#13+
-   '   COALESCE(COUNT(MDFE_NFE.ID_CHAVE),0) '#13+
-   ' FROM                                   '#13+
-   '   MDFE_NFE                             '#13+
-   ' WHERE                                  '#13+
-   '   1=1                                  '#13+
-   '   AND MDFE_NFE.ID_EMPRESA = %d         '#13+
-   '   AND MDFE_NFE.ID_MDFE    = %d         '#13+
-   '   AND MDFE_NFE.ID_SERIE   = %d         ';
+  SQL_COUNT_NFE: String = ' SELECT                                 '#13 + '   COALESCE(COUNT(MDFE_NFE.ID_CHAVE),0) '#13 +
+    ' FROM                                   '#13 + '   MDFE_NFE                             '#13 +
+    ' WHERE                                  '#13 + '   1=1                                  '#13 +
+    '   AND MDFE_NFE.ID_EMPRESA = %d         '#13 + '   AND MDFE_NFE.ID_MDFE    = %d         '#13 +
+    '   AND MDFE_NFE.ID_SERIE   = %d         ';
 
-  SQL_COUNT_CTE: String =
-   ' SELECT                                 '#13+
-   '   COALESCE(COUNT(MDFE_CTE.ID_CHAVE),0) '#13+
-   ' FROM                                   '#13+
-   '   MDFE_CTE                             '#13+
-   ' WHERE                                  '#13+
-   '   1=1                                  '#13+
-   '   AND MDFE_CTE.ID_EMPRESA = %d         '#13+
-   '   AND MDFE_CTE.ID_MDFE    = %d         '#13+
-   '   AND MDFE_CTE.ID_SERIE   = %d         ';
+  SQL_COUNT_CTE: String = ' SELECT                                 '#13 + '   COALESCE(COUNT(MDFE_CTE.ID_CHAVE),0) '#13 +
+    ' FROM                                   '#13 + '   MDFE_CTE                             '#13 +
+    ' WHERE                                  '#13 + '   1=1                                  '#13 +
+    '   AND MDFE_CTE.ID_EMPRESA = %d         '#13 + '   AND MDFE_CTE.ID_MDFE    = %d         '#13 +
+    '   AND MDFE_CTE.ID_SERIE   = %d         ';
 
 implementation
 
 uses
   udtmDefault, uclassEMPRESA, ufuncoes, uclassMDFE, pmdfeConversaoMDFe,
-  ACBrDFeSSL, ufrmMensagemEspera, ACBrUtil, Vcl.Forms, Winapi.Windows,
+  ACBrDFeSSL, ufrmMensagemEspera, ACBrUtil.Strings, Vcl.Forms, Winapi.Windows,
   ACBrValidador;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
-
 {$R *.dfm}
 
 function TdtmMDFE.SalvarEvento(vID, vID_SERIE, vNumeroLote: Integer; vDataHoraEvento: TDateTime;
@@ -864,7 +825,7 @@ begin
     updEvento.ParamByName('ID_EMPRESA').Value := oEmpresa.ID;
     updEvento.ParamByName('ID_MDFE').Value := vID;
     updEvento.ParamByName('ID_SERIE').Value := vID_SERIE;
-    updEvento.ParamByName('ID_MDFE_EVENTO').Value := oMDFE.GetNEW_ID_MDFE_EVENTO(vID,vID_SERIE);
+    updEvento.ParamByName('ID_MDFE_EVENTO').Value := oMDFE.GetNEW_ID_MDFE_EVENTO(vID, vID_SERIE);
     updEvento.ParamByName('TIPO').Value := vTipo;
     updEvento.ParamByName('DTHR_EVENTO').Value := vDataHoraEvento;
     updEvento.ParamByName('LOTE').Value := vNumeroLote;
@@ -874,9 +835,9 @@ begin
     updEvento.ParamByName('MOTIVO').Value := EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo;
     updEvento.ParamByName('OBSERVACAO').Value := vJustificativa;
     updEvento.ParamByName('XML').Value := EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.XML;
-    updEvento.ParamByName('SEQUENCIA').Value := oMDFE.GetNEW_ID_MDFE_EVENTO_SEQUENCIA(vID,vID_SERIE,vTipo);
+    updEvento.ParamByName('SEQUENCIA').Value := oMDFE.GetNEW_ID_MDFE_EVENTO_SEQUENCIA(vID, vID_SERIE, vTipo);
     updEvento.Prepare;
-    updEvento.ExecSQL;
+    Result := updEvento.OpenOrExecute;
   end;
 end;
 
@@ -921,18 +882,26 @@ begin
 
   Mensagem := '';
   case ACBrMDFe.Status of
-    stMDFeIdle         : FecharEspera;
-    stMDFeStatusServico: Mensagem := Ambiente + #13 + 'Verificando Status do servico...';
-    stMDFeRecepcao     : Mensagem := Ambiente + #13 + 'Enviando dados da MDF-e...';
-    stMDFeRetRecepcao  : Mensagem := Ambiente + #13 + 'Recebendo dados da MDF-e...';
-    stMDFeConsulta     : Mensagem := Ambiente + #13 + 'Consultando MDF-e...';
-    stMDFeRecibo       : Mensagem := Ambiente + #13 + 'Consultando recibo de lote...';
-    stMDFeEmail        : Mensagem := Ambiente + #13 + 'Enviando Manifesto Eletrônico por e-mail...';
-    stMDFeEvento       : Mensagem := Ambiente + #13 + 'Enviando evento...';
+    stMDFeIdle:
+      FecharEspera;
+    stMDFeStatusServico:
+      Mensagem := Ambiente + #13 + 'Verificando Status do servico...';
+    stMDFeRecepcao:
+      Mensagem := Ambiente + #13 + 'Enviando dados da MDF-e...';
+    stMDFeRetRecepcao:
+      Mensagem := Ambiente + #13 + 'Recebendo dados da MDF-e...';
+    stMDFeConsulta:
+      Mensagem := Ambiente + #13 + 'Consultando MDF-e...';
+    stMDFeRecibo:
+      Mensagem := Ambiente + #13 + 'Consultando recibo de lote...';
+    stMDFeEmail:
+      Mensagem := Ambiente + #13 + 'Enviando Manifesto Eletrônico por e-mail...';
+    stMDFeEvento:
+      Mensagem := Ambiente + #13 + 'Enviando evento...';
   end;
 
   if Mensagem <> '' then
-    AbrirEspera(Self,Mensagem);
+    AbrirEspera(Self, Mensagem);
 end;
 
 procedure TdtmMDFE.Configurar;
@@ -978,10 +947,8 @@ begin
   ACBrMDFe.Configuracoes.Geral.SSLLib := libWinCrypt;
   ACBrMDFe.Configuracoes.Geral.SSLXmlSignLib := xsLibXml2;
 
-
   ACBrMDFe.Configuracoes.Geral.ExibirErroSchema := True;
-  ACBrMDFe.Configuracoes.Geral.FormatoAlerta :=
-    '[ %TAGNIVEL%%TAG% ] %DESCRICAO% - %MSG%';
+  ACBrMDFe.Configuracoes.Geral.FormatoAlerta := '[ %TAGNIVEL%%TAG% ] %DESCRICAO% - %MSG%';
 
   // certificado
   try
@@ -989,31 +956,42 @@ begin
     qryCERTIFICADO_CONFIG.Close;
     qryCERTIFICADO_CONFIG.Open;
     case qryCERTIFICADO_CONFIGID_SSL_TYPE.AsInteger of
-      0:ACBrMDFe.SSL.SSLType := LT_all;
-      1:ACBrMDFe.SSL.SSLType := LT_SSLv2;
-      2:ACBrMDFe.SSL.SSLType := LT_SSLv3;
-      3:ACBrMDFe.SSL.SSLType := LT_TLSv1;
-      4:ACBrMDFe.SSL.SSLType := LT_TLSv1_1;
-      5:ACBrMDFe.SSL.SSLType := LT_TLSv1_2;
-      6:ACBrMDFe.SSL.SSLType := LT_SSHv2;
+      0:
+        ACBrMDFe.SSL.SSLType := LT_all;
+      1:
+        ACBrMDFe.SSL.SSLType := LT_SSLv2;
+      2:
+        ACBrMDFe.SSL.SSLType := LT_SSLv3;
+      3:
+        ACBrMDFe.SSL.SSLType := LT_TLSv1;
+      4:
+        ACBrMDFe.SSL.SSLType := LT_TLSv1_1;
+      5:
+        ACBrMDFe.SSL.SSLType := LT_TLSv1_2;
+      6:
+        ACBrMDFe.SSL.SSLType := LT_SSHv2;
     end;
 
     ACBrMDFe.Configuracoes.Certificados.NumeroSerie := qryCERTIFICADO_CONFIGCERTIFICADO_NUMERO.AsString.Trim;
-    ACBrMDFe.Configuracoes.Certificados.Senha :=qryCERTIFICADO_CONFIGCERTIFICADO_SENHA.AsString.Trim;
+    ACBrMDFe.Configuracoes.Certificados.Senha := qryCERTIFICADO_CONFIGCERTIFICADO_SENHA.AsString.Trim;
 
     ACBrMDFe.Configuracoes.WebServices.TimeOut := 18000; // tempo limite de espera pelo webservice
-    ACBrMDFe.Configuracoes.WebServices.AguardarConsultaRet := 5000; // tempo padrão que vai aguardar para consultar após enviar a NF-e
+    ACBrMDFe.Configuracoes.WebServices.AguardarConsultaRet := 5000;
+    // tempo padrão que vai aguardar para consultar após enviar a NF-e
     ACBrMDFe.Configuracoes.WebServices.IntervaloTentativas := 3000; // Intervalo entre as tentativas de envio
     ACBrMDFe.Configuracoes.WebServices.Tentativas := 10; // quantidade de tentativas de envio
-    ACBrMDFe.Configuracoes.WebServices.AjustaAguardaConsultaRet := True; // ajustar "AguardarConsultaRet" com o valor retornado pelo webservice
+    ACBrMDFe.Configuracoes.WebServices.AjustaAguardaConsultaRet := True;
+    // ajustar "AguardarConsultaRet" com o valor retornado pelo webservice
     ACBrMDFe.Configuracoes.WebServices.Salvar := True;
 
     ACBrMDFe.Configuracoes.WebServices.UF := qryCERTIFICADO_CONFIGWS_UF_DESTINO.AsString.Trim;
     ACBrMDFe.Configuracoes.WebServices.Visualizar := False;
 
-    case StrToIntDef(qryCERTIFICADO_CONFIGID_TIPO_AMBIENTE.AsString,1) of
-      0:ACBrMDFe.Configuracoes.WebServices.Ambiente := taProducao;
-      1:ACBrMDFe.Configuracoes.WebServices.Ambiente := taHomologacao
+    case StrToIntDef(qryCERTIFICADO_CONFIGID_TIPO_AMBIENTE.AsString, 1) of
+      0:
+        ACBrMDFe.Configuracoes.WebServices.Ambiente := taProducao;
+      1:
+        ACBrMDFe.Configuracoes.WebServices.Ambiente := taHomologacao
     end;
 
     // proxy de acesso
@@ -1024,8 +1002,8 @@ begin
 
     // Email
     ACBrMail.IsHTML := False;
-    {todo: terminar cadastro de configuração adicionar e-mail do emitente}
-    //ACBrMail.From := qryCTeOSConfigEMAIL.AsString.Trim;
+    { todo: terminar cadastro de configuração adicionar e-mail do emitente }
+    // ACBrMail.From := qryCTeOSConfigEMAIL.AsString.Trim;
     // todo
     // ACBrMail1.FromName := dtmContainer.Empresa.RazaoSocial;
     ACBrMail.Host := qryCERTIFICADO_CONFIGEMAIL_SERVIDOR.AsString.Trim;
@@ -1047,29 +1025,28 @@ procedure TdtmMDFE.Enviar;
 var
   vNumLote, xMotivo: String;
   cStat: Integer;
-  Status :Integer;
-  ChaveMDfe :String;
+  Status: Integer;
+  ChaveMDfe: String;
 begin
-  ACBrMDFE.Manifestos.Assinar;
+  ACBrMDFe.Manifestos.Assinar;
 
   try
-    ACBrMDFE.Manifestos.Validar;
+    ACBrMDFe.Manifestos.Validar;
   except
     on E: Exception do
     begin
-      raise Exception.Create('Erro ao enviar !  cStat: ' + sLineBreak +
-        IntToStr(dtmMDFE.ACBrMDFE.WebServices.Retorno.cStat) + ';  ' + sLineBreak +
-        E.Message);
+      raise Exception.Create('Erro ao enviar !  cStat: ' + sLineBreak + IntToStr(dtmMDFE.ACBrMDFe.WebServices.Retorno.cStat) +
+        ';  ' + sLineBreak + E.Message);
     end;
   end;
 
   // salva chave e xml antes de enviar
   if qryMDFEXML_CHAVE.AsString = '' then
-     ChaveMDfe:= Copy(ACBrMDFE.Manifestos.Items[0].MDFe.infMDFe.Id,5,44)
-     else
-     ChaveMDfe :=qryMDFEXML_CHAVE.AsString;
-  updChave.ParamByName('XML_CHAVE').Value := ChaveMDfe;//Copy(ACBrMDFE.Manifestos.Items[0].MDFe.infMDFe.Id,5,44);
-  updChave.ParamByName('XML_STRING').Value := ACBrMDFE.Manifestos.Items[0].XML;
+    ChaveMDfe := Copy(ACBrMDFe.Manifestos.Items[0].MDFe.infMDFe.ID, 5, 44)
+  else
+    ChaveMDfe := qryMDFEXML_CHAVE.AsString;
+  updChave.ParamByName('XML_CHAVE').Value := ChaveMDfe; // Copy(ACBrMDFE.Manifestos.Items[0].MDFe.infMDFe.Id,5,44);
+  updChave.ParamByName('XML_STRING').Value := ACBrMDFe.Manifestos.Items[0].XML;
   updChave.ParamByName('ID_EMPRESA').Value := qryMDFEID_EMPRESA.AsInteger;
   updChave.ParamByName('ID_MDFE').Value := qryMDFEID_MDFE.AsInteger;
   updChave.ParamByName('ID_SERIE').Value := qryMDFEID_SERIE.AsInteger;
@@ -1081,96 +1058,97 @@ begin
   try
 
     vNumLote := FormatDateTime('yyyymmddhhmmss', Now);
-    //ACBrMDFE.Enviar(vNumLote);
-    ACBrMDFE.Enviar(vNumLote,True,True);
+    // ACBrMDFE.Enviar(vNumLote);
+    ACBrMDFe.Enviar(vNumLote, True, True);
 
-    cStat := ACBrMDFE.Manifestos.Items[0].MDFe.procMDFe.cStat;
-    xMotivo := ACBrMDFE.Manifestos.Items[0].MDFe.procMDFe.xMotivo;
+    cStat := ACBrMDFe.Manifestos.Items[0].MDFe.procMDFe.cStat;
+    xMotivo := ACBrMDFe.Manifestos.Items[0].MDFe.procMDFe.xMotivo;
 
     case cStat of
       100: // autorizado
         begin
           updEnviado.ParamByName('ID_SITUACAO').AsString := 'E';
-          updEnviado.ParamByName('ID_MDFE').asInteger := qryMDFEID_MDFE.AsInteger;
+          updEnviado.ParamByName('ID_MDFE').AsInteger := qryMDFEID_MDFE.AsInteger;
           updEnviado.ParamByName('ID_SERIE').AsInteger := qryMDFEID_SERIE.AsInteger;
           updEnviado.ParamByName('ID_EMPRESA').AsInteger := qryMDFEID_EMPRESA.AsInteger;
-          updEnviado.ParamByName('XML_CHAVE').AsAnsiString := dtmMDFE.ACBrMDFE.Manifestos.Items[0].MDFe.procMDFe.chDFe;
-          updEnviado.ParamByName('XML_PROTOCOLO').AsString := dtmMDFE.ACBrMDFE.Manifestos.Items[0].MDFe.procMDFe.nProt;
-          updEnviado.ParamByName('XML_STRING_PROTOCOLO').AsString := dtmMDFE.ACBrMDFE.Manifestos.Items[0].XMLAssinado;
-          updEnviado.ParamByName('XML_PROCOCOLO_DATAHORA').AsDateTime := dtmMDFE.ACBrMDFE.Manifestos.Items[0].MDFe.procMDFe.dhRecbto;
+          updEnviado.ParamByName('XML_CHAVE').AsAnsiString := dtmMDFE.ACBrMDFe.Manifestos.Items[0].MDFe.procMDFe.chDFe;
+          updEnviado.ParamByName('XML_PROTOCOLO').AsString := dtmMDFE.ACBrMDFe.Manifestos.Items[0].MDFe.procMDFe.nProt;
+          updEnviado.ParamByName('XML_STRING_PROTOCOLO').AsString := dtmMDFE.ACBrMDFe.Manifestos.Items[0].XMLAssinado;
+          updEnviado.ParamByName('XML_PROCOCOLO_DATAHORA').AsDateTime := dtmMDFE.ACBrMDFe.Manifestos.Items[0]
+            .MDFe.procMDFe.dhRecbto;
 
-          updEnviado.ParamByName('XML_XMOTIVO').AsAnsiString := ACBrMDFE.Manifestos.Items[0].MDFe.procMDFe.xMotivo;
-          updEnviado.ParamByName('XML_STATUS_CODIGO').AsInteger := dtmMDFE.ACBrMDFE.WebServices.Consulta.cStat;
+          updEnviado.ParamByName('XML_XMOTIVO').AsAnsiString := ACBrMDFe.Manifestos.Items[0].MDFe.procMDFe.xMotivo;
+          updEnviado.ParamByName('XML_STATUS_CODIGO').AsInteger := dtmMDFE.ACBrMDFe.WebServices.Consulta.cStat;
           updEnviado.Prepare;
           updEnviado.ExecSQL;
 
           dtmDefault.cnx_BD.CommitRetaining;
 
-          Application.MessageBox('MDF-e enviado com sucesso!','Aviso!',MB_ICONEXCLAMATION);
+          Application.MessageBox('MDF-e enviado com sucesso!', 'Aviso!', MB_ICONEXCLAMATION);
         end
-       else
+    else
       begin
-        raise Exception.CreateFmt('Código de retorno não esperado: %d - %s',
-          [cStat, xMotivo]);
+        raise Exception.CreateFmt('Código de retorno não esperado: %d - %s', [cStat, xMotivo]);
       end;
     end;
   except
     on E: Exception do
     begin
-      ShowMessage('Erro '+ E.Message);
+      ShowMessage('Erro ' + E.Message);
       cStat := dtmMDFE.ACBrMDFe.WebServices.Retorno.cStat;
       case cStat of
-         539,228,204,205:
-      begin
-        //dtmMDFE.ACBrMDFe.Manifestos.Clear;
-        dtmMDFE.ACBrMDFe.WebServices.Consulta.MDFeChave :=  ChaveMDfe;
-        dtmMDFE.ACBrMDFe.WebServices.Consulta.Executar;
-        if (dtmMDFE.ACBrMDFe.WebServices.Consulta.cStat = 100)or(dtmMDFE.ACBrMDFe.WebServices.Consulta.cStat = 132)  then
-           begin
-            Status   := dtmMDFE.ACBrMDFe.WebServices.Consulta.cStat;
-            ChaveMDfe := dtmMDFE.ACBrMDFe.WebServices.Consulta.MDFeChave;
-            dtmMDFE.updEnviado.ParamByName('ID_MDFE').asInteger := qryMDFEID_MDFE.AsInteger;
-            dtmMDFE.updEnviado.ParamByName('ID_SERIE').AsInteger := qryMDFEID_SERIE.AsInteger;
-            dtmMDFE.updEnviado.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
-            //dtmMDFE.updEnviado.ParamByName('XML_CHAVE').AsAnsiString := dtmMDFE.ACBrMDFe.WebServices.Consulta.MDFeChave	;
-            dtmMDFE.updEnviado.ParamByName('XML_CHAVE').AsAnsiString := ChaveMDfe;//dtmMDFE.ACBrMDFe.WebServices.Consulta.MDFeChave	;
+        539, 228, 204, 205:
+          begin
+            // dtmMDFE.ACBrMDFe.Manifestos.Clear;
+            dtmMDFE.ACBrMDFe.WebServices.Consulta.MDFeChave := ChaveMDfe;
+            dtmMDFE.ACBrMDFe.WebServices.Consulta.Executar;
+            if (dtmMDFE.ACBrMDFe.WebServices.Consulta.cStat = 100) or (dtmMDFE.ACBrMDFe.WebServices.Consulta.cStat = 132) then
+            begin
+              Status := dtmMDFE.ACBrMDFe.WebServices.Consulta.cStat;
+              ChaveMDfe := dtmMDFE.ACBrMDFe.WebServices.Consulta.MDFeChave;
+              dtmMDFE.updEnviado.ParamByName('ID_MDFE').AsInteger := qryMDFEID_MDFE.AsInteger;
+              dtmMDFE.updEnviado.ParamByName('ID_SERIE').AsInteger := qryMDFEID_SERIE.AsInteger;
+              dtmMDFE.updEnviado.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
+              // dtmMDFE.updEnviado.ParamByName('XML_CHAVE').AsAnsiString := dtmMDFE.ACBrMDFe.WebServices.Consulta.MDFeChave	;
+              dtmMDFE.updEnviado.ParamByName('XML_CHAVE').AsAnsiString := ChaveMDfe;
+              // dtmMDFE.ACBrMDFe.WebServices.Consulta.MDFeChave	;
 
-            dtmMDFE.updEnviado.ParamByName('XML_PROTOCOLO').AsString := dtmMDFE.ACBrMDFe.WebServices.Consulta.Protocolo;///dtmMDFE.ACBrMDFe.Manifestos.Items[0].MDFe.procMDFe.nProt;
+              dtmMDFE.updEnviado.ParamByName('XML_PROTOCOLO').AsString := dtmMDFE.ACBrMDFe.WebServices.Consulta.Protocolo;
+              /// dtmMDFE.ACBrMDFe.Manifestos.Items[0].MDFe.procMDFe.nProt;
 
-            dtmMDFE.updEnviado.ParamByName('XML_PROCOCOLO_DATAHORA').AsDateTime := dtmMDFE.ACBrMDFe.WebServices.Consulta.DhRecbto;
-            dtmMDFE.updEnviado.ParamByName('ID_SITUACAO').AsString := 'E';
-            dtmMDFE.updEnviado.ParamByName('XML_XMOTIVO').AsAnsiString := '100 - MDF-e autorizado.';
-            dtmMDFE.updEnviado.ParamByName('XML_STATUS_CODIGO').AsInteger := dtmMDFE.ACBrMDFe.WebServices.Consulta.cStat;
+              dtmMDFE.updEnviado.ParamByName('XML_PROCOCOLO_DATAHORA').AsDateTime :=
+                dtmMDFE.ACBrMDFe.WebServices.Consulta.dhRecbto;
+              dtmMDFE.updEnviado.ParamByName('ID_SITUACAO').AsString := 'E';
+              dtmMDFE.updEnviado.ParamByName('XML_XMOTIVO').AsAnsiString := '100 - MDF-e autorizado.';
+              dtmMDFE.updEnviado.ParamByName('XML_STATUS_CODIGO').AsInteger := dtmMDFE.ACBrMDFe.WebServices.Consulta.cStat;
 
-            dtmMDFE.ACBrMDFe.WebServices.Consulta.MDFeChave :=ChaveMDfe;
-            dtmMDFE.ACBrMDFe.Consultar;
-            dtmMDFE.ACBrMDFe.Manifestos.Items[0].GravarXml;
-            dtmMDFE.updEnviado.ParamByName('XML_STRING_PROTOCOLO').AsString := dtmMDFE.ACBrMDFE.Manifestos.Items[0].XMLAssinado;
-            dtmMDFE.updEnviado.Prepare;
-            dtmMDFE.updEnviado.ExecSQL;
+              dtmMDFE.ACBrMDFe.WebServices.Consulta.MDFeChave := ChaveMDfe;
+              dtmMDFE.ACBrMDFe.Consultar;
+              dtmMDFE.ACBrMDFe.Manifestos.Items[0].GravarXml;
+              dtmMDFE.updEnviado.ParamByName('XML_STRING_PROTOCOLO').AsString := dtmMDFE.ACBrMDFe.Manifestos.Items[0].XMLAssinado;
+              dtmMDFE.updEnviado.Prepare;
+              dtmMDFE.updEnviado.ExecSQL;
 
-            dtmDefault.cnx_BD.CommitRetaining;
+              dtmDefault.cnx_BD.CommitRetaining;
 
-            AtualizarTabela(qryMDFE,qryMDFEID_MDFE.FieldName,qryMDFEID_MDFE.AsString);
+              AtualizarTabela(qryMDFE, qryMDFEID_MDFE.FieldName, qryMDFEID_MDFE.AsString);
 
-            Application.Messagebox(
-              PWideChar('MDF-e autorizado para uso.'#13#13'Chave de acesso: '#13 + ChaveMDFe),
-              'Autorizado',
-              MB_ICONINFORMATION + MB_OK);
-           end;
-       end;
+              Application.MessageBox(PWideChar('MDF-e autorizado para uso.'#13#13'Chave de acesso: '#13 + ChaveMDfe),
+                'Autorizado', MB_ICONINFORMATION + MB_OK);
+            end;
+          end;
       end;
 
-      {begin
+      { begin
         dtmDefault.cnx_BD.RollbackRetaining;
 
         Application.MessageBox(
-          PChar(
-            'Erro ao enviar !  cStat: ' +
-              IntToStr(dtmMDFE.ACBrMDFe.WebServices.Retorno.cStat) +
-              ';  ' + E.Message
-          ),'Aviso!!',MB_ICONEXCLAMATION );
-      end;}
+        PChar(
+        'Erro ao enviar !  cStat: ' +
+        IntToStr(dtmMDFE.ACBrMDFe.WebServices.Retorno.cStat) +
+        ';  ' + E.Message
+        ),'Aviso!!',MB_ICONEXCLAMATION );
+        end; }
     end;
   end;
 end;
@@ -1185,10 +1163,9 @@ begin
   qryMDFE.Open;
 
   if qryMDFE.IsEmpty then
-    raise Exception.Create
-      ('MDF-e não encontrado na base de dados, por favor tente novamente!');
+    raise Exception.Create('MDF-e não encontrado na base de dados, por favor tente novamente!');
 
-  with ACBrMDFe.Manifestos.Add.MDFe do
+  with ACBrMDFe.Manifestos.ADD.MDFe do
   begin
     //
     // Dados de Identificação do MDF-e
@@ -1197,63 +1174,76 @@ begin
 
     // TpcnTipoAmbiente = (taProducao, taHomologacao);
     case qryCERTIFICADO_CONFIGID_TIPO_AMBIENTE.AsInteger of
-      0:Ide.tpAmb := taProducao;
-      1:Ide.tpAmb := taHomologacao;
+      0:
+        Ide.tpAmb := taProducao;
+      1:
+        Ide.tpAmb := taHomologacao;
     end;
 
     // TMDFeTpEmitente = ( teTransportadora, teTranspCargaPropria );
     case qryMDFEID_TIPO_EMITENTE.AsInteger of
-      0: Ide.tpEmit := teTransportadora;
-      1: Ide.tpEmit := teTranspCargaPropria;
+      0:
+        Ide.tpEmit := teTransportadora;
+      1:
+        Ide.tpEmit := teTranspCargaPropria;
     end;
 
-    Ide.modelo  := '58';
-    Ide.serie   := qryMDFEID_SERIE.AsInteger;
-    Ide.nMDF    := qryMDFEID_MDFE.AsInteger;
-    Ide.cMDF    := qryMDFEID_MDFE.AsInteger + 2;
-    Ide.dhEmi   := qryMDFEDATAHORA_EMISSAO.AsDateTime;
+    Ide.modelo := '58';
+    Ide.serie := qryMDFEID_SERIE.AsInteger;
+    Ide.nMDF := qryMDFEID_MDFE.AsInteger;
+    Ide.cMDF := qryMDFEID_MDFE.AsInteger + 2;
+    Ide.dhEmi := qryMDFEDATAHORA_EMISSAO.AsDateTime;
 
     case qryMDFEID_MODALIDADE.AsInteger of
-      0:Ide.modal := moRodoviario;
-      1:Ide.modal := moAereo;
-      2:Ide.modal := moAquaviario;
-      3:Ide.modal := moFerroviario;
+      0:
+        Ide.modal := moRodoviario;
+      1:
+        Ide.modal := moAereo;
+      2:
+        Ide.modal := moAquaviario;
+      3:
+        Ide.modal := moFerroviario;
     end;
 
     case qryMDFEID_FORMA_EMISSAO.AsInteger of
-      0:Ide.tpEmis  := teNormal;
-      1:Ide.tpEmis  := teContingencia;
+      0:
+        Ide.tpEmis := teNormal;
+      1:
+        Ide.tpEmis := teContingencia;
     end;
 
-
-    case StrToIntDef(qryMDFEID_TIPO_TRANSPORTADOR.AsString,9) of
-      0:Ide.tpTransp := ttETC;
-      1:Ide.tpTransp := ttTAC;
-      2:Ide.tpTransp := ttCTC;
-      9:Ide.tpTransp := ttNenhum;
+    case StrToIntDef(qryMDFEID_TIPO_TRANSPORTADOR.AsString, 9) of
+      0:
+        Ide.tpTransp := ttETC;
+      1:
+        Ide.tpTransp := ttTAC;
+      2:
+        Ide.tpTransp := ttCTC;
+      9:
+        Ide.tpTransp := ttNenhum;
     end;
 
     // TpcnProcessoEmissao = (peAplicativoContribuinte, peAvulsaFisco, peAvulsaContribuinte, peContribuinteAplicativoFisco);
     Ide.procEmi := peAplicativoContribuinte;
     Ide.verProc := '1.0';
-    Ide.UFIni   :=  qryMDFEID_UF_INICIAL.AsString;
-    Ide.UFFim   := qryMDFEID_UF_FINAL.AsString;
+    Ide.UFIni := qryMDFEID_UF_INICIAL.AsString;
+    Ide.UFFim := qryMDFEID_UF_FINAL.AsString;
 
-    //responsável técnico pelo sistema
-    infRespTec.CNPJ     := '';
+    // responsável técnico pelo sistema
+    infRespTec.CNPJ := '';
     infRespTec.xContato := '';
-    infRespTec.email    := '';
-    infRespTec.fone     := '';
-    infRespTec.CNPJ     := '';
+    infRespTec.email := '';
+    infRespTec.fone := '';
+    infRespTec.CNPJ := '';
 
     // estes dois ainda não são obrigatórios pois não existe cadastro centralizado
-    infRespTec.idCSRT   := 0;
+    infRespTec.idCSRT := 0;
     infRespTec.hashCSRT := '';
 
     qryMDFE_UF_PERCURSO.First;
     while not qryMDFE_UF_PERCURSO.Eof do
     begin
-      with Ide.infPercurso.Add do
+      with Ide.infPercurso.New do
       begin
         UFPer := qryMDFE_UF_PERCURSOID_UF.AsString.Trim;
       end;
@@ -1264,7 +1254,7 @@ begin
     qryMDFE_LOCAL_CARREGAMENTO.First;
     while not qryMDFE_LOCAL_CARREGAMENTO.Eof do
     begin
-      with Ide.infMunCarrega.Add do
+      with Ide.infMunCarrega.New do
       begin
         cMunCarrega := qryMDFE_LOCAL_CARREGAMENTOID_MUNICIPIO.AsInteger;
         xMunCarrega := qryMDFE_LOCAL_CARREGAMENTOMUNICIPIO.AsString;
@@ -1274,30 +1264,30 @@ begin
     end;
 
     // Dados do Emitente
-    Emit.CNPJCPF           := ACBrUtil.OnlyNumber(qryEMPRESACNPJ.AsString.Trim);
-    Emit.IE                := ACBrUtil.OnlyNumber(qryEMPRESAIE_ESTADUAL.AsString.Trim);
-    Emit.xNome             := qryEMPRESARAZAOSOCIAL.AsString.Trim;
-    Emit.xFant             := qryEMPRESANOMEFANTASIA.AsString.Trim;
-    Emit.EnderEmit.xLgr    := qryEMPRESAENDERECO.AsString.Trim;
-    Emit.EnderEmit.nro     := qryEMPRESANUMERO.AsString.Trim;
-    Emit.EnderEmit.xCpl    := qryEMPRESACOMPLEMENTO.AsString.Trim;
+    Emit.CNPJCPF := OnlyNumber(qryEMPRESACNPJ.AsString.Trim);
+    Emit.IE := OnlyNumber(qryEMPRESAIE_ESTADUAL.AsString.Trim);
+    Emit.xNome := qryEMPRESARAZAOSOCIAL.AsString.Trim;
+    Emit.xFant := qryEMPRESANOMEFANTASIA.AsString.Trim;
+    Emit.EnderEmit.xLgr := qryEMPRESAENDERECO.AsString.Trim;
+    Emit.EnderEmit.nro := qryEMPRESANUMERO.AsString.Trim;
+    Emit.EnderEmit.xCpl := qryEMPRESACOMPLEMENTO.AsString.Trim;
     Emit.EnderEmit.xBairro := qryEMPRESABAIRRO.AsString.Trim;
-    Emit.EnderEmit.cMun    := qryEMPRESAID_CIDADES_IBGE.AsInteger;
-    Emit.EnderEmit.xMun    := qryEMPRESACIDADE.AsString.Trim;
-    Emit.EnderEmit.CEP     := StrToIntDef(ACBrUtil.OnlyNumber(qryEMPRESACEP.AsString.Trim),0);
-    Emit.EnderEmit.UF      := qryEMPRESAID_CIDADES_UF.AsString;
-    Emit.EnderEmit.fone    := ACBrUtil.OnlyNumber(qryEMPRESATELEFONE.AsString);
-    Emit.enderEmit.email   := qryEMPRESAEMAIL.AsString;
+    Emit.EnderEmit.cMun := qryEMPRESAID_CIDADES_IBGE.AsInteger;
+    Emit.EnderEmit.xMun := qryEMPRESACIDADE.AsString.Trim;
+    Emit.EnderEmit.CEP := StrToIntDef(OnlyNumber(qryEMPRESACEP.AsString.Trim), 0);
+    Emit.EnderEmit.UF := qryEMPRESAID_CIDADES_UF.AsString;
+    Emit.EnderEmit.fone := OnlyNumber(qryEMPRESATELEFONE.AsString);
+    Emit.EnderEmit.email := qryEMPRESAEMAIL.AsString;
 
     rodo.RNTRC := qryMDFEVEICULO_RNTRC.AsString.Trim;
 
     qryMDFE_CIOT.First;
     while not qryMDFE_CIOT.Eof do
     begin
-      with Rodo.infANTT.infCIOT.Add do
+      with rodo.infANTT.infCIOT.New do
       begin
-        CIOT    := qryMDFE_CIOTCIOT.AsString;
-        CNPJCPF := ACBrUtil.OnlyNumber(qryMDFE_CIOTCNPJ.AsString);
+        CIOT := qryMDFE_CIOTCIOT.AsString;
+        CNPJCPF := OnlyNumber(qryMDFE_CIOTCNPJ.AsString);
       end;
 
       qryMDFE_CIOT.Next;
@@ -1306,194 +1296,226 @@ begin
     qryMDFE_CONTRATANTES.First;
     while not qryMDFE_CONTRATANTES.Eof do
     begin
-      with rodo.infANTT.infContratante.Add do
+      with rodo.infANTT.infContratante.New do
       begin
-        CNPJCPF := ACBrUtil.OnlyNumber(qryMDFE_CONTRATANTESCNPJ.AsString.Trim);
+        CNPJCPF := OnlyNumber(qryMDFE_CONTRATANTESCNPJ.AsString.Trim);
       end;
 
       qryMDFE_CONTRATANTES.Next;
     end;
 
-    case ide.modal of
+    case Ide.modal of
       moRodoviario:
-      begin
-        rodo.veicTracao.cInt    := qryMDFEVEICULO_CODIGO_INTERNO.AsString;
-        rodo.veicTracao.placa   := qryMDFEVEICULO_PLACA.AsString;
-        rodo.veicTracao.RENAVAM := qryMDFEVEICULO_RENAVAN.AsString;
-        rodo.veicTracao.tara    := qryMDFEVEICULO_TARA.AsInteger;
-        rodo.veicTracao.capKG   := qryMDFEVEICULO_CAPACIDADE_KG.AsInteger;
-        rodo.veicTracao.capM3   := qryMDFEVEICULO_CAPACIDADE_M3.AsInteger;
-
-        case qryMDFEVEICULO_TIPO_RODADO.AsInteger of
-          0:rodo.veicTracao.tpRod := trNaoAplicavel;
-          1:rodo.veicTracao.tpRod := trTruck;
-          2:rodo.veicTracao.tpRod := trToco;
-          3:rodo.veicTracao.tpRod := trCavaloMecanico;
-          4:rodo.veicTracao.tpRod := trVAN;
-          5:rodo.veicTracao.tpRod := trUtilitario;
-          6:rodo.veicTracao.tpRod := trOutros;
-        end;
-
-        case qryMDFEVEICULO_TIPO_CARROCERIA.AsInteger of
-          0:rodo.veicTracao.tpCar := tcNaoAplicavel;
-          1:rodo.veicTracao.tpCar := tcAberta;
-          2:rodo.veicTracao.tpCar := tcFechada;
-          3:rodo.veicTracao.tpCar := tcGraneleira;
-          4:rodo.veicTracao.tpCar := tcPortaContainer;
-          5:rodo.veicTracao.tpCar := tcSider;
-        end;
-
-        rodo.veicTracao.UF := qryMDFEVEICULO_UF.AsString.Trim;
-
-        qryMDFE_CONDUTORES.First;
-        while not qryMDFE_CONDUTORES.Eof do
         begin
-          with rodo.veicTracao.condutor.Add do
-          begin
-            xNome := qryMDFE_CONDUTORESNOME.AsString.Trim;
-            CPF   := ACBrUtil.OnlyNumber(qryMDFE_CONDUTORESID_CPF.AsString.Trim);
+          rodo.veicTracao.cInt := qryMDFEVEICULO_CODIGO_INTERNO.AsString;
+          rodo.veicTracao.placa := qryMDFEVEICULO_PLACA.AsString;
+          rodo.veicTracao.RENAVAM := qryMDFEVEICULO_RENAVAN.AsString;
+          rodo.veicTracao.tara := qryMDFEVEICULO_TARA.AsInteger;
+          rodo.veicTracao.capKG := qryMDFEVEICULO_CAPACIDADE_KG.AsInteger;
+          rodo.veicTracao.capM3 := qryMDFEVEICULO_CAPACIDADE_M3.AsInteger;
+
+          case qryMDFEVEICULO_TIPO_RODADO.AsInteger of
+            0:
+              rodo.veicTracao.tpRod := trNaoAplicavel;
+            1:
+              rodo.veicTracao.tpRod := trTruck;
+            2:
+              rodo.veicTracao.tpRod := trToco;
+            3:
+              rodo.veicTracao.tpRod := trCavaloMecanico;
+            4:
+              rodo.veicTracao.tpRod := trVAN;
+            5:
+              rodo.veicTracao.tpRod := trUtilitario;
+            6:
+              rodo.veicTracao.tpRod := trOutros;
           end;
 
-          qryMDFE_CONDUTORES.Next;
-        end;
+          case qryMDFEVEICULO_TIPO_CARROCERIA.AsInteger of
+            0:
+              rodo.veicTracao.tpCar := tcNaoAplicavel;
+            1:
+              rodo.veicTracao.tpCar := tcAberta;
+            2:
+              rodo.veicTracao.tpCar := tcFechada;
+            3:
+              rodo.veicTracao.tpCar := tcGraneleira;
+            4:
+              rodo.veicTracao.tpCar := tcPortaContainer;
+            5:
+              rodo.veicTracao.tpCar := tcSider;
+          end;
 
-        qryMDFE_REBOQUE.First;
-        while not qryMDFE_REBOQUE.Eof do
-        begin
-          with rodo.veicReboque.Add do
+          rodo.veicTracao.UF := qryMDFEVEICULO_UF.AsString.Trim;
+
+          qryMDFE_CONDUTORES.First;
+          while not qryMDFE_CONDUTORES.Eof do
           begin
-            cInt    := qryMDFE_REBOQUEINTT.AsString.Trim;
-            placa   := qryMDFE_REBOQUEPLACA.AsString.Trim;
-            RENAVAM := qryMDFE_REBOQUERENAVAN.AsString.Trim;
-            tara    := qryMDFE_REBOQUETARA.AsInteger;
-            capKG   := qryMDFE_REBOQUECAPKG.AsInteger;
-            capM3   := qryMDFE_REBOQUECAPM3.AsInteger;
-
-            case qryMDFE_REBOQUEID_TIPO_RODADO.AsInteger of
-              0:tpCar := tcNaoAplicavel;
-              1:tpCar := tcAberta;
-              2:tpCar := tcFechada;
-              3:tpCar := tcGraneleira;
-              4:tpCar := tcPortaContainer;
-              5:tpCar := tcSider;
+            with rodo.veicTracao.condutor.New do
+            begin
+              xNome := qryMDFE_CONDUTORESNOME.AsString.Trim;
+              CPF := OnlyNumber(qryMDFE_CONDUTORESID_CPF.AsString.Trim);
             end;
 
-            UF := qryMDFE_REBOQUEUF.AsString.Trim;
+            qryMDFE_CONDUTORES.Next;
           end;
 
-          qryMDFE_REBOQUE.Next;
-        end;
-
-        qryMDFE_VALEPEDAGIO.First;
-        while not qryMDFE_VALEPEDAGIO.Eof do
-        begin
-          with rodo.valePed.disp.Add do
+          qryMDFE_REBOQUE.First;
+          while not qryMDFE_REBOQUE.Eof do
           begin
-            CNPJForn := ACBrUtil.OnlyNumber(qryMDFE_VALEPEDAGIOCNPJFORN.AsString.Trim);
-            CNPJPg   := ACBrUtil.OnlyNumber(qryMDFE_VALEPEDAGIOCNPJPG.AsString.Trim);
-            nCompra  := ACBrUtil.OnlyNumber(qryMDFE_VALEPEDAGIONCOMPRA.AsString.Trim);
-            if  StrToCurrDef(qryMDFE_VALEPEDAGIONCOMPRA.AsString,0.00) > 0.00 then
-              vValePed := qryMDFE_VALEPEDAGIONCOMPRA.AsCurrency;
+            with rodo.veicReboque.New do
+            begin
+              cInt := qryMDFE_REBOQUEINTT.AsString.Trim;
+              placa := qryMDFE_REBOQUEPLACA.AsString.Trim;
+              RENAVAM := qryMDFE_REBOQUERENAVAN.AsString.Trim;
+              tara := qryMDFE_REBOQUETARA.AsInteger;
+              capKG := qryMDFE_REBOQUECAPKG.AsInteger;
+              capM3 := qryMDFE_REBOQUECAPM3.AsInteger;
+
+              case qryMDFE_REBOQUEID_TIPO_RODADO.AsInteger of
+                0:
+                  tpCar := tcNaoAplicavel;
+                1:
+                  tpCar := tcAberta;
+                2:
+                  tpCar := tcFechada;
+                3:
+                  tpCar := tcGraneleira;
+                4:
+                  tpCar := tcPortaContainer;
+                5:
+                  tpCar := tcSider;
+              end;
+
+              UF := qryMDFE_REBOQUEUF.AsString.Trim;
+            end;
+
+            qryMDFE_REBOQUE.Next;
           end;
 
-          qryMDFE_VALEPEDAGIO.Next
+          qryMDFE_VALEPEDAGIO.First;
+          while not qryMDFE_VALEPEDAGIO.Eof do
+          begin
+            with rodo.valePed.disp.New do
+            begin
+              CNPJForn := OnlyNumber(qryMDFE_VALEPEDAGIOCNPJFORN.AsString.Trim);
+              CNPJPg := OnlyNumber(qryMDFE_VALEPEDAGIOCNPJPG.AsString.Trim);
+              nCompra := OnlyNumber(qryMDFE_VALEPEDAGIONCOMPRA.AsString.Trim);
+              if StrToCurrDef(qryMDFE_VALEPEDAGIONCOMPRA.AsString, 0.00) > 0.00 then
+                vValePed := qryMDFE_VALEPEDAGIONCOMPRA.AsCurrency;
+            end;
+
+            qryMDFE_VALEPEDAGIO.Next
+          end;
         end;
-      end;
-      moAereo: ;
+      moAereo:
+        ;
       moAquaviario:
-      begin
-        aquav.CNPJAgeNav := ACBrUtil.OnlyNumber(qryMDFEAQUA_CNPJ.AsString.Trim);
-        aquav.irin       := 'Z1';
-        aquav.tpEmb      := qryMDFEAQUA_EMBARCACAO_TIPO.AsString.Trim;
-        aquav.cEmbar     := qryMDFEAQUA_EMBARCACAO_CODIGO.AsString.Trim;
-        aquav.xEmbar     := qryMDFEAQUA_EMBARCACAO_NOME.AsString.Trim;
-        aquav.nViagem    := qryMDFEAQUA_EMBARCACAO_VIAGEM_NUMERO.AsString.Trim;
-        aquav.cPrtEmb    := qryMDFEAQUA_EMBARCACAO_CODPORTO_EMB.AsString.Trim;
-        aquav.cPrtDest   := qryMDFEAQUA_EMBARCACAO_CODPORTO_DEST.AsString.Trim;
-        aquav.prtTrans   := 'X1';
-        aquav.tpNav      := tnInterior;//tnInterior, tnCabotagem
-
-        qryMDFE_AQUA_TERMINAL_CARREG.First;
-        while not qryMDFE_AQUA_TERMINAL_CARREG.Eof do
         begin
-          with aquav.infTermCarreg.Add do
+          aquav.CNPJAgeNav := OnlyNumber(qryMDFEAQUA_CNPJ.AsString.Trim);
+          aquav.irin := 'Z1';
+          aquav.tpEmb := qryMDFEAQUA_EMBARCACAO_TIPO.AsString.Trim;
+          aquav.cEmbar := qryMDFEAQUA_EMBARCACAO_CODIGO.AsString.Trim;
+          aquav.xEmbar := qryMDFEAQUA_EMBARCACAO_NOME.AsString.Trim;
+          aquav.nViagem := qryMDFEAQUA_EMBARCACAO_VIAGEM_NUMERO.AsString.Trim;
+          aquav.cPrtEmb := qryMDFEAQUA_EMBARCACAO_CODPORTO_EMB.AsString.Trim;
+          aquav.cPrtDest := qryMDFEAQUA_EMBARCACAO_CODPORTO_DEST.AsString.Trim;
+          aquav.prtTrans := 'X1';
+          aquav.tpNav := tnInterior; // tnInterior, tnCabotagem
+
+          qryMDFE_AQUA_TERMINAL_CARREG.First;
+          while not qryMDFE_AQUA_TERMINAL_CARREG.Eof do
           begin
-            cTermCarreg := qryMDFE_AQUA_TERMINAL_CARREGID_TERMINAL.AsString.Trim;
-            xTermCarreg := qryMDFE_AQUA_TERMINAL_CARREGID_NOME.AsString.Trim;
-          end;
-
-          qryMDFE_AQUA_TERMINAL_CARREG.Next;
-        end;
-
-        qryMDFE_AQUA_TERMINAL_DESCARREG.First;
-        while not qryMDFE_AQUA_TERMINAL_DESCARREG.Eof do
-        begin
-          with aquav.infTermDescarreg.Add do
-          begin
-            cTermDescarreg := qryMDFE_AQUA_TERMINAL_DESCARREGID_TERMINAL.AsString.Trim;
-            xTermDescarreg := qryMDFE_AQUA_TERMINAL_DESCARREGID_NOME.AsString.Trim;
-          end;
-
-          qryMDFE_AQUA_TERMINAL_DESCARREG.Next;
-        end;
-
-        qryMDFE_AQUA_COMBOIO.First;
-        while not qryMDFE_AQUA_COMBOIO.Eof do
-        begin
-          with aquav.infEmbComb.Add do
-          begin
-            cEmbComb := qryMDFE_AQUA_COMBOIOID_COMBOIO.AsString.Trim;
-            xBalsa := qryMDFE_AQUA_COMBOIOBALSA.AsString.Trim;
-          end;
-
-          qryMDFE_AQUA_COMBOIO.Next;
-        end;
-
-
-       qryMDFE_AQUA_UNID_CARGA.First;
-       while not qryMDFE_AQUA_UNID_CARGA.Eof do
-       begin
-         with aquav.infUnidCargaVazia.Add do
-          begin
-            idUnidCargaVazia := qryMDFE_AQUA_UNID_CARGAID_IDENTIFICACAO.AsString.Trim;
-            case qryMDFE_AQUA_UNID_CARGAID_UNIDADE.AsInteger of
-              0:tpUnidCargaVazia := ucContainer; //ucContainer, ucULD, ucPallet, ucOutros
-              1:tpUnidCargaVazia := ucULD;
-              2:tpUnidCargaVazia := ucPallet;
-              3:tpUnidCargaVazia := ucOutros;
+            with aquav.infTermCarreg.New do
+            begin
+              cTermCarreg := qryMDFE_AQUA_TERMINAL_CARREGID_TERMINAL.AsString.Trim;
+              xTermCarreg := qryMDFE_AQUA_TERMINAL_CARREGID_NOME.AsString.Trim;
             end;
+
+            qryMDFE_AQUA_TERMINAL_CARREG.Next;
           end;
 
-         qryMDFE_AQUA_UNID_CARGA.Next;
-       end;
+          qryMDFE_AQUA_TERMINAL_DESCARREG.First;
+          while not qryMDFE_AQUA_TERMINAL_DESCARREG.Eof do
+          begin
+            with aquav.infTermDescarreg.New do
+            begin
+              cTermDescarreg := qryMDFE_AQUA_TERMINAL_DESCARREGID_TERMINAL.AsString.Trim;
+              xTermDescarreg := qryMDFE_AQUA_TERMINAL_DESCARREGID_NOME.AsString.Trim;
+            end;
 
-       qryMDFE_AQUA_UNID_TRANS.First;
-       while not qryMDFE_AQUA_UNID_TRANS.Eof do
-       begin
-         with aquav.infUnidTranspVazia.Add do
-         begin
-           idUnidTranspVazia := qryMDFE_AQUA_UNID_TRANSID_IDENTIFICACAO.AsString;
-           case qryMDFE_AQUA_UNID_TRANSID_UNIDADE.AsInteger of
-             0:tpUnidTranspVazia := utRodoTracao; //utRodoTracao, utRodoReboque, utNavio, utBalsa, utAeronave, utVagao, utOutros
-             1:tpUnidTranspVazia := utRodoReboque;
-             2:tpUnidTranspVazia := utNavio;
-             3:tpUnidTranspVazia := utBalsa;
-             4:tpUnidTranspVazia := utAeronave;
-             5:tpUnidTranspVazia := utVagao;
-             6:tpUnidTranspVazia := utOutros;
-           end;
-         end;
+            qryMDFE_AQUA_TERMINAL_DESCARREG.Next;
+          end;
 
-         qryMDFE_AQUA_UNID_TRANS.Next;
-       end;
-      end;
-      moFerroviario: ;
+          qryMDFE_AQUA_COMBOIO.First;
+          while not qryMDFE_AQUA_COMBOIO.Eof do
+          begin
+            with aquav.infEmbComb.New do
+            begin
+              cEmbComb := qryMDFE_AQUA_COMBOIOID_COMBOIO.AsString.Trim;
+              xBalsa := qryMDFE_AQUA_COMBOIOBALSA.AsString.Trim;
+            end;
+
+            qryMDFE_AQUA_COMBOIO.Next;
+          end;
+
+          qryMDFE_AQUA_UNID_CARGA.First;
+          while not qryMDFE_AQUA_UNID_CARGA.Eof do
+          begin
+            with aquav.infUnidCargaVazia.New do
+            begin
+              idUnidCargaVazia := qryMDFE_AQUA_UNID_CARGAID_IDENTIFICACAO.AsString.Trim;
+              case qryMDFE_AQUA_UNID_CARGAID_UNIDADE.AsInteger of
+                0:
+                  tpUnidCargaVazia := ucContainer; // ucContainer, ucULD, ucPallet, ucOutros
+                1:
+                  tpUnidCargaVazia := ucULD;
+                2:
+                  tpUnidCargaVazia := ucPallet;
+                3:
+                  tpUnidCargaVazia := ucOutros;
+              end;
+            end;
+
+            qryMDFE_AQUA_UNID_CARGA.Next;
+          end;
+
+          qryMDFE_AQUA_UNID_TRANS.First;
+          while not qryMDFE_AQUA_UNID_TRANS.Eof do
+          begin
+            with aquav.infUnidTranspVazia.New do
+            begin
+              idUnidTranspVazia := qryMDFE_AQUA_UNID_TRANSID_IDENTIFICACAO.AsString;
+              case qryMDFE_AQUA_UNID_TRANSID_UNIDADE.AsInteger of
+                0:
+                  tpUnidTranspVazia := utRodoTracao;
+                // utRodoTracao, utRodoReboque, utNavio, utBalsa, utAeronave, utVagao, utOutros
+                1:
+                  tpUnidTranspVazia := utRodoReboque;
+                2:
+                  tpUnidTranspVazia := utNavio;
+                3:
+                  tpUnidTranspVazia := utBalsa;
+                4:
+                  tpUnidTranspVazia := utAeronave;
+                5:
+                  tpUnidTranspVazia := utVagao;
+                6:
+                  tpUnidTranspVazia := utOutros;
+              end;
+            end;
+
+            qryMDFE_AQUA_UNID_TRANS.Next;
+          end;
+        end;
+      moFerroviario:
+        ;
     end;
 
     qryMDFE_LOCAL_DESCARREGAMENTO.First;
     while not qryMDFE_LOCAL_DESCARREGAMENTO.Eof do
     begin
-      with infDoc.infMunDescarga.Add do
+      with infDoc.infMunDescarga.New do
       begin
         cMunDescarga := qryMDFE_LOCAL_DESCARREGAMENTOID_CIDADES_IBGE.AsInteger;
         xMunDescarga := qryMDFE_LOCAL_DESCARREGAMENTOCIDADE_NOME.AsString.Trim;
@@ -1501,33 +1523,40 @@ begin
         case qryMDFEID_TIPO_EMITENTE.AsInteger of
           0:
             begin
-              //CT-e
+              // CT-e
               while not qryMDFE_CTE.Eof do
               begin
-                with infCTe.Add do
+                with infCTe.New do
                 begin
                   chCTe := qryMDFE_CTEID_CHAVE.AsString.Trim;
 
                   while not qryMDFE_CTE_UNIDTRANS.Eof do
                   begin
-                    with infUnidTransp.Add do
+                    with infUnidTransp.New do
                     begin
                       qtdRat := qryMDFE_CTE_UNIDTRANSQUANTIDADE.AsCurrency;
 
                       case qryMDFE_CTE_UNIDTRANSID_TIPO.AsInteger of
-                        0:tpUnidTransp := utRodoTracao;
-                        1:tpUnidTransp := utRodoReboque;
-                        2:tpUnidTransp := utNavio;
-                        3:tpUnidTransp := utBalsa;
-                        4:tpUnidTransp := utAeronave;
-                        5:tpUnidTransp := utVagao;
-                        6:tpUnidTransp := utOutros;
+                        0:
+                          tpUnidTransp := utRodoTracao;
+                        1:
+                          tpUnidTransp := utRodoReboque;
+                        2:
+                          tpUnidTransp := utNavio;
+                        3:
+                          tpUnidTransp := utBalsa;
+                        4:
+                          tpUnidTransp := utAeronave;
+                        5:
+                          tpUnidTransp := utVagao;
+                        6:
+                          tpUnidTransp := utOutros;
                       end;
                       idUnidTransp := qryMDFE_CTE_UNIDTRANSID_IDENTIFICACAO.AsString.Trim;
 
                       while not qryMDFE_CTE_UNIDTRANS_LACRE.Eof do
                       begin
-                        with lacUnidTransp.Add do
+                        with lacUnidTransp.New do
                         begin
                           nLacre := qryMDFE_CTE_UNIDTRANS_LACREID_LACRE.AsString.Trim;
                         end;
@@ -1537,22 +1566,26 @@ begin
 
                       while not qryMDFE_CTE_CARGTRANS.Eof do
                       begin
-                        with infUnidCarga.Add do
+                        with infUnidCarga.New do
                         begin
                           qtdRat := qryMDFE_CTE_CARGTRANSQUANTIDADE.AsCurrency;
 
                           case qryMDFE_CTE_CARGTRANSID_TIPO.AsInteger of
-                            0:tpUnidCarga := ucContainer;
-                            1:tpUnidCarga := ucULD;
-                            2:tpUnidCarga := ucPallet;
-                            3:tpUnidCarga := ucOutros;
+                            0:
+                              tpUnidCarga := ucContainer;
+                            1:
+                              tpUnidCarga := ucULD;
+                            2:
+                              tpUnidCarga := ucPallet;
+                            3:
+                              tpUnidCarga := ucOutros;
                           end;
 
                           idUnidCarga := qryMDFE_CTE_CARGTRANSID_IDENTIFICADOR.AsString.Trim;
 
                           while not qryMDFE_CTE_CARGTRANS_LACRE.Eof do
                           begin
-                            with lacUnidCarga.Add do
+                            with lacUnidCarga.New do
                             begin
                               nLacre := qryMDFE_CTE_CARGTRANS_LACREID_LACRE.AsString.Trim;
                             end;
@@ -1574,33 +1607,40 @@ begin
             end;
           1:
             begin
-              //NF-e
+              // NF-e
               while not qryMDFE_NFE.Eof do
               begin
-                with infNFe.Add do
+                with infNFe.New do
                 begin
                   chNFe := qryMDFE_NFEID_CHAVE.AsString.Trim;
 
                   while not qryMDFE_NFE_UNIDTRANS.Eof do
                   begin
-                    with infUnidTransp.Add do
+                    with infUnidTransp.New do
                     begin
                       qtdRat := qryMDFE_NFE_UNIDTRANSQUANTIDADE.AsCurrency;
 
                       case qryMDFE_NFE_UNIDTRANSID_TIPO.AsInteger of
-                        0:tpUnidTransp := utRodoTracao;
-                        1:tpUnidTransp := utRodoReboque;
-                        2:tpUnidTransp := utNavio;
-                        3:tpUnidTransp := utBalsa;
-                        4:tpUnidTransp := utAeronave;
-                        5:tpUnidTransp := utVagao;
-                        6:tpUnidTransp := utOutros;
+                        0:
+                          tpUnidTransp := utRodoTracao;
+                        1:
+                          tpUnidTransp := utRodoReboque;
+                        2:
+                          tpUnidTransp := utNavio;
+                        3:
+                          tpUnidTransp := utBalsa;
+                        4:
+                          tpUnidTransp := utAeronave;
+                        5:
+                          tpUnidTransp := utVagao;
+                        6:
+                          tpUnidTransp := utOutros;
                       end;
                       idUnidTransp := qryMDFE_NFE_UNIDTRANSID_IDENTIFICACAO.AsString.Trim;
 
                       while not qryMDFE_NFE_UNIDTRANS_LACRE.Eof do
                       begin
-                        with lacUnidTransp.Add do
+                        with lacUnidTransp.New do
                         begin
                           nLacre := qryMDFE_NFE_UNIDTRANS_LACREID_LACRE.AsString.Trim;
                         end;
@@ -1610,22 +1650,26 @@ begin
 
                       while not qryMDFE_NFE_CARGTRANS.Eof do
                       begin
-                        with infUnidCarga.Add do
+                        with infUnidCarga.New do
                         begin
                           qtdRat := qryMDFE_NFE_CARGTRANSQUANTIDADE.AsCurrency;
 
                           case qryMDFE_NFE_CARGTRANSID_TIPO.AsInteger of
-                            0:tpUnidCarga := ucContainer;
-                            1:tpUnidCarga := ucULD;
-                            2:tpUnidCarga := ucPallet;
-                            3:tpUnidCarga := ucOutros;
+                            0:
+                              tpUnidCarga := ucContainer;
+                            1:
+                              tpUnidCarga := ucULD;
+                            2:
+                              tpUnidCarga := ucPallet;
+                            3:
+                              tpUnidCarga := ucOutros;
                           end;
 
                           idUnidCarga := qryMDFE_NFE_CARGTRANSID_IDENTIFICADOR.AsString.Trim;
 
                           while not qryMDFE_NFE_CARGTRANS_LACRE.Eof do
                           begin
-                            with lacUnidCarga.Add do
+                            with lacUnidCarga.New do
                             begin
                               nLacre := qryMDFE_NFE_CARGTRANS_LACREID_LACRE.AsString.Trim;
                             end;
@@ -1652,30 +1696,35 @@ begin
       qryMDFE_LOCAL_DESCARREGAMENTO.Next;
     end;
 
-    vQtd := dtmDefault.cnx_BD.ExecSQLScalar(Format(SQL_COUNT_NFE,[qryMDFEID_EMPRESA.AsInteger, qryMDFEID_MDFE.AsInteger, qryMDFEID_SERIE.AsInteger]));
-    vQtd := dtmDefault.cnx_BD.ExecSQLScalar(Format(SQL_COUNT_CTE,[qryMDFEID_EMPRESA.AsInteger, qryMDFEID_MDFE.AsInteger, qryMDFEID_SERIE.AsInteger]));
-
+    vQtd := dtmDefault.cnx_BD.ExecSQLScalar(Format(SQL_COUNT_NFE, [qryMDFEID_EMPRESA.AsInteger, qryMDFEID_MDFE.AsInteger,
+      qryMDFEID_SERIE.AsInteger]));
+    vQtd := dtmDefault.cnx_BD.ExecSQLScalar(Format(SQL_COUNT_CTE, [qryMDFEID_EMPRESA.AsInteger, qryMDFEID_MDFE.AsInteger,
+      qryMDFEID_SERIE.AsInteger]));
 
     // TMDFeTpEmitente = ( teTransportadora, teTranspCargaPropria );
     case Ide.tpEmit of
       teTransportadora:
-      begin
-        tot.qNFe := 0;
-        tot.qCTe := dtmDefault.cnx_BD.ExecSQLScalar(Format(SQL_COUNT_CTE,[qryMDFEID_EMPRESA.AsInteger, qryMDFEID_MDFE.AsInteger, qryMDFEID_SERIE.AsInteger]));
-      end;
+        begin
+          tot.qNFe := 0;
+          tot.qCTe := dtmDefault.cnx_BD.ExecSQLScalar
+            (Format(SQL_COUNT_CTE, [qryMDFEID_EMPRESA.AsInteger, qryMDFEID_MDFE.AsInteger, qryMDFEID_SERIE.AsInteger]));
+        end;
       teTranspCargaPropria:
-      begin
-        tot.qNFe := dtmDefault.cnx_BD.ExecSQLScalar(Format(SQL_COUNT_NFE,[qryMDFEID_EMPRESA.AsInteger, qryMDFEID_MDFE.AsInteger, qryMDFEID_SERIE.AsInteger]));
-        tot.qCTe := 0;
-      end;
+        begin
+          tot.qNFe := dtmDefault.cnx_BD.ExecSQLScalar
+            (Format(SQL_COUNT_NFE, [qryMDFEID_EMPRESA.AsInteger, qryMDFEID_MDFE.AsInteger, qryMDFEID_SERIE.AsInteger]));
+          tot.qCTe := 0;
+        end;
     end;
 
     tot.vCarga := qryMDFETOTF_VLR_TOT_MERCADORIA.AsCurrency;
     tot.qCarga := qryMDFETOTF_PES_BRUTO.AsFloat;
 
     case qryMDFETOTF_COD_UNIDADE.AsInteger + 1 of
-      1:tot.cUnid := uKG;
-      2:tot.cUnid := uTON;
+      1:
+        tot.cUnid := uKG;
+      2:
+        tot.cUnid := uTON;
     else
       raise Exception.Create('Erro, unidade de medida inválida para o MDF-e, permitido somente KG ou TON')
     end;
@@ -1683,7 +1732,7 @@ begin
     qryMDFE_LACRE.First;
     while not qryMDFE_LACRE.Eof do
     begin
-      with lacres.Add do
+      with lacres.New do
       begin
         nLacre := qryMDFE_LACRELACRE.AsString.Trim;
       end;
@@ -1694,21 +1743,23 @@ begin
     qryMDFE_SEGUROS.First;
     while not qryMDFE_SEGUROS.Eof do
     begin
-      with seg.Add do
+      with seg.New do
       begin
         case qryMDFE_SEGUROSID_RESPONSAVEL.AsInteger of
-          0:respSeg := rsEmitente;
-          1:respSeg := rsTomadorServico;
+          0:
+            respSeg := rsEmitente;
+          1:
+            respSeg := rsTomadorServico;
         end;
 
-        CNPJCPF := ACBrUtil.OnlyNumber(qryMDFE_SEGUROSID_CNPJCPF.AsString);
-        xSeg    := qryMDFE_SEGUROSNOME.AsString.Trim ;
-        CNPJ    := ACBrUtil.OnlyNumber(qryMDFE_SEGUROSCNPJ.AsString);
-        nApol   := qryMDFE_SEGUROSAPOLICE.AsString.Trim;
+        CNPJCPF := OnlyNumber(qryMDFE_SEGUROSID_CNPJCPF.AsString);
+        xSeg := qryMDFE_SEGUROSNOME.AsString.Trim;
+        CNPJ := OnlyNumber(qryMDFE_SEGUROSCNPJ.AsString);
+        nApol := qryMDFE_SEGUROSAPOLICE.AsString.Trim;
 
         while not qryMDFE_SEGUROS_AVERBACAO.Eof do
         begin
-          with aver.Add do
+          with aver.New do
           begin
             nAver := qryMDFE_SEGUROS_AVERBACAONAVER.AsString.Trim;
           end;
@@ -1720,11 +1771,11 @@ begin
       qryMDFE_SEGUROS.Next;
     end;
 
-    infAdic.infCpl     := qryMDFEINF_ADIC_CONTRIBUINTE.AsString.Trim;
+    infAdic.infCpl := qryMDFEINF_ADIC_CONTRIBUINTE.AsString.Trim;
     infAdic.infAdFisco := qryMDFEINF_ADIC_FISCO.AsString.Trim;
   end;
 
-  ACBrMDFe.Manifestos.GerarMDFe;
+  ACBrMDFe.Manifestos.GerarMDFE;
 end;
 
 procedure TdtmMDFE.qryCERTIFICADO_CONFIGBeforeOpen(DataSet: TDataSet);
@@ -1817,7 +1868,7 @@ begin
   qryCIDADES.Active := DataSet.Active;
   qryCIDADES_UF.Active := DataSet.Active;
   QryMotorista.Active := DataSet.Active;
-  QryVeiculo.Active   := DataSet.Active;
+  QryVeiculo.Active := DataSet.Active;
 end;
 
 procedure TdtmMDFE.tabMDFEBeforeOpen(DataSet: TDataSet);
@@ -1831,7 +1882,6 @@ begin
   if FTOperacao = TRegistroDefault then
     TFDQuery(DataSet).ParamByName('ID_SERIE').AsInteger := 10000;
 end;
-
 
 procedure TdtmMDFE.tabMDFEBeforePost(DataSet: TDataSet);
 begin
@@ -1850,7 +1900,7 @@ begin
     end
     else
     begin
-      //FieldByName('ID_MDFE').AsInteger := oMDFE.GetNEW_ID_MDFE;
+      // FieldByName('ID_MDFE').AsInteger := oMDFE.GetNEW_ID_MDFE;
       FieldByName('ID_MDFE').AsInteger := -1;
       FieldByName('ID_SERIE').AsInteger := oEmpresa.MDFE_ID_SERIE;
     end;
@@ -1869,8 +1919,7 @@ begin
   end;
 end;
 
-procedure TdtmMDFE.tabMDFEUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
+procedure TdtmMDFE.tabMDFEUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
   var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
@@ -1881,9 +1930,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_AQUA_TERMINAL_CARREGUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_AQUA_TERMINAL_CARREGUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -1893,9 +1941,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_AQUA_COMBOIOUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_AQUA_COMBOIOUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -1905,34 +1952,29 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_AQUA_TERMINAL_DESCARREGUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
-begin
-  dtmDefault.TratarErro(AException);
-end;
-
-procedure TdtmMDFE.tabMDFE_AQUA_UNID_CARGABeforePost(
-  DataSet: TDataSet);
-begin
-  VerificarCamposObrigatorios(DataSet);
-end;
-
-procedure TdtmMDFE.tabMDFE_AQUA_UNID_CARGAUpdateError(
-  ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+procedure TdtmMDFE.tabMDFE_AQUA_TERMINAL_DESCARREGUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
   ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
 
-procedure TdtmMDFE.tabMDFE_AQUA_UNID_TRANSBeforePost(
-  DataSet: TDataSet);
+procedure TdtmMDFE.tabMDFE_AQUA_UNID_CARGABeforePost(DataSet: TDataSet);
 begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_AQUA_UNID_TRANSUpdateError(
-  ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+procedure TdtmMDFE.tabMDFE_AQUA_UNID_CARGAUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+begin
+  dtmDefault.TratarErro(AException);
+end;
+
+procedure TdtmMDFE.tabMDFE_AQUA_UNID_TRANSBeforePost(DataSet: TDataSet);
+begin
+  VerificarCamposObrigatorios(DataSet);
+end;
+
+procedure TdtmMDFE.tabMDFE_AQUA_UNID_TRANSUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
   ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
@@ -1943,9 +1985,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_AUT_DOWNLOADUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_AUT_DOWNLOADUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -1960,20 +2001,19 @@ begin
   if tabMDFE_CIOTCNPJ.AsString.Trim.Length = 0 then
     raise Exception.Create('Documento do Responsável inválido');
 
-  if Length(ACBrUtil.OnlyNumber(tabMDFE_CIOTCNPJ.AsString.Trim)) > 11  then
-    iErr :=  ACBrValidador.ValidarCNPJ(ACBrUtil.OnlyNumber(tabMDFE_CIOTCNPJ.AsString.Trim))
+  if Length(OnlyNumber(tabMDFE_CIOTCNPJ.AsString.Trim)) > 11 then
+    iErr := ACBrValidador.ValidarCNPJ(OnlyNumber(tabMDFE_CIOTCNPJ.AsString.Trim))
   else
-    iErr :=  ACBrValidador.ValidarCPF(ACBrUtil.OnlyNumber(tabMDFE_CIOTCNPJ.AsString.Trim));
+    iErr := ACBrValidador.ValidarCPF(OnlyNumber(tabMDFE_CIOTCNPJ.AsString.Trim));
 
- if iErr.Trim.Length > 0 then
-   raise Exception.Create(iErr);
+  if iErr.Trim.Length > 0 then
+    raise Exception.Create(iErr);
 
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_CIOTUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_CIOTUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -1983,9 +2023,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_CONDUTORESUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_CONDUTORESUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -1995,9 +2034,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_CONTRATANTESUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_CONTRATANTESUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2012,9 +2050,8 @@ begin
   TFDQuery(DataSet).FieldByName('ID_IND_REENTREGA').AsString := 'N';
 end;
 
-procedure TdtmMDFE.tabMDFE_CTEUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_CTEUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2024,9 +2061,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_CTE_CARGTRANSUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_CTE_CARGTRANSUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2036,9 +2072,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_CTE_CARGTRANS_LACREUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_CTE_CARGTRANS_LACREUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2048,9 +2083,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_CTE_UNIDTRANSUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_CTE_UNIDTRANSUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2060,9 +2094,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_CTE_UNIDTRANS_LACREUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_CTE_UNIDTRANS_LACREUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2072,9 +2105,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_LACREUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_LACREUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2084,9 +2116,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_LOCAL_CARREGAMENTOUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_LOCAL_CARREGAMENTOUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2096,9 +2127,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_LOCAL_DESCARREGAMENTOUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_LOCAL_DESCARREGAMENTOUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2116,37 +2146,32 @@ begin
   TFDQuery(DataSet).FieldByName('ID_IND_REENTREGA').AsString := 'N';
 end;
 
-procedure TdtmMDFE.tabMDFE_NFEUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_NFEUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
 
-procedure TdtmMDFE.tabMDFE_NFE_CARGTRANSUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_NFE_CARGTRANSUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
 
-procedure TdtmMDFE.tabMDFE_NFE_CARGTRANS_LACREUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_NFE_CARGTRANS_LACREUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
 
-procedure TdtmMDFE.tabMDFE_NFE_UNIDTRANSUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_NFE_UNIDTRANSUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
 
-procedure TdtmMDFE.tabMDFE_NFE_UNIDTRANS_LACREUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_NFE_UNIDTRANS_LACREUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2156,9 +2181,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_REBOQUEUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_REBOQUEUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2168,9 +2192,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_SEGUROSUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_SEGUROSUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2186,9 +2209,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_SEGUROS_AVERBACAOUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_SEGUROS_AVERBACAOUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2198,9 +2220,8 @@ begin
   VerificarCamposObrigatorios(DataSet);
 end;
 
-procedure TdtmMDFE.tabMDFE_UF_PERCURSOUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_UF_PERCURSOUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
@@ -2215,13 +2236,10 @@ begin
   tabMDFE_VALEPEDAGIOVALOR.AsCurrency := 0.00;
 end;
 
-procedure TdtmMDFE.tabMDFE_VALEPEDAGIOUpdateError(ASender: TDataSet;
-  AException: EFDException; ARow: TFDDatSRow; ARequest: TFDUpdateRequest;
-  var AAction: TFDErrorAction);
+procedure TdtmMDFE.tabMDFE_VALEPEDAGIOUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
+  ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
 end;
 
 end.
-
-

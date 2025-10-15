@@ -8,7 +8,7 @@ uses
   ACBrEnterTab, Vcl.ComCtrls, JvExComCtrls, JvStatusBar, JvComCtrls,
   JvExControls, JvSpeedButton, Vcl.ExtCtrls, Vcl.StdCtrls, JvgGroupBox,
   Vcl.Mask, Vcl.DBCtrls, JvDBLookup, JvExStdCtrls, JvCombobox, JvDBCombobox,
-  JvExMask, JvToolEdit, JvMaskEdit, JvDBControls, JvBaseEdits, JvDateTimePicker, JvDBDateTimePicker;
+  JvExMask, JvToolEdit, JvMaskEdit, JvDBControls, JvBaseEdits, JvDateTimePicker, JvDBDateTimePicker, JvSpin, JvDBSpinEdit;
 
 type
   TfrmVEICULOScadastro = class(TfrmDefaultCadastro)
@@ -56,13 +56,13 @@ type
     Label21: TLabel;
     DBEdit14: TDBEdit;
     Label7: TLabel;
-    JvDBDateTimePicker1: TJvDBDateTimePicker;
-    JvDBDateTimePicker2: TJvDBDateTimePicker;
     Label22: TLabel;
     DBEdit15: TDBEdit;
     Label23: TLabel;
     Label24: TLabel;
     DBEdit16: TDBEdit;
+    JvDBSpinEdit1: TJvDBSpinEdit;
+    JvDBSpinEdit2: TJvDBSpinEdit;
   private
     { Private declarations }
   public

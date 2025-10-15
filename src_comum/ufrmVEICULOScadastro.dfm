@@ -296,7 +296,7 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
           Transparent = True
         end
         object Label22: TLabel
-          Left = 208
+          Left = 178
           Top = 252
           Width = 71
           Height = 13
@@ -422,12 +422,12 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
           DataField = 'TIPO_RODADO'
           DataSource = dtsDefault
           Items.Strings = (
-            'Nao Aplicavel'
-            'Truc'
+            'N'#227'o Aplic'#225'vel'
+            'Truck'
             'Toco'
-            'CavaloMecanico'
+            'Cavalo Mec'#226'nico'
             'VAN'
-            'Utilitario'
+            'Utilit'#225'rio'
             'Outros')
           TabOrder = 8
           Values.Strings = (
@@ -579,32 +579,6 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
           MaxLength = 30
           TabOrder = 18
         end
-        object JvDBDateTimePicker1: TJvDBDateTimePicker
-          Left = 16
-          Top = 271
-          Width = 121
-          Height = 21
-          Date = 45945.000000000000000000
-          Format = 'yyyy'
-          Time = 0.450597071758238600
-          TabOrder = 19
-          DropDownDate = 45945.000000000000000000
-          DataField = 'ANO_FABRICACAO'
-          DataSource = dtsDefault
-        end
-        object JvDBDateTimePicker2: TJvDBDateTimePicker
-          Left = 178
-          Top = 271
-          Width = 101
-          Height = 21
-          Date = 45945.000000000000000000
-          Format = 'yyyy'
-          Time = 0.450597071758238600
-          TabOrder = 20
-          DropDownDate = 45945.000000000000000000
-          DataField = 'ANO_MODELO'
-          DataSource = dtsDefault
-        end
         object DBEdit15: TDBEdit
           Left = 285
           Top = 271
@@ -613,17 +587,41 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
           DataField = 'CODIGO_MUNICIPIO'
           DataSource = dtsDefault
           MaxLength = 7
-          TabOrder = 21
+          TabOrder = 19
         end
         object DBEdit16: TDBEdit
           Left = 464
           Top = 271
           Width = 252
           Height = 21
-          DataField = 'CODIGO_MUNICIPIO'
+          DataField = 'NUMERO_EIXOS'
           DataSource = dtsDefault
-          MaxLength = 5
+          MaxLength = 4
+          TabOrder = 20
+        end
+        object JvDBSpinEdit1: TJvDBSpinEdit
+          Left = 16
+          Top = 271
+          Width = 121
+          Height = 21
+          Hint = '2010'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 21
+          DataField = 'ANO_FABRICACAO'
+          DataSource = dtsDefault
+        end
+        object JvDBSpinEdit2: TJvDBSpinEdit
+          Left = 178
+          Top = 271
+          Width = 101
+          Height = 21
+          Hint = '2010'
+          ParentShowHint = False
+          ShowHint = True
           TabOrder = 22
+          DataField = 'ANO_MODELO'
+          DataSource = dtsDefault
         end
       end
     end

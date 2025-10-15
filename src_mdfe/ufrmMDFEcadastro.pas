@@ -378,11 +378,7 @@ type
     Label74: TLabel;
     Label75: TLabel;
     sbtnCaminhoCert: TSpeedButton;
-    Label76: TLabel;
-    sbtnGetCert: TSpeedButton;
-    sbtnNumSerie: TSpeedButton;
     edtSenha: TEdit;
-    edtNumSerie: TEdit;
     edtCaminho: TEdit;
     GroupBox1: TGroupBox;
     Edit1: TEdit;
@@ -420,6 +416,25 @@ type
     LkCbxMotorista: TDBLookupComboBox;
     Label91: TLabel;
     MODELO: TJvDBMaskEdit;
+    qryMotorista: TFDQuery;
+    qryMotoristaID_EMPRESA: TIntegerField;
+    qryMotoristaID_MOTORISTA: TIntegerField;
+    qryMotoristaNOME: TStringField;
+    qryMotoristaCPF: TStringField;
+    qryMotoristaRENACH: TStringField;
+    qryMotoristaNUMERO_REGISTRO: TStringField;
+    qryMotoristaCODIGO_SEGURANCA: TStringField;
+    qryMotoristaCATEGORIA: TStringField;
+    qryMotoristaDATA_NASCIMENTO: TDateField;
+    qryMotoristaBAIRRO: TStringField;
+    qryMotoristaRUA: TStringField;
+    qryMotoristaCOMPLEMENTO: TStringField;
+    qryMotoristaCEP: TIntegerField;
+    qryMotoristaCODIGO_MUNICIPIO: TIntegerField;
+    qryMotoristaCELULAR: TLargeintField;
+    qryMotoristaNUMERO: TStringField;
+    qryMotoristaNOME_SOLTEIRA_MAE: TStringField;
+    ACBrCIOT1: TACBrCIOT;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -493,6 +508,7 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure btnGerarCIOTClick(Sender: TObject);
     procedure DOC_CONTRATANTEChange(Sender: TObject);
+    procedure btnSha256Click(Sender: TObject);
   private
     FACBrCIOT: TACBrCIOT;
     sToken: string;
@@ -584,7 +600,7 @@ begin
 
     try
       TFDQuery(dtstabMDFE_CONDUTORES.DataSet).Append;
-      TFDQuery(dtstabMDFE_CONDUTORES.DataSet).FieldByName('NOME').Value := dtmMDFE.QryMotoristaNOME.AsString;
+      TFDQuery(dtstabMDFE_CONDUTORES.DataSet).FieldByName('NOME').Value := dtmMDFE.qryMotoristaNOME.AsString;
       TFDQuery(dtstabMDFE_CONDUTORES.DataSet).FieldByName('ID_CPF').Value := LkCbxMotorista.KeyValue;
       // ACBrUtil.OnlyNumber(CONDUTOR_CPF.Text);
       TFDQuery(dtstabMDFE_CONDUTORES.DataSet).Prepare;
@@ -882,6 +898,12 @@ begin
   begin
     TfrmMDFEsegurosCADASTRO.Novo;
   end;
+end;
+
+procedure TfrmMDFEcadastro.btnSha256Click(Sender: TObject);
+begin
+  inherited;
+  ACBrCIOT1.SSL.CalcHash(Edit1.Text, dgstSHA256, outBase64, cbAssinar.Checked);
 end;
 
 procedure TfrmMDFEcadastro.btnVALEPEDAGIOalterarClick(Sender: TObject);
@@ -1310,7 +1332,7 @@ begin
     Ini.WriteInteger('Certificado', 'XmlSignLib', cbXmlSignLib.ItemIndex);
     Ini.WriteString('Certificado', 'Caminho', edtCaminho.Text);
     Ini.WriteString('Certificado', 'Senha', edtSenha.Text);
-    Ini.WriteString('Certificado', 'NumSerie', edtNumSerie.Text);
+    //Ini.WriteString('Certificado', 'NumSerie', edtNumSerie.Text);
 
     // Ini.WriteBool('Geral', 'AtualizarXML', cbxAtualizarXML.Checked);
     // Ini.WriteBool('Geral', 'ExibirErroSchema', cbxExibirErroSchema.Checked);
@@ -1405,7 +1427,7 @@ begin
     cbXmlSignLib.ItemIndex := Ini.ReadInteger('Certificado', 'XmlSignLib', 0);
     edtCaminho.Text := Ini.ReadString('Certificado', 'Caminho', '');
     edtSenha.Text := Ini.ReadString('Certificado', 'Senha', '');
-    edtNumSerie.Text := Ini.ReadString('Certificado', 'NumSerie', '');
+    //edtNumSerie.Text := Ini.ReadString('Certificado', 'NumSerie', '');
 
     { cbxAtualizarXML.Checked := Ini.ReadBool('Geral', 'AtualizarXML', True);
       cbxExibirErroSchema.Checked := Ini.ReadBool('Geral', 'ExibirErroSchema', True);
@@ -1728,6 +1750,22 @@ begin
   inherited;
   var
     ciotFinal: String;
+  var
+    CondutoresDataSet: TDataSet;
+
+  solicitarToken;
+  cadastrarVeiculo;
+  cadastrarProprietarioDoVeiculo;
+
+  CondutoresDataSet := dtstabMDFE_CONDUTORES.DataSet;
+  CondutoresDataSet.First;
+  while not CondutoresDataSet.Eof do
+  begin
+    cadastrarMotorista;
+    CondutoresDataSet.Next;
+  end;
+
+  adicionarOperacaoTransporter;
 
   edtCIOT.Text := ciotFinal;
   // No fim deve haver o preenchimento do campo "CIOT" com o valor que foi gerado.
@@ -1756,7 +1794,27 @@ begin
       Tara := dtmMDFE.tabMDFEVEICULO_TARA.AsInteger;
       CapacidadeKg := dtmMDFE.tabMDFEVEICULO_CAPACIDADE_KG.AsInteger;
       CapacidadeM3 := dtmMDFE.tabMDFEVEICULO_CAPACIDADE_M3.AsInteger;
-      TipoRodado := TpTipoRodado.trToco;
+
+      case dtmMDFE.tabMDFEVEICULO_TIPO_RODADO.AsInteger of
+        0:
+          TipoRodado := TpTipoRodado.trNaoAplicavel;
+        1:
+          TipoRodado := TpTipoRodado.trTruck;
+        2:
+          TipoRodado := TpTipoRodado.trToco;
+        3:
+          TipoRodado := TpTipoRodado.trCavalo;
+        { 4:
+          TipoRodado := TpTipoRodado.trVan;
+          5:
+          TipoRodado := TpTipoRodado.trUtilitario;
+          6:
+          TipoRodado := TpTipoRodado.trOutros; }
+      else
+        // Se o valor do banco for inválido, define um padrão seguro
+        ShowMessage('Tipo Rodado não mapeado!');
+        TipoRodado := TpTipoRodado.trNaoAplicavel;
+      end;
 
       if VEICULO_TIPO_CARROCERIA.ItemIndex <> -1 then
       begin
@@ -1765,22 +1823,24 @@ begin
       end
       else
       begin
-        if VEICULO_TIPO_CARROCERIA.ItemIndex = 0 then
-          tipoCarroceria := TpTipoCarroceria.tcNaoAplicavel
-        else if VEICULO_TIPO_CARROCERIA.ItemIndex = 1 then
-          tipoCarroceria := TpTipoCarroceria.tcAberta
-        else if VEICULO_TIPO_CARROCERIA.ItemIndex = 2 then
-          tipoCarroceria := TpTipoCarroceria.tcFechadaOuBau
-        else if VEICULO_TIPO_CARROCERIA.ItemIndex = 3 then
-          tipoCarroceria := TpTipoCarroceria.tcGranelera
-        else if VEICULO_TIPO_CARROCERIA.ItemIndex = 4 then
-          tipoCarroceria := TpTipoCarroceria.tcPortaContainer
-        else if VEICULO_TIPO_CARROCERIA.ItemIndex = 5 then
-          tipoCarroceria := TpTipoCarroceria.tcSider
+        case VEICULO_TIPO_CARROCERIA.ItemIndex of
+          0:
+            tipoCarroceria := TpTipoCarroceria.tcNaoAplicavel;
+          1:
+            tipoCarroceria := TpTipoCarroceria.tcAberta;
+          2:
+            tipoCarroceria := TpTipoCarroceria.tcFechadaOuBau;
+          3:
+            tipoCarroceria := TpTipoCarroceria.tcGranelera;
+          4:
+            tipoCarroceria := TpTipoCarroceria.tcPortaContainer;
+          5:
+            tipoCarroceria := TpTipoCarroceria.tcSider;
         else
-        begin
-          ShowMessage('Tipo de carroceria não mapeado!');
-          Exit;
+          begin
+            ShowMessage('Tipo de carroceria não mapeado!');
+            Exit;
+          end;
         end;
 
       end;
@@ -1790,76 +1850,116 @@ end;
 
 procedure TfrmMDFEcadastro.cadastrarMotorista;
 begin
-  // Cadastrar Motorista
-  with dtmMDFE.ACBrCIOT.Contratos.Add.CIOT do
-  begin
-    Integradora.Operacao := opGravarMotorista;
+  var
+  sCPF := dtstabMDFE_CONDUTORES.DataSet.FieldByName('ID_CPF').AsString;
+  try
+    qryMotorista.ParamByName('CPF').AsString := sCPF;
+    qryMotorista.Open;
 
-    with GravarMotorista do
+    if qryMotorista.IsEmpty then
+      raise Exception.Create('Dados do motorista com CPF ' + sCPF + ' não encontrados.');
+
+    with dtmMDFE.ACBrCIOT.Contratos.Add.CIOT do
     begin
-      CPF := '27654630182';
-      Nome := 'TRANS NALE TRANSPORTES LTDA ME';
-      CNH := '2020917156';
-      DataNascimento := StrToDate('10/10/1970');
-      NomeDeSolteiraDaMae := 'joana pereira';
+      Integradora.Operacao := opGravarMotorista;
 
-      Endereco.Bairro := 'teste';
-      Endereco.Rua := 'teste';
-      Endereco.Numero := '200';
-      Endereco.Complemento := 'teste';
-      Endereco.CEP := '89870000';
-      Endereco.CodigoMunicipio := 4212908;
+      with GravarMotorista do
+      begin
+        CPF := qryMotoristaCPF.AsString;
+        Nome := qryMotoristaNOME.AsString;
+        CNH := qryMotoristaNUMERO_REGISTRO.AsString;
+        DataNascimento := qryMotoristaDATA_NASCIMENTO.AsDateTime;
+        NomeDeSolteiraDaMae := qryMotoristaNOME_SOLTEIRA_MAE.AsString;
 
-      Telefones.Celular.DDD := 11;
-      Telefones.Celular.Numero := StrToIntDef(EMI_N_PROP_CELULAR.Text, 0);
+        Endereco.Bairro := qryMotoristaBAIRRO.AsString;
+        Endereco.Rua := qryMotoristaRUA.AsString;
+        Endereco.Numero := qryMotoristaNUMERO.AsString;
+        Endereco.Complemento := qryMotoristaCOMPLEMENTO.AsString;
+        Endereco.CEP := qryMotoristaCEP.AsString;
+        Endereco.CodigoMunicipio := qryMotoristaCODIGO_MUNICIPIO.AsInteger;
 
-      // Telefones.Fixo.DDD := 49;
-      // Telefones.Fixo.Numero := 33661011;
-
-      // Telefones.Fax.DDD := 0;
-      // Telefones.Fax.Numero := 0;
+        if not qryMotoristaCELULAR.IsNull and (qryMotoristaCELULAR.AsString <> '') then
+        begin
+          var
+          CelularStr := ACBrUtil.Strings.OnlyNumber(qryMotoristaCELULAR.AsString);
+          if Length(CelularStr) >= 10 then
+          begin
+            Telefones.Celular.DDD := StrToIntDef(Copy(CelularStr, 1, 2), 0);
+            Telefones.Celular.Numero := StrToIntDef(Copy(CelularStr, 3, Length(CelularStr) - 2), 0);
+          end;
+        end;
+      end;
     end;
+  finally
+    qryMotorista.Free;
   end;
 end;
 
 procedure TfrmMDFEcadastro.cadastrarProprietarioDoVeiculo;
 begin
-
   with dtmMDFE.ACBrCIOT.Contratos.Add.CIOT do
   begin
     Integradora.Operacao := opGravarProprietario;
 
     with GravarProprietario do
     begin
-      CNPJ := EMI_N_PROP_CPF_CNPJ.Text;
-
-      if CNPJ.Length = 13 then
-        TipoPessoa := tpJuridica
-      else if CNPJ.Length = 11 then
-        TipoPessoa := tpFisica;
-
-      RazaoSocial := EMI_N_PROP_RZSOCIAL.Text;
-      RNTRC := EMI_N_PROP_RNTRC.Text;
-
-      Endereco.Bairro := EMI_N_PROP_BAIRRO.Text;
-      Endereco.Rua := EMI_N_PROP_RUA.Text;
-      Endereco.Numero := EMI_N_PROP_NUMERO.Text;
-      Endereco.Complemento := EMI_N_PROP_COMPLEMENTO.Text;
-      Endereco.CEP := EMI_N_PROP_CEP.Text;
-      Endereco.CodigoMunicipio := StrToIntDef(EMI_N_PROP_CODIGO_MUNICIPIO.Text, 0);
-
-      if EMI_N_PROP_CELULAR.ToString <> '' then
+      if EMI_N_PROP.Checked then
       begin
-        Telefones.Celular.DDD := (EMI_N_PROP_CELULAR.ToString[1] + EMI_N_PROP_CELULAR.ToString[2]).ToInteger;
-        Telefones.Celular.Numero := StrToIntDef(EMI_N_PROP_CELULAR.Text, 0);
+        CNPJ := EMI_N_PROP_CPF_CNPJ.Text;
+
+        if CNPJ.Length = 13 then
+          TipoPessoa := tpJuridica
+        else if CNPJ.Length = 11 then
+          TipoPessoa := tpFisica;
+
+        RazaoSocial := EMI_N_PROP_RZSOCIAL.Text;
+        RNTRC := EMI_N_PROP_RNTRC.Text;
+
+        Endereco.Bairro := EMI_N_PROP_BAIRRO.Text;
+        Endereco.Rua := EMI_N_PROP_RUA.Text;
+        Endereco.Numero := EMI_N_PROP_NUMERO.Text;
+        Endereco.Complemento := EMI_N_PROP_COMPLEMENTO.Text;
+        Endereco.CEP := EMI_N_PROP_CEP.Text;
+        Endereco.CodigoMunicipio := StrToIntDef(EMI_N_PROP_CODIGO_MUNICIPIO.Text, 0);
+
+        if EMI_N_PROP_CELULAR.ToString <> '' then
+        begin
+          Telefones.Celular.DDD := (EMI_N_PROP_CELULAR.ToString[1] + EMI_N_PROP_CELULAR.ToString[2]).ToInteger;
+          Telefones.Celular.Numero := StrToIntDef(EMI_N_PROP_CELULAR.Text, 0);
+        end;
+
+        // Telefones.Fixo.DDD := 49;
+        // Telefones.Fixo.Numero := 33661011;
+
+        // Telefones.Fax.DDD := 0;
+        // Telefones.Fax.Numero := 0;
+
+      end
+      else
+      begin
+        CNPJ := dtmMDFE.qryEMPRESACNPJ.AsString;
+        RazaoSocial := dtmMDFE.qryEMPRESARAZAOSOCIAL.AsString;
+        RNTRC := EMI_N_PROP_RNTRC.Text;
+        TipoPessoa := tpJuridica;
+
+        Endereco.Bairro := dtmMDFE.qryEMPRESABAIRRO.Text;
+        Endereco.Rua := dtmMDFE.qryEMPRESAENDERECO.Text;
+        Endereco.Numero := dtmMDFE.qryEMPRESANUMERO.Text;
+        Endereco.Complemento := dtmMDFE.qryEMPRESACOMPLEMENTO.Text;
+        Endereco.CEP := dtmMDFE.qryEMPRESACEP.Text;
+        Endereco.CodigoMunicipio := OnlyNumber(dtmMDFE.qryEMPRESAID_CIDADES_IBGE.Text).ToInteger;
+
+        if dtmMDFE.qryEMPRESATELEFONE.ToString <> '' then
+        begin
+          var
+          telefoneSoNumeros := OnlyNumber(dtmMDFE.qryEMPRESATELEFONE.ToString);
+          Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
+
+          Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
+        end;
       end;
-
-      // Telefones.Fixo.DDD := 49;
-      // Telefones.Fixo.Numero := 33661011;
-
-      // Telefones.Fax.DDD := 0;
-      // Telefones.Fax.Numero := 0;
     end;
+
   end;
 end;
 

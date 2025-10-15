@@ -941,7 +941,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Top = 0
         Width = 891
         Height = 456
-        ActivePage = tabVeiculoTracao
+        ActivePage = TabSheet1
         Align = alClient
         TabOrder = 0
         object tabVeiculoTracao: TTabSheet
@@ -1464,7 +1464,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Width = 168
                 Height = 21
                 TabStop = False
-                DataField = 'VEICULO_MARCA'
+                DataField = 'VEICULO_MODELO'
                 DataSource = dtsDefault
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWindowText
@@ -1733,19 +1733,16 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Gradient.Active = False
               Gradient.Orientation = fgdHorizontal
               Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
-              ExplicitTop = -11
               FullHeight = 0
               object Panel32: TPanel
                 AlignWithMargins = True
                 Left = 5
                 Top = 19
                 Width = 405
-                Height = 241
+                Height = 237
                 Align = alClient
                 BevelOuter = bvNone
                 TabOrder = 0
-                ExplicitLeft = 7
-                ExplicitTop = 34
                 object Label33: TLabel
                   Left = 3
                   Top = 202
@@ -3431,10 +3428,10 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             end
           end
           object gbCertificado: TGroupBox
-            Left = 274
-            Top = 3
+            Left = 276
+            Top = 177
             Width = 263
-            Height = 144
+            Height = 97
             Caption = 'Certificado'
             TabOrder = 3
             object Label74: TLabel
@@ -3471,53 +3468,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 3BB33773333773333773B333333B3333333B7333333733333337}
               NumGlyphs = 2
             end
-            object Label76: TLabel
-              Left = 8
-              Top = 96
-              Width = 79
-              Height = 13
-              Caption = 'N'#250'mero de S'#233'rie'
-            end
-            object sbtnGetCert: TSpeedButton
-              Left = 235
-              Top = 110
-              Width = 23
-              Height = 24
-              Glyph.Data = {
-                76010000424D7601000000000000760000002800000020000000100000000100
-                04000000000000010000130B0000130B00001000000000000000000000000000
-                800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
-                333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
-                0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
-                07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
-                07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
-                0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
-                33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
-                B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
-                3BB33773333773333773B333333B3333333B7333333733333337}
-              NumGlyphs = 2
-            end
-            object sbtnNumSerie: TSpeedButton
-              Left = 206
-              Top = 110
-              Width = 23
-              Height = 24
-              Glyph.Data = {
-                76010000424D7601000000000000760000002800000020000000100000000100
-                04000000000000010000130B0000130B00001000000000000000000000000000
-                800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
-                333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
-                0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
-                07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
-                07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
-                0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
-                33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
-                B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
-                3BB33773333773333773B333333B3333333B7333333733333337}
-              NumGlyphs = 2
-            end
             object edtSenha: TEdit
               Left = 8
               Top = 72
@@ -3526,31 +3476,24 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               PasswordChar = '*'
               TabOrder = 0
             end
-            object edtNumSerie: TEdit
-              Left = 8
-              Top = 112
-              Width = 193
-              Height = 21
-              TabOrder = 1
-            end
             object edtCaminho: TEdit
               Left = 10
               Top = 30
               Width = 219
               Height = 21
-              TabOrder = 2
+              TabOrder = 1
             end
           end
           object GroupBox1: TGroupBox
             Left = 276
-            Top = 153
+            Top = 283
             Width = 263
             Height = 76
             Caption = 'Calculo de Hash e assinatura'
             TabOrder = 4
             object Edit1: TEdit
-              Left = 3
-              Top = 14
+              Left = 7
+              Top = 16
               Width = 249
               Height = 21
               TabOrder = 0
@@ -3563,9 +3506,10 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Height = 25
               Caption = 'SHA256+RSA'
               TabOrder = 1
+              OnClick = btnSha256Click
             end
             object cbAssinar: TCheckBox
-              Left = 144
+              Left = 193
               Top = 44
               Width = 54
               Height = 19
@@ -3576,8 +3520,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             end
           end
           object GroupBox2: TGroupBox
-            Left = 545
-            Top = 3
+            Left = 623
+            Top = 177
             Width = 192
             Height = 210
             Caption = 'Libs'
@@ -3624,7 +3568,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             end
             object cbXmlSignLib: TComboBox
               Left = 15
-              Top = 168
+              Top = 174
               Width = 160
               Height = 21
               Style = csDropDownList
@@ -3656,8 +3600,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             end
           end
           object GroupBox3: TGroupBox
-            Left = 276
-            Top = 235
+            Left = 274
+            Top = 3
             Width = 541
             Height = 168
             Caption = 'Geral'
@@ -4048,7 +3992,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Carregamento'
-                  Width = 64
                   Visible = True
                 end>
             end
@@ -4432,7 +4375,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Descarregamento'
-                  Width = 64
                   Visible = True
                 end>
             end
@@ -6879,8 +6821,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
     ExplicitWidth = 905
   end
   inherited ACBrEnterTab1: TACBrEnterTab
-    Left = 805
-    Top = 72
+    Left = 645
+    Top = 24
   end
   inherited dtsDefault: TDataSource
     DataSet = dtmMDFE.tabMDFE
@@ -7014,5 +6956,122 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
     OnDataChange = dtstabMDFE_AQUA_UNID_TRANSDataChange
     Left = 761
     Top = 361
+  end
+  object qryMotorista: TFDQuery
+    Active = True
+    Connection = dtmDefault.cnx_BD
+    SQL.Strings = (
+      'SELECT '
+      '* '
+      'FROM '
+      'MOTORISTA'
+      'WHERE CPF = :CPF')
+    Left = 819
+    Top = 69
+    ParamData = <
+      item
+        Name = 'CPF'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 11
+        Value = Null
+      end>
+    object qryMotoristaID_EMPRESA: TIntegerField
+      FieldName = 'ID_EMPRESA'
+      Origin = 'ID_EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryMotoristaID_MOTORISTA: TIntegerField
+      FieldName = 'ID_MOTORISTA'
+      Origin = 'ID_MOTORISTA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryMotoristaNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Size = 50
+    end
+    object qryMotoristaCPF: TStringField
+      FieldName = 'CPF'
+      Origin = 'CPF'
+      Size = 11
+    end
+    object qryMotoristaRENACH: TStringField
+      FieldName = 'RENACH'
+      Origin = 'RENACH'
+      Size = 11
+    end
+    object qryMotoristaNUMERO_REGISTRO: TStringField
+      FieldName = 'NUMERO_REGISTRO'
+      Origin = 'NUMERO_REGISTRO'
+      Size = 9
+    end
+    object qryMotoristaCODIGO_SEGURANCA: TStringField
+      FieldName = 'CODIGO_SEGURANCA'
+      Origin = 'CODIGO_SEGURANCA'
+      Size = 11
+    end
+    object qryMotoristaCATEGORIA: TStringField
+      FieldName = 'CATEGORIA'
+      Origin = 'CATEGORIA'
+      Size = 5
+    end
+    object qryMotoristaDATA_NASCIMENTO: TDateField
+      FieldName = 'DATA_NASCIMENTO'
+      Origin = 'DATA_NASCIMENTO'
+    end
+    object qryMotoristaBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+      Origin = 'BAIRRO'
+      Size = 60
+    end
+    object qryMotoristaRUA: TStringField
+      FieldName = 'RUA'
+      Origin = 'RUA'
+      Size = 60
+    end
+    object qryMotoristaCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Origin = 'COMPLEMENTO'
+      Size = 60
+    end
+    object qryMotoristaCEP: TIntegerField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+    end
+    object qryMotoristaCODIGO_MUNICIPIO: TIntegerField
+      FieldName = 'CODIGO_MUNICIPIO'
+      Origin = 'CODIGO_MUNICIPIO'
+    end
+    object qryMotoristaCELULAR: TLargeintField
+      FieldName = 'CELULAR'
+      Origin = 'CELULAR'
+    end
+    object qryMotoristaNUMERO: TStringField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Size = 10
+    end
+    object qryMotoristaNOME_SOLTEIRA_MAE: TStringField
+      FieldName = 'NOME_SOLTEIRA_MAE'
+      Origin = 'NOME_SOLTEIRA_MAE'
+      Size = 50
+    end
+  end
+  object ACBrCIOT1: TACBrCIOT
+    Configuracoes.Geral.SSLLib = libNone
+    Configuracoes.Geral.SSLCryptLib = cryNone
+    Configuracoes.Geral.SSLHttpLib = httpNone
+    Configuracoes.Geral.SSLXmlSignLib = xsNone
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Geral.Integradora = ieFrete
+    Configuracoes.Arquivos.OrdenacaoPath = <>
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 0
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Left = 571
+    Top = 363
   end
 end

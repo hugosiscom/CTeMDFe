@@ -1364,6 +1364,11 @@ object dtmDefault: TdtmDefault
       FieldName = 'CELULAR'
       Origin = 'CELULAR'
     end
+    object tabMOTORISTASNOME_SOLTEIRA_MAE: TStringField
+      FieldName = 'NOME_SOLTEIRA_MAE'
+      Origin = 'NOME_SOLTEIRA_MAE'
+      Size = 50
+    end
   end
   object tabVEICULOS: TFDQuery
     BeforeOpen = tabVEICULOSBeforeOpen

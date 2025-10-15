@@ -62,7 +62,7 @@ begin
     dtmMDFE.ACBrMDFe.EventoMDFe.Evento.Clear;
     dtmMDFE.ACBrMDFe.EventoMDFe.idLote := NumeroLote;
 
-    with dtmMDFE.ACBrMDFe.EventoMDFe.Evento.Add do
+    with dtmMDFE.ACBrMDFe.EventoMDFe.Evento.New do
     begin
       infEvento.CNPJCPF := oEmpresa.CNPJ;
       infEvento.dhEvento := DataHoraEvento;

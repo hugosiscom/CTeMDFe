@@ -22,7 +22,6 @@
   inherited pageDefault: TJvPageControl
     Width = 398
     Height = 457
-    ActivePage = Endereço
     ExplicitWidth = 398
     ExplicitHeight = 457
     inherited tabDefault: TTabSheet
@@ -86,11 +85,20 @@
         end
         object lbCelular: TJvLabel
           AlignWithMargins = True
-          Left = 5
-          Top = 160
+          Left = 141
+          Top = 114
           Width = 35
           Height = 13
           Caption = 'Celular'
+          Transparent = True
+        end
+        object JvLabel5: TJvLabel
+          AlignWithMargins = True
+          Left = 3
+          Top = 160
+          Width = 121
+          Height = 13
+          Caption = 'Nome de Solteira da M'#227'e'
           Transparent = True
         end
         object NOME: TJvDBMaskEdit
@@ -100,6 +108,7 @@
           Height = 21
           DataField = 'NOME'
           DataSource = dtsDefault
+          MaxLength = 50
           TabOrder = 1
           EditMask = ''
         end
@@ -117,7 +126,7 @@
         object DATA_NASCIMENTO: TJvDBDatePickerEdit
           Left = 5
           Top = 133
-          Width = 92
+          Width = 110
           Height = 21
           AllowNoDate = True
           DataField = 'DATA_NASCIMENTO'
@@ -209,15 +218,26 @@
           end
         end
         object CELULAR: TJvDBMaskEdit
-          Left = 5
-          Top = 179
-          Width = 92
+          Left = 141
+          Top = 133
+          Width = 110
           Height = 21
           DataField = 'CELULAR'
           DataSource = dtsDefault
           MaxLength = 16
           TabOrder = 3
           EditMask = '(99) 9 9999-9999;0'
+        end
+        object NOME_SOLTEIRA_MAE: TJvDBMaskEdit
+          Left = 3
+          Top = 179
+          Width = 364
+          Height = 21
+          DataField = 'NOME_SOLTEIRA_MAE'
+          DataSource = dtsDefault
+          MaxLength = 50
+          TabOrder = 5
+          EditMask = ''
         end
       end
     end
@@ -349,8 +369,8 @@
     ExplicitWidth = 404
   end
   inherited ACBrEnterTab1: TACBrEnterTab
-    Left = 277
-    Top = 160
+    Left = 285
+    Top = 48
   end
   inherited dtsDefault: TDataSource
     DataSet = dtmDefault.tabMOTORISTAS

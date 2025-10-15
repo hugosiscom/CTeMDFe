@@ -299,6 +299,7 @@ type
     tabVEICULOSANO_MODELO: TIntegerField;
     tabVEICULOSNUMERO_EIXOS: TSmallintField;
     tabVEICULOSCODIGO_MUNICIPIO: TIntegerField;
+    tabMOTORISTASNOME_SOLTEIRA_MAE: TStringField;
     procedure cnx_BDBeforeConnect(Sender: TObject);
     procedure tabEMPRESAAfterOpen(DataSet: TDataSet);
     procedure tabEMPRESABeforePost(DataSet: TDataSet);
