@@ -435,6 +435,7 @@ type
     qryMotoristaNUMERO: TStringField;
     qryMotoristaNOME_SOLTEIRA_MAE: TStringField;
     ACBrCIOT1: TACBrCIOT;
+    fdqConfig: TFDQuery;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -1318,188 +1319,181 @@ end;
 
 procedure TfrmMDFEcadastro.GravarConfiguracao;
 var
-  IniFile: String;
-  Ini: TIniFile;
-  StreamMemo: TMemoryStream;
+  ConfigExists: Boolean;
 begin
-  IniFile := ChangeFileExt(Application.ExeName, '.ini');
-
-  Ini := TIniFile.Create(IniFile);
+  // Assumindo que 'fdqConfig' é um TFDQuery ou similar no seu form/datamodule
+  // e que a conexão com o banco de dados já está ativa.
+  fdqConfig.Close;
+  fdqConfig.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
+  fdqConfig.Open;
   try
-    Ini.WriteInteger('Certificado', 'SSLLib', cbSSLLib.ItemIndex);
-    Ini.WriteInteger('Certificado', 'CryptLib', cbCryptLib.ItemIndex);
-    Ini.WriteInteger('Certificado', 'HttpLib', cbHttpLib.ItemIndex);
-    Ini.WriteInteger('Certificado', 'XmlSignLib', cbXmlSignLib.ItemIndex);
-    Ini.WriteString('Certificado', 'Caminho', edtCaminho.Text);
-    Ini.WriteString('Certificado', 'Senha', edtSenha.Text);
-    //Ini.WriteString('Certificado', 'NumSerie', edtNumSerie.Text);
-
-    // Ini.WriteBool('Geral', 'AtualizarXML', cbxAtualizarXML.Checked);
-    // Ini.WriteBool('Geral', 'ExibirErroSchema', cbxExibirErroSchema.Checked);
-    // Ini.WriteString('Geral', 'FormatoAlerta', edtFormatoAlerta.Text);
-    Ini.WriteInteger('Geral', 'FormaEmissao', cbFormaEmissao.ItemIndex);
-    Ini.WriteInteger('Geral', 'VersaoDF', cbVersaoDF.ItemIndex);
-    // Ini.WriteBool('Geral', 'RetirarAcentos', cbxRetirarAcentos.Checked);
-    // Ini.WriteBool('Geral', 'Salvar', ckSalvar.Checked);
-    // Ini.WriteString('Geral', 'PathSalvar', edtPathLogs.Text);
-    // Ini.WriteString('Geral', 'PathSchemas', edtPathSchemas.Text);
-    Ini.WriteInteger('Geral', 'Integradora', cbbIntegradora.ItemIndex);
-    Ini.WriteString('Geral', 'UsuarioWebS', edtUsuarioWebService.Text);
-    Ini.WriteString('Geral', 'SenhaWebS', edtSenhaWebService.Text);
-    Ini.WriteString('Geral', 'HashIntegrador', edtHashIntegrador.Text);
-
-    Ini.WriteString('WebService', 'UF', cbUF.Text);
-    Ini.WriteInteger('WebService', 'Ambiente', rgTipoAmb.ItemIndex);
-    Ini.WriteBool('WebService', 'Visualizar', cbxVisualizar.Checked);
-    Ini.WriteBool('WebService', 'SalvarSOAP', cbxSalvarSOAP.Checked);
-    Ini.WriteBool('WebService', 'AjustarAut', cbxAjustarAut.Checked);
-    Ini.WriteString('WebService', 'Aguardar', edtAguardar.Text);
-    Ini.WriteString('WebService', 'Tentativas', edtTentativas.Text);
-    Ini.WriteString('WebService', 'Intervalo', edtIntervalo.Text);
-    Ini.WriteInteger('WebService', 'TimeOut', seTimeOut.Value);
-    Ini.WriteInteger('WebService', 'SSLType', cbSSLType.ItemIndex);
-
-    Ini.WriteString('Proxy', 'Host', edtProxyHost.Text);
-    Ini.WriteString('Proxy', 'Porta', edtProxyPorta.Text);
-    Ini.WriteString('Proxy', 'User', edtProxyUser.Text);
-    Ini.WriteString('Proxy', 'Pass', edtProxySenha.Text);
-
-    // Ini.WriteBool('Arquivos', 'Salvar', cbxSalvarArqs.Checked);
-    // Ini.WriteBool('Arquivos', 'PastaMensal', cbxPastaMensal.Checked);
-    // Ini.WriteBool('Arquivos', 'AddLiteral', cbxAdicionaLiteral.Checked);
-    // Ini.WriteBool('Arquivos', 'EmissaoPathCIOT', cbxEmissaoPathCIOT.Checked);
-    // Ini.WriteBool('Arquivos', 'SalvarPathEvento', cbxSalvaPathEvento.Checked);
-
-    { if (edtCaminho.Text = '') and (edtSenha.Text = '') and (edtNumSerie.Text = '') then
-      cbxSepararPorCNPJ.Checked := False; }
-
-    // Ini.WriteBool('Arquivos', 'SepararPorCNPJ', cbxSepararPorCNPJ.Checked);
-    // Ini.WriteBool('Arquivos', 'SepararPorModelo', cbxSepararPorModelo.Checked);
-    // Ini.WriteString('Arquivos', 'PathCIOT', edtPathCIOT.Text);
-    // Ini.WriteString('Arquivos', 'PathEvento', edtPathEvento.Text);
-
-    { Ini.WriteString('Emitente', 'CNPJ', edtEmitCNPJ.Text);
-      Ini.WriteString('Emitente', 'IE', edtEmitIE.Text);
-      Ini.WriteString('Emitente', 'RazaoSocial', edtEmitRazao.Text);
-      Ini.WriteString('Emitente', 'Fantasia', edtEmitFantasia.Text);
-      Ini.WriteString('Emitente', 'Fone', edtEmitFone.Text);
-      Ini.WriteString('Emitente', 'CEP', edtEmitCEP.Text);
-      Ini.WriteString('Emitente', 'Logradouro', edtEmitLogradouro.Text);
-      Ini.WriteString('Emitente', 'Numero', edtEmitNumero.Text);
-      Ini.WriteString('Emitente', 'Complemento', edtEmitComp.Text);
-      Ini.WriteString('Emitente', 'Bairro', edtEmitBairro.Text);
-      Ini.WriteString('Emitente', 'CodCidade', edtEmitCodCidade.Text);
-      Ini.WriteString('Emitente', 'Cidade', edtEmitCidade.Text);
-      Ini.WriteString('Emitente', 'UF', edtEmitUF.Text);
-
-      Ini.WriteString('Email', 'Host', edtSmtpHost.Text);
-      Ini.WriteString('Email', 'Port', edtSmtpPort.Text);
-      Ini.WriteString('Email', 'User', edtSmtpUser.Text);
-      Ini.WriteString('Email', 'Pass', edtSmtpPass.Text);
-      Ini.WriteString('Email', 'Assunto', edtEmailAssunto.Text);
-      Ini.WriteBool('Email', 'SSL', cbEmailSSL.Checked); }
-
-    StreamMemo := TMemoryStream.Create;
-    // mmEmailMsg.Lines.SaveToStream(StreamMemo);
-    StreamMemo.Seek(0, soFromBeginning);
-
-    Ini.WriteBinaryStream('Email', 'Mensagem', StreamMemo);
-
-    StreamMemo.Free;
+    ConfigExists := not fdqConfig.IsEmpty;
   finally
-    Ini.Free;
+    fdqConfig.Close;
+  end;
+
+  if ConfigExists then
+  begin
+    // Se a configuração já existe, faz um UPDATE
+    fdqConfig.SQL.Text := 'UPDATE CONF_CIOT SET ' + '  UF_INDEX = :UF_INDEX, ' +
+      '  AMBIENTE_DESTINO_INDEX = :AMBIENTE_DESTINO_INDEX, ' + '  SSLTYPE_INDEX = :SSLTYPE_INDEX, ' +
+      '  AJUSTE_AUTOMATICO_AGUARDAR = :AJUSTE_AUTOMATICO_AGUARDAR, ' + '  AGUARDAR_SEGUNDOS = :AGUARDAR_SEGUNDOS, ' +
+      '  TENTATIVAS = :TENTATIVAS, ' + '  INTERVALO_SEGUNDOS = :INTERVALO_SEGUNDOS, ' + '  HOST = :HOST, ' +
+      '  HOST_PORTA = :HOST_PORTA, ' + '  HOST_USUARIO = :HOST_USUARIO, ' + '  HOST_SENHA = :HOST_SENHA, ' +
+      '  CAMINHO_CERTIFICADO = :CAMINHO_CERTIFICADO, ' + '  SENHA_CERTIFICADO = :SENHA_CERTIFICADO, ' + '  ASSINAR = :ASSINAR, ' +
+    // Nota: Adicionado um valor padrão, ajuste conforme necessário
+      '  FORMA_EMISSAO_INDEX = :FORMA_EMISSAO_INDEX, ' + '  VERSAO_DOCUMENTO_FISCAL_INDEX = :VERSAO_DOCUMENTO_FISCAL_INDEX, ' +
+      '  INTEGRADORA_INDEX = :INTEGRADORA_INDEX, ' + '  GERAL_USUARIO = :GERAL_USUARIO, ' + '  GERAL_SENHA = :GERAL_SENHA, ' +
+      '  GERAL_HASH_INTEGRADOR = :GERAL_HASH_INTEGRADOR, ' + '  SSL_LIB_INDEX = :SSL_LIB_INDEX, ' +
+      '  CRYPT_LIB_INDEX = :CRYPT_LIB_INDEX, ' + '  HTTP_LIB_INDEX = :HTTP_LIB_INDEX, ' +
+      '  XML_SIGN_LIB__INDEX = :XML_SIGN_LIB__INDEX ' + 'WHERE ID = 1';
+  end
+  else
+  begin
+    // Se não existe, faz um INSERT
+    fdqConfig.SQL.Text := 'INSERT INTO CONF_CIOT (ID, UF_INDEX, AMBIENTE_DESTINO_INDEX, SSLTYPE_INDEX, ' +
+      'AJUSTE_AUTOMATICO_AGUARDAR, AGUARDAR_SEGUNDOS, TENTATIVAS, INTERVALO_SEGUNDOS, ' +
+      'HOST, HOST_PORTA, HOST_USUARIO, HOST_SENHA, CAMINHO_CERTIFICADO, SENHA_CERTIFICADO, ' +
+      'ASSINAR, FORMA_EMISSAO_INDEX, VERSAO_DOCUMENTO_FISCAL_INDEX, INTEGRADORA_INDEX, ' +
+      'GERAL_USUARIO, GERAL_SENHA, GERAL_HASH_INTEGRADOR, SSL_LIB_INDEX, CRYPT_LIB_INDEX, ' +
+      'HTTP_LIB_INDEX, XML_SIGN_LIB__INDEX) ' + 'VALUES (1, :UF_INDEX, :AMBIENTE_DESTINO_INDEX, :SSLTYPE_INDEX, ' +
+      ':AJUSTE_AUTOMATICO_AGUARDAR, :AGUARDAR_SEGUNDOS, :TENTATIVAS, :INTERVALO_SEGUNDOS, ' +
+      ':HOST, :HOST_PORTA, :HOST_USUARIO, :HOST_SENHA, :CAMINHO_CERTIFICADO, :SENHA_CERTIFICADO, ' +
+      ':ASSINAR, :FORMA_EMISSAO_INDEX, :VERSAO_DOCUMENTO_FISCAL_INDEX, :INTEGRADORA_INDEX, ' +
+      ':GERAL_USUARIO, :GERAL_SENHA, :GERAL_HASH_INTEGRADOR, :SSL_LIB_INDEX, :CRYPT_LIB_INDEX, ' +
+      ':HTTP_LIB_INDEX, :XML_SIGN_LIB__INDEX)';
+  end;
+
+  // Atribui os parâmetros
+  // Certificado
+  fdqConfig.ParamByName('SSL_LIB_INDEX').AsInteger := cbSSLLib.ItemIndex;
+  fdqConfig.ParamByName('CRYPT_LIB_INDEX').AsInteger := cbCryptLib.ItemIndex;
+  fdqConfig.ParamByName('HTTP_LIB_INDEX').AsInteger := cbHttpLib.ItemIndex;
+  fdqConfig.ParamByName('XML_SIGN_LIB__INDEX').AsInteger := cbXmlSignLib.ItemIndex;
+  fdqConfig.ParamByName('CAMINHO_CERTIFICADO').AsString := edtCaminho.Text;
+  fdqConfig.ParamByName('SENHA_CERTIFICADO').AsString := edtSenha.Text;
+
+  // Geral
+  fdqConfig.ParamByName('FORMA_EMISSAO_INDEX').AsInteger := cbFormaEmissao.ItemIndex;
+  fdqConfig.ParamByName('VERSAO_DOCUMENTO_FISCAL_INDEX').AsInteger := cbVersaoDF.ItemIndex;
+  fdqConfig.ParamByName('INTEGRADORA_INDEX').AsInteger := cbbIntegradora.ItemIndex;
+  fdqConfig.ParamByName('GERAL_USUARIO').AsString := edtUsuarioWebService.Text;
+  fdqConfig.ParamByName('GERAL_SENHA').AsString := edtSenhaWebService.Text;
+  fdqConfig.ParamByName('GERAL_HASH_INTEGRADOR').AsString := edtHashIntegrador.Text;
+
+  // WebService
+  fdqConfig.ParamByName('UF_INDEX').AsInteger := cbUF.ItemIndex;
+  fdqConfig.ParamByName('AMBIENTE_DESTINO_INDEX').AsInteger := rgTipoAmb.ItemIndex;
+  fdqConfig.ParamByName('AJUSTE_AUTOMATICO_AGUARDAR').AsBoolean := cbxAjustarAut.Checked;
+  fdqConfig.ParamByName('AGUARDAR_SEGUNDOS').AsInteger := StrToIntDef(edtAguardar.Text, 0);
+  fdqConfig.ParamByName('TENTATIVAS').AsInteger := StrToIntDef(edtTentativas.Text, 5);
+  fdqConfig.ParamByName('INTERVALO_SEGUNDOS').AsInteger := StrToIntDef(edtIntervalo.Text, 0);
+  fdqConfig.ParamByName('SSLTYPE_INDEX').AsInteger := cbSSLType.ItemIndex;
+
+  // Proxy
+  fdqConfig.ParamByName('HOST').AsString := edtProxyHost.Text;
+  fdqConfig.ParamByName('HOST_PORTA').AsInteger := StrToIntDef(edtProxyPorta.Text, 0);
+  fdqConfig.ParamByName('HOST_USUARIO').AsString := edtProxyUser.Text;
+  fdqConfig.ParamByName('HOST_SENHA').AsString := edtProxySenha.Text;
+
+  // Campo 'ASSINAR' não tem um controle correspondente no código original visível.
+  // Usando 'True' como padrão. Associe a um componente se necessário.
+  fdqConfig.ParamByName('ASSINAR').AsBoolean := True;
+
+  // Executa a query (INSERT ou UPDATE)
+  try
+    fdqConfig.ExecSQL;
+    // Opcional: Adicionar tratamento de transação (Commit/Rollback) se sua conexão não for auto-commit.
+  except
+    on e: Exception do
+    begin
+      // Trate o erro, mostre uma mensagem, etc.
+      ShowMessage('Erro ao gravar configuração: ' + e.Message);
+      raise;
+    end;
   end;
 end;
 
 procedure TfrmMDFEcadastro.LerConfiguracao;
-var
-  IniFile: String;
-  Ini: TIniFile;
-  StreamMemo: TMemoryStream;
 begin
-  IniFile := ChangeFileExt(Application.ExeName, '.ini');
-
-  Ini := TIniFile.Create(IniFile);
+  // Assumindo que 'fdqConfig' é um TFDQuery ou similar
+  fdqConfig.Close;
+  fdqConfig.SQL.Text := 'SELECT * FROM CONF_CIOT WHERE ID = 1';
+  fdqConfig.Open;
   try
-    cbSSLLib.ItemIndex := Ini.ReadInteger('Certificado', 'SSLLib', 0);
-    cbCryptLib.ItemIndex := Ini.ReadInteger('Certificado', 'CryptLib', 0);
-    cbHttpLib.ItemIndex := Ini.ReadInteger('Certificado', 'HttpLib', 0);
-    cbXmlSignLib.ItemIndex := Ini.ReadInteger('Certificado', 'XmlSignLib', 0);
-    edtCaminho.Text := Ini.ReadString('Certificado', 'Caminho', '');
-    edtSenha.Text := Ini.ReadString('Certificado', 'Senha', '');
-    //edtNumSerie.Text := Ini.ReadString('Certificado', 'NumSerie', '');
+    if not fdqConfig.IsEmpty then
+    begin
+      // Se encontrou o registro de configuração, carrega os dados
+      // Certificado
+      cbSSLLib.ItemIndex := fdqConfig.FieldByName('SSL_LIB_INDEX').AsInteger;
+      cbCryptLib.ItemIndex := fdqConfig.FieldByName('CRYPT_LIB_INDEX').AsInteger;
+      cbHttpLib.ItemIndex := fdqConfig.FieldByName('HTTP_LIB_INDEX').AsInteger;
+      cbXmlSignLib.ItemIndex := fdqConfig.FieldByName('XML_SIGN_LIB__INDEX').AsInteger;
+      edtCaminho.Text := fdqConfig.FieldByName('CAMINHO_CERTIFICADO').AsString;
+      edtSenha.Text := fdqConfig.FieldByName('SENHA_CERTIFICADO').AsString;
 
-    { cbxAtualizarXML.Checked := Ini.ReadBool('Geral', 'AtualizarXML', True);
-      cbxExibirErroSchema.Checked := Ini.ReadBool('Geral', 'ExibirErroSchema', True);
-      edtFormatoAlerta.Text := Ini.ReadString('Geral', 'FormatoAlerta', 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'); }
-    cbFormaEmissao.ItemIndex := Ini.ReadInteger('Geral', 'FormaEmissao', 0);
+      // Geral
+      cbFormaEmissao.ItemIndex := fdqConfig.FieldByName('FORMA_EMISSAO_INDEX').AsInteger;
+      cbVersaoDF.ItemIndex := fdqConfig.FieldByName('VERSAO_DOCUMENTO_FISCAL_INDEX').AsInteger;
+      cbbIntegradora.ItemIndex := fdqConfig.FieldByName('INTEGRADORA_INDEX').AsInteger;
+      edtUsuarioWebService.Text := fdqConfig.FieldByName('GERAL_USUARIO').AsString;
+      edtSenhaWebService.Text := fdqConfig.FieldByName('GERAL_SENHA').AsString;
+      edtHashIntegrador.Text := fdqConfig.FieldByName('GERAL_HASH_INTEGRADOR').AsString;
 
-    cbVersaoDF.ItemIndex := Ini.ReadInteger('Geral', 'VersaoDF', 0);
-    { ckSalvar.Checked := Ini.ReadBool('Geral', 'Salvar', True);
-      cbxRetirarAcentos.Checked := Ini.ReadBool('Geral', 'RetirarAcentos', True);
-      edtPathLogs.Text := Ini.ReadString('Geral', 'PathSalvar', PathWithDelim(ExtractFilePath(Application.ExeName)) + 'Logs');
-      edtPathSchemas.Text := Ini.ReadString('Geral', 'PathSchemas', PathWithDelim(ExtractFilePath(Application.ExeName)) + 'Schemas\'
-      + GetEnumName(TypeInfo(TVersaoCIOT), Integer(cbVersaoDF.ItemIndex))); }
-    cbbIntegradora.ItemIndex := Ini.ReadInteger('Geral', 'Integradora', 1);
-    edtUsuarioWebService.Text := Ini.ReadString('Geral', 'UsuarioWebS', '');
-    edtSenhaWebService.Text := Ini.ReadString('Geral', 'SenhaWebS', '');
-    edtHashIntegrador.Text := Ini.ReadString('Geral', 'HashIntegrador', '');
+      // WebService
+      cbUF.ItemIndex := fdqConfig.FieldByName('UF_INDEX').AsInteger;
+      rgTipoAmb.ItemIndex := fdqConfig.FieldByName('AMBIENTE_DESTINO_INDEX').AsInteger;
+      cbxAjustarAut.Checked := fdqConfig.FieldByName('AJUSTE_AUTOMATICO_AGUARDAR').AsBoolean;
+      edtAguardar.Text := IntToStr(fdqConfig.FieldByName('AGUARDAR_SEGUNDOS').AsInteger);
+      edtTentativas.Text := IntToStr(fdqConfig.FieldByName('TENTATIVAS').AsInteger);
+      edtIntervalo.Text := IntToStr(fdqConfig.FieldByName('INTERVALO_SEGUNDOS').AsInteger);
+      cbSSLType.ItemIndex := fdqConfig.FieldByName('SSLTYPE_INDEX').AsInteger;
 
-    cbUF.ItemIndex := cbUF.Items.IndexOf(Ini.ReadString('WebService', 'UF', 'SP'));
+      // Proxy
+      edtProxyHost.Text := fdqConfig.FieldByName('HOST').AsString;
+      edtProxyPorta.Text := IntToStr(fdqConfig.FieldByName('HOST_PORTA').AsInteger);
+      edtProxyUser.Text := fdqConfig.FieldByName('HOST_USUARIO').AsString;
+      edtProxySenha.Text := fdqConfig.FieldByName('HOST_SENHA').AsString;
+    end
+    else
+    begin
+      // Se não encontrou, aplica os valores padrão (similar ao comportamento do ReadIni)
+      // Certificado
+      cbSSLLib.ItemIndex := 0;
+      cbCryptLib.ItemIndex := 0;
+      cbHttpLib.ItemIndex := 0;
+      cbXmlSignLib.ItemIndex := 0;
+      edtCaminho.Text := '';
+      edtSenha.Text := '';
 
-    rgTipoAmb.ItemIndex := Ini.ReadInteger('WebService', 'Ambiente', 0);
-    cbxVisualizar.Checked := Ini.ReadBool('WebService', 'Visualizar', False);
-    cbxSalvarSOAP.Checked := Ini.ReadBool('WebService', 'SalvarSOAP', False);
-    cbxAjustarAut.Checked := Ini.ReadBool('WebService', 'AjustarAut', False);
-    edtAguardar.Text := Ini.ReadString('WebService', 'Aguardar', '0');
-    edtTentativas.Text := Ini.ReadString('WebService', 'Tentativas', '5');
-    edtIntervalo.Text := Ini.ReadString('WebService', 'Intervalo', '0');
-    seTimeOut.Value := Ini.ReadInteger('WebService', 'TimeOut', 5000);
-    cbSSLType.ItemIndex := Ini.ReadInteger('WebService', 'SSLType', 0);
+      // Geral
+      cbFormaEmissao.ItemIndex := 0;
+      cbVersaoDF.ItemIndex := 0;
+      cbbIntegradora.ItemIndex := 1;
+      edtUsuarioWebService.Text := '';
+      edtSenhaWebService.Text := '';
+      edtHashIntegrador.Text := '';
 
-    edtProxyHost.Text := Ini.ReadString('Proxy', 'Host', '');
-    edtProxyPorta.Text := Ini.ReadString('Proxy', 'Porta', '');
-    edtProxyUser.Text := Ini.ReadString('Proxy', 'User', '');
-    edtProxySenha.Text := Ini.ReadString('Proxy', 'Pass', '');
+      // WebService
+      cbUF.ItemIndex := cbUF.Items.IndexOf('SP');
+      rgTipoAmb.ItemIndex := 0;
+      cbxAjustarAut.Checked := False;
+      edtAguardar.Text := '0';
+      edtTentativas.Text := '5';
+      edtIntervalo.Text := '0';
+      cbSSLType.ItemIndex := 0;
 
-    StreamMemo := TMemoryStream.Create;
-    Ini.ReadBinaryStream('Email', 'Mensagem', StreamMemo);
-    // mmEmailMsg.Lines.LoadFromStream(StreamMemo);
-    StreamMemo.Free;
-    { cbxSalvarArqs.Checked := Ini.ReadBool('Arquivos', 'Salvar', False);
-      cbxPastaMensal.Checked := Ini.ReadBool('Arquivos', 'PastaMensal', False);
-      cbxAdicionaLiteral.Checked := Ini.ReadBool('Arquivos', 'AddLiteral', False);
-      cbxEmissaoPathCIOT.Checked := Ini.ReadBool('Arquivos', 'EmissaoPathCIOT', False);
-      cbxSalvaPathEvento.Checked := Ini.ReadBool('Arquivos', 'SalvarPathEvento', False);
-      cbxSepararPorCNPJ.Checked := Ini.ReadBool('Arquivos', 'SepararPorCNPJ', False);
-      cbxSepararPorModelo.Checked := Ini.ReadBool('Arquivos', 'SepararPorModelo', False);
-      edtPathCIOT.Text := Ini.ReadString('Arquivos', 'PathCIOT', '');
-      edtPathEvento.Text := Ini.ReadString('Arquivos', 'PathEvento', ''); }
-
-    { edtEmitCNPJ.Text := Ini.ReadString('Emitente', 'CNPJ', '');
-      edtEmitIE.Text := Ini.ReadString('Emitente', 'IE', '');
-      edtEmitRazao.Text := Ini.ReadString('Emitente', 'RazaoSocial', '');
-      edtEmitFantasia.Text := Ini.ReadString('Emitente', 'Fantasia', '');
-      edtEmitFone.Text := Ini.ReadString('Emitente', 'Fone', '');
-      edtEmitCEP.Text := Ini.ReadString('Emitente', 'CEP', '');
-      edtEmitLogradouro.Text := Ini.ReadString('Emitente', 'Logradouro', '');
-      edtEmitNumero.Text := Ini.ReadString('Emitente', 'Numero', '');
-      edtEmitComp.Text := Ini.ReadString('Emitente', 'Complemento', '');
-      edtEmitBairro.Text := Ini.ReadString('Emitente', 'Bairro', '');
-      edtEmitCodCidade.Text := Ini.ReadString('Emitente', 'CodCidade', '');
-      edtEmitCidade.Text := Ini.ReadString('Emitente', 'Cidade', '');
-      edtEmitUF.Text := Ini.ReadString('Emitente', 'UF', ''); }
-
-    { edtSmtpHost.Text := Ini.ReadString('Email', 'Host', '');
-      edtSmtpPort.Text := Ini.ReadString('Email', 'Port', '');
-      edtSmtpUser.Text := Ini.ReadString('Email', 'User', '');
-      edtSmtpPass.Text := Ini.ReadString('Email', 'Pass', '');
-      edtEmailAssunto.Text := Ini.ReadString('Email', 'Assunto', '');
-      cbEmailSSL.Checked := Ini.ReadBool('Email', 'SSL', False);
-      ConfigurarComponente; }
+      // Proxy
+      edtProxyHost.Text := '';
+      edtProxyPorta.Text := '';
+      edtProxyUser.Text := '';
+      edtProxySenha.Text := '';
+    end;
   finally
-    Ini.Free;
+    fdqConfig.Close;
   end;
+  // Se você tinha uma chamada a ConfigurarComponente no final, mantenha-a
+  // ConfigurarComponente;
 end;
 
 procedure TfrmMDFEcadastro.FormShow(Sender: TObject);

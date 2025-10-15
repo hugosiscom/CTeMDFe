@@ -7074,4 +7074,15 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
     Left = 571
     Top = 363
   end
+  object fdqConfig: TFDQuery
+    SQL.Strings = (
+      'SELECT ID FROM CONF_CIOT WHERE ID = :ID_EMPRESA')
+    Left = 717
+    Top = 158
+    ParamData = <
+      item
+        Name = 'ID_EMPRESA'
+        ParamType = ptInput
+      end>
+  end
 end
