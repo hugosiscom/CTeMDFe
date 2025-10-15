@@ -418,6 +418,8 @@ type
     EMI_N_PROP_NUMERO: TJvDBMaskEdit;
     EMI_N_PROP_CODIGO_MUNICIPIO: TJvDBMaskEdit;
     LkCbxMotorista: TDBLookupComboBox;
+    Label91: TLabel;
+    MODELO: TJvDBMaskEdit;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -1607,6 +1609,13 @@ begin
   EMI_N_PROP_RNTRC.Enabled := EMI_N_PROP.Checked;
   EMI_N_PROP_UF.Enabled := EMI_N_PROP.Checked;
   EMI_N_PROP_TIPO.Enabled := EMI_N_PROP.Checked;
+  EMI_N_PROP_CELULAR.Enabled := EMI_N_PROP.Checked;
+  EMI_N_PROP_BAIRRO.Enabled := EMI_N_PROP.Checked;
+  EMI_N_PROP_RUA.Enabled := EMI_N_PROP.Checked;
+  EMI_N_PROP_COMPLEMENTO.Enabled := EMI_N_PROP.Checked;
+  EMI_N_PROP_CEP.Enabled := EMI_N_PROP.Checked;
+  EMI_N_PROP_NUMERO.Enabled := EMI_N_PROP.Checked;
+  EMI_N_PROP_CODIGO_MUNICIPIO.Enabled := EMI_N_PROP.Checked;
 end;
 
 procedure TfrmMDFEcadastro.btnCONTRATANTESexcluirClick(Sender: TObject);
@@ -1733,20 +1742,20 @@ begin
 
     with GravarVeiculo do
     begin
-      Placa := VEICULO_PLACA.Text;
-      Renavam := VEICULO_RENAVAN.Text;
-      Chassi := VEICULO_CHASSI.Text;
-      RNTRC := VEICULO_RNTRC.Text;
-      NumeroDeEixos := 2;
-      CodigoMunicipio := 3512345;
-      Marca := 'VW';
-      Modelo := 'XYZ';
-      AnoFabricacao := 2010;
-      AnoModelo := 2010;
-      Cor := 'Preto';
-      Tara := 100;
-      CapacidadeKg := 10000;
-      CapacidadeM3 := 10000;
+      Placa := dtmMDFE.tabMDFEVEICULO_PLACA.AsString;
+      Renavam := dtmMDFE.tabMDFEVEICULO_RENAVAN.AsString;
+      Chassi := dtmMDFE.tabMDFEVEICULO_CHASSI.AsString;
+      RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
+      NumeroDeEixos := dtmMDFE.tabMDFEVEICULO_NUMERO_EIXOS.AsInteger;
+      CodigoMunicipio := dtmMDFE.tabMDFEVeiculo_CODIGO_MUNICIPIO.AsInteger;
+      Marca := dtmMDFE.tabMDFEVEICULO_MARCA.AsString;
+      MODELO := dtmMDFE.tabMDFEVEICULO_MODELO.AsString;
+      AnoFabricacao := dtmMDFE.tabMDFEVEICULO_ANO_FABRICACAO.AsInteger;
+      AnoModelo := dtmMDFE.tabMDFEVEICULO_ANO_MODELO.AsInteger;
+      Cor := dtmMDFE.tabMDFEVEICULO_COR_DESCRICAO.AsString;
+      Tara := dtmMDFE.tabMDFEVEICULO_TARA.AsInteger;
+      CapacidadeKg := dtmMDFE.tabMDFEVEICULO_CAPACIDADE_KG.AsInteger;
+      CapacidadeM3 := dtmMDFE.tabMDFEVEICULO_CAPACIDADE_M3.AsInteger;
       TipoRodado := TpTipoRodado.trToco;
 
       if VEICULO_TIPO_CARROCERIA.ItemIndex <> -1 then

@@ -303,9 +303,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             Top = 35
             Width = 163
             Height = 21
-            Date = 45944.000000000000000000
+            Date = 45945.000000000000000000
             Format = 'dd/MM/yyy'
-            Time = 0.723815115743491300
+            Time = 0.387137453704781400
             TabOrder = 3
             DropDownDate = 43177.000000000000000000
             DataField = 'DATAHORA_EMISSAO'
@@ -348,8 +348,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             Top = 35
             Width = 163
             Height = 21
-            Date = 45944.000000000000000000
-            Time = 0.723815115743491300
+            Date = 45945.000000000000000000
+            Time = 0.387137430552684200
             TabOrder = 4
             DropDownDate = 43177.000000000000000000
             DataField = 'DATAHORA_INICIO_VIAGEM'
@@ -1080,9 +1080,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               object Label19: TLabel
                 Left = 5
                 Top = 43
-                Width = 19
+                Width = 13
                 Height = 13
-                Caption = 'UF*'
+                Caption = 'UF'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWindowText
                 Font.Height = -11
@@ -1094,9 +1094,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               object Label29: TLabel
                 Left = 205
                 Top = 19
-                Width = 94
+                Width = 88
                 Height = 13
-                Caption = 'Tipo de Carroceria*'
+                Caption = 'Tipo de Carroceria'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWindowText
                 Font.Height = -11
@@ -1108,9 +1108,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               object Label34: TLabel
                 Left = 205
                 Top = 46
-                Width = 66
+                Width = 60
                 Height = 13
-                Caption = 'Tipo Rodado*'
+                Caption = 'Tipo Rodado'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWindowText
                 Font.Height = -11
@@ -1122,9 +1122,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               object Label35: TLabel
                 Left = 488
                 Top = 19
-                Width = 31
+                Width = 25
                 Height = 13
-                Caption = 'Placa*'
+                Caption = 'Placa'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWindowText
                 Font.Height = -11
@@ -1150,9 +1150,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               object Label38: TLabel
                 Left = 664
                 Top = 16
-                Width = 49
+                Width = 43
                 Height = 13
-                Caption = 'Tara(KG)*'
+                Caption = 'Tara(KG)'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWindowText
                 Font.Height = -11
@@ -1217,6 +1217,20 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 ParentFont = False
                 Transparent = True
               end
+              object Label91: TLabel
+                Left = 205
+                Top = 70
+                Width = 34
+                Height = 13
+                Caption = 'Modelo'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = []
+                ParentFont = False
+                Transparent = True
+              end
               object VEICULO_TIPO_CARROCERIA: TJvDBComboBox
                 Left = 305
                 Top = 16
@@ -1232,6 +1246,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   'Porta-cont'#234'iner'
                   'Sider'
                   '')
+                ReadOnly = True
                 TabOrder = 3
                 Values.Strings = (
                   '0'
@@ -1261,6 +1276,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Font.Name = 'Tahoma'
                 Font.Style = []
                 ParentFont = False
+                ReadOnly = True
                 TabOrder = 2
                 EditMask = ''
               end
@@ -1279,6 +1295,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   'VAN'
                   'Utilitario'
                   'Outros')
+                ReadOnly = True
                 TabOrder = 7
                 Values.Strings = (
                   '0'
@@ -1310,6 +1327,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Font.Name = 'Tahoma'
                 Font.Style = []
                 ParentFont = False
+                ReadOnly = True
                 TabOrder = 0
                 EditMask = ''
               end
@@ -1328,12 +1346,13 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Font.Name = 'Tahoma'
                 Font.Style = []
                 ParentFont = False
+                ReadOnly = True
                 TabOrder = 4
                 EditMask = ''
               end
               object VEICULO_TARA: TJvDBMaskEdit
                 Tag = 1
-                Left = 748
+                Left = 755
                 Top = 13
                 Width = 113
                 Height = 21
@@ -1346,6 +1365,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Font.Name = 'Tahoma'
                 Font.Style = []
                 ParentFont = False
+                ReadOnly = True
                 TabOrder = 1
                 EditMask = ''
               end
@@ -1364,6 +1384,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Font.Name = 'Tahoma'
                 Font.Style = []
                 ParentFont = False
+                ReadOnly = True
                 TabOrder = 5
                 EditMask = ''
               end
@@ -1382,6 +1403,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Font.Name = 'Tahoma'
                 Font.Style = []
                 ParentFont = False
+                ReadOnly = True
                 TabOrder = 8
                 EditMask = ''
               end
@@ -1392,9 +1414,11 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Height = 21
                 DataField = 'VEICULO_UF'
                 DataSource = dtsDefault
+                DragMode = dmAutomatic
                 KeyField = 'ID_CIDADES_UF'
                 ListField = 'ID_CIDADES_UF'
                 ListSource = dtsqryCIDADES_UF
+                ReadOnly = True
                 TabOrder = 6
               end
               object VEICULO_RNTRC: TJvDBMaskEdit
@@ -1412,6 +1436,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Font.Name = 'Tahoma'
                 Font.Style = []
                 ParentFont = False
+                ReadOnly = True
                 TabOrder = 9
                 EditMask = ''
               end
@@ -1429,7 +1454,26 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Font.Name = 'Tahoma'
                 Font.Style = []
                 ParentFont = False
+                ReadOnly = True
                 TabOrder = 10
+                EditMask = ''
+              end
+              object MODELO: TJvDBMaskEdit
+                Left = 305
+                Top = 70
+                Width = 168
+                Height = 21
+                TabStop = False
+                DataField = 'VEICULO_MARCA'
+                DataSource = dtsDefault
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = []
+                ParentFont = False
+                ReadOnly = True
+                TabOrder = 11
                 EditMask = ''
               end
             end
@@ -1629,8 +1673,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Align = alTop
                 BevelOuter = bvNone
                 TabOrder = 0
-                ExplicitLeft = 37
-                ExplicitTop = 35
                 object Label28: TLabel
                   AlignWithMargins = True
                   Left = 3
@@ -1646,8 +1688,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Font.Style = []
                   ParentFont = False
                   Transparent = True
-                  ExplicitLeft = 35
-                  ExplicitTop = 33
+                  ExplicitWidth = 96
                 end
                 object LkCbxMotorista: TDBLookupComboBox
                   Left = 3
@@ -1692,16 +1733,19 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Gradient.Active = False
               Gradient.Orientation = fgdHorizontal
               Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
+              ExplicitTop = -11
               FullHeight = 0
               object Panel32: TPanel
                 AlignWithMargins = True
                 Left = 5
                 Top = 19
                 Width = 405
-                Height = 237
+                Height = 241
                 Align = alClient
                 BevelOuter = bvNone
                 TabOrder = 0
+                ExplicitLeft = 7
+                ExplicitTop = 34
                 object Label33: TLabel
                   Left = 3
                   Top = 202
@@ -1886,7 +1930,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Top = 3
                   Width = 206
                   Height = 20
-                  Caption = 'n'#227'o '#233' o emitente iniciado no Aplicativo'
+                  Caption = 'N'#227'o '#233' o emitente iniciado no aplicativo'
                   DataField = 'EMI_N_PROP'
                   DataSource = dtsDefault
                   TabOrder = 0
@@ -4004,6 +4048,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Carregamento'
+                  Width = 64
                   Visible = True
                 end>
             end
@@ -4387,6 +4432,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Descarregamento'
+                  Width = 64
                   Visible = True
                 end>
             end

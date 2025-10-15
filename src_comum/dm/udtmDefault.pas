@@ -293,6 +293,12 @@ type
     tabMOTORISTASCEP: TIntegerField;
     tabMOTORISTASCODIGO_MUNICIPIO: TIntegerField;
     tabMOTORISTASCELULAR: TLargeintField;
+    tabVEICULOSMARCA: TStringField;
+    tabVEICULOSMODELO: TStringField;
+    tabVEICULOSANO_FABRICACAO: TIntegerField;
+    tabVEICULOSANO_MODELO: TIntegerField;
+    tabVEICULOSNUMERO_EIXOS: TSmallintField;
+    tabVEICULOSCODIGO_MUNICIPIO: TIntegerField;
     procedure cnx_BDBeforeConnect(Sender: TObject);
     procedure tabEMPRESAAfterOpen(DataSet: TDataSet);
     procedure tabEMPRESABeforePost(DataSet: TDataSet);

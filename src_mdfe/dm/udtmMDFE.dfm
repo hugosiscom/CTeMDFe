@@ -701,6 +701,42 @@ object dtmMDFE: TdtmMDFE
       FieldName = 'EMI_N_PROP_CELULAR'
       Origin = 'EMI_N_PROP_CELULAR'
     end
+    object tabMDFEVEICULO_MARCA: TStringField
+      FieldName = 'VEICULO_MARCA'
+      Origin = 'VEICULO_MARCA'
+      Size = 30
+    end
+    object tabMDFEVEICULO_MODELO: TStringField
+      FieldName = 'VEICULO_MODELO'
+      Origin = 'VEICULO_MODELO'
+      Size = 100
+    end
+    object tabMDFEVEICULO_COR: TStringField
+      FieldName = 'VEICULO_COR'
+      Origin = 'VEICULO_COR'
+      Size = 3
+    end
+    object tabMDFEVEICULO_COR_DESCRICAO: TStringField
+      FieldName = 'VEICULO_COR_DESCRICAO'
+      Origin = 'VEICULO_COR_DESCRICAO'
+      Size = 40
+    end
+    object tabMDFEVEICULO_ANO_FABRICACAO: TIntegerField
+      FieldName = 'VEICULO_ANO_FABRICACAO'
+      Origin = 'VEICULO_ANO_FABRICACAO'
+    end
+    object tabMDFEVEICULO_ANO_MODELO: TIntegerField
+      FieldName = 'VEICULO_ANO_MODELO'
+      Origin = 'VEICULO_ANO_MODELO'
+    end
+    object tabMDFEVEICULO_NUMERO_EIXOS: TSmallintField
+      FieldName = 'VEICULO_NUMERO_EIXOS'
+      Origin = 'VEICULO_NUMERO_EIXOS'
+    end
+    object tabMDFEVEICULO_CODIGO_MUNICIPIO: TIntegerField
+      FieldName = 'VEICULO_CODIGO_MUNICIPIO'
+      Origin = 'VEICULO_CODIGO_MUNICIPIO'
+    end
   end
   object updEvento: TFDQuery
     Connection = dtmDefault.cnx_BD

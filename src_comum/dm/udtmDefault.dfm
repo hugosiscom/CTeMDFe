@@ -1504,6 +1504,32 @@ object dtmDefault: TdtmDefault
       Origin = 'CHASSI'
       Size = 17
     end
+    object tabVEICULOSMARCA: TStringField
+      FieldName = 'MARCA'
+      Origin = 'MARCA'
+      Size = 30
+    end
+    object tabVEICULOSMODELO: TStringField
+      FieldName = 'MODELO'
+      Origin = 'MODELO'
+      Size = 100
+    end
+    object tabVEICULOSANO_FABRICACAO: TIntegerField
+      FieldName = 'ANO_FABRICACAO'
+      Origin = 'ANO_FABRICACAO'
+    end
+    object tabVEICULOSANO_MODELO: TIntegerField
+      FieldName = 'ANO_MODELO'
+      Origin = 'ANO_MODELO'
+    end
+    object tabVEICULOSNUMERO_EIXOS: TSmallintField
+      FieldName = 'NUMERO_EIXOS'
+      Origin = 'NUMERO_EIXOS'
+    end
+    object tabVEICULOSCODIGO_MUNICIPIO: TIntegerField
+      FieldName = 'CODIGO_MUNICIPIO'
+      Origin = 'CODIGO_MUNICIPIO'
+    end
   end
   object tabUSUARIO: TFDQuery
     BeforePost = tabUSUARIOBeforePost

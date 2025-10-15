@@ -8,7 +8,7 @@ uses
   ACBrEnterTab, Vcl.ComCtrls, JvExComCtrls, JvStatusBar, JvComCtrls,
   JvExControls, JvSpeedButton, Vcl.ExtCtrls, Vcl.StdCtrls, JvgGroupBox,
   Vcl.Mask, Vcl.DBCtrls, JvDBLookup, JvExStdCtrls, JvCombobox, JvDBCombobox,
-  JvExMask, JvToolEdit, JvMaskEdit, JvDBControls, JvBaseEdits;
+  JvExMask, JvToolEdit, JvMaskEdit, JvDBControls, JvBaseEdits, JvDateTimePicker, JvDBDateTimePicker;
 
 type
   TfrmVEICULOScadastro = class(TfrmDefaultCadastro)
@@ -37,7 +37,6 @@ type
     DBEdit7: TDBEdit;
     Label41: TLabel;
     EMI_N_PROP_TIPO: TJvDBComboBox;
-    Label7: TLabel;
     Label13: TLabel;
     DBEdit8: TDBEdit;
     Label14: TLabel;
@@ -52,6 +51,18 @@ type
     DBEdit10: TDBEdit;
     DBEdit11: TDBEdit;
     DBEdit12: TDBEdit;
+    DBEdit13: TDBEdit;
+    Label20: TLabel;
+    Label21: TLabel;
+    DBEdit14: TDBEdit;
+    Label7: TLabel;
+    JvDBDateTimePicker1: TJvDBDateTimePicker;
+    JvDBDateTimePicker2: TJvDBDateTimePicker;
+    Label22: TLabel;
+    DBEdit15: TDBEdit;
+    Label23: TLabel;
+    Label24: TLabel;
+    DBEdit16: TDBEdit;
   private
     { Private declarations }
   public

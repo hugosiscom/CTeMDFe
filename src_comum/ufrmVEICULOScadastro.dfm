@@ -1,45 +1,38 @@
 inherited frmVEICULOScadastro: TfrmVEICULOScadastro
   Caption = 'Ve'#237'culos'
-  ClientHeight = 362
-  ClientWidth = 769
-  ExplicitWidth = 785
-  ExplicitHeight = 401
+  ClientHeight = 435
+  ClientWidth = 761
+  ExplicitWidth = 777
+  ExplicitHeight = 474
   TextHeight = 13
-  object Label7: TLabel [0]
-    Left = 298
-    Top = 69
-    Width = 45
-    Height = 13
-    Caption = 'Renavam'
-  end
   inherited pnlComandos: TPanel
-    Top = 307
-    Width = 763
+    Top = 380
+    Width = 755
     ExplicitTop = 307
     ExplicitWidth = 763
     inherited btnCancelar: TJvSpeedButton
-      Left = 650
+      Left = 642
       ExplicitLeft = 707
     end
     inherited btnConfirmar: TJvSpeedButton
-      Left = 534
+      Left = 526
       ExplicitLeft = 591
     end
   end
   inherited pageDefault: TJvPageControl
-    Width = 763
-    Height = 298
+    Width = 755
+    Height = 371
     ExplicitWidth = 763
     ExplicitHeight = 298
     inherited tabDefault: TTabSheet
-      ExplicitWidth = 755
-      ExplicitHeight = 270
+      ExplicitWidth = 747
+      ExplicitHeight = 343
       object JvgGroupBox1: TJvgGroupBox
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 749
-        Height = 264
+        Width = 741
+        Height = 337
         Align = alClient
         Caption = 'Dados Principais'
         TabOrder = 0
@@ -64,6 +57,10 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
         Gradient.Active = False
         Gradient.Orientation = fgdHorizontal
         Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
+        ExplicitLeft = 67
+        ExplicitTop = -117
+        ExplicitWidth = 914
+        ExplicitHeight = 567
         FullHeight = 0
         object Label1: TLabel
           Left = 16
@@ -201,7 +198,7 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
           Transparent = True
         end
         object Label16: TLabel
-          Left = 201
+          Left = 178
           Top = 206
           Width = 66
           Height = 13
@@ -248,6 +245,90 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
           Width = 121
           Height = 13
           Caption = 'Valor Unit'#225'rio do Ve'#237'culo*'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+        end
+        object Label20: TLabel
+          Left = 289
+          Top = 206
+          Width = 29
+          Height = 13
+          Caption = 'Marca'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+        end
+        object Label21: TLabel
+          Left = 464
+          Top = 206
+          Width = 34
+          Height = 13
+          Caption = 'Modelo'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+        end
+        object Label7: TLabel
+          Left = 16
+          Top = 252
+          Width = 89
+          Height = 13
+          Caption = 'Ano de Fabrica'#231#227'o'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+        end
+        object Label22: TLabel
+          Left = 208
+          Top = 252
+          Width = 71
+          Height = 13
+          Caption = 'Ano do Modelo'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+        end
+        object Label23: TLabel
+          Left = 286
+          Top = 252
+          Width = 94
+          Height = 13
+          Caption = 'C'#243'digo do Munic'#237'pio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+        end
+        object Label24: TLabel
+          Left = 464
+          Top = 252
+          Width = 80
+          Height = 13
+          Caption = 'N'#250'mero de Eixos'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -427,10 +508,11 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
         object VALOR_UNITARIO: TJvDBCalcEdit
           Left = 16
           Top = 225
-          Width = 170
+          Width = 121
           Height = 21
           DisplayFormat = '#0.00'
           FormatOnEditing = True
+          MaxValue = 99999999999.000000000000000000
           ShowButton = False
           TabOrder = 16
           DecimalPlacesAlwaysShown = False
@@ -438,12 +520,13 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
           DataSource = dtsDefault
         end
         object FRETE_UNITARIO: TJvDBCalcEdit
-          Left = 201
+          Left = 178
           Top = 225
-          Width = 182
+          Width = 104
           Height = 21
           DisplayFormat = '#0.00'
           FormatOnEditing = True
+          MaxValue = 999999999.000000000000000000
           ShowButton = False
           TabOrder = 17
           DecimalPlacesAlwaysShown = False
@@ -486,16 +569,88 @@ inherited frmVEICULOScadastro: TfrmVEICULOScadastro
           DataSource = dtsDefault
           TabOrder = 15
         end
+        object DBEdit13: TDBEdit
+          Left = 288
+          Top = 225
+          Width = 169
+          Height = 21
+          DataField = 'MARCA'
+          DataSource = dtsDefault
+          MaxLength = 30
+          TabOrder = 18
+        end
+        object JvDBDateTimePicker1: TJvDBDateTimePicker
+          Left = 16
+          Top = 271
+          Width = 121
+          Height = 21
+          Date = 45945.000000000000000000
+          Format = 'yyyy'
+          Time = 0.450597071758238600
+          TabOrder = 19
+          DropDownDate = 45945.000000000000000000
+          DataField = 'ANO_FABRICACAO'
+          DataSource = dtsDefault
+        end
+        object JvDBDateTimePicker2: TJvDBDateTimePicker
+          Left = 178
+          Top = 271
+          Width = 101
+          Height = 21
+          Date = 45945.000000000000000000
+          Format = 'yyyy'
+          Time = 0.450597071758238600
+          TabOrder = 20
+          DropDownDate = 45945.000000000000000000
+          DataField = 'ANO_MODELO'
+          DataSource = dtsDefault
+        end
+        object DBEdit15: TDBEdit
+          Left = 285
+          Top = 271
+          Width = 169
+          Height = 21
+          DataField = 'CODIGO_MUNICIPIO'
+          DataSource = dtsDefault
+          MaxLength = 7
+          TabOrder = 21
+        end
+        object DBEdit16: TDBEdit
+          Left = 464
+          Top = 271
+          Width = 252
+          Height = 21
+          DataField = 'CODIGO_MUNICIPIO'
+          DataSource = dtsDefault
+          MaxLength = 5
+          TabOrder = 22
+        end
       end
     end
   end
   inherited statDefault: TJvStatusBar
-    Top = 343
-    Width = 769
+    Top = 416
+    Width = 761
     ExplicitTop = 343
     ExplicitWidth = 769
   end
+  object DBEdit14: TDBEdit [3]
+    Left = 473
+    Top = 255
+    Width = 253
+    Height = 21
+    DataField = 'MODELO'
+    DataSource = dtsDefault
+    MaxLength = 100
+    TabOrder = 3
+  end
+  inherited ACBrEnterTab1: TACBrEnterTab
+    Left = 173
+    Top = 112
+  end
   inherited dtsDefault: TDataSource
     DataSet = dtmDefault.tabVEICULOS
+    Left = 246
+    Top = 99
   end
 end
