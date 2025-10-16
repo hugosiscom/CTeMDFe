@@ -685,6 +685,12 @@ type
     tabMDFEVEICULO_ANO_MODELO: TIntegerField;
     tabMDFEVEICULO_NUMERO_EIXOS: TSmallintField;
     tabMDFEVEICULO_CODIGO_MUNICIPIO: TIntegerField;
+    QryVeiculoMARCA: TStringField;
+    QryVeiculoMODELO: TStringField;
+    QryVeiculoANO_FABRICACAO: TIntegerField;
+    QryVeiculoANO_MODELO: TIntegerField;
+    QryVeiculoNUMERO_EIXOS: TSmallintField;
+    QryVeiculoCODIGO_MUNICIPIO: TIntegerField;
     procedure qryCERTIFICADO_CONFIGBeforeOpen(DataSet: TDataSet);
     procedure tabMDFENewRecord(DataSet: TDataSet);
     procedure tabMDFEBeforePost(DataSet: TDataSet);

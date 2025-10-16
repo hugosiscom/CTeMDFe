@@ -1,58 +1,61 @@
 inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
   Caption = 'Configura'#231#245'es do Sistema'
-  ClientHeight = 497
-  ClientWidth = 668
-  ExplicitWidth = 684
-  ExplicitHeight = 536
+  ClientHeight = 507
+  ClientWidth = 852
+  ExplicitWidth = 868
+  ExplicitHeight = 546
   TextHeight = 13
   inherited pnlComandos: TPanel
-    Top = 442
-    Width = 662
+    Top = 452
+    Width = 846
     ExplicitTop = 442
     ExplicitWidth = 662
     inherited btnCancelar: TJvSpeedButton
-      Left = 549
+      Left = 733
       ExplicitLeft = 544
     end
     inherited btnConfirmar: TJvSpeedButton
-      Left = 433
+      Left = 617
       ExplicitLeft = 428
     end
   end
   inherited pageDefault: TJvPageControl
-    Width = 662
-    Height = 433
+    Width = 846
+    Height = 443
     HideAllTabs = True
     ExplicitWidth = 662
     ExplicitHeight = 433
     inherited tabDefault: TTabSheet
-      ExplicitWidth = 654
-      ExplicitHeight = 405
+      ExplicitWidth = 838
+      ExplicitHeight = 415
       object PageControl1: TPageControl
         Left = 0
         Top = 0
-        Width = 654
-        Height = 405
-        ActivePage = TabSheet1
+        Width = 838
+        Height = 415
+        ActivePage = TabSheet3
         Align = alClient
         MultiLine = True
         TabOrder = 0
+        ExplicitWidth = 654
+        ExplicitHeight = 405
         object TabSheet1: TTabSheet
           Caption = 'Configura'#231#245'es'
           object GroupBox2: TGroupBox
             AlignWithMargins = True
             Left = 3
             Top = 3
-            Width = 640
+            Width = 824
             Height = 62
             Align = alTop
             Caption = 'Certificado'
             TabOrder = 0
+            ExplicitWidth = 640
             object Label25: TLabel
               AlignWithMargins = True
               Left = 5
               Top = 18
-              Width = 630
+              Width = 814
               Height = 13
               Align = alTop
               Caption = 'N'#250'mero de S'#233'rie'
@@ -111,16 +114,17 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             AlignWithMargins = True
             Left = 3
             Top = 71
-            Width = 640
+            Width = 824
             Height = 234
             Align = alTop
             Caption = 'WebService'
             TabOrder = 1
+            ExplicitWidth = 640
             object Label1: TLabel
               AlignWithMargins = True
               Left = 5
               Top = 18
-              Width = 630
+              Width = 814
               Height = 13
               Align = alTop
               Caption = 'Selecione UF da SEFAZ-Autorizadora (Emitente):'
@@ -491,7 +495,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             AlignWithMargins = True
             Left = 3
             Top = 3
-            Width = 640
+            Width = 824
             Height = 17
             Align = alTop
             Caption = 'Envia E-Mail Autom'#225'tico'
@@ -501,16 +505,18 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             ValueChecked = 'S'
             ValueUnchecked = 'N'
             OnChange = EMAIL_ENVIARChange
+            ExplicitWidth = 640
           end
           object GroupBox1: TGroupBox
             AlignWithMargins = True
             Left = 3
             Top = 174
-            Width = 640
+            Width = 824
             Height = 136
             Align = alTop
             Caption = 'TimeZone'
             TabOrder = 1
+            ExplicitWidth = 640
             object Label3: TLabel
               Left = 489
               Top = 21
@@ -573,16 +579,17 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             AlignWithMargins = True
             Left = 3
             Top = 26
-            Width = 640
+            Width = 824
             Height = 142
             Align = alTop
             Caption = 'E-Mail'
             TabOrder = 2
+            ExplicitWidth = 640
             object Label6: TLabel
               AlignWithMargins = True
               Left = 5
               Top = 18
-              Width = 630
+              Width = 814
               Height = 13
               Align = alTop
               Caption = 'Servidor SMTP'
@@ -677,12 +684,321 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             end
           end
         end
+        object TabSheet3: TTabSheet
+          Caption = 'TabSheet3'
+          ImageIndex = 2
+          object GroupBox7: TGroupBox
+            Left = 3
+            Top = 3
+            Width = 265
+            Height = 190
+            Caption = 'WebService'
+            TabOrder = 0
+            object Label65: TLabel
+              Left = 8
+              Top = 16
+              Width = 126
+              Height = 13
+              Caption = 'Selecione UF do Emitente:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+            end
+            object Label66: TLabel
+              Left = 167
+              Top = 116
+              Width = 40
+              Height = 13
+              Caption = 'TimeOut'
+              Color = clBtnFace
+              ParentColor = False
+            end
+            object Label67: TLabel
+              Left = 10
+              Top = 163
+              Width = 41
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'SSLType'
+              Color = clBtnFace
+              ParentColor = False
+            end
+            object seTimeOut: TSpinEdit
+              Left = 167
+              Top = 132
+              Width = 66
+              Height = 22
+              Increment = 10
+              MaxValue = 999999
+              MinValue = 1000
+              TabOrder = 0
+              Value = 5000
+            end
+            object rgTipoAmb: TDBRadioGroup
+              Left = 3
+              Top = 63
+              Width = 247
+              Height = 50
+              Caption = 'Selecione o Ambiente de Destino'
+              Columns = 2
+              DataField = 'AMBIENTE_DESTINO_INDEX'
+              Items.Strings = (
+                'Produ'#231#227'o'
+                'Homologa'#231#227'o')
+              TabOrder = 1
+            end
+          end
+          object gbxRetornoEnvio: TGroupBox
+            Left = 5
+            Top = 200
+            Width = 265
+            Height = 77
+            Caption = 'Retorno de Envio'
+            TabOrder = 1
+            object Label64: TLabel
+              Left = 93
+              Top = 33
+              Width = 51
+              Height = 13
+              Caption = 'Tentativas'
+            end
+            object Label68: TLabel
+              Left = 176
+              Top = 33
+              Width = 44
+              Height = 13
+              Caption = 'Intervalo'
+            end
+            object Label69: TLabel
+              Left = 8
+              Top = 33
+              Width = 45
+              Height = 13
+              Hint = 
+                'Aguardar quantos segundos para primeira consulta de retorno de e' +
+                'nvio'
+              Caption = 'Aguardar'
+            end
+          end
+          object GroupBox8: TGroupBox
+            Left = 5
+            Top = 273
+            Width = 265
+            Height = 104
+            Caption = 'Proxy'
+            TabOrder = 2
+            object Label70: TLabel
+              Left = 8
+              Top = 16
+              Width = 22
+              Height = 13
+              Caption = 'Host'
+            end
+            object Label71: TLabel
+              Left = 208
+              Top = 16
+              Width = 26
+              Height = 13
+              Caption = 'Porta'
+            end
+            object Label72: TLabel
+              Left = 8
+              Top = 56
+              Width = 36
+              Height = 13
+              Caption = 'Usu'#225'rio'
+            end
+            object Label73: TLabel
+              Left = 138
+              Top = 56
+              Width = 30
+              Height = 13
+              Caption = 'Senha'
+            end
+          end
+          object GroupBox9: TGroupBox
+            Left = 274
+            Top = 3
+            Width = 541
+            Height = 168
+            Caption = 'Geral'
+            TabOrder = 3
+            object Label77: TLabel
+              Left = 11
+              Top = 67
+              Width = 119
+              Height = 13
+              Caption = 'Vers'#227'o Documento Fiscal'
+            end
+            object Label78: TLabel
+              Left = 10
+              Top = 21
+              Width = 86
+              Height = 13
+              Caption = 'Forma de Emiss'#227'o'
+            end
+            object Label79: TLabel
+              Left = 13
+              Top = 113
+              Width = 62
+              Height = 13
+              Caption = 'Integrardora'
+            end
+            object Label80: TLabel
+              Left = 287
+              Top = 16
+              Width = 36
+              Height = 13
+              Caption = 'Usu'#225'rio'
+            end
+            object Label81: TLabel
+              Left = 420
+              Top = 16
+              Width = 30
+              Height = 13
+              Caption = 'Senha'
+            end
+            object Label82: TLabel
+              Left = 287
+              Top = 67
+              Width = 79
+              Height = 13
+              Caption = 'Hash Integrador'
+            end
+          end
+          object GroupBox10: TGroupBox
+            Left = 276
+            Top = 283
+            Width = 263
+            Height = 76
+            Caption = 'Calculo de Hash e assinatura'
+            TabOrder = 4
+            object Edit1: TEdit
+              Left = 7
+              Top = 16
+              Width = 249
+              Height = 21
+              TabOrder = 0
+            end
+            object btnSha256: TButton
+              Left = 8
+              Top = 41
+              Width = 99
+              Height = 25
+              Caption = 'SHA256+RSA'
+              TabOrder = 1
+            end
+            object cbAssinar: TCheckBox
+              Left = 193
+              Top = 44
+              Width = 54
+              Height = 19
+              Caption = 'Assinar'
+              Checked = True
+              State = cbChecked
+              TabOrder = 2
+            end
+          end
+          object gbCertificado: TGroupBox
+            Left = 276
+            Top = 177
+            Width = 263
+            Height = 97
+            Caption = 'Certificado'
+            TabOrder = 5
+            object Label74: TLabel
+              Left = 8
+              Top = 16
+              Width = 41
+              Height = 13
+              Caption = 'Caminho'
+            end
+            object Label75: TLabel
+              Left = 8
+              Top = 56
+              Width = 30
+              Height = 13
+              Caption = 'Senha'
+            end
+            object sbtnCaminhoCert: TSpeedButton
+              Left = 235
+              Top = 27
+              Width = 23
+              Height = 24
+              Glyph.Data = {
+                76010000424D7601000000000000760000002800000020000000100000000100
+                04000000000000010000130B0000130B00001000000000000000000000000000
+                800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+                333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+                0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+                07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+                07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+                0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+                33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+                B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+                3BB33773333773333773B333333B3333333B7333333733333337}
+              NumGlyphs = 2
+            end
+          end
+          object GroupBox11: TGroupBox
+            Left = 545
+            Top = 174
+            Width = 192
+            Height = 210
+            Caption = 'Libs'
+            TabOrder = 6
+            object lSSLLib: TLabel
+              Left = 19
+              Top = 16
+              Width = 30
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'SSLLib'
+              Color = clBtnFace
+              ParentColor = False
+            end
+            object lCryptLib: TLabel
+              Left = 19
+              Top = 57
+              Width = 40
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'CryptLib'
+              Color = clBtnFace
+              ParentColor = False
+            end
+            object lHttpLib: TLabel
+              Left = 19
+              Top = 103
+              Width = 34
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'HttpLib'
+              Color = clBtnFace
+              ParentColor = False
+            end
+            object lXmlSign: TLabel
+              Left = 19
+              Top = 149
+              Width = 52
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'XMLSignLib'
+              Color = clBtnFace
+              ParentColor = False
+            end
+          end
+        end
       end
     end
   end
   inherited statDefault: TJvStatusBar
-    Top = 478
-    Width = 668
+    Top = 488
+    Width = 852
     ExplicitTop = 478
     ExplicitWidth = 668
   end

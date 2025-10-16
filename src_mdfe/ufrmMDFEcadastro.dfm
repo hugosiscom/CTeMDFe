@@ -941,7 +941,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Top = 0
         Width = 891
         Height = 456
-        ActivePage = TabSheet1
+        ActivePage = confCIOT
         Align = alClient
         TabOrder = 0
         object tabVeiculoTracao: TTabSheet
@@ -1458,7 +1458,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 TabOrder = 10
                 EditMask = ''
               end
-              object MODELO: TJvDBMaskEdit
+              object VEICULO_MODELO: TJvDBMaskEdit
                 Left = 305
                 Top = 70
                 Width = 168
@@ -3156,9 +3156,11 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             end
           end
         end
-        object TabSheet1: TTabSheet
+        object confCIOT: TTabSheet
           Caption = 'Configura'#231#245'es CIOT'
           ImageIndex = 5
+          OnEnter = confCIOTEnter
+          OnExit = confCIOTExit
           object GroupBox4: TGroupBox
             Left = 3
             Top = 3
@@ -3189,8 +3191,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               ParentColor = False
             end
             object Label67: TLabel
-              Left = 19
-              Top = 168
+              Left = 10
+              Top = 163
               Width = 41
               Height = 13
               Alignment = taRightJustify
@@ -3198,84 +3200,13 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Color = clBtnFace
               ParentColor = False
             end
-            object cbxVisualizar: TCheckBox
-              Left = 8
-              Top = 118
-              Width = 153
-              Height = 17
-              Caption = 'Visualizar Mensagem'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 0
-            end
-            object cbUF: TComboBox
-              Left = 8
-              Top = 32
-              Width = 249
-              Height = 24
-              Style = csDropDownList
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -13
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ItemIndex = 24
-              ParentFont = False
-              TabOrder = 1
-              Text = 'SP'
-              Items.Strings = (
-                'AC'
-                'AL'
-                'AP'
-                'AM'
-                'BA'
-                'CE'
-                'DF'
-                'ES'
-                'GO'
-                'MA'
-                'MT'
-                'MS'
-                'MG'
-                'PA'
-                'PB'
-                'PR'
-                'PE'
-                'PI'
-                'RJ'
-                'RN'
-                'RS'
-                'RO'
-                'RR'
-                'SC'
-                'SP'
-                'SE'
-                'TO')
-            end
-            object rgTipoAmb: TRadioGroup
-              Left = 8
-              Top = 61
-              Width = 249
-              Height = 52
-              Caption = 'Selecione o Ambiente de Destino'
-              Columns = 2
-              ItemIndex = 1
-              Items.Strings = (
-                'Produ'#231#227'o'
-                'Homologa'#231#227'o')
-              TabOrder = 2
-            end
             object cbxSalvarSOAP: TCheckBox
               Left = 8
               Top = 136
               Width = 153
               Height = 17
               Caption = 'Salvar envelope SOAP'
-              TabOrder = 3
+              TabOrder = 0
             end
             object seTimeOut: TSpinEdit
               Left = 167
@@ -3285,17 +3216,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Increment = 10
               MaxValue = 999999
               MinValue = 1000
-              TabOrder = 4
+              TabOrder = 1
               Value = 5000
-            end
-            object cbSSLType: TComboBox
-              Left = 72
-              Top = 160
-              Width = 160
-              Height = 21
-              Hint = 'Depende de configura'#231#227'o de  SSL.HttpLib'
-              Style = csDropDownList
-              TabOrder = 5
             end
           end
           object gbxRetornoEnvio: TGroupBox
@@ -3307,59 +3229,27 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             TabOrder = 1
             object Label64: TLabel
               Left = 93
-              Top = 27
+              Top = 33
               Width = 51
               Height = 13
               Caption = 'Tentativas'
             end
             object Label68: TLabel
               Left = 176
-              Top = 27
+              Top = 33
               Width = 44
               Height = 13
               Caption = 'Intervalo'
             end
             object Label69: TLabel
               Left = 8
-              Top = 27
+              Top = 33
               Width = 45
               Height = 13
               Hint = 
                 'Aguardar quantos segundos para primeira consulta de retorno de e' +
                 'nvio'
               Caption = 'Aguardar'
-            end
-            object cbxAjustarAut: TCheckBox
-              Left = 8
-              Top = 12
-              Width = 234
-              Height = 17
-              Caption = 'Ajustar Automaticamente prop. "Aguardar"'
-              TabOrder = 0
-            end
-            object edtTentativas: TEdit
-              Left = 93
-              Top = 43
-              Width = 57
-              Height = 21
-              TabOrder = 2
-            end
-            object edtIntervalo: TEdit
-              Left = 176
-              Top = 43
-              Width = 57
-              Height = 21
-              TabOrder = 3
-            end
-            object edtAguardar: TEdit
-              Left = 8
-              Top = 43
-              Width = 57
-              Height = 21
-              Hint = 
-                'Aguardar quantos segundos para primeira consulta de retorno de e' +
-                'nvio'
-              TabOrder = 1
             end
           end
           object gbProxy: TGroupBox
@@ -3396,35 +3286,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Width = 30
               Height = 13
               Caption = 'Senha'
-            end
-            object edtProxyHost: TEdit
-              Left = 8
-              Top = 32
-              Width = 193
-              Height = 21
-              TabOrder = 0
-            end
-            object edtProxyPorta: TEdit
-              Left = 208
-              Top = 32
-              Width = 50
-              Height = 21
-              TabOrder = 1
-            end
-            object edtProxyUser: TEdit
-              Left = 8
-              Top = 72
-              Width = 123
-              Height = 21
-              TabOrder = 2
-            end
-            object edtProxySenha: TEdit
-              Left = 135
-              Top = 72
-              Width = 123
-              Height = 21
-              PasswordChar = '*'
-              TabOrder = 3
             end
           end
           object gbCertificado: TGroupBox
@@ -3468,21 +3329,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 3BB33773333773333773B333333B3333333B7333333733333337}
               NumGlyphs = 2
             end
-            object edtSenha: TEdit
-              Left = 8
-              Top = 72
-              Width = 249
-              Height = 21
-              PasswordChar = '*'
-              TabOrder = 0
-            end
-            object edtCaminho: TEdit
-              Left = 10
-              Top = 30
-              Width = 219
-              Height = 21
-              TabOrder = 1
-            end
           end
           object GroupBox1: TGroupBox
             Left = 276
@@ -3497,7 +3343,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Width = 249
               Height = 21
               TabOrder = 0
-              Text = '0548133600013704583493000190'
             end
             object btnSha256: TButton
               Left = 8
@@ -3566,38 +3411,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Color = clBtnFace
               ParentColor = False
             end
-            object cbXmlSignLib: TComboBox
-              Left = 15
-              Top = 174
-              Width = 160
-              Height = 21
-              Style = csDropDownList
-              TabOrder = 0
-            end
-            object cbHttpLib: TComboBox
-              Left = 15
-              Top = 122
-              Width = 160
-              Height = 21
-              Style = csDropDownList
-              TabOrder = 1
-            end
-            object cbCryptLib: TComboBox
-              Left = 15
-              Top = 76
-              Width = 160
-              Height = 21
-              Style = csDropDownList
-              TabOrder = 2
-            end
-            object cbSSLLib: TComboBox
-              Left = 15
-              Top = 30
-              Width = 160
-              Height = 21
-              Style = csDropDownList
-              TabOrder = 3
-            end
           end
           object GroupBox3: TGroupBox
             Left = 274
@@ -3648,49 +3461,260 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Height = 13
               Caption = 'Hash Integrador'
             end
-            object cbFormaEmissao: TComboBox
-              Left = 10
-              Top = 40
-              Width = 239
+            object edtHashIntegrador: TDBEdit
+              Left = 255
+              Top = 84
+              Width = 250
               Height = 21
+              DataField = 'GERAL_HASH_INTEGRADOR'
+              DataSource = dtsConfig
               TabOrder = 0
             end
-            object cbVersaoDF: TComboBox
-              Left = 10
-              Top = 86
-              Width = 239
+            object edtUsuarioWebService: TDBEdit
+              Left = 255
+              Top = 38
+              Width = 130
               Height = 21
+              DataField = 'GERAL_USUARIO'
+              DataSource = dtsConfig
               TabOrder = 1
             end
-            object cbbIntegradora: TComboBox
-              Left = 12
-              Top = 132
-              Width = 237
-              Height = 21
-              TabOrder = 2
-            end
-            object edtSenhaWebService: TEdit
+            object edtSenhaWebService: TDBEdit
               Left = 391
               Top = 38
-              Width = 123
+              Width = 114
               Height = 21
-              PasswordChar = '*'
-              TabOrder = 3
+              DataField = 'GERAL_SENHA'
+              DataSource = dtsConfig
+              TabOrder = 2
             end
-            object edtUsuarioWebService: TEdit
-              Left = 262
-              Top = 38
-              Width = 123
-              Height = 21
-              TabOrder = 4
-            end
-            object edtHashIntegrador: TEdit
-              Left = 264
-              Top = 84
-              Width = 249
-              Height = 21
-              TabOrder = 5
-            end
+          end
+          object cbSSLLib: TDBComboBox
+            Left = 642
+            Top = 212
+            Width = 156
+            Height = 21
+            DataField = 'SSL_LIB_INDEX'
+            DataSource = dtsConfig
+            TabOrder = 7
+          end
+          object cbCryptLib: TDBComboBox
+            Left = 642
+            Top = 253
+            Width = 156
+            Height = 21
+            DataField = 'CRYPT_LIB_INDEX'
+            DataSource = dtsConfig
+            TabOrder = 8
+          end
+          object cbHttpLib: TDBComboBox
+            Left = 642
+            Top = 299
+            Width = 156
+            Height = 21
+            DataField = 'HTTP_LIB_INDEX'
+            DataSource = dtsConfig
+            TabOrder = 9
+          end
+          object cbXmlSignLib: TDBComboBox
+            Left = 642
+            Top = 345
+            Width = 156
+            Height = 21
+            DataField = 'XML_SIGN_LIB__INDEX'
+            DataSource = dtsConfig
+            TabOrder = 10
+          end
+          object cbFormaEmissao: TDBComboBox
+            Left = 284
+            Top = 43
+            Width = 239
+            Height = 21
+            DataField = 'FORMA_EMISSAO_INDEX'
+            DataSource = dtsConfig
+            TabOrder = 11
+          end
+          object cbVersaoDF: TDBComboBox
+            Left = 284
+            Top = 89
+            Width = 239
+            Height = 21
+            DataField = 'VERSAO_DOCUMENTO_FISCAL_INDEX'
+            DataSource = dtsConfig
+            TabOrder = 12
+          end
+          object cbbIntegradora: TDBComboBox
+            Left = 284
+            Top = 135
+            Width = 239
+            Height = 21
+            DataField = 'INTEGRADORA_INDEX'
+            DataSource = dtsConfig
+            TabOrder = 13
+          end
+          object cbUF: TDBComboBox
+            Left = 13
+            Top = 38
+            Width = 247
+            Height = 21
+            DataField = 'UF_INDEX'
+            DataSource = dtsConfig
+            Items.Strings = (
+              'AC'
+              'AL'
+              'AP'
+              'AM'
+              'BA'
+              'CE'
+              'DF'
+              'ES'
+              'GO'
+              'MA'
+              'MT'
+              'MS'
+              'MG'
+              'PA'
+              'PB'
+              'PR'
+              'PE'
+              'PI'
+              'RJ'
+              'RN'
+              'RS'
+              'RO'
+              'RR'
+              'SC'
+              'SP'
+              'SE'
+              'TO')
+            TabOrder = 14
+          end
+          object rgTipoAmb: TDBRadioGroup
+            Left = 13
+            Top = 65
+            Width = 247
+            Height = 50
+            Caption = 'Selecione o Ambiente de Destino'
+            Columns = 2
+            DataField = 'AMBIENTE_DESTINO_INDEX'
+            DataSource = dtsConfig
+            Items.Strings = (
+              'Produ'#231#227'o'
+              'Homologa'#231#227'o')
+            TabOrder = 15
+          end
+          object cbxVisualizar: TDBCheckBox
+            Left = 11
+            Top = 119
+            Width = 123
+            Height = 17
+            Caption = 'Visualizar Mensagem'
+            DataSource = dtsConfig
+            TabOrder = 16
+          end
+          object edtCaminho: TDBEdit
+            Left = 285
+            Top = 210
+            Width = 220
+            Height = 21
+            DataField = 'CAMINHO_CERTIFICADO'
+            DataSource = dtsConfig
+            TabOrder = 17
+          end
+          object edtSenha: TDBEdit
+            Left = 285
+            Top = 248
+            Width = 220
+            Height = 21
+            DataField = 'SENHA_CERTIFICADO'
+            DataSource = dtsConfig
+            TabOrder = 18
+          end
+          object cbxAjustarAut: TDBCheckBox
+            Left = 13
+            Top = 213
+            Width = 233
+            Height = 17
+            Caption = 'Ajustar Automaticamente prop. "Aguardar"'
+            DataField = 'AJUSTE_AUTOMATICO_AGUARDAR'
+            DataSource = dtsConfig
+            TabOrder = 19
+          end
+          object edtProxyHost: TDBEdit
+            Left = 13
+            Top = 315
+            Width = 194
+            Height = 21
+            DataField = 'HOST'
+            DataSource = dtsConfig
+            TabOrder = 20
+          end
+          object edtProxyPorta: TDBEdit
+            Left = 213
+            Top = 315
+            Width = 50
+            Height = 21
+            DataField = 'HOST_PORTA'
+            DataSource = dtsConfig
+            TabOrder = 21
+          end
+          object edtProxyUser: TDBEdit
+            Left = 13
+            Top = 355
+            Width = 121
+            Height = 21
+            DataField = 'HOST_USUARIO'
+            DataSource = dtsConfig
+            TabOrder = 22
+          end
+          object edtProxySenha: TDBEdit
+            Left = 140
+            Top = 355
+            Width = 123
+            Height = 21
+            DataField = 'HOST_SENHA'
+            DataSource = dtsConfig
+            TabOrder = 23
+          end
+          object edtAguardar: TDBEdit
+            Left = 13
+            Top = 248
+            Width = 79
+            Height = 21
+            Hint = 
+              'Aguardar quantos segundos para primeira consulta de retorno de e' +
+              'nvio'
+            DataField = 'AGUARDAR_SEGUNDOS'
+            DataSource = dtsConfig
+            TabOrder = 24
+          end
+          object edtTentativas: TDBEdit
+            Left = 96
+            Top = 248
+            Width = 79
+            Height = 21
+            DataField = 'TENTATIVAS'
+            DataSource = dtsConfig
+            TabOrder = 25
+          end
+          object edtIntervalo: TDBEdit
+            Left = 181
+            Top = 248
+            Width = 79
+            Height = 21
+            DataField = 'INTERVALO_SEGUNDOS'
+            DataSource = dtsConfig
+            TabOrder = 26
+          end
+          object cbSSLType: TDBComboBox
+            Left = 69
+            Top = 163
+            Width = 191
+            Height = 21
+            Hint = 'Depende de configura'#231#227'o de  SSL.HttpLib'
+            DataField = 'SSLTYPE_INDEX'
+            DataSource = dtsConfig
+            TabOrder = 27
           end
         end
       end
@@ -3992,6 +4016,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Carregamento'
+                  Width = 64
                   Visible = True
                 end>
             end
@@ -4375,6 +4400,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Descarregamento'
+                  Width = 64
                   Visible = True
                 end>
             end
@@ -6924,8 +6950,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
   end
   object JvLookupAutoComplete1: TJvLookupAutoComplete
     Active = False
-    Left = 88
-    Top = 16
+    Left = 56
+    Top = 176
   end
   object dtstabMDFE_AQUA_TERMINAL_CARREG: TDataSource
     DataSet = dtmMDFE.tabMDFE_AQUA_TERMINAL_CARREG
@@ -6958,7 +6984,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
     Top = 361
   end
   object qryMotorista: TFDQuery
-    Active = True
     Connection = dtmDefault.cnx_BD
     SQL.Strings = (
       'SELECT '
@@ -7075,14 +7100,145 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
     Top = 363
   end
   object fdqConfig: TFDQuery
+    Connection = dtmDefault.cnx_BD
     SQL.Strings = (
-      'SELECT ID FROM CONF_CIOT WHERE ID = :ID_EMPRESA')
+      'SELECT * FROM CONF_CIOT WHERE ID = :ID_EMPRESA')
     Left = 717
     Top = 158
     ParamData = <
       item
         Name = 'ID_EMPRESA'
+        DataType = ftInteger
         ParamType = ptInput
+        Value = Null
       end>
+    object fdqConfigID: TIntegerField
+      FieldName = 'ID'
+      Origin = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdqConfigUF_INDEX: TSmallintField
+      FieldName = 'UF_INDEX'
+      Origin = 'UF_INDEX'
+      Required = True
+    end
+    object fdqConfigAMBIENTE_DESTINO_INDEX: TSmallintField
+      FieldName = 'AMBIENTE_DESTINO_INDEX'
+      Origin = 'AMBIENTE_DESTINO_INDEX'
+      Required = True
+    end
+    object fdqConfigSSLTYPE_INDEX: TSmallintField
+      FieldName = 'SSLTYPE_INDEX'
+      Origin = 'SSLTYPE_INDEX'
+    end
+    object fdqConfigAJUSTE_AUTOMATICO_AGUARDAR: TBooleanField
+      FieldName = 'AJUSTE_AUTOMATICO_AGUARDAR'
+      Origin = 'AJUSTE_AUTOMATICO_AGUARDAR'
+      Required = True
+    end
+    object fdqConfigAGUARDAR_SEGUNDOS: TIntegerField
+      FieldName = 'AGUARDAR_SEGUNDOS'
+      Origin = 'AGUARDAR_SEGUNDOS'
+    end
+    object fdqConfigTENTATIVAS: TSmallintField
+      FieldName = 'TENTATIVAS'
+      Origin = 'TENTATIVAS'
+    end
+    object fdqConfigINTERVALO_SEGUNDOS: TIntegerField
+      FieldName = 'INTERVALO_SEGUNDOS'
+      Origin = 'INTERVALO_SEGUNDOS'
+    end
+    object fdqConfigHOST: TStringField
+      FieldName = 'HOST'
+      Origin = 'HOST'
+      Size = 100
+    end
+    object fdqConfigHOST_PORTA: TIntegerField
+      FieldName = 'HOST_PORTA'
+      Origin = 'HOST_PORTA'
+    end
+    object fdqConfigHOST_USUARIO: TStringField
+      FieldName = 'HOST_USUARIO'
+      Origin = 'HOST_USUARIO'
+      Size = 100
+    end
+    object fdqConfigHOST_SENHA: TStringField
+      FieldName = 'HOST_SENHA'
+      Origin = 'HOST_SENHA'
+      Size = 100
+    end
+    object fdqConfigCAMINHO_CERTIFICADO: TStringField
+      FieldName = 'CAMINHO_CERTIFICADO'
+      Origin = 'CAMINHO_CERTIFICADO'
+      Size = 200
+    end
+    object fdqConfigSENHA_CERTIFICADO: TStringField
+      FieldName = 'SENHA_CERTIFICADO'
+      Origin = 'SENHA_CERTIFICADO'
+      Size = 100
+    end
+    object fdqConfigASSINAR: TBooleanField
+      FieldName = 'ASSINAR'
+      Origin = 'ASSINAR'
+      Required = True
+    end
+    object fdqConfigFORMA_EMISSAO_INDEX: TSmallintField
+      FieldName = 'FORMA_EMISSAO_INDEX'
+      Origin = 'FORMA_EMISSAO_INDEX'
+    end
+    object fdqConfigVERSAO_DOCUMENTO_FISCAL_INDEX: TSmallintField
+      FieldName = 'VERSAO_DOCUMENTO_FISCAL_INDEX'
+      Origin = 'VERSAO_DOCUMENTO_FISCAL_INDEX'
+    end
+    object fdqConfigINTEGRADORA_INDEX: TSmallintField
+      FieldName = 'INTEGRADORA_INDEX'
+      Origin = 'INTEGRADORA_INDEX'
+    end
+    object fdqConfigGERAL_USUARIO: TStringField
+      FieldName = 'GERAL_USUARIO'
+      Origin = 'GERAL_USUARIO'
+      Size = 100
+    end
+    object fdqConfigGERAL_SENHA: TStringField
+      FieldName = 'GERAL_SENHA'
+      Origin = 'GERAL_SENHA'
+      Size = 100
+    end
+    object fdqConfigGERAL_HASH_INTEGRADOR: TStringField
+      FieldName = 'GERAL_HASH_INTEGRADOR'
+      Origin = 'GERAL_HASH_INTEGRADOR'
+      Size = 50
+    end
+    object fdqConfigSSL_LIB_INDEX: TSmallintField
+      FieldName = 'SSL_LIB_INDEX'
+      Origin = 'SSL_LIB_INDEX'
+      Required = True
+    end
+    object fdqConfigCRYPT_LIB_INDEX: TSmallintField
+      FieldName = 'CRYPT_LIB_INDEX'
+      Origin = 'CRYPT_LIB_INDEX'
+      Required = True
+    end
+    object fdqConfigHTTP_LIB_INDEX: TSmallintField
+      FieldName = 'HTTP_LIB_INDEX'
+      Origin = 'HTTP_LIB_INDEX'
+      Required = True
+    end
+    object fdqConfigXML_SIGN_LIB__INDEX: TSmallintField
+      FieldName = 'XML_SIGN_LIB__INDEX'
+      Origin = 'XML_SIGN_LIB__INDEX'
+      Required = True
+    end
+    object fdqConfigID_EMPRESA: TIntegerField
+      FieldName = 'ID_EMPRESA'
+      Origin = 'ID_EMPRESA'
+      Required = True
+    end
+  end
+  object dtsConfig: TDataSource
+    DataSet = fdqConfig
+    Left = 789
+    Top = 150
   end
 end

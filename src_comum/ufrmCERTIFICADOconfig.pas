@@ -12,7 +12,7 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client,  JvDBCheckBox,  ACBrNFe,TypInfo,
-  pcteConversaoCTe,pmdfeConversaoMDFe, ACBrDFe;
+  pcteConversaoCTe,pmdfeConversaoMDFe, ACBrDFe, Vcl.Samples.Spin;
 
 
 type
@@ -72,6 +72,42 @@ type
     EMAIL_SENHA_TLS: TJvDBCheckBox;
     GroupBox5: TGroupBox;
     cbVersaoDF: TComboBox;
+    TabSheet3: TTabSheet;
+    GroupBox7: TGroupBox;
+    Label65: TLabel;
+    Label66: TLabel;
+    Label67: TLabel;
+    seTimeOut: TSpinEdit;
+    rgTipoAmb: TDBRadioGroup;
+    gbxRetornoEnvio: TGroupBox;
+    Label64: TLabel;
+    Label68: TLabel;
+    Label69: TLabel;
+    GroupBox8: TGroupBox;
+    Label70: TLabel;
+    Label71: TLabel;
+    Label72: TLabel;
+    Label73: TLabel;
+    GroupBox9: TGroupBox;
+    Label77: TLabel;
+    Label78: TLabel;
+    Label79: TLabel;
+    Label80: TLabel;
+    Label81: TLabel;
+    Label82: TLabel;
+    GroupBox10: TGroupBox;
+    Edit1: TEdit;
+    btnSha256: TButton;
+    cbAssinar: TCheckBox;
+    gbCertificado: TGroupBox;
+    Label74: TLabel;
+    Label75: TLabel;
+    sbtnCaminhoCert: TSpeedButton;
+    GroupBox11: TGroupBox;
+    lSSLLib: TLabel;
+    lCryptLib: TLabel;
+    lHttpLib: TLabel;
+    lXmlSign: TLabel;
     procedure sbtnGetCertClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure EMAIL_ENVIARChange(Sender: TObject);

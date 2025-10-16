@@ -5931,6 +5931,32 @@ object dtmMDFE: TdtmMDFE
       Origin = 'CHASSI'
       Size = 17
     end
+    object QryVeiculoMARCA: TStringField
+      FieldName = 'MARCA'
+      Origin = 'MARCA'
+      Size = 30
+    end
+    object QryVeiculoMODELO: TStringField
+      FieldName = 'MODELO'
+      Origin = 'MODELO'
+      Size = 100
+    end
+    object QryVeiculoANO_FABRICACAO: TIntegerField
+      FieldName = 'ANO_FABRICACAO'
+      Origin = 'ANO_FABRICACAO'
+    end
+    object QryVeiculoANO_MODELO: TIntegerField
+      FieldName = 'ANO_MODELO'
+      Origin = 'ANO_MODELO'
+    end
+    object QryVeiculoNUMERO_EIXOS: TSmallintField
+      FieldName = 'NUMERO_EIXOS'
+      Origin = 'NUMERO_EIXOS'
+    end
+    object QryVeiculoCODIGO_MUNICIPIO: TIntegerField
+      FieldName = 'CODIGO_MUNICIPIO'
+      Origin = 'CODIGO_MUNICIPIO'
+    end
   end
   object DtsVeiculo: TDataSource
     DataSet = QryVeiculo
