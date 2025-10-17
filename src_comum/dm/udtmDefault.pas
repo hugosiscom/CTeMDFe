@@ -300,6 +300,33 @@ type
     tabVEICULOSNUMERO_EIXOS: TSmallintField;
     tabVEICULOSCODIGO_MUNICIPIO: TIntegerField;
     tabMOTORISTASNOME_SOLTEIRA_MAE: TStringField;
+    fdqConfig: TFDQuery;
+    fdqConfigID: TIntegerField;
+    fdqConfigUF_INDEX: TSmallintField;
+    fdqConfigAMBIENTE_DESTINO_INDEX: TSmallintField;
+    fdqConfigSSLTYPE_INDEX: TSmallintField;
+    fdqConfigAJUSTE_AUTOMATICO_AGUARDAR: TBooleanField;
+    fdqConfigAGUARDAR_SEGUNDOS: TIntegerField;
+    fdqConfigTENTATIVAS: TSmallintField;
+    fdqConfigINTERVALO_SEGUNDOS: TIntegerField;
+    fdqConfigHOST: TStringField;
+    fdqConfigHOST_PORTA: TIntegerField;
+    fdqConfigHOST_USUARIO: TStringField;
+    fdqConfigHOST_SENHA: TStringField;
+    fdqConfigCAMINHO_CERTIFICADO: TStringField;
+    fdqConfigSENHA_CERTIFICADO: TStringField;
+    fdqConfigASSINAR: TBooleanField;
+    fdqConfigFORMA_EMISSAO_INDEX: TSmallintField;
+    fdqConfigVERSAO_DOCUMENTO_FISCAL_INDEX: TSmallintField;
+    fdqConfigINTEGRADORA_INDEX: TSmallintField;
+    fdqConfigGERAL_USUARIO: TStringField;
+    fdqConfigGERAL_SENHA: TStringField;
+    fdqConfigGERAL_HASH_INTEGRADOR: TStringField;
+    fdqConfigSSL_LIB_INDEX: TSmallintField;
+    fdqConfigCRYPT_LIB_INDEX: TSmallintField;
+    fdqConfigHTTP_LIB_INDEX: TSmallintField;
+    fdqConfigXML_SIGN_LIB__INDEX: TSmallintField;
+    fdqConfigID_EMPRESA: TIntegerField;
     procedure cnx_BDBeforeConnect(Sender: TObject);
     procedure tabEMPRESAAfterOpen(DataSet: TDataSet);
     procedure tabEMPRESABeforePost(DataSet: TDataSet);
@@ -713,8 +740,6 @@ begin
 end;
 
 procedure TdtmDefault.tabVEICULOSBeforePost(DataSet: TDataSet);
-var
-  vResult: String;
 begin
   if DataSet.State in [dsInsert] then
     tabVEICULOSID_VEICULO.AsInteger := oVeiculo.GetNewID;

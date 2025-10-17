@@ -202,6 +202,7 @@ object frmPrincipal: TfrmPrincipal
     LargeImages = img_ico_32x32
     PageImages = img_ico_32x32_menu
     PageButtonHeight = 25
+    ActivePageIndex = 1
     OnButtonClick = JvOutlookBar1ButtonClick
     OnPageChange = JvOutlookBar1PageChange
     OnPageChanging = JvOutlookBar1PageChanging

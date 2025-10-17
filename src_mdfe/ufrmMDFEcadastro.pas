@@ -24,6 +24,7 @@ uses
   ACBrUtil.XMLHTML,
   ACBrUtil.Base,
   ACBrCIOTContratos,
+  ufrmCERTIFICADOconfig,
   pcnConversao, Vcl.Samples.Spin, blcksock, System.TypInfo, IniFiles, System.Math;
 
 type
@@ -348,42 +349,6 @@ type
     btnVALEPEDAGIOalterar: TJvSpeedButton;
     Panel22: TPanel;
     JvDBGrid8: TJvDBGrid;
-    confCIOT: TTabSheet;
-    GroupBox4: TGroupBox;
-    Label65: TLabel;
-    Label66: TLabel;
-    Label67: TLabel;
-    cbxSalvarSOAP: TCheckBox;
-    seTimeOut: TSpinEdit;
-    gbxRetornoEnvio: TGroupBox;
-    Label64: TLabel;
-    Label68: TLabel;
-    Label69: TLabel;
-    gbProxy: TGroupBox;
-    Label70: TLabel;
-    Label71: TLabel;
-    Label72: TLabel;
-    Label73: TLabel;
-    gbCertificado: TGroupBox;
-    Label74: TLabel;
-    Label75: TLabel;
-    sbtnCaminhoCert: TSpeedButton;
-    GroupBox1: TGroupBox;
-    Edit1: TEdit;
-    btnSha256: TButton;
-    cbAssinar: TCheckBox;
-    GroupBox2: TGroupBox;
-    lSSLLib: TLabel;
-    lCryptLib: TLabel;
-    lHttpLib: TLabel;
-    lXmlSign: TLabel;
-    GroupBox3: TGroupBox;
-    Label77: TLabel;
-    Label78: TLabel;
-    Label79: TLabel;
-    Label80: TLabel;
-    Label81: TLabel;
-    Label82: TLabel;
     VEICULO_CHASSI: TJvDBMaskEdit;
     EMI_N_PROP_BAIRRO: TJvDBMaskEdit;
     EMI_N_PROP_RUA: TJvDBMaskEdit;
@@ -412,10 +377,7 @@ type
     qryMotoristaCELULAR: TLargeintField;
     qryMotoristaNUMERO: TStringField;
     qryMotoristaNOME_SOLTEIRA_MAE: TStringField;
-    ACBrCIOT1: TACBrCIOT;
     fdqConfig: TFDQuery;
-    cbSSLLib: TDBComboBox;
-    dtsConfig: TDataSource;
     fdqConfigID: TIntegerField;
     fdqConfigUF_INDEX: TSmallintField;
     fdqConfigAMBIENTE_DESTINO_INDEX: TSmallintField;
@@ -442,29 +404,7 @@ type
     fdqConfigHTTP_LIB_INDEX: TSmallintField;
     fdqConfigXML_SIGN_LIB__INDEX: TSmallintField;
     fdqConfigID_EMPRESA: TIntegerField;
-    cbCryptLib: TDBComboBox;
-    cbHttpLib: TDBComboBox;
-    cbXmlSignLib: TDBComboBox;
-    cbFormaEmissao: TDBComboBox;
-    cbVersaoDF: TDBComboBox;
-    cbbIntegradora: TDBComboBox;
-    cbUF: TDBComboBox;
-    rgTipoAmb: TDBRadioGroup;
-    cbxVisualizar: TDBCheckBox;
-    edtCaminho: TDBEdit;
-    edtSenha: TDBEdit;
-    cbxAjustarAut: TDBCheckBox;
-    edtProxyHost: TDBEdit;
-    edtProxyPorta: TDBEdit;
-    edtProxyUser: TDBEdit;
-    edtProxySenha: TDBEdit;
-    edtHashIntegrador: TDBEdit;
-    edtUsuarioWebService: TDBEdit;
-    edtSenhaWebService: TDBEdit;
-    edtAguardar: TDBEdit;
-    edtTentativas: TDBEdit;
-    edtIntervalo: TDBEdit;
-    cbSSLType: TDBComboBox;
+    ACBrCIOT1: TACBrCIOT;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -538,24 +478,19 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure btnGerarCIOTClick(Sender: TObject);
     procedure DOC_CONTRATANTEChange(Sender: TObject);
-    procedure btnSha256Click(Sender: TObject);
     procedure confCIOTEnter(Sender: TObject);
     procedure confCIOTExit(Sender: TObject);
   private
-    FACBrCIOT: TACBrCIOT;
-    sToken: string;
+    sToken: String;
     function GerarCIOT: string;
     procedure InserirRegistroDefault;
     procedure solicitarToken(contrato: TContrato);
     procedure cadastrarVeiculo(contrato: TContrato);
     procedure cadastrarProprietarioDoVeiculo(contrato: TContrato);
     procedure cadastrarMotorista(contrato: TContrato);
-    // procedure LerConfiguracao;
-    // procedure GravarConfiguracao;
     procedure adicionarOperacaoTransporte(contrato: TContrato);
-    procedure ConfigurarComponente;
-    procedure AtualizarSSLLibsCombo;
-
+    procedure atualizarSSLLibsCombo;
+    procedure configurarComponente;
   public
     class function RegistroDefault: TRetornoCadastro;
     procedure CalculaTotal;
@@ -931,12 +866,6 @@ begin
   end;
 end;
 
-procedure TfrmMDFEcadastro.btnSha256Click(Sender: TObject);
-begin
-  inherited;
-  ACBrCIOT1.SSL.CalcHash(Edit1.Text, dgstSHA256, outBase64, cbAssinar.Checked);
-end;
-
 procedure TfrmMDFEcadastro.btnVALEPEDAGIOalterarClick(Sender: TObject);
 begin
   TfrmMDFEvalepedagioCADASTRO.Alterar;
@@ -1276,156 +1205,19 @@ procedure TfrmMDFEcadastro.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   TFDQuery(dtsDefault.DataSet).Close;
 
-  FACBrCIOT.Free;
+  ACBrCIOT1.Free;
   inherited;
 end;
 
 procedure TfrmMDFEcadastro.FormCreate(Sender: TObject);
-var
-  T: TSSLLib;
-  i: TpcnTipoEmissao;
-  K: TVersaoCIOT;
-  U: TSSLCryptLib;
-  V: TSSLHttpLib;
-  X: TSSLXmlSignLib;
-  Y: TSSLType;
-  Integradora: TCIOTIntegradora;
 begin
   inherited;
-
-  FACBrCIOT := TACBrCIOT.Create(Self);
 
   pageDefault.TabIndex := 0;
   pageRodo.TabIndex := 0;
   pagINFdoc.TabIndex := 0;
 
-  // Variavel para armazenar o Token retornado pelo serviço Login
-  // Necessário quando o componente não esta configurado com o
-  // Certificado Digital
-  sToken := '';
-
-  cbSSLLib.Items.Clear;
-  for T := Low(TSSLLib) to High(TSSLLib) do
-    cbSSLLib.Items.Add(GetEnumName(TypeInfo(TSSLLib), Integer(T)));
-  cbSSLLib.ItemIndex := 0;
-
-  cbCryptLib.Items.Clear;
-  for U := Low(TSSLCryptLib) to High(TSSLCryptLib) do
-    cbCryptLib.Items.Add(GetEnumName(TypeInfo(TSSLCryptLib), Integer(U)));
-  cbCryptLib.ItemIndex := 0;
-
-  cbHttpLib.Items.Clear;
-  for V := Low(TSSLHttpLib) to High(TSSLHttpLib) do
-    cbHttpLib.Items.Add(GetEnumName(TypeInfo(TSSLHttpLib), Integer(V)));
-  cbHttpLib.ItemIndex := 0;
-
-  cbXmlSignLib.Items.Clear;
-  for X := Low(TSSLXmlSignLib) to High(TSSLXmlSignLib) do
-    cbXmlSignLib.Items.Add(GetEnumName(TypeInfo(TSSLXmlSignLib), Integer(X)));
-  cbXmlSignLib.ItemIndex := 0;
-
-  cbSSLType.Items.Clear;
-  for Y := Low(TSSLType) to High(TSSLType) do
-    cbSSLType.Items.Add(GetEnumName(TypeInfo(TSSLType), Integer(Y)));
-  cbSSLType.ItemIndex := 0;
-
-  cbFormaEmissao.Items.Clear;
-  for i := Low(TpcnTipoEmissao) to High(TpcnTipoEmissao) do
-    cbFormaEmissao.Items.Add(GetEnumName(TypeInfo(TpcnTipoEmissao), Integer(i)));
-  cbFormaEmissao.ItemIndex := 0;
-
-  cbVersaoDF.Items.Clear;
-  for K := Low(TVersaoCIOT) to High(TVersaoCIOT) do
-    cbVersaoDF.Items.Add(GetEnumName(TypeInfo(TVersaoCIOT), Integer(K)));
-  cbVersaoDF.ItemIndex := 0;
-
-  cbbIntegradora.Items.Clear;
-  for Integradora := Low(TCIOTIntegradora) to High(TCIOTIntegradora) do
-    cbbIntegradora.Items.Add(GetEnumName(TypeInfo(TCIOTIntegradora), Integer(Integradora)));
-  cbbIntegradora.ItemIndex := 0;
-
-  ConfigurarComponente;
-end;
-
-procedure TfrmMDFEcadastro.ConfigurarComponente;
-var
-  Ok: Boolean;
-  PathMensal: string;
-begin
-  ACBrCIOT1.Configuracoes.Certificados.ArquivoPFX := edtCaminho.Text;
-  ACBrCIOT1.Configuracoes.Certificados.Senha := edtSenha.Text;
-
-  ACBrCIOT1.SSL.DescarregarCertificado;
-
-  ACBrCIOT1.SSL.UseCertificateHTTP := (edtCaminho.Text <> '') or (edtSenha.Text <> '');
-
-  with ACBrCIOT1.Configuracoes.Geral do
-  begin
-    SSLLib := TSSLLib(cbSSLLib.ItemIndex);
-    SSLCryptLib := TSSLCryptLib(cbCryptLib.ItemIndex);
-    SSLHttpLib := TSSLHttpLib(cbHttpLib.ItemIndex);
-    SSLXmlSignLib := TSSLXmlSignLib(cbXmlSignLib.ItemIndex);
-
-    AtualizarSSLLibsCombo;
-
-    FormaEmissao := TpcnTipoEmissao(cbFormaEmissao.ItemIndex);
-    VersaoDF := TVersaoCIOT(cbVersaoDF.ItemIndex);
-    Integradora := StrToIntegradora(cbbIntegradora.Text);
-    Usuario := edtUsuarioWebService.Text;
-    Senha := edtSenhaWebService.Text;
-    HashIntegrador := edtHashIntegrador.Text;
-  end;
-
-  with ACBrCIOT1.Configuracoes.WebServices do
-  begin
-    UF := cbUF.Text;
-    Ambiente := StrToTpAmb(Ok, IntToStr(rgTipoAmb.ItemIndex + 1));
-    Visualizar := cbxVisualizar.Checked;
-    Salvar := cbxSalvarSOAP.Checked;
-
-    AjustaAguardaConsultaRet := cbxAjustarAut.Checked;
-
-    if NaoEstaVazio(edtAguardar.Text) then
-      AguardarConsultaRet := ifThen(StrToInt(edtAguardar.Text) < 1000, StrToInt(edtAguardar.Text) * 1000,
-        StrToInt(edtAguardar.Text))
-    else
-      edtAguardar.Text := IntToStr(AguardarConsultaRet);
-
-    if NaoEstaVazio(edtTentativas.Text) then
-      Tentativas := StrToInt(edtTentativas.Text)
-    else
-      edtTentativas.Text := IntToStr(Tentativas);
-
-    if NaoEstaVazio(edtIntervalo.Text) then
-      IntervaloTentativas := ifThen(StrToInt(edtIntervalo.Text) < 1000, StrToInt(edtIntervalo.Text) * 1000,
-        StrToInt(edtIntervalo.Text))
-    else
-      edtIntervalo.Text := IntToStr(ACBrCIOT1.Configuracoes.WebServices.IntervaloTentativas);
-
-    TimeOut := seTimeOut.Value;
-    ProxyHost := edtProxyHost.Text;
-    ProxyPort := edtProxyPorta.Text;
-    ProxyUser := edtProxyUser.Text;
-    ProxyPass := edtProxySenha.Text;
-  end;
-
-  ACBrCIOT1.SSL.SSLType := TSSLType(cbSSLType.ItemIndex);
-
-  with ACBrCIOT1.Configuracoes.Arquivos do
-  begin
-    PathMensal := GetPathCIOT(0);
-    PathSalvar := PathMensal;
-  end;
-end;
-
-procedure TfrmMDFEcadastro.AtualizarSSLLibsCombo;
-begin
-  cbSSLLib.ItemIndex := Integer(ACBrCIOT1.Configuracoes.Geral.SSLLib);
-  cbCryptLib.ItemIndex := Integer(ACBrCIOT1.Configuracoes.Geral.SSLCryptLib);
-  cbHttpLib.ItemIndex := Integer(ACBrCIOT1.Configuracoes.Geral.SSLHttpLib);
-  cbXmlSignLib.ItemIndex := Integer(ACBrCIOT1.Configuracoes.Geral.SSLXmlSignLib);
-
-  cbSSLType.Enabled := (ACBrCIOT1.Configuracoes.Geral.SSLHttpLib in [httpWinHttp, httpOpenSSL]);
+  configurarComponente;
 end;
 
 procedure TfrmMDFEcadastro.FormShow(Sender: TObject);
@@ -1964,6 +1756,103 @@ begin
   finally
     LogLines.Free;
   end;
+end;
+
+procedure TfrmMDFEcadastro.configurarComponente;
+var
+  Ok: Boolean;
+  PathMensal: string;
+begin
+  if dtmDefault.fdqConfig.Active then
+    dtmDefault.fdqConfig.Close;
+
+  dtmDefault.fdqConfig.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
+
+  dtmDefault.fdqConfig.Open;
+
+  ACBrCIOT1.Configuracoes.Certificados.ArquivoPFX := dtmDefault.fdqConfigCAMINHO_CERTIFICADO.AsString;
+  ACBrCIOT1.Configuracoes.Certificados.Senha := dtmDefault.fdqConfigSENHA_CERTIFICADO.AsString;
+
+  ACBrCIOT1.SSL.DescarregarCertificado;
+
+  ACBrCIOT1.SSL.UseCertificateHTTP := (dtmDefault.fdqConfigCAMINHO_CERTIFICADO.AsString <> '') or
+    (dtmDefault.fdqConfigSENHA_CERTIFICADO.AsString <> '');
+
+  with ACBrCIOT1.Configuracoes.Geral do
+  begin
+    SSLLib := TSSLLib(dtmDefault.fdqConfigSSL_LIB_INDEX);
+    SSLCryptLib := TSSLCryptLib(dtmDefault.fdqConfigCRYPT_LIB_INDEX);
+    SSLHttpLib := TSSLHttpLib(dtmDefault.fdqConfigHTTP_LIB_INDEX);
+    SSLXmlSignLib := TSSLXmlSignLib(dtmDefault.fdqConfigXML_SIGN_LIB__INDEX);
+
+    atualizarSSLLibsCombo;
+
+    FormaEmissao := TpcnTipoEmissao(dtmDefault.fdqConfigFORMA_EMISSAO_INDEX);
+    VersaoDF := TVersaoCIOT(dtmDefault.fdqConfigVERSAO_DOCUMENTO_FISCAL_INDEX);
+
+    // iNone, ieFrete, iRepom, iPamcard
+    case dtmDefault.fdqConfigINTEGRADORA_INDEX.AsInteger of
+      0:
+        Integradora := TCIOTIntegradora.iNone;
+      1:
+        Integradora := TCIOTIntegradora.ieFrete;
+      2:
+        Integradora := TCIOTIntegradora.iRepom;
+      3:
+        Integradora := TCIOTIntegradora.iPamcard;
+    else
+      raise Exception.Create('Integradora não mapeada!');
+    end;
+
+    Usuario := dtmDefault.fdqConfigGERAL_USUARIO.AsString;
+    Senha := dtmDefault.fdqConfigGERAL_SENHA.AsString;
+    HashIntegrador := dtmDefault.fdqConfigGERAL_HASH_INTEGRADOR.AsString;
+  end;
+
+  with ACBrCIOT1.Configuracoes.WebServices do
+  begin
+    UF := frmCERTIFICADOconfig.cbUF.GetItemText(dtmDefault.fdqConfigUF_INDEX.AsInteger);
+    Ambiente := StrToTpAmb(Ok, IntToStr(dtmDefault.fdqConfigAMBIENTE_DESTINO_INDEX.AsInteger + 1));
+
+    AjustaAguardaConsultaRet := dtmDefault.fdqConfigAJUSTE_AUTOMATICO_AGUARDAR.AsBoolean;
+
+    var
+    aguardar := dtmDefault.fdqConfigAGUARDAR_SEGUNDOS.AsString;
+    if NaoEstaVazio(aguardar) then
+      AguardarConsultaRet := ifThen(StrToInt(aguardar) < 1000, StrToInt(aguardar) * 1000, StrToInt(aguardar));
+
+    if NaoEstaVazio(dtmDefault.fdqConfigTENTATIVAS.AsString) then
+      Tentativas := dtmDefault.fdqConfigTENTATIVAS.AsInteger;
+
+    if NaoEstaVazio(dtmDefault.fdqConfigINTERVALO_SEGUNDOS.AsString) then
+      IntervaloTentativas := ifThen(dtmDefault.fdqConfigINTERVALO_SEGUNDOS.AsInteger < 1000,
+        dtmDefault.fdqConfigINTERVALO_SEGUNDOS.AsInteger * 1000, dtmDefault.fdqConfigINTERVALO_SEGUNDOS.AsInteger);
+
+    TimeOut := frmCERTIFICADOconfig.seTimeOut.AsInteger;
+    //ProxyHost := dtmDefault.fdqConfigHOST.AsString;
+    ProxyPort := dtmDefault.fdqConfigHOST_PORTA.AsString;
+    ProxyUser := dtmDefault.fdqConfigHOST_USUARIO.AsString;
+    ProxyPass := dtmDefault.fdqConfigHOST_SENHA.AsString;
+  end;
+
+  ACBrCIOT1.SSL.SSLType := TSSLType(dtmDefault.fdqConfigSSLTYPE_INDEX);
+
+  with ACBrCIOT1.Configuracoes.Arquivos do
+  begin
+    PathMensal := GetPathCIOT(0);
+    PathSalvar := PathMensal;
+  end;
+end;
+
+procedure TfrmMDFEcadastro.atualizarSSLLibsCombo;
+begin
+  dtmDefault.fdqConfig.Edit;
+
+  dtmDefault.fdqConfigSSLTYPE_INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLLib);
+  dtmDefault.fdqConfigCRYPT_LIB_INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLCryptLib);
+  dtmDefault.fdqConfigHTTP_LIB_INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLHttpLib);
+  dtmDefault.fdqConfigXML_SIGN_LIB__INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLXmlSignLib);
+  frmCERTIFICADOconfig.cbSSLType.Enabled := (ACBrCIOT1.Configuracoes.Geral.SSLHttpLib in [httpWinHttp, httpOpenSSL]);
 end;
 
 procedure TfrmMDFEcadastro.cadastrarVeiculo(contrato: TContrato);

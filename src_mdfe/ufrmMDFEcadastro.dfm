@@ -941,7 +941,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Top = 0
         Width = 891
         Height = 456
-        ActivePage = confCIOT
+        ActivePage = pagCIOT
         Align = alClient
         TabOrder = 0
         object tabVeiculoTracao: TTabSheet
@@ -2884,7 +2884,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 AlignWithMargins = True
                 Left = 3
                 Top = 3
-                Width = 861
+                Width = 62
                 Height = 13
                 Align = alTop
                 Caption = 'CPF ou CNPJ'
@@ -2895,7 +2895,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Font.Style = []
                 ParentFont = False
                 Transparent = True
-                ExplicitWidth = 62
               end
               object DOC_CONTRATANTE: TJvMaskEdit
                 Left = 0
@@ -3156,567 +3155,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             end
           end
         end
-        object confCIOT: TTabSheet
-          Caption = 'Configura'#231#245'es CIOT'
-          ImageIndex = 5
-          OnEnter = confCIOTEnter
-          OnExit = confCIOTExit
-          object GroupBox4: TGroupBox
-            Left = 3
-            Top = 3
-            Width = 265
-            Height = 190
-            Caption = 'WebService'
-            TabOrder = 0
-            object Label65: TLabel
-              Left = 8
-              Top = 16
-              Width = 126
-              Height = 13
-              Caption = 'Selecione UF do Emitente:'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-            end
-            object Label66: TLabel
-              Left = 167
-              Top = 116
-              Width = 40
-              Height = 13
-              Caption = 'TimeOut'
-              Color = clBtnFace
-              ParentColor = False
-            end
-            object Label67: TLabel
-              Left = 10
-              Top = 163
-              Width = 41
-              Height = 13
-              Alignment = taRightJustify
-              Caption = 'SSLType'
-              Color = clBtnFace
-              ParentColor = False
-            end
-            object cbxSalvarSOAP: TCheckBox
-              Left = 8
-              Top = 136
-              Width = 153
-              Height = 17
-              Caption = 'Salvar envelope SOAP'
-              TabOrder = 0
-            end
-            object seTimeOut: TSpinEdit
-              Left = 167
-              Top = 132
-              Width = 66
-              Height = 22
-              Increment = 10
-              MaxValue = 999999
-              MinValue = 1000
-              TabOrder = 1
-              Value = 5000
-            end
-          end
-          object gbxRetornoEnvio: TGroupBox
-            Left = 5
-            Top = 200
-            Width = 265
-            Height = 77
-            Caption = 'Retorno de Envio'
-            TabOrder = 1
-            object Label64: TLabel
-              Left = 93
-              Top = 33
-              Width = 51
-              Height = 13
-              Caption = 'Tentativas'
-            end
-            object Label68: TLabel
-              Left = 176
-              Top = 33
-              Width = 44
-              Height = 13
-              Caption = 'Intervalo'
-            end
-            object Label69: TLabel
-              Left = 8
-              Top = 33
-              Width = 45
-              Height = 13
-              Hint = 
-                'Aguardar quantos segundos para primeira consulta de retorno de e' +
-                'nvio'
-              Caption = 'Aguardar'
-            end
-          end
-          object gbProxy: TGroupBox
-            Left = 5
-            Top = 283
-            Width = 265
-            Height = 104
-            Caption = 'Proxy'
-            TabOrder = 2
-            object Label70: TLabel
-              Left = 8
-              Top = 16
-              Width = 22
-              Height = 13
-              Caption = 'Host'
-            end
-            object Label71: TLabel
-              Left = 208
-              Top = 16
-              Width = 26
-              Height = 13
-              Caption = 'Porta'
-            end
-            object Label72: TLabel
-              Left = 8
-              Top = 56
-              Width = 36
-              Height = 13
-              Caption = 'Usu'#225'rio'
-            end
-            object Label73: TLabel
-              Left = 138
-              Top = 56
-              Width = 30
-              Height = 13
-              Caption = 'Senha'
-            end
-          end
-          object gbCertificado: TGroupBox
-            Left = 276
-            Top = 177
-            Width = 263
-            Height = 97
-            Caption = 'Certificado'
-            TabOrder = 3
-            object Label74: TLabel
-              Left = 8
-              Top = 16
-              Width = 41
-              Height = 13
-              Caption = 'Caminho'
-            end
-            object Label75: TLabel
-              Left = 8
-              Top = 56
-              Width = 30
-              Height = 13
-              Caption = 'Senha'
-            end
-            object sbtnCaminhoCert: TSpeedButton
-              Left = 235
-              Top = 27
-              Width = 23
-              Height = 24
-              Glyph.Data = {
-                76010000424D7601000000000000760000002800000020000000100000000100
-                04000000000000010000130B0000130B00001000000000000000000000000000
-                800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
-                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
-                333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
-                0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
-                07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
-                07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
-                0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
-                33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
-                B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
-                3BB33773333773333773B333333B3333333B7333333733333337}
-              NumGlyphs = 2
-            end
-          end
-          object GroupBox1: TGroupBox
-            Left = 276
-            Top = 283
-            Width = 263
-            Height = 76
-            Caption = 'Calculo de Hash e assinatura'
-            TabOrder = 4
-            object Edit1: TEdit
-              Left = 7
-              Top = 16
-              Width = 249
-              Height = 21
-              TabOrder = 0
-            end
-            object btnSha256: TButton
-              Left = 8
-              Top = 41
-              Width = 99
-              Height = 25
-              Caption = 'SHA256+RSA'
-              TabOrder = 1
-              OnClick = btnSha256Click
-            end
-            object cbAssinar: TCheckBox
-              Left = 193
-              Top = 44
-              Width = 54
-              Height = 19
-              Caption = 'Assinar'
-              Checked = True
-              State = cbChecked
-              TabOrder = 2
-            end
-          end
-          object GroupBox2: TGroupBox
-            Left = 623
-            Top = 177
-            Width = 192
-            Height = 210
-            Caption = 'Libs'
-            TabOrder = 5
-            object lSSLLib: TLabel
-              Left = 19
-              Top = 16
-              Width = 30
-              Height = 13
-              Alignment = taRightJustify
-              Caption = 'SSLLib'
-              Color = clBtnFace
-              ParentColor = False
-            end
-            object lCryptLib: TLabel
-              Left = 19
-              Top = 57
-              Width = 40
-              Height = 13
-              Alignment = taRightJustify
-              Caption = 'CryptLib'
-              Color = clBtnFace
-              ParentColor = False
-            end
-            object lHttpLib: TLabel
-              Left = 19
-              Top = 103
-              Width = 34
-              Height = 13
-              Alignment = taRightJustify
-              Caption = 'HttpLib'
-              Color = clBtnFace
-              ParentColor = False
-            end
-            object lXmlSign: TLabel
-              Left = 19
-              Top = 149
-              Width = 52
-              Height = 13
-              Alignment = taRightJustify
-              Caption = 'XMLSignLib'
-              Color = clBtnFace
-              ParentColor = False
-            end
-          end
-          object GroupBox3: TGroupBox
-            Left = 274
-            Top = 3
-            Width = 541
-            Height = 168
-            Caption = 'Geral'
-            TabOrder = 6
-            object Label77: TLabel
-              Left = 11
-              Top = 67
-              Width = 119
-              Height = 13
-              Caption = 'Vers'#227'o Documento Fiscal'
-            end
-            object Label78: TLabel
-              Left = 10
-              Top = 21
-              Width = 86
-              Height = 13
-              Caption = 'Forma de Emiss'#227'o'
-            end
-            object Label79: TLabel
-              Left = 13
-              Top = 113
-              Width = 62
-              Height = 13
-              Caption = 'Integrardora'
-            end
-            object Label80: TLabel
-              Left = 264
-              Top = 19
-              Width = 36
-              Height = 13
-              Caption = 'Usu'#225'rio'
-            end
-            object Label81: TLabel
-              Left = 391
-              Top = 19
-              Width = 30
-              Height = 13
-              Caption = 'Senha'
-            end
-            object Label82: TLabel
-              Left = 264
-              Top = 65
-              Width = 79
-              Height = 13
-              Caption = 'Hash Integrador'
-            end
-            object edtHashIntegrador: TDBEdit
-              Left = 255
-              Top = 84
-              Width = 250
-              Height = 21
-              DataField = 'GERAL_HASH_INTEGRADOR'
-              DataSource = dtsConfig
-              TabOrder = 0
-            end
-            object edtUsuarioWebService: TDBEdit
-              Left = 255
-              Top = 38
-              Width = 130
-              Height = 21
-              DataField = 'GERAL_USUARIO'
-              DataSource = dtsConfig
-              TabOrder = 1
-            end
-            object edtSenhaWebService: TDBEdit
-              Left = 391
-              Top = 38
-              Width = 114
-              Height = 21
-              DataField = 'GERAL_SENHA'
-              DataSource = dtsConfig
-              TabOrder = 2
-            end
-          end
-          object cbSSLLib: TDBComboBox
-            Left = 642
-            Top = 212
-            Width = 156
-            Height = 21
-            DataField = 'SSL_LIB_INDEX'
-            DataSource = dtsConfig
-            TabOrder = 7
-          end
-          object cbCryptLib: TDBComboBox
-            Left = 642
-            Top = 253
-            Width = 156
-            Height = 21
-            DataField = 'CRYPT_LIB_INDEX'
-            DataSource = dtsConfig
-            TabOrder = 8
-          end
-          object cbHttpLib: TDBComboBox
-            Left = 642
-            Top = 299
-            Width = 156
-            Height = 21
-            DataField = 'HTTP_LIB_INDEX'
-            DataSource = dtsConfig
-            TabOrder = 9
-          end
-          object cbXmlSignLib: TDBComboBox
-            Left = 642
-            Top = 345
-            Width = 156
-            Height = 21
-            DataField = 'XML_SIGN_LIB__INDEX'
-            DataSource = dtsConfig
-            TabOrder = 10
-          end
-          object cbFormaEmissao: TDBComboBox
-            Left = 284
-            Top = 43
-            Width = 239
-            Height = 21
-            DataField = 'FORMA_EMISSAO_INDEX'
-            DataSource = dtsConfig
-            TabOrder = 11
-          end
-          object cbVersaoDF: TDBComboBox
-            Left = 284
-            Top = 89
-            Width = 239
-            Height = 21
-            DataField = 'VERSAO_DOCUMENTO_FISCAL_INDEX'
-            DataSource = dtsConfig
-            TabOrder = 12
-          end
-          object cbbIntegradora: TDBComboBox
-            Left = 284
-            Top = 135
-            Width = 239
-            Height = 21
-            DataField = 'INTEGRADORA_INDEX'
-            DataSource = dtsConfig
-            TabOrder = 13
-          end
-          object cbUF: TDBComboBox
-            Left = 13
-            Top = 38
-            Width = 247
-            Height = 21
-            DataField = 'UF_INDEX'
-            DataSource = dtsConfig
-            Items.Strings = (
-              'AC'
-              'AL'
-              'AP'
-              'AM'
-              'BA'
-              'CE'
-              'DF'
-              'ES'
-              'GO'
-              'MA'
-              'MT'
-              'MS'
-              'MG'
-              'PA'
-              'PB'
-              'PR'
-              'PE'
-              'PI'
-              'RJ'
-              'RN'
-              'RS'
-              'RO'
-              'RR'
-              'SC'
-              'SP'
-              'SE'
-              'TO')
-            TabOrder = 14
-          end
-          object rgTipoAmb: TDBRadioGroup
-            Left = 13
-            Top = 65
-            Width = 247
-            Height = 50
-            Caption = 'Selecione o Ambiente de Destino'
-            Columns = 2
-            DataField = 'AMBIENTE_DESTINO_INDEX'
-            DataSource = dtsConfig
-            Items.Strings = (
-              'Produ'#231#227'o'
-              'Homologa'#231#227'o')
-            TabOrder = 15
-          end
-          object cbxVisualizar: TDBCheckBox
-            Left = 11
-            Top = 119
-            Width = 123
-            Height = 17
-            Caption = 'Visualizar Mensagem'
-            DataSource = dtsConfig
-            TabOrder = 16
-          end
-          object edtCaminho: TDBEdit
-            Left = 285
-            Top = 210
-            Width = 220
-            Height = 21
-            DataField = 'CAMINHO_CERTIFICADO'
-            DataSource = dtsConfig
-            TabOrder = 17
-          end
-          object edtSenha: TDBEdit
-            Left = 285
-            Top = 248
-            Width = 220
-            Height = 21
-            DataField = 'SENHA_CERTIFICADO'
-            DataSource = dtsConfig
-            TabOrder = 18
-          end
-          object cbxAjustarAut: TDBCheckBox
-            Left = 13
-            Top = 213
-            Width = 233
-            Height = 17
-            Caption = 'Ajustar Automaticamente prop. "Aguardar"'
-            DataField = 'AJUSTE_AUTOMATICO_AGUARDAR'
-            DataSource = dtsConfig
-            TabOrder = 19
-          end
-          object edtProxyHost: TDBEdit
-            Left = 13
-            Top = 315
-            Width = 194
-            Height = 21
-            DataField = 'HOST'
-            DataSource = dtsConfig
-            TabOrder = 20
-          end
-          object edtProxyPorta: TDBEdit
-            Left = 213
-            Top = 315
-            Width = 50
-            Height = 21
-            DataField = 'HOST_PORTA'
-            DataSource = dtsConfig
-            TabOrder = 21
-          end
-          object edtProxyUser: TDBEdit
-            Left = 13
-            Top = 355
-            Width = 121
-            Height = 21
-            DataField = 'HOST_USUARIO'
-            DataSource = dtsConfig
-            TabOrder = 22
-          end
-          object edtProxySenha: TDBEdit
-            Left = 140
-            Top = 355
-            Width = 123
-            Height = 21
-            DataField = 'HOST_SENHA'
-            DataSource = dtsConfig
-            TabOrder = 23
-          end
-          object edtAguardar: TDBEdit
-            Left = 13
-            Top = 248
-            Width = 79
-            Height = 21
-            Hint = 
-              'Aguardar quantos segundos para primeira consulta de retorno de e' +
-              'nvio'
-            DataField = 'AGUARDAR_SEGUNDOS'
-            DataSource = dtsConfig
-            TabOrder = 24
-          end
-          object edtTentativas: TDBEdit
-            Left = 96
-            Top = 248
-            Width = 79
-            Height = 21
-            DataField = 'TENTATIVAS'
-            DataSource = dtsConfig
-            TabOrder = 25
-          end
-          object edtIntervalo: TDBEdit
-            Left = 181
-            Top = 248
-            Width = 79
-            Height = 21
-            DataField = 'INTERVALO_SEGUNDOS'
-            DataSource = dtsConfig
-            TabOrder = 26
-          end
-          object cbSSLType: TDBComboBox
-            Left = 69
-            Top = 163
-            Width = 191
-            Height = 21
-            Hint = 'Depende de configura'#231#227'o de  SSL.HttpLib'
-            DataField = 'SSLTYPE_INDEX'
-            DataSource = dtsConfig
-            TabOrder = 27
-          end
-        end
       end
     end
     object tabAquaviario: TTabSheet
@@ -3735,7 +3173,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           AlignWithMargins = True
           Left = 3
           Top = 3
-          Width = 879
+          Width = 159
           Height = 13
           Align = alTop
           Caption = 'CNPJ da Ag'#234'ncia de Navega'#231#227'o*'
@@ -3746,7 +3184,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           Font.Style = []
           ParentFont = False
           Transparent = True
-          ExplicitWidth = 159
         end
         object Label47: TLabel
           Left = 4
@@ -4016,7 +3453,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Carregamento'
-                  Width = 64
                   Visible = True
                 end>
             end
@@ -4140,7 +3576,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               AlignWithMargins = True
               Left = 3
               Top = 3
-              Width = 865
+              Width = 178
               Height = 13
               Align = alTop
               Caption = 'C'#243'digo do Terminal de Carregamento'
@@ -4151,7 +3587,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Font.Style = []
               ParentFont = False
               Transparent = True
-              ExplicitWidth = 178
             end
             object Label56: TLabel
               Left = 188
@@ -4204,7 +3639,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               AlignWithMargins = True
               Left = 3
               Top = 3
-              Width = 865
+              Width = 194
               Height = 13
               Align = alTop
               Caption = 'C'#243'digo do Terminal de Descarregamento'
@@ -4215,7 +3650,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Font.Style = []
               ParentFont = False
               Transparent = True
-              ExplicitWidth = 194
             end
             object Label54: TLabel
               Left = 207
@@ -4400,7 +3834,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Descarregamento'
-                  Width = 64
                   Visible = True
                 end>
             end
@@ -4422,7 +3855,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               AlignWithMargins = True
               Left = 3
               Top = 3
-              Width = 865
+              Width = 227
               Height = 13
               Align = alTop
               Caption = 'C'#243'digo da embarca'#231#227'o do Comboio(M'#225'ximo 30)'
@@ -4433,7 +3866,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Font.Style = []
               ParentFont = False
               Transparent = True
-              ExplicitWidth = 227
             end
             object Label62: TLabel
               Left = 235
@@ -6508,7 +5940,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               AlignWithMargins = True
               Left = 3
               Top = 3
-              Width = 238
+              Width = 41
               Height = 13
               Align = alTop
               Caption = 'N'#186' Lacre'
@@ -6519,7 +5951,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Font.Style = []
               ParentFont = False
               Transparent = True
-              ExplicitWidth = 41
             end
             object N_LACRE: TJvMaskEdit
               Left = 3
@@ -6724,7 +6155,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               AlignWithMargins = True
               Left = 3
               Top = 3
-              Width = 603
+              Width = 62
               Height = 13
               Align = alTop
               Caption = 'CPF ou CNPJ'
@@ -6735,7 +6166,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Font.Style = []
               ParentFont = False
               Transparent = True
-              ExplicitWidth = 62
             end
             object N_DOC_DOWNLOAD: TJvMaskEdit
               Left = 3
@@ -7085,26 +6515,12 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
       Size = 50
     end
   end
-  object ACBrCIOT1: TACBrCIOT
-    Configuracoes.Geral.SSLLib = libNone
-    Configuracoes.Geral.SSLCryptLib = cryNone
-    Configuracoes.Geral.SSLHttpLib = httpNone
-    Configuracoes.Geral.SSLXmlSignLib = xsNone
-    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
-    Configuracoes.Geral.Integradora = ieFrete
-    Configuracoes.Arquivos.OrdenacaoPath = <>
-    Configuracoes.WebServices.UF = 'SP'
-    Configuracoes.WebServices.AguardarConsultaRet = 0
-    Configuracoes.WebServices.QuebradeLinha = '|'
-    Left = 571
-    Top = 363
-  end
   object fdqConfig: TFDQuery
     Connection = dtmDefault.cnx_BD
     SQL.Strings = (
       'SELECT * FROM CONF_CIOT WHERE ID = :ID_EMPRESA')
-    Left = 717
-    Top = 158
+    Left = 493
+    Top = 150
     ParamData = <
       item
         Name = 'ID_EMPRESA'
@@ -7236,9 +6652,22 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
       Required = True
     end
   end
-  object dtsConfig: TDataSource
-    DataSet = fdqConfig
-    Left = 789
-    Top = 150
+  object ACBrCIOT1: TACBrCIOT
+    Configuracoes.Geral.SSLLib = libNone
+    Configuracoes.Geral.SSLCryptLib = cryNone
+    Configuracoes.Geral.SSLHttpLib = httpNone
+    Configuracoes.Geral.SSLXmlSignLib = xsNone
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Geral.Integradora = ieFrete
+    Configuracoes.Arquivos.SepararPorCNPJ = True
+    Configuracoes.Arquivos.OrdenacaoPath = <>
+    Configuracoes.Arquivos.SepararPorAno = True
+    Configuracoes.Arquivos.SepararPorMes = True
+    Configuracoes.Arquivos.SepararPorDia = True
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 0
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Left = 715
+    Top = 139
   end
 end
