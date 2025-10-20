@@ -6003,10 +6003,10 @@ object dtmMDFE: TdtmMDFE
       end>
   end
   object ACBrCIOT: TACBrCIOT
-    Configuracoes.Geral.SSLLib = libNone
-    Configuracoes.Geral.SSLCryptLib = cryNone
-    Configuracoes.Geral.SSLHttpLib = httpNone
-    Configuracoes.Geral.SSLXmlSignLib = xsNone
+    Configuracoes.Geral.SSLLib = libOpenSSL
+    Configuracoes.Geral.SSLCryptLib = cryOpenSSL
+    Configuracoes.Geral.SSLHttpLib = httpOpenSSL
+    Configuracoes.Geral.SSLXmlSignLib = xsLibXml2
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
     Configuracoes.Geral.RetirarAcentos = False
     Configuracoes.Geral.Integradora = ieFrete
@@ -6165,6 +6165,108 @@ object dtmMDFE: TdtmMDFE
       Origin = 'EMAIL_SENHA_TLS'
       FixedChar = True
       Size = 1
+    end
+  end
+  object qryMotoristaEspecifico: TFDQuery
+    Connection = dtmDefault.cnx_BD
+    SQL.Strings = (
+      'SELECT '
+      '* '
+      'FROM '
+      'MOTORISTA'
+      'WHERE CPF = :CPF')
+    Left = 1147
+    Top = 461
+    ParamData = <
+      item
+        Name = 'CPF'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 11
+        Value = Null
+      end>
+    object qryMotoristaEspecificoID_EMPRESA: TIntegerField
+      FieldName = 'ID_EMPRESA'
+      Origin = 'ID_EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryMotoristaEspecificoID_MOTORISTA: TIntegerField
+      FieldName = 'ID_MOTORISTA'
+      Origin = 'ID_MOTORISTA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryMotoristaEspecificoNOME: TStringField
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Size = 50
+    end
+    object qryMotoristaEspecificoCPF: TStringField
+      FieldName = 'CPF'
+      Origin = 'CPF'
+      Size = 11
+    end
+    object qryMotoristaEspecificoRENACH: TStringField
+      FieldName = 'RENACH'
+      Origin = 'RENACH'
+      Size = 11
+    end
+    object qryMotoristaEspecificoNUMERO_REGISTRO: TStringField
+      FieldName = 'NUMERO_REGISTRO'
+      Origin = 'NUMERO_REGISTRO'
+      Size = 9
+    end
+    object qryMotoristaEspecificoCODIGO_SEGURANCA: TStringField
+      FieldName = 'CODIGO_SEGURANCA'
+      Origin = 'CODIGO_SEGURANCA'
+      Size = 11
+    end
+    object qryMotoristaEspecificoCATEGORIA: TStringField
+      FieldName = 'CATEGORIA'
+      Origin = 'CATEGORIA'
+      Size = 5
+    end
+    object qryMotoristaEspecificoDATA_NASCIMENTO: TDateField
+      FieldName = 'DATA_NASCIMENTO'
+      Origin = 'DATA_NASCIMENTO'
+    end
+    object qryMotoristaEspecificoBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+      Origin = 'BAIRRO'
+      Size = 60
+    end
+    object qryMotoristaEspecificoRUA: TStringField
+      FieldName = 'RUA'
+      Origin = 'RUA'
+      Size = 60
+    end
+    object qryMotoristaEspecificoCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Origin = 'COMPLEMENTO'
+      Size = 60
+    end
+    object qryMotoristaEspecificoCEP: TIntegerField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+    end
+    object qryMotoristaEspecificoCODIGO_MUNICIPIO: TIntegerField
+      FieldName = 'CODIGO_MUNICIPIO'
+      Origin = 'CODIGO_MUNICIPIO'
+    end
+    object qryMotoristaEspecificoCELULAR: TLargeintField
+      FieldName = 'CELULAR'
+      Origin = 'CELULAR'
+    end
+    object qryMotoristaEspecificoNUMERO: TStringField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Size = 10
+    end
+    object qryMotoristaEspecificoNOME_SOLTEIRA_MAE: TStringField
+      FieldName = 'NOME_SOLTEIRA_MAE'
+      Origin = 'NOME_SOLTEIRA_MAE'
+      Size = 50
     end
   end
 end

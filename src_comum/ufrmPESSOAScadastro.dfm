@@ -479,6 +479,7 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
         Gradient.Active = False
         Gradient.Orientation = fgdHorizontal
         Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
+        ExplicitLeft = 11
         FullHeight = 0
         object JvLabel8: TJvLabel
           AlignWithMargins = True
@@ -660,6 +661,8 @@ inherited frmPESSOAScadastro: TfrmPESSOAScadastro
         Gradient.Active = False
         Gradient.Orientation = fgdHorizontal
         Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
+        ExplicitLeft = -53
+        ExplicitTop = 251
         FullHeight = 0
         object JvLabel19: TJvLabel
           AlignWithMargins = True

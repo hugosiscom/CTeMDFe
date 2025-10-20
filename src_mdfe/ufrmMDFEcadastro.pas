@@ -359,51 +359,6 @@ type
     LkCbxMotorista: TDBLookupComboBox;
     Label91: TLabel;
     VEICULO_MODELO: TJvDBMaskEdit;
-    qryMotorista: TFDQuery;
-    qryMotoristaID_EMPRESA: TIntegerField;
-    qryMotoristaID_MOTORISTA: TIntegerField;
-    qryMotoristaNOME: TStringField;
-    qryMotoristaCPF: TStringField;
-    qryMotoristaRENACH: TStringField;
-    qryMotoristaNUMERO_REGISTRO: TStringField;
-    qryMotoristaCODIGO_SEGURANCA: TStringField;
-    qryMotoristaCATEGORIA: TStringField;
-    qryMotoristaDATA_NASCIMENTO: TDateField;
-    qryMotoristaBAIRRO: TStringField;
-    qryMotoristaRUA: TStringField;
-    qryMotoristaCOMPLEMENTO: TStringField;
-    qryMotoristaCEP: TIntegerField;
-    qryMotoristaCODIGO_MUNICIPIO: TIntegerField;
-    qryMotoristaCELULAR: TLargeintField;
-    qryMotoristaNUMERO: TStringField;
-    qryMotoristaNOME_SOLTEIRA_MAE: TStringField;
-    fdqConfig: TFDQuery;
-    fdqConfigID: TIntegerField;
-    fdqConfigUF_INDEX: TSmallintField;
-    fdqConfigAMBIENTE_DESTINO_INDEX: TSmallintField;
-    fdqConfigSSLTYPE_INDEX: TSmallintField;
-    fdqConfigAJUSTE_AUTOMATICO_AGUARDAR: TBooleanField;
-    fdqConfigAGUARDAR_SEGUNDOS: TIntegerField;
-    fdqConfigTENTATIVAS: TSmallintField;
-    fdqConfigINTERVALO_SEGUNDOS: TIntegerField;
-    fdqConfigHOST: TStringField;
-    fdqConfigHOST_PORTA: TIntegerField;
-    fdqConfigHOST_USUARIO: TStringField;
-    fdqConfigHOST_SENHA: TStringField;
-    fdqConfigCAMINHO_CERTIFICADO: TStringField;
-    fdqConfigSENHA_CERTIFICADO: TStringField;
-    fdqConfigASSINAR: TBooleanField;
-    fdqConfigFORMA_EMISSAO_INDEX: TSmallintField;
-    fdqConfigVERSAO_DOCUMENTO_FISCAL_INDEX: TSmallintField;
-    fdqConfigINTEGRADORA_INDEX: TSmallintField;
-    fdqConfigGERAL_USUARIO: TStringField;
-    fdqConfigGERAL_SENHA: TStringField;
-    fdqConfigGERAL_HASH_INTEGRADOR: TStringField;
-    fdqConfigSSL_LIB_INDEX: TSmallintField;
-    fdqConfigCRYPT_LIB_INDEX: TSmallintField;
-    fdqConfigHTTP_LIB_INDEX: TSmallintField;
-    fdqConfigXML_SIGN_LIB__INDEX: TSmallintField;
-    fdqConfigID_EMPRESA: TIntegerField;
     ACBrCIOT1: TACBrCIOT;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
@@ -478,8 +433,6 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure btnGerarCIOTClick(Sender: TObject);
     procedure DOC_CONTRATANTEChange(Sender: TObject);
-    procedure confCIOTEnter(Sender: TObject);
-    procedure confCIOTExit(Sender: TObject);
   private
     sToken: String;
     function GerarCIOT: string;
@@ -898,10 +851,9 @@ var
   TotalPeso: Double;
   ValorTotal: Double;
 begin
+  TotalPeso := 0;
+  ValorTotal := 0;
   try
-    TotalPeso := 0;
-    ValorTotal := 0;
-
     dtmMDFE.tabMDFE_NFE.BeginBatch;
     dtmMDFE.tabMDFE_NFE.First;
     while not dtmMDFE.tabMDFE_NFE.Eof do
@@ -1294,188 +1246,6 @@ begin
   CalculaTotal;
 end;
 
-{ procedure TfrmMDFEcadastro.GravarConfiguracao;
-  var
-  ConfigExists: Boolean;
-  begin
-  fdqConfig.Close;
-  fdqConfig.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
-  fdqConfig.Open;
-  try
-  ConfigExists := not fdqConfig.IsEmpty;
-  finally
-  fdqConfig.Close;
-  end;
-
-  if ConfigExists then
-  begin
-  // Se a configuração já existe, faz um UPDATE
-  fdqConfig.SQL.Text := 'UPDATE CONF_CIOT SET UF_INDEX = :UF_INDEX, AMBIENTE_DESTINO_INDEX = :AMBIENTE_DESTINO_INDEX, ' +
-  '  SSLTYPE_INDEX = :SSLTYPE_INDEX, AJUSTE_AUTOMATICO_AGUARDAR = :AJUSTE_AUTOMATICO_AGUARDAR, AGUARDAR_SEGUNDOS = :AGUARDAR_SEGUNDOS, '
-  + '  TENTATIVAS = :TENTATIVAS, ' + '  INTERVALO_SEGUNDOS = :INTERVALO_SEGUNDOS, ' + '  HOST = :HOST, ' +
-  '  HOST_PORTA = :HOST_PORTA, ' + '  HOST_USUARIO = :HOST_USUARIO, ' + '  HOST_SENHA = :HOST_SENHA, ' +
-  '  CAMINHO_CERTIFICADO = :CAMINHO_CERTIFICADO, ' + '  SENHA_CERTIFICADO = :SENHA_CERTIFICADO, ' + '  ASSINAR = :ASSINAR, ' +
-  // Nota: Adicionado um valor padrão, ajuste conforme necessário
-  '  FORMA_EMISSAO_INDEX = :FORMA_EMISSAO_INDEX, ' + '  VERSAO_DOCUMENTO_FISCAL_INDEX = :VERSAO_DOCUMENTO_FISCAL_INDEX, ' +
-  '  INTEGRADORA_INDEX = :INTEGRADORA_INDEX, ' + '  GERAL_USUARIO = :GERAL_USUARIO, ' + '  GERAL_SENHA = :GERAL_SENHA, ' +
-  '  GERAL_HASH_INTEGRADOR = :GERAL_HASH_INTEGRADOR, ' + '  SSL_LIB_INDEX = :SSL_LIB_INDEX, ' +
-  '  CRYPT_LIB_INDEX = :CRYPT_LIB_INDEX, ' + '  HTTP_LIB_INDEX = :HTTP_LIB_INDEX, ' +
-  '  XML_SIGN_LIB__INDEX = :XML_SIGN_LIB__INDEX ' + 'WHERE ID_EMPRESA = :ID_EMPRESA';
-  end
-  else
-  begin
-  // Se não existe, faz um INSERT
-  fdqConfig.SQL.Text := 'INSERT INTO CONF_CIOT (UF_INDEX, AMBIENTE_DESTINO_INDEX, SSLTYPE_INDEX, ' +
-  'AJUSTE_AUTOMATICO_AGUARDAR, AGUARDAR_SEGUNDOS, TENTATIVAS, INTERVALO_SEGUNDOS, ' +
-  'HOST, HOST_PORTA, HOST_USUARIO, HOST_SENHA, CAMINHO_CERTIFICADO, SENHA_CERTIFICADO, ' +
-  'ASSINAR, FORMA_EMISSAO_INDEX, VERSAO_DOCUMENTO_FISCAL_INDEX, INTEGRADORA_INDEX, ' +
-  'GERAL_USUARIO, GERAL_SENHA, GERAL_HASH_INTEGRADOR, SSL_LIB_INDEX, CRYPT_LIB_INDEX, ' +
-  'HTTP_LIB_INDEX, XML_SIGN_LIB__INDEX, ID_EMPRESA) ' + 'VALUES (:UF_INDEX, :AMBIENTE_DESTINO_INDEX, :SSLTYPE_INDEX, ' +
-  ':AJUSTE_AUTOMATICO_AGUARDAR, :AGUARDAR_SEGUNDOS, :TENTATIVAS, :INTERVALO_SEGUNDOS, ' +
-  ':HOST, :HOST_PORTA, :HOST_USUARIO, :HOST_SENHA, :CAMINHO_CERTIFICADO, :SENHA_CERTIFICADO, ' +
-  ':ASSINAR, :FORMA_EMISSAO_INDEX, :VERSAO_DOCUMENTO_FISCAL_INDEX, :INTEGRADORA_INDEX, ' +
-  ':GERAL_USUARIO, :GERAL_SENHA, :GERAL_HASH_INTEGRADOR, :SSL_LIB_INDEX, :CRYPT_LIB_INDEX, ' +
-  ':HTTP_LIB_INDEX, :XML_SIGN_LIB__INDEX, :ID_EMPRESA)';
-  end;
-
-  // Atribui os parâmetros
-  fdqConfig.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
-
-  // Certificado
-  fdqConfig.ParamByName('SSL_LIB_INDEX').AsInteger := cbSSLLib.ItemIndex;
-  fdqConfig.ParamByName('CRYPT_LIB_INDEX').AsInteger := cbCryptLib.ItemIndex;
-  fdqConfig.ParamByName('HTTP_LIB_INDEX').AsInteger := cbHttpLib.ItemIndex;
-  fdqConfig.ParamByName('XML_SIGN_LIB__INDEX').AsInteger := cbXmlSignLib.ItemIndex;
-  fdqConfig.ParamByName('CAMINHO_CERTIFICADO').AsString := edtCaminho.Text;
-  fdqConfig.ParamByName('SENHA_CERTIFICADO').AsString := edtSenha.Text;
-
-  // Geral
-  fdqConfig.ParamByName('FORMA_EMISSAO_INDEX').AsInteger := cbFormaEmissao.ItemIndex;
-  fdqConfig.ParamByName('VERSAO_DOCUMENTO_FISCAL_INDEX').AsInteger := cbVersaoDF.ItemIndex;
-  fdqConfig.ParamByName('INTEGRADORA_INDEX').AsInteger := cbbIntegradora.ItemIndex;
-  fdqConfig.ParamByName('GERAL_USUARIO').AsString := edtUsuarioWebService.Text;
-  fdqConfig.ParamByName('GERAL_SENHA').AsString := edtSenhaWebService.Text;
-  fdqConfig.ParamByName('GERAL_HASH_INTEGRADOR').AsString := edtHashIntegrador.Text;
-
-  // WebService
-  fdqConfig.ParamByName('UF_INDEX').AsInteger := cbUF.ItemIndex;
-  fdqConfig.ParamByName('AMBIENTE_DESTINO_INDEX').AsInteger := rgTipoAmb.ItemIndex;
-  fdqConfig.ParamByName('AJUSTE_AUTOMATICO_AGUARDAR').AsBoolean := cbxAjustarAut.Checked;
-  fdqConfig.ParamByName('AGUARDAR_SEGUNDOS').AsInteger := StrToIntDef(edtAguardar.Text, 0);
-  fdqConfig.ParamByName('TENTATIVAS').AsInteger := StrToIntDef(edtTentativas.Text, 5);
-  fdqConfig.ParamByName('INTERVALO_SEGUNDOS').AsInteger := StrToIntDef(edtIntervalo.Text, 0);
-  fdqConfig.ParamByName('SSLTYPE_INDEX').AsInteger := cbSSLType.ItemIndex;
-
-  // Proxy
-  fdqConfig.ParamByName('HOST').AsString := edtProxyHost.Field.AsString;
-  fdqConfig.ParamByName('HOST_PORTA').AsInteger := StrToIntDef(edtProxyPorta.Field.AsString, 0);
-  fdqConfig.ParamByName('HOST_USUARIO').AsString := edtProxyUser.Field.AsString;
-  fdqConfig.ParamByName('HOST_SENHA').AsString := edtProxySenha.Field.AsString;
-
-  fdqConfig.ParamByName('ASSINAR').AsBoolean := cbAssinar.Checked;
-
-  // Executa a query (INSERT ou UPDATE)
-  try
-  dtmDefault.cnx_BD.StartTransaction;
-  fdqConfig.ExecSQL;
-  var
-  Error := fdqConfig.RowError;
-  if Error <> nil then
-  raise Exception.Create('erro na linha: ' + Error.Message);
-
-  dtmDefault.cnx_BD.Commit;
-  except
-  on e: Exception do
-  begin
-  // Trate o erro, mostre uma mensagem, etc.
-  dtmDefault.cnx_BD.Rollback;
-  showMessage('Erro ao gravar configuração: ' + e.Message);
-  raise;
-  end;
-  end;
-  end;
-
-  procedure TfrmMDFEcadastro.LerConfiguracao;
-  begin
-  fdqConfig.Close;
-  fdqConfig.SQL.Text := 'SELECT * FROM CONF_CIOT WHERE ID_EMPRESA = :ID_EMPRESA';
-  fdqConfig.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
-  fdqConfig.Open;
-  try
-  if not fdqConfig.IsEmpty then
-  begin
-  // Se encontrou o registro de configuração, carrega os dados
-  // Certificado
-  cbSSLLib.ItemIndex := fdqConfigSSL_LIB_INDEX.AsInteger;
-  cbCryptLib.ItemIndex := fdqConfigCRYPT_LIB_INDEX.AsInteger;
-  cbHttpLib.ItemIndex := fdqConfigHTTP_LIB_INDEX.AsInteger;
-  cbXmlSignLib.ItemIndex := fdqConfigXML_SIGN_LIB__INDEX.AsInteger;
-  edtCaminho.Text := fdqConfigCAMINHO_CERTIFICADO.AsString;
-  edtSenha.Text := fdqConfigSENHA_CERTIFICADO.AsString;
-
-  // Geral
-  cbFormaEmissao.ItemIndex := fdqConfigFORMA_EMISSAO_INDEX.AsInteger;
-  cbVersaoDF.ItemIndex := fdqConfigVERSAO_DOCUMENTO_FISCAL_INDEX.AsInteger;
-  cbbIntegradora.ItemIndex := fdqConfigINTEGRADORA_INDEX.AsInteger;
-  edtUsuarioWebService.Text := fdqConfigGERAL_USUARIO.AsString;
-  edtSenhaWebService.Text := fdqConfigGERAL_SENHA.AsString;
-  edtHashIntegrador.Text := fdqConfigGERAL_HASH_INTEGRADOR.AsString;
-
-  // WebService
-  cbUF.ItemIndex := fdqConfigUF_INDEX.AsInteger;
-  rgTipoAmb.ItemIndex := fdqConfigAMBIENTE_DESTINO_INDEX.AsInteger;
-  cbxAjustarAut.Checked := fdqConfigAJUSTE_AUTOMATICO_AGUARDAR.AsBoolean;
-  edtAguardar.Text := IntToStr(fdqConfigAGUARDAR_SEGUNDOS.AsInteger);
-  edtTentativas.Text := IntToStr(fdqConfigTENTATIVAS.AsInteger);
-  edtIntervalo.Text := IntToStr(fdqConfigINTERVALO_SEGUNDOS.AsInteger);
-  cbSSLType.ItemIndex := fdqConfigSSLTYPE_INDEX.AsInteger;
-
-  // Proxy
-  edtProxyHost.Text := fdqConfigHOST.AsString;
-  edtProxyPorta.Text := IntToStr(fdqConfigHOST_PORTA.AsInteger);
-  edtProxyUser.Text := fdqConfigHOST_USUARIO.AsString;
-  edtProxySenha.Text := fdqConfigHOST_SENHA.AsString;
-  end
-  else
-  begin
-  // Se não encontrou, aplica os valores padrão (similar ao comportamento do ReadIni)
-  // Certificado
-  cbSSLLib.ItemIndex := 0;
-  cbCryptLib.ItemIndex := 0;
-  cbHttpLib.ItemIndex := 0;
-  cbXmlSignLib.ItemIndex := 0;
-  edtCaminho.Text := '';
-  edtSenha.Text := '';
-
-  // Geral
-  cbFormaEmissao.ItemIndex := 0;
-  cbVersaoDF.ItemIndex := 0;
-  cbbIntegradora.ItemIndex := 1;
-  edtUsuarioWebService.Text := '';
-  edtSenhaWebService.Text := '';
-  edtHashIntegrador.Text := '';
-
-  // WebService
-  cbUF.ItemIndex := cbUF.Items.IndexOf('GO');
-  rgTipoAmb.ItemIndex := 1;
-  cbxAjustarAut.Checked := False;
-  edtAguardar.Text := '0';
-  edtTentativas.Text := '5';
-  edtIntervalo.Text := '0';
-  cbSSLType.ItemIndex := 0;
-
-  // Proxy
-  edtProxyHost.Text := '';
-  edtProxyPorta.Text := '';
-  edtProxyUser.Text := '';
-  edtProxySenha.Text := '';
-  end;
-  finally
-  fdqConfig.Close;
-  end;
-
-  ConfigurarComponente;
-  end; }
 procedure TfrmMDFEcadastro.JvSpeedButton3Click(Sender: TObject);
 begin
   TfrmMDFEnfeCADASTRO.Alterar;
@@ -1763,35 +1533,36 @@ var
   Ok: Boolean;
   PathMensal: string;
 begin
-  if dtmDefault.fdqConfig.Active then
-    dtmDefault.fdqConfig.Close;
+  if dtmDefault.tabCERTIFICADO_CONFIG.Active then
+    dtmDefault.tabCERTIFICADO_CONFIG.Close;
 
-  dtmDefault.fdqConfig.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
+  dtmDefault.tabCERTIFICADO_CONFIG.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
+  dtmDefault.tabCERTIFICADO_CONFIG.ParamByName('ID_MODELO').AsInteger := 58;
 
-  dtmDefault.fdqConfig.Open;
+  dtmDefault.tabCERTIFICADO_CONFIG.Open;
 
-  ACBrCIOT1.Configuracoes.Certificados.ArquivoPFX := dtmDefault.fdqConfigCAMINHO_CERTIFICADO.AsString;
-  ACBrCIOT1.Configuracoes.Certificados.Senha := dtmDefault.fdqConfigSENHA_CERTIFICADO.AsString;
+  ACBrCIOT1.Configuracoes.Certificados.ArquivoPFX := dtmDefault.tabCERTIFICADO_CONFIGCAMINHO_CERTIFICADO.AsString;
+  ACBrCIOT1.Configuracoes.Certificados.Senha := dtmDefault.tabCERTIFICADO_CONFIGCERTIFICADO_SENHA.AsString;
 
   ACBrCIOT1.SSL.DescarregarCertificado;
 
-  ACBrCIOT1.SSL.UseCertificateHTTP := (dtmDefault.fdqConfigCAMINHO_CERTIFICADO.AsString <> '') or
-    (dtmDefault.fdqConfigSENHA_CERTIFICADO.AsString <> '');
+  ACBrCIOT1.SSL.UseCertificateHTTP := (dtmDefault.tabCERTIFICADO_CONFIGCAMINHO_CERTIFICADO.AsString <> '') or
+    (dtmDefault.tabCERTIFICADO_CONFIGCERTIFICADO_SENHA.AsString <> '');
 
   with ACBrCIOT1.Configuracoes.Geral do
   begin
-    SSLLib := TSSLLib(dtmDefault.fdqConfigSSL_LIB_INDEX);
-    SSLCryptLib := TSSLCryptLib(dtmDefault.fdqConfigCRYPT_LIB_INDEX);
-    SSLHttpLib := TSSLHttpLib(dtmDefault.fdqConfigHTTP_LIB_INDEX);
-    SSLXmlSignLib := TSSLXmlSignLib(dtmDefault.fdqConfigXML_SIGN_LIB__INDEX);
+    SSLLib := TSSLLib(dtmDefault.tabCertificado_configSSL_LIB_INDEX);
+    SSLCryptLib := TSSLCryptLib(dtmDefault.tabCertificado_configCRYPT_LIB_INDEX);
+    SSLHttpLib := TSSLHttpLib(dtmDefault.tabCertificado_configHTTP_LIB_INDEX);
+    SSLXmlSignLib := TSSLXmlSignLib(dtmDefault.tabCertificado_configXML_SIGN_LIB__INDEX);
 
     atualizarSSLLibsCombo;
 
-    FormaEmissao := TpcnTipoEmissao(dtmDefault.fdqConfigFORMA_EMISSAO_INDEX);
-    VersaoDF := TVersaoCIOT(dtmDefault.fdqConfigVERSAO_DOCUMENTO_FISCAL_INDEX);
+    FormaEmissao := TpcnTipoEmissao(dtmDefault.tabCertificado_configFORMA_EMISSAO_INDEX);
+    VersaoDF := TVersaoCIOT(dtmDefault.tabCERTIFICADO_CONFIGVERSAO_PROCESSO_EMISSAO.AsInteger);
 
     // iNone, ieFrete, iRepom, iPamcard
-    case dtmDefault.fdqConfigINTEGRADORA_INDEX.AsInteger of
+    case dtmDefault.tabCertificado_configINTEGRADORA_INDEX.AsInteger of
       0:
         Integradora := TCIOTIntegradora.iNone;
       1:
@@ -1804,38 +1575,39 @@ begin
       raise Exception.Create('Integradora não mapeada!');
     end;
 
-    Usuario := dtmDefault.fdqConfigGERAL_USUARIO.AsString;
-    Senha := dtmDefault.fdqConfigGERAL_SENHA.AsString;
-    HashIntegrador := dtmDefault.fdqConfigGERAL_HASH_INTEGRADOR.AsString;
+    Usuario := dtmDefault.tabCertificado_configGERAL_USUARIO.AsString;
+    Senha := dtmDefault.tabCertificado_configGERAL_SENHA.AsString;
+    HashIntegrador := dtmDefault.tabCertificado_configGERAL_HASH_INTEGRADOR.AsString;
   end;
 
   with ACBrCIOT1.Configuracoes.WebServices do
   begin
-    UF := frmCERTIFICADOconfig.cbUF.GetItemText(dtmDefault.fdqConfigUF_INDEX.AsInteger);
-    Ambiente := StrToTpAmb(Ok, IntToStr(dtmDefault.fdqConfigAMBIENTE_DESTINO_INDEX.AsInteger + 1));
+    UF := frmCERTIFICADOconfig.WS_UF_DESTINO.GetItemText(dtmDefault.tabCertificado_configWS_UF_DESTINO.AsInteger);
+    Ambiente := StrToTpAmb(Ok, IntToStr(dtmDefault.tabCERTIFICADO_CONFIGID_TIPO_AMBIENTE.AsInteger));
 
-    AjustaAguardaConsultaRet := dtmDefault.fdqConfigAJUSTE_AUTOMATICO_AGUARDAR.AsBoolean;
+    AjustaAguardaConsultaRet := dtmDefault.tabCertificado_configAJUSTE_AUTOMATICO_AGUARDAR.AsBoolean;
 
     var
-    aguardar := dtmDefault.fdqConfigAGUARDAR_SEGUNDOS.AsString;
+    aguardar := dtmDefault.tabCertificado_configAGUARDAR_SEGUNDOS.AsString;
     if NaoEstaVazio(aguardar) then
       AguardarConsultaRet := ifThen(StrToInt(aguardar) < 1000, StrToInt(aguardar) * 1000, StrToInt(aguardar));
 
-    if NaoEstaVazio(dtmDefault.fdqConfigTENTATIVAS.AsString) then
-      Tentativas := dtmDefault.fdqConfigTENTATIVAS.AsInteger;
+    if NaoEstaVazio(dtmDefault.tabCertificado_configTENTATIVAS.AsString) then
+      Tentativas := dtmDefault.tabCertificado_configTENTATIVAS.AsInteger;
 
-    if NaoEstaVazio(dtmDefault.fdqConfigINTERVALO_SEGUNDOS.AsString) then
-      IntervaloTentativas := ifThen(dtmDefault.fdqConfigINTERVALO_SEGUNDOS.AsInteger < 1000,
-        dtmDefault.fdqConfigINTERVALO_SEGUNDOS.AsInteger * 1000, dtmDefault.fdqConfigINTERVALO_SEGUNDOS.AsInteger);
+    if NaoEstaVazio(dtmDefault.tabCertificado_configINTERVALO_SEGUNDOS.AsString) then
+      IntervaloTentativas := ifThen(dtmDefault.tabCertificado_configINTERVALO_SEGUNDOS.AsInteger < 1000,
+        dtmDefault.tabCertificado_configINTERVALO_SEGUNDOS.AsInteger * 1000,
+        dtmDefault.tabCertificado_configINTERVALO_SEGUNDOS.AsInteger);
 
     TimeOut := frmCERTIFICADOconfig.seTimeOut.AsInteger;
-    //ProxyHost := dtmDefault.fdqConfigHOST.AsString;
-    ProxyPort := dtmDefault.fdqConfigHOST_PORTA.AsString;
-    ProxyUser := dtmDefault.fdqConfigHOST_USUARIO.AsString;
-    ProxyPass := dtmDefault.fdqConfigHOST_SENHA.AsString;
+    // ProxyHost := dtmDefault.fdqConfigHOST.AsString;
+    ProxyPort := dtmDefault.tabCERTIFICADO_CONFIGWS_PROXY_PORTA.AsString;
+    ProxyUser := dtmDefault.tabCERTIFICADO_CONFIGWS_PROXY_USUARIO.AsString;
+    ProxyPass := dtmDefault.tabCERTIFICADO_CONFIGWS_PROXY_SENHA.AsString;
   end;
 
-  ACBrCIOT1.SSL.SSLType := TSSLType(dtmDefault.fdqConfigSSLTYPE_INDEX);
+  ACBrCIOT1.SSL.SSLType := TSSLType(dtmDefault.tabCERTIFICADO_CONFIGID_SSL_TYPE);
 
   with ACBrCIOT1.Configuracoes.Arquivos do
   begin
@@ -1846,13 +1618,13 @@ end;
 
 procedure TfrmMDFEcadastro.atualizarSSLLibsCombo;
 begin
-  dtmDefault.fdqConfig.Edit;
+  dtmDefault.tabCERTIFICADO_CONFIG.Edit;
 
-  dtmDefault.fdqConfigSSLTYPE_INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLLib);
-  dtmDefault.fdqConfigCRYPT_LIB_INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLCryptLib);
-  dtmDefault.fdqConfigHTTP_LIB_INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLHttpLib);
-  dtmDefault.fdqConfigXML_SIGN_LIB__INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLXmlSignLib);
-  frmCERTIFICADOconfig.cbSSLType.Enabled := (ACBrCIOT1.Configuracoes.Geral.SSLHttpLib in [httpWinHttp, httpOpenSSL]);
+  dtmDefault.tabCERTIFICADO_CONFIGID_SSL_TYPE.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLLib);
+  dtmDefault.tabCertificado_configCRYPT_LIB_INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLCryptLib);
+  dtmDefault.tabCertificado_configHTTP_LIB_INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLHttpLib);
+  dtmDefault.tabCertificado_configXML_SIGN_LIB__INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLXmlSignLib);
+  frmCERTIFICADOconfig.ID_SSL_TYPE.Enabled := (ACBrCIOT1.Configuracoes.Geral.SSLHttpLib in [httpWinHttp, httpOpenSSL]);
 end;
 
 procedure TfrmMDFEcadastro.cadastrarVeiculo(contrato: TContrato);
@@ -1893,9 +1665,8 @@ begin
           5:
           TipoRodado := TpTipoRodado.trUtilitario;
           6:
-          TipoRodado := TpTipoRodado.trOutros; }
+          TipoRodado := TpTipoRodado.trOutros; } // Tipos Rodado não mapeados pelo ACBr
       else
-        // Se o valor do banco for inválido, define um padrão seguro
         showMessage('Tipo Rodado não mapeado!');
         TipoRodado := TpTipoRodado.trNaoAplicavel;
       end;
@@ -1922,7 +1693,7 @@ begin
             tipoCarroceria := TpTipoCarroceria.tcSider;
         else
           begin
-            showMessage('Tipo de carroceria não mapeado!');
+            showMessage('Tipo de carroceria não mapeado!'); // Tipo de Carroceria não mapeados pelo ACBr
             Exit;
           end;
         end;
@@ -1937,12 +1708,12 @@ begin
   var
   sCPF := dtstabMDFE_CONDUTORES.DataSet.FieldByName('ID_CPF').AsString;
   try
-    if qryMotorista.Active then
-      qryMotorista.Close;
-    qryMotorista.ParamByName('CPF').AsString := sCPF;
-    qryMotorista.Open;
+    if dtmMDFE.qryMotoristaEspecifico.Active then
+      dtmMDFE.qryMotoristaEspecifico.Close;
+    dtmMDFE.qryMotoristaEspecifico.ParamByName('CPF').AsString := sCPF;
+    dtmMDFE.qryMotoristaEspecifico.Open;
 
-    if qryMotorista.IsEmpty then
+    if dtmMDFE.qryMotoristaEspecifico.IsEmpty then
       raise Exception.Create('Dados do motorista com CPF ' + sCPF + ' não encontrados.');
 
     with contrato.CIOT do
@@ -1951,23 +1722,23 @@ begin
 
       with GravarMotorista do
       begin
-        CPF := qryMotoristaCPF.AsString;
-        Nome := qryMotoristaNOME.AsString;
-        CNH := qryMotoristaNUMERO_REGISTRO.AsString;
-        DataNascimento := qryMotoristaDATA_NASCIMENTO.AsDateTime;
-        NomeDeSolteiraDaMae := qryMotoristaNOME_SOLTEIRA_MAE.AsString;
+        CPF := dtmMDFE.qryMotoristaEspecificoCPF.AsString;
+        Nome := dtmMDFE.qryMotoristaEspecificoNOME.AsString;
+        CNH := dtmMDFE.qryMotoristaEspecificoNUMERO_REGISTRO.AsString;
+        DataNascimento := dtmMDFE.qryMotoristaEspecificoDATA_NASCIMENTO.AsDateTime;
+        NomeDeSolteiraDaMae := dtmMDFE.qryMotoristaEspecificoNOME_SOLTEIRA_MAE.AsString;
 
-        Endereco.Bairro := qryMotoristaBAIRRO.AsString;
-        Endereco.Rua := qryMotoristaRUA.AsString;
-        Endereco.Numero := qryMotoristaNUMERO.AsString;
-        Endereco.Complemento := qryMotoristaCOMPLEMENTO.AsString;
-        Endereco.CEP := qryMotoristaCEP.AsString;
-        Endereco.CodigoMunicipio := qryMotoristaCODIGO_MUNICIPIO.AsInteger;
+        Endereco.Bairro := dtmMDFE.qryMotoristaEspecificoBAIRRO.AsString;
+        Endereco.Rua := dtmMDFE.qryMotoristaEspecificoRUA.AsString;
+        Endereco.Numero := dtmMDFE.qryMotoristaEspecificoNUMERO.AsString;
+        Endereco.Complemento := dtmMDFE.qryMotoristaEspecificoCOMPLEMENTO.AsString;
+        Endereco.CEP := dtmMDFE.qryMotoristaEspecificoCEP.AsString;
+        Endereco.CodigoMunicipio := dtmMDFE.qryMotoristaEspecificoCODIGO_MUNICIPIO.AsInteger;
 
-        if not qryMotoristaCELULAR.IsNull and (qryMotoristaCELULAR.AsString <> '') then
+        if not dtmMDFE.qryMotoristaEspecificoCELULAR.IsNull and (dtmMDFE.qryMotoristaEspecificoCELULAR.AsString <> '') then
         begin
           var
-          CelularStr := ACBrUtil.Strings.OnlyNumber(qryMotoristaCELULAR.AsString);
+          CelularStr := ACBrUtil.Strings.OnlyNumber(dtmMDFE.qryMotoristaEspecificoCELULAR.AsString);
           if Length(CelularStr) >= 10 then
           begin
             Telefones.Celular.DDD := StrToIntDef(Copy(CelularStr, 1, 2), 0);
@@ -1977,7 +1748,7 @@ begin
       end;
     end;
   finally
-    qryMotorista.Free;
+    dtmMDFE.qryMotoristaEspecifico.Free;
   end;
 end;
 
@@ -2063,23 +1834,6 @@ begin
   end;
 end;
 
-procedure TfrmMDFEcadastro.confCIOTEnter(Sender: TObject);
-begin
-  inherited;
-  if fdqConfig.Active then
-    fdqConfig.Close;
-
-  fdqConfig.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
-  fdqConfig.Open;
-  fdqConfig.Edit;
-end;
-
-procedure TfrmMDFEcadastro.confCIOTExit(Sender: TObject);
-begin
-  inherited;
-  fdqConfig.Post;
-end;
-
 procedure TfrmMDFEcadastro.adicionarOperacaoTransporte(contrato: TContrato);
 begin
   with contrato.CIOT do
@@ -2103,75 +1857,83 @@ begin
       // verificar se essa propriedade se refere à o NCM do produto/item que está sendo transportado
       CodigoNCMNaturezaCarga := 5501;
       PesoCarga := 10;
-      // utilizado somente para as viagens do tipo Padrão
-      TipoEmbalagem := tePallet;
+
+      if TipoViagem = Padrao then
+        // utilizado somente para as viagens do tipo Padrão
+        TipoEmbalagem := tePallet;
 
       // Somente para TipoViagem TAC_Agregado
-      with Viagens.New do
+      if TipoViagem = TAC_Agregado then
       begin
-        DocumentoViagem := 'CTe';
-        CodigoMunicipioOrigem := 4212908; // Pinhalzinho SC
-        CodigoMunicipioDestino := 4217303; // Saudades SC
-        CepOrigem := '';
-        CepDestino := '';
-        DistanciaPercorrida := 100;
-
-        Valores.TotalOperacao := 50;
-        Valores.TotalViagem := 50;
-        Valores.TotalDeAdiantamento := 10;
-        Valores.TotalDeQuitacao := 10;
-        Valores.Combustivel := 20;
-        Valores.Pedagio := 10;
-        Valores.OutrosCreditos := 1;
-        Valores.JustificativaOutrosCreditos := 'Teste';
-        Valores.Seguro := 10;
-        Valores.OutrosDebitos := 1;
-        Valores.JustificativaOutrosDebitos := 'Teste outros Debitos';
-
-        TipoPagamento := eFRETE;
-
-        with NotasFiscais.New do
+        with Viagens.New do
         begin
-          Numero := '12345';
-          Serie := '1';
-          Data := Date;
-          ValorTotal := 100;
+          DocumentoViagem := 'CTe';
+          CodigoMunicipioOrigem := 4212908; // Pinhalzinho SC
+          CodigoMunicipioDestino := 4217303; // Saudades SC
+          CepOrigem := '';
+          CepDestino := '';
+          DistanciaPercorrida := 100;
 
-          ValorDaMercadoriaPorUnidade := 100;
-          CodigoNCMNaturezaCarga := 5501;
-          DescricaoDaMercadoria := 'Produto Teste';
-          UnidadeDeMedidaDaMercadoria := umKg;
-          TipoDeCalculo := SemQuebra;
-          ValorDoFretePorUnidadeDeMercadoria := 0; // Se tiver quebra deve ser informado
-          QuantidadeDaMercadoriaNoEmbarque := 1;
+          Valores.TotalOperacao := 50;
+          Valores.TotalViagem := 50;
+          Valores.TotalDeAdiantamento := 10;
+          Valores.TotalDeQuitacao := 10;
+          Valores.Combustivel := 20;
+          Valores.Pedagio := 10;
+          Valores.OutrosCreditos := 1;
+          Valores.JustificativaOutrosCreditos := 'Teste';
+          Valores.Seguro := 10;
+          Valores.OutrosDebitos := 1;
+          Valores.JustificativaOutrosDebitos := 'Teste outros Debitos';
 
-          ToleranciaDePerdaDeMercadoria.Tipo := tpPorcentagem;
-          ToleranciaDePerdaDeMercadoria.Valor := 2; // Valor da tolerância admitido.
+          TipoPagamento := eFRETE;
 
-          DiferencaDeFrete.Tipo := Integral;
-          DiferencaDeFrete.Base := QuantidadeDesembarque;
+          with NotasFiscais.New do
+          begin
+            Numero := '12345';
+            Serie := '1';
+            Data := Date;
+            ValorTotal := 100;
 
-          DiferencaDeFrete.Tolerancia.Tipo := tpPorcentagem;
-          DiferencaDeFrete.Tolerancia.Valor := 5;
-          // Valor da tolerância admitido(Nenhum: 0; Porcentagem: 0.00 – 100.00; Absoluto: Livre)
+            ValorDaMercadoriaPorUnidade := 100;
+            CodigoNCMNaturezaCarga := 5501;
+            DescricaoDaMercadoria := 'Produto Teste';
+            UnidadeDeMedidaDaMercadoria := umKg;
+            TipoDeCalculo := SemQuebra;
+            ValorDoFretePorUnidadeDeMercadoria := 0; // Se tiver quebra deve ser informado
+            QuantidadeDaMercadoriaNoEmbarque := 1;
 
-          DiferencaDeFrete.MargemGanho.Tipo := tpPorcentagem;
-          DiferencaDeFrete.MargemGanho.Valor := 5;
+            ToleranciaDePerdaDeMercadoria.Tipo := tpPorcentagem;
+            ToleranciaDePerdaDeMercadoria.Valor := 2; // Valor da tolerância admitido.
 
-          DiferencaDeFrete.MargemPerda.Tipo := tpPorcentagem;
-          DiferencaDeFrete.MargemPerda.Valor := 5;
+            DiferencaDeFrete.Tipo := Integral;
+            DiferencaDeFrete.Base := QuantidadeDesembarque;
+
+            DiferencaDeFrete.Tolerancia.Tipo := tpPorcentagem;
+            DiferencaDeFrete.Tolerancia.Valor := 5;
+            // Valor da tolerância admitido(Nenhum: 0; Porcentagem: 0.00 – 100.00; Absoluto: Livre)
+
+            DiferencaDeFrete.MargemGanho.Tipo := tpPorcentagem;
+            DiferencaDeFrete.MargemGanho.Valor := 5;
+
+            DiferencaDeFrete.MargemPerda.Tipo := tpPorcentagem;
+            DiferencaDeFrete.MargemPerda.Valor := 5;
+          end;
         end;
       end;
 
-      // Não esperado para TipoViagem Frota.
-      with Impostos do
+      if TipoViagem <> Frota then
       begin
-        IRRF := 0;
-        SestSenat := 0;
-        INSS := 0;
-        ISSQN := 0;
-        OutrosImpostos := 0;
-        DescricaoOutrosImpostos := '';
+        // Não esperado para TipoViagem Frota.
+        with Impostos do
+        begin
+          IRRF := 0;
+          SestSenat := 0;
+          INSS := 0;
+          ISSQN := 0;
+          OutrosImpostos := 0;
+          DescricaoOutrosImpostos := '';
+        end;
       end;
 
       with Pagamentos.New do
@@ -2389,7 +2151,9 @@ begin
       // tpConteinerizada, tpCargaGeral, tpNeogranel, tpPerigosaGranelSolido,
       // tpPerigosaGranelLiquido, tpPerigosaCargaFrigorificada,
       // tpPerigosaConteinerizada, tpPerigosaCargaGeral
-      CodigoTipoCarga := tpNaoAplicavel;
+      if TipoViagem = Padrao then
+        CodigoTipoCarga := tpNaoAplicavel;
+
       AltoDesempenho := True;
       DestinacaoComercial := True;
       FreteRetorno := False;

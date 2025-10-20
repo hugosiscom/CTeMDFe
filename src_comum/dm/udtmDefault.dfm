@@ -12,7 +12,6 @@ object dtmDefault: TdtmDefault
       'CharacterSet=WIN1252'
       'DriverID=FB')
     TxOptions.AutoStop = False
-    Connected = True
     LoginPrompt = False
     BeforeConnect = cnx_BDBeforeConnect
     Left = 24
@@ -471,6 +470,75 @@ object dtmDefault: TdtmDefault
       FieldName = 'VERSAO_PROCESSO_EMISSAO'
       Origin = 'VERSAO_PROCESSO_EMISSAO'
       Size = 11
+    end
+    object tabCERTIFICADO_CONFIGAJUSTE_AUTOMATICO_AGUARDAR: TBooleanField
+      FieldName = 'AJUSTE_AUTOMATICO_AGUARDAR'
+      Origin = 'AJUSTE_AUTOMATICO_AGUARDAR'
+    end
+    object tabCERTIFICADO_CONFIGAGUARDAR_SEGUNDOS: TIntegerField
+      FieldName = 'AGUARDAR_SEGUNDOS'
+      Origin = 'AGUARDAR_SEGUNDOS'
+    end
+    object tabCERTIFICADO_CONFIGTENTATIVAS: TSmallintField
+      FieldName = 'TENTATIVAS'
+      Origin = 'TENTATIVAS'
+    end
+    object tabCERTIFICADO_CONFIGINTERVALO_SEGUNDOS: TIntegerField
+      FieldName = 'INTERVALO_SEGUNDOS'
+      Origin = 'INTERVALO_SEGUNDOS'
+    end
+    object tabCERTIFICADO_CONFIGCAMINHO_CERTIFICADO: TStringField
+      FieldName = 'CAMINHO_CERTIFICADO'
+      Origin = 'CAMINHO_CERTIFICADO'
+      Size = 200
+    end
+    object tabCERTIFICADO_CONFIGSENHA_CERTIFICADO: TStringField
+      FieldName = 'SENHA_CERTIFICADO'
+      Origin = 'SENHA_CERTIFICADO'
+      Size = 100
+    end
+    object tabCERTIFICADO_CONFIGASSINAR: TBooleanField
+      FieldName = 'ASSINAR'
+      Origin = 'ASSINAR'
+    end
+    object tabCERTIFICADO_CONFIGFORMA_EMISSAO_INDEX: TSmallintField
+      FieldName = 'FORMA_EMISSAO_INDEX'
+      Origin = 'FORMA_EMISSAO_INDEX'
+    end
+    object tabCERTIFICADO_CONFIGINTEGRADORA_INDEX: TSmallintField
+      FieldName = 'INTEGRADORA_INDEX'
+      Origin = 'INTEGRADORA_INDEX'
+    end
+    object tabCERTIFICADO_CONFIGGERAL_USUARIO: TStringField
+      FieldName = 'GERAL_USUARIO'
+      Origin = 'GERAL_USUARIO'
+      Size = 100
+    end
+    object tabCERTIFICADO_CONFIGGERAL_SENHA: TStringField
+      FieldName = 'GERAL_SENHA'
+      Origin = 'GERAL_SENHA'
+      Size = 100
+    end
+    object tabCERTIFICADO_CONFIGGERAL_HASH_INTEGRADOR: TStringField
+      FieldName = 'GERAL_HASH_INTEGRADOR'
+      Origin = 'GERAL_HASH_INTEGRADOR'
+      Size = 50
+    end
+    object tabCERTIFICADO_CONFIGSSL_LIB_INDEX: TSmallintField
+      FieldName = 'SSL_LIB_INDEX'
+      Origin = 'SSL_LIB_INDEX'
+    end
+    object tabCERTIFICADO_CONFIGCRYPT_LIB_INDEX: TSmallintField
+      FieldName = 'CRYPT_LIB_INDEX'
+      Origin = 'CRYPT_LIB_INDEX'
+    end
+    object tabCERTIFICADO_CONFIGHTTP_LIB_INDEX: TSmallintField
+      FieldName = 'HTTP_LIB_INDEX'
+      Origin = 'HTTP_LIB_INDEX'
+    end
+    object tabCERTIFICADO_CONFIGXML_SIGN_LIB__INDEX: TSmallintField
+      FieldName = 'XML_SIGN_LIB__INDEX'
+      Origin = 'XML_SIGN_LIB__INDEX'
     end
   end
   object qryTmp: TFDQuery
@@ -1659,142 +1727,5 @@ object dtmDefault: TdtmDefault
     DataSet = SqlConsultaNFe
     Left = 504
     Top = 162
-  end
-  object fdqConfig: TFDQuery
-    Connection = cnx_BD
-    SQL.Strings = (
-      'SELECT * FROM CONF_CIOT WHERE ID = :ID_EMPRESA')
-    Left = 509
-    Top = 318
-    ParamData = <
-      item
-        Name = 'ID_EMPRESA'
-        DataType = ftInteger
-        ParamType = ptInput
-        Value = Null
-      end>
-    object fdqConfigID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object fdqConfigUF_INDEX: TSmallintField
-      FieldName = 'UF_INDEX'
-      Origin = 'UF_INDEX'
-      Required = True
-    end
-    object fdqConfigAMBIENTE_DESTINO_INDEX: TSmallintField
-      FieldName = 'AMBIENTE_DESTINO_INDEX'
-      Origin = 'AMBIENTE_DESTINO_INDEX'
-      Required = True
-    end
-    object fdqConfigSSLTYPE_INDEX: TSmallintField
-      FieldName = 'SSLTYPE_INDEX'
-      Origin = 'SSLTYPE_INDEX'
-    end
-    object fdqConfigAJUSTE_AUTOMATICO_AGUARDAR: TBooleanField
-      FieldName = 'AJUSTE_AUTOMATICO_AGUARDAR'
-      Origin = 'AJUSTE_AUTOMATICO_AGUARDAR'
-      Required = True
-    end
-    object fdqConfigAGUARDAR_SEGUNDOS: TIntegerField
-      FieldName = 'AGUARDAR_SEGUNDOS'
-      Origin = 'AGUARDAR_SEGUNDOS'
-    end
-    object fdqConfigTENTATIVAS: TSmallintField
-      FieldName = 'TENTATIVAS'
-      Origin = 'TENTATIVAS'
-    end
-    object fdqConfigINTERVALO_SEGUNDOS: TIntegerField
-      FieldName = 'INTERVALO_SEGUNDOS'
-      Origin = 'INTERVALO_SEGUNDOS'
-    end
-    object fdqConfigHOST: TStringField
-      FieldName = 'HOST'
-      Origin = 'HOST'
-      Size = 100
-    end
-    object fdqConfigHOST_PORTA: TIntegerField
-      FieldName = 'HOST_PORTA'
-      Origin = 'HOST_PORTA'
-    end
-    object fdqConfigHOST_USUARIO: TStringField
-      FieldName = 'HOST_USUARIO'
-      Origin = 'HOST_USUARIO'
-      Size = 100
-    end
-    object fdqConfigHOST_SENHA: TStringField
-      FieldName = 'HOST_SENHA'
-      Origin = 'HOST_SENHA'
-      Size = 100
-    end
-    object fdqConfigCAMINHO_CERTIFICADO: TStringField
-      FieldName = 'CAMINHO_CERTIFICADO'
-      Origin = 'CAMINHO_CERTIFICADO'
-      Size = 200
-    end
-    object fdqConfigSENHA_CERTIFICADO: TStringField
-      FieldName = 'SENHA_CERTIFICADO'
-      Origin = 'SENHA_CERTIFICADO'
-      Size = 100
-    end
-    object fdqConfigASSINAR: TBooleanField
-      FieldName = 'ASSINAR'
-      Origin = 'ASSINAR'
-      Required = True
-    end
-    object fdqConfigFORMA_EMISSAO_INDEX: TSmallintField
-      FieldName = 'FORMA_EMISSAO_INDEX'
-      Origin = 'FORMA_EMISSAO_INDEX'
-    end
-    object fdqConfigVERSAO_DOCUMENTO_FISCAL_INDEX: TSmallintField
-      FieldName = 'VERSAO_DOCUMENTO_FISCAL_INDEX'
-      Origin = 'VERSAO_DOCUMENTO_FISCAL_INDEX'
-    end
-    object fdqConfigINTEGRADORA_INDEX: TSmallintField
-      FieldName = 'INTEGRADORA_INDEX'
-      Origin = 'INTEGRADORA_INDEX'
-    end
-    object fdqConfigGERAL_USUARIO: TStringField
-      FieldName = 'GERAL_USUARIO'
-      Origin = 'GERAL_USUARIO'
-      Size = 100
-    end
-    object fdqConfigGERAL_SENHA: TStringField
-      FieldName = 'GERAL_SENHA'
-      Origin = 'GERAL_SENHA'
-      Size = 100
-    end
-    object fdqConfigGERAL_HASH_INTEGRADOR: TStringField
-      FieldName = 'GERAL_HASH_INTEGRADOR'
-      Origin = 'GERAL_HASH_INTEGRADOR'
-      Size = 50
-    end
-    object fdqConfigSSL_LIB_INDEX: TSmallintField
-      FieldName = 'SSL_LIB_INDEX'
-      Origin = 'SSL_LIB_INDEX'
-      Required = True
-    end
-    object fdqConfigCRYPT_LIB_INDEX: TSmallintField
-      FieldName = 'CRYPT_LIB_INDEX'
-      Origin = 'CRYPT_LIB_INDEX'
-      Required = True
-    end
-    object fdqConfigHTTP_LIB_INDEX: TSmallintField
-      FieldName = 'HTTP_LIB_INDEX'
-      Origin = 'HTTP_LIB_INDEX'
-      Required = True
-    end
-    object fdqConfigXML_SIGN_LIB__INDEX: TSmallintField
-      FieldName = 'XML_SIGN_LIB__INDEX'
-      Origin = 'XML_SIGN_LIB__INDEX'
-      Required = True
-    end
-    object fdqConfigID_EMPRESA: TIntegerField
-      FieldName = 'ID_EMPRESA'
-      Origin = 'ID_EMPRESA'
-      Required = True
-    end
   end
 end

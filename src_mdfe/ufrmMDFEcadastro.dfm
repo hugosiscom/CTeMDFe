@@ -37,7 +37,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
   inherited pageDefault: TJvPageControl
     Width = 899
     Height = 484
-    ActivePage = tabRodoviario
     TabOrder = 0
     ExplicitWidth = 899
     ExplicitHeight = 484
@@ -941,7 +940,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Top = 0
         Width = 891
         Height = 456
-        ActivePage = pagCIOT
+        ActivePage = tabVeiculoTracao
         Align = alClient
         TabOrder = 0
         object tabVeiculoTracao: TTabSheet
@@ -2884,7 +2883,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 AlignWithMargins = True
                 Left = 3
                 Top = 3
-                Width = 62
+                Width = 861
                 Height = 13
                 Align = alTop
                 Caption = 'CPF ou CNPJ'
@@ -2895,6 +2894,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Font.Style = []
                 ParentFont = False
                 Transparent = True
+                ExplicitWidth = 62
               end
               object DOC_CONTRATANTE: TJvMaskEdit
                 Left = 0
@@ -3173,7 +3173,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           AlignWithMargins = True
           Left = 3
           Top = 3
-          Width = 159
+          Width = 879
           Height = 13
           Align = alTop
           Caption = 'CNPJ da Ag'#234'ncia de Navega'#231#227'o*'
@@ -3184,6 +3184,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           Font.Style = []
           ParentFont = False
           Transparent = True
+          ExplicitWidth = 159
         end
         object Label47: TLabel
           Left = 4
@@ -3453,6 +3454,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Carregamento'
+                  Width = 64
                   Visible = True
                 end>
             end
@@ -3576,7 +3578,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               AlignWithMargins = True
               Left = 3
               Top = 3
-              Width = 178
+              Width = 865
               Height = 13
               Align = alTop
               Caption = 'C'#243'digo do Terminal de Carregamento'
@@ -3587,6 +3589,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Font.Style = []
               ParentFont = False
               Transparent = True
+              ExplicitWidth = 178
             end
             object Label56: TLabel
               Left = 188
@@ -3639,7 +3642,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               AlignWithMargins = True
               Left = 3
               Top = 3
-              Width = 194
+              Width = 865
               Height = 13
               Align = alTop
               Caption = 'C'#243'digo do Terminal de Descarregamento'
@@ -3650,6 +3653,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Font.Style = []
               ParentFont = False
               Transparent = True
+              ExplicitWidth = 194
             end
             object Label54: TLabel
               Left = 207
@@ -3834,6 +3838,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Descarregamento'
+                  Width = 64
                   Visible = True
                 end>
             end
@@ -3855,7 +3860,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               AlignWithMargins = True
               Left = 3
               Top = 3
-              Width = 227
+              Width = 865
               Height = 13
               Align = alTop
               Caption = 'C'#243'digo da embarca'#231#227'o do Comboio(M'#225'ximo 30)'
@@ -3866,6 +3871,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Font.Style = []
               ParentFont = False
               Transparent = True
+              ExplicitWidth = 227
             end
             object Label62: TLabel
               Left = 235
@@ -5940,7 +5946,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               AlignWithMargins = True
               Left = 3
               Top = 3
-              Width = 41
+              Width = 238
               Height = 13
               Align = alTop
               Caption = 'N'#186' Lacre'
@@ -5951,6 +5957,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Font.Style = []
               ParentFont = False
               Transparent = True
+              ExplicitWidth = 41
             end
             object N_LACRE: TJvMaskEdit
               Left = 3
@@ -6155,7 +6162,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               AlignWithMargins = True
               Left = 3
               Top = 3
-              Width = 62
+              Width = 603
               Height = 13
               Align = alTop
               Caption = 'CPF ou CNPJ'
@@ -6166,6 +6173,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Font.Style = []
               ParentFont = False
               Transparent = True
+              ExplicitWidth = 62
             end
             object N_DOC_DOWNLOAD: TJvMaskEdit
               Left = 3
@@ -6412,245 +6420,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
     OnDataChange = dtstabMDFE_AQUA_UNID_TRANSDataChange
     Left = 761
     Top = 361
-  end
-  object qryMotorista: TFDQuery
-    Connection = dtmDefault.cnx_BD
-    SQL.Strings = (
-      'SELECT '
-      '* '
-      'FROM '
-      'MOTORISTA'
-      'WHERE CPF = :CPF')
-    Left = 819
-    Top = 69
-    ParamData = <
-      item
-        Name = 'CPF'
-        DataType = ftString
-        ParamType = ptInput
-        Size = 11
-        Value = Null
-      end>
-    object qryMotoristaID_EMPRESA: TIntegerField
-      FieldName = 'ID_EMPRESA'
-      Origin = 'ID_EMPRESA'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryMotoristaID_MOTORISTA: TIntegerField
-      FieldName = 'ID_MOTORISTA'
-      Origin = 'ID_MOTORISTA'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryMotoristaNOME: TStringField
-      FieldName = 'NOME'
-      Origin = 'NOME'
-      Size = 50
-    end
-    object qryMotoristaCPF: TStringField
-      FieldName = 'CPF'
-      Origin = 'CPF'
-      Size = 11
-    end
-    object qryMotoristaRENACH: TStringField
-      FieldName = 'RENACH'
-      Origin = 'RENACH'
-      Size = 11
-    end
-    object qryMotoristaNUMERO_REGISTRO: TStringField
-      FieldName = 'NUMERO_REGISTRO'
-      Origin = 'NUMERO_REGISTRO'
-      Size = 9
-    end
-    object qryMotoristaCODIGO_SEGURANCA: TStringField
-      FieldName = 'CODIGO_SEGURANCA'
-      Origin = 'CODIGO_SEGURANCA'
-      Size = 11
-    end
-    object qryMotoristaCATEGORIA: TStringField
-      FieldName = 'CATEGORIA'
-      Origin = 'CATEGORIA'
-      Size = 5
-    end
-    object qryMotoristaDATA_NASCIMENTO: TDateField
-      FieldName = 'DATA_NASCIMENTO'
-      Origin = 'DATA_NASCIMENTO'
-    end
-    object qryMotoristaBAIRRO: TStringField
-      FieldName = 'BAIRRO'
-      Origin = 'BAIRRO'
-      Size = 60
-    end
-    object qryMotoristaRUA: TStringField
-      FieldName = 'RUA'
-      Origin = 'RUA'
-      Size = 60
-    end
-    object qryMotoristaCOMPLEMENTO: TStringField
-      FieldName = 'COMPLEMENTO'
-      Origin = 'COMPLEMENTO'
-      Size = 60
-    end
-    object qryMotoristaCEP: TIntegerField
-      FieldName = 'CEP'
-      Origin = 'CEP'
-    end
-    object qryMotoristaCODIGO_MUNICIPIO: TIntegerField
-      FieldName = 'CODIGO_MUNICIPIO'
-      Origin = 'CODIGO_MUNICIPIO'
-    end
-    object qryMotoristaCELULAR: TLargeintField
-      FieldName = 'CELULAR'
-      Origin = 'CELULAR'
-    end
-    object qryMotoristaNUMERO: TStringField
-      FieldName = 'NUMERO'
-      Origin = 'NUMERO'
-      Size = 10
-    end
-    object qryMotoristaNOME_SOLTEIRA_MAE: TStringField
-      FieldName = 'NOME_SOLTEIRA_MAE'
-      Origin = 'NOME_SOLTEIRA_MAE'
-      Size = 50
-    end
-  end
-  object fdqConfig: TFDQuery
-    Connection = dtmDefault.cnx_BD
-    SQL.Strings = (
-      'SELECT * FROM CONF_CIOT WHERE ID = :ID_EMPRESA')
-    Left = 493
-    Top = 150
-    ParamData = <
-      item
-        Name = 'ID_EMPRESA'
-        DataType = ftInteger
-        ParamType = ptInput
-        Value = Null
-      end>
-    object fdqConfigID: TIntegerField
-      FieldName = 'ID'
-      Origin = 'ID'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object fdqConfigUF_INDEX: TSmallintField
-      FieldName = 'UF_INDEX'
-      Origin = 'UF_INDEX'
-      Required = True
-    end
-    object fdqConfigAMBIENTE_DESTINO_INDEX: TSmallintField
-      FieldName = 'AMBIENTE_DESTINO_INDEX'
-      Origin = 'AMBIENTE_DESTINO_INDEX'
-      Required = True
-    end
-    object fdqConfigSSLTYPE_INDEX: TSmallintField
-      FieldName = 'SSLTYPE_INDEX'
-      Origin = 'SSLTYPE_INDEX'
-    end
-    object fdqConfigAJUSTE_AUTOMATICO_AGUARDAR: TBooleanField
-      FieldName = 'AJUSTE_AUTOMATICO_AGUARDAR'
-      Origin = 'AJUSTE_AUTOMATICO_AGUARDAR'
-      Required = True
-    end
-    object fdqConfigAGUARDAR_SEGUNDOS: TIntegerField
-      FieldName = 'AGUARDAR_SEGUNDOS'
-      Origin = 'AGUARDAR_SEGUNDOS'
-    end
-    object fdqConfigTENTATIVAS: TSmallintField
-      FieldName = 'TENTATIVAS'
-      Origin = 'TENTATIVAS'
-    end
-    object fdqConfigINTERVALO_SEGUNDOS: TIntegerField
-      FieldName = 'INTERVALO_SEGUNDOS'
-      Origin = 'INTERVALO_SEGUNDOS'
-    end
-    object fdqConfigHOST: TStringField
-      FieldName = 'HOST'
-      Origin = 'HOST'
-      Size = 100
-    end
-    object fdqConfigHOST_PORTA: TIntegerField
-      FieldName = 'HOST_PORTA'
-      Origin = 'HOST_PORTA'
-    end
-    object fdqConfigHOST_USUARIO: TStringField
-      FieldName = 'HOST_USUARIO'
-      Origin = 'HOST_USUARIO'
-      Size = 100
-    end
-    object fdqConfigHOST_SENHA: TStringField
-      FieldName = 'HOST_SENHA'
-      Origin = 'HOST_SENHA'
-      Size = 100
-    end
-    object fdqConfigCAMINHO_CERTIFICADO: TStringField
-      FieldName = 'CAMINHO_CERTIFICADO'
-      Origin = 'CAMINHO_CERTIFICADO'
-      Size = 200
-    end
-    object fdqConfigSENHA_CERTIFICADO: TStringField
-      FieldName = 'SENHA_CERTIFICADO'
-      Origin = 'SENHA_CERTIFICADO'
-      Size = 100
-    end
-    object fdqConfigASSINAR: TBooleanField
-      FieldName = 'ASSINAR'
-      Origin = 'ASSINAR'
-      Required = True
-    end
-    object fdqConfigFORMA_EMISSAO_INDEX: TSmallintField
-      FieldName = 'FORMA_EMISSAO_INDEX'
-      Origin = 'FORMA_EMISSAO_INDEX'
-    end
-    object fdqConfigVERSAO_DOCUMENTO_FISCAL_INDEX: TSmallintField
-      FieldName = 'VERSAO_DOCUMENTO_FISCAL_INDEX'
-      Origin = 'VERSAO_DOCUMENTO_FISCAL_INDEX'
-    end
-    object fdqConfigINTEGRADORA_INDEX: TSmallintField
-      FieldName = 'INTEGRADORA_INDEX'
-      Origin = 'INTEGRADORA_INDEX'
-    end
-    object fdqConfigGERAL_USUARIO: TStringField
-      FieldName = 'GERAL_USUARIO'
-      Origin = 'GERAL_USUARIO'
-      Size = 100
-    end
-    object fdqConfigGERAL_SENHA: TStringField
-      FieldName = 'GERAL_SENHA'
-      Origin = 'GERAL_SENHA'
-      Size = 100
-    end
-    object fdqConfigGERAL_HASH_INTEGRADOR: TStringField
-      FieldName = 'GERAL_HASH_INTEGRADOR'
-      Origin = 'GERAL_HASH_INTEGRADOR'
-      Size = 50
-    end
-    object fdqConfigSSL_LIB_INDEX: TSmallintField
-      FieldName = 'SSL_LIB_INDEX'
-      Origin = 'SSL_LIB_INDEX'
-      Required = True
-    end
-    object fdqConfigCRYPT_LIB_INDEX: TSmallintField
-      FieldName = 'CRYPT_LIB_INDEX'
-      Origin = 'CRYPT_LIB_INDEX'
-      Required = True
-    end
-    object fdqConfigHTTP_LIB_INDEX: TSmallintField
-      FieldName = 'HTTP_LIB_INDEX'
-      Origin = 'HTTP_LIB_INDEX'
-      Required = True
-    end
-    object fdqConfigXML_SIGN_LIB__INDEX: TSmallintField
-      FieldName = 'XML_SIGN_LIB__INDEX'
-      Origin = 'XML_SIGN_LIB__INDEX'
-      Required = True
-    end
-    object fdqConfigID_EMPRESA: TIntegerField
-      FieldName = 'ID_EMPRESA'
-      Origin = 'ID_EMPRESA'
-      Required = True
-    end
   end
   object ACBrCIOT1: TACBrCIOT
     Configuracoes.Geral.SSLLib = libNone

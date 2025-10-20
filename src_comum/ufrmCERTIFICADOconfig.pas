@@ -75,21 +75,11 @@ type
     GroupBox5: TGroupBox;
     cbVersaoDF: TComboBox;
     TabSheet3: TTabSheet;
-    GroupBox7: TGroupBox;
-    Label65: TLabel;
-    Label66: TLabel;
-    Label67: TLabel;
     gbxRetornoEnvio: TGroupBox;
     Label64: TLabel;
     Label68: TLabel;
     Label69: TLabel;
-    GroupBox8: TGroupBox;
-    Label70: TLabel;
-    Label71: TLabel;
-    Label72: TLabel;
-    Label73: TLabel;
     GroupBox9: TGroupBox;
-    Label77: TLabel;
     Label78: TLabel;
     Label79: TLabel;
     Label80: TLabel;
@@ -99,30 +89,16 @@ type
     Edit1: TEdit;
     btnSha256: TButton;
     cbAssinar: TCheckBox;
-    gbCertificado: TGroupBox;
-    Label74: TLabel;
-    Label75: TLabel;
-    sbtnCaminhoCert: TSpeedButton;
     GroupBox11: TGroupBox;
     lSSLLib: TLabel;
     lCryptLib: TLabel;
     lHttpLib: TLabel;
     lXmlSign: TLabel;
-    dtsConfig: TDataSource;
-    cbUF: TJvDBComboBox;
-    rgTipoAmb: TJvRadioGroup;
-    seTimeOut: TJvSpinEdit;
-    cbSSLType: TJvDBComboBox;
     cbxAjustarAut: TJvDBCheckBox;
     edtAguardar: TJvDBMaskEdit;
     edtTentativas: TJvDBMaskEdit;
     edtIntervalo: TJvDBMaskEdit;
-    edtProxyHost: TJvDBMaskEdit;
-    edtProxyUser: TJvDBMaskEdit;
-    edtProxySenha: TJvDBMaskEdit;
-    edtProxyPorta: TJvDBMaskEdit;
     cbFormaEmissao: TJvDBComboBox;
-    cbVersaoDFCIOT: TJvDBComboBox;
     cbbIntegradora: TJvDBComboBox;
     edtUsuarioWebService: TJvDBMaskEdit;
     edtHashIntegrador: TJvDBMaskEdit;
@@ -131,8 +107,10 @@ type
     cbCryptLib: TJvDBComboBox;
     cbHttpLib: TJvDBComboBox;
     cbXmlSignLib: TJvDBComboBox;
-    edtCaminho: TJvDBMaskEdit;
-    edtSenha: TJvDBMaskEdit;
+    seTimeOut: TJvSpinEdit;
+    Label66: TLabel;
+    CERTIFICADO_CAMINHO: TJvDBMaskEdit;
+    Label5: TLabel;
     procedure sbtnGetCertClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure EMAIL_ENVIARChange(Sender: TObject);
@@ -140,6 +118,7 @@ type
     procedure SpeedButton1Click(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure WS_PROXY_PORTAKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FDocModelo: TDocModelo;
 
@@ -170,6 +149,15 @@ begin
         with dtsDefault.DataSet do
         begin
           TFDQuery(dtsDefault.DataSet).FieldByName('VERSAO_PROCESSO_EMISSAO').AsInteger := cbVersaoDF.ItemIndex;
+
+          TFDQuery(dtsDefault.DataSet).FieldByName('AJUSTE_AUTOMATICO_AGUARDAR').AsBoolean := cbxAjustarAut.Checked;
+          { TFDQuery(dtsDefault.DataSet).FieldByName('FORMA_EMISSAO_INDEX').AsInteger := cbFormaEmissao.ItemIndex;
+            TFDQuery(dtsDefault.DataSet).FieldByName('INTEGRADORA_INDEX').AsInteger := cbbIntegradora.ItemIndex;
+            TFDQuery(dtsDefault.DataSet).FieldByName('SSL_LIB_INDEX').AsInteger := cbSSLLib.ItemIndex;
+            TFDQuery(dtsDefault.DataSet).FieldByName('CRYPT_LIB_INDEX').AsInteger := cbCryptLib.ItemIndex;
+            TFDQuery(dtsDefault.DataSet).FieldByName('HTTP_LIB_INDEX').AsInteger := cbHttpLib.ItemIndex;
+            TFDQuery(dtsDefault.DataSet).FieldByName('XML_SIGN_LIB__INDEX').AsInteger := cbXmlSignLib.ItemIndex; }
+          TFDQuery(dtsDefault.DataSet).FieldByName('ASSINAR').AsBoolean := cbAssinar.Checked;
         end;
       end;
   end;
@@ -221,10 +209,10 @@ begin
     cbXmlSignLib.Items.Add(GetEnumName(TypeInfo(TSSLXmlSignLib), Integer(X)));
   cbXmlSignLib.ItemIndex := 0;
 
-  cbSSLType.Items.Clear;
+  ID_SSL_TYPE.Items.Clear;
   for Y := Low(TSSLType) to High(TSSLType) do
-    cbSSLType.Items.Add(GetEnumName(TypeInfo(TSSLType), Integer(Y)));
-  cbSSLType.ItemIndex := 0;
+    ID_SSL_TYPE.Items.Add(GetEnumName(TypeInfo(TSSLType), Integer(Y)));
+  ID_SSL_TYPE.ItemIndex := 0;
 
   cbFormaEmissao.Items.Clear;
   for i := Low(TpcnTipoEmissao) to High(TpcnTipoEmissao) do
@@ -247,7 +235,7 @@ var
   K: TVersaoCTe;
   Y: TVersaoMDFe;
 begin
-  // inherited;
+  inherited;
 
   TFDQuery(dtsDefault.DataSet).Close;
   case FDocModelo of
@@ -292,14 +280,24 @@ begin
       cbVersaoDF.Items.Add(GetEnumName(TypeInfo(TVersaoCTe), Integer(K)));
 
   end;
+
   if TFDQuery(dtsDefault.DataSet).ParamByName('ID_MODELO').AsInteger = 58 then
   begin
     cbVersaoDF.Items.Clear;
     for Y := Low(TVersaoMDFe) to High(TVersaoMDFe) do
       cbVersaoDF.Items.Add(GetEnumName(TypeInfo(TVersaoMDFe), Integer(Y)));
   end;
+
   try
     cbVersaoDF.ItemIndex := TFDQuery(dtsDefault.DataSet).FieldByName('VERSAO_PROCESSO_EMISSAO').AsInteger;
+    cbSSLLib.ItemIndex := TFDQuery(dtsDefault.DataSet).FieldByName('SSL_LIB_INDEX').AsInteger;
+    cbCryptLib.ItemIndex := TFDQuery(dtsDefault.DataSet).FieldByName('CRYPT_LIB_INDEX').AsInteger;
+    cbHttpLib.ItemIndex := TFDQuery(dtsDefault.DataSet).FieldByName('HTTP_LIB_INDEX').AsInteger;
+    cbXmlSignLib.ItemIndex := TFDQuery(dtsDefault.DataSet).FieldByName('XML_SIGN_LIB__INDEX').AsInteger;
+    ID_SSL_TYPE.ItemIndex := TFDQuery(dtsDefault.DataSet).FieldByName('ID_SSL_TYPE').AsInteger;
+    cbFormaEmissao.ItemIndex := TFDQuery(dtsDefault.DataSet).FieldByName('FORMA_EMISSAO_INDEX').AsInteger;
+    cbbIntegradora.ItemIndex := TFDQuery(dtsDefault.DataSet).FieldByName('INTEGRADORA_INDEX').AsInteger;
+    cbAssinar.Checked := TFDQuery(dtsDefault.DataSet).FieldByName('ASSINAR').AsBoolean;
   except
     on E: Exception do
       cbVersaoDF.ItemIndex := 1;
@@ -353,6 +351,21 @@ end;
 procedure TfrmCERTIFICADOconfig.TIME_ZONE_MODOChange(Sender: TObject);
 begin
   TIMEZONE_MANUAL.Enabled := TIME_ZONE_MODO.ItemIndex = 2;
+end;
+
+procedure TfrmCERTIFICADOconfig.WS_PROXY_PORTAKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+
+  try
+    var
+    valor := StrToInt(WS_PROXY_PORTA.Text);
+    if (valor > 65535) or (valor <= 0) then
+      WS_PROXY_PORTA.Text := '0';
+  except
+    on E: Exception do
+      WS_PROXY_PORTA.Text := '0';
+  end;
 end;
 
 end.
