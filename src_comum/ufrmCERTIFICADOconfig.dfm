@@ -1,39 +1,39 @@
 inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
   Caption = 'Configura'#231#245'es do Sistema'
   ClientHeight = 507
-  ClientWidth = 663
-  ExplicitWidth = 679
+  ClientWidth = 669
+  ExplicitWidth = 685
   ExplicitHeight = 546
   TextHeight = 13
   inherited pnlComandos: TPanel
     Top = 452
-    Width = 657
+    Width = 663
     ExplicitTop = 452
-    ExplicitWidth = 657
+    ExplicitWidth = 663
     inherited btnCancelar: TJvSpeedButton
-      Left = 544
+      Left = 550
       ExplicitLeft = 544
     end
     inherited btnConfirmar: TJvSpeedButton
-      Left = 428
+      Left = 434
       ExplicitLeft = 428
     end
   end
   inherited pageDefault: TJvPageControl
-    Width = 657
+    Width = 663
     Height = 443
     HideAllTabs = True
-    ExplicitWidth = 657
+    ExplicitWidth = 663
     ExplicitHeight = 443
     inherited tabDefault: TTabSheet
-      ExplicitWidth = 649
+      ExplicitWidth = 655
       ExplicitHeight = 415
       object PageControl1: TPageControl
         Left = 0
         Top = 0
-        Width = 649
+        Width = 655
         Height = 415
-        ActivePage = TabSheet1
+        ActivePage = TabSheet3
         Align = alClient
         MultiLine = True
         TabOrder = 0
@@ -43,7 +43,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             AlignWithMargins = True
             Left = 3
             Top = 3
-            Width = 635
+            Width = 641
             Height = 62
             Align = alTop
             Caption = 'Certificado'
@@ -52,7 +52,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               AlignWithMargins = True
               Left = 5
               Top = 18
-              Width = 625
+              Width = 631
               Height = 13
               Align = alTop
               Caption = 'N'#250'mero de S'#233'rie'
@@ -86,13 +86,6 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               NumGlyphs = 2
               OnClick = sbtnGetCertClick
             end
-            object Label5: TLabel
-              Left = 255
-              Top = 15
-              Width = 41
-              Height = 13
-              Caption = 'Caminho'
-            end
             object CERTIFICADO_NUMERO: TJvDBMaskEdit
               Left = 5
               Top = 34
@@ -100,7 +93,6 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               Height = 21
               DataField = 'CERTIFICADO_NUMERO'
               DataSource = dtsDefault
-              MaxLength = 40
               TabOrder = 0
               EditMask = ''
             end
@@ -111,19 +103,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               Height = 21
               DataField = 'CERTIFICADO_SENHA'
               DataSource = dtsDefault
-              MaxLength = 40
               TabOrder = 1
-              EditMask = ''
-            end
-            object CERTIFICADO_CAMINHO: TJvDBMaskEdit
-              Left = 255
-              Top = 34
-              Width = 199
-              Height = 21
-              DataField = 'CAMINHO_CERTIFICADO'
-              DataSource = dtsDefault
-              MaxLength = 200
-              TabOrder = 2
               EditMask = ''
             end
           end
@@ -131,7 +111,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             AlignWithMargins = True
             Left = 3
             Top = 71
-            Width = 635
+            Width = 641
             Height = 234
             Align = alTop
             Caption = 'WebService'
@@ -140,7 +120,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               AlignWithMargins = True
               Left = 5
               Top = 18
-              Width = 625
+              Width = 631
               Height = 13
               Align = alTop
               Caption = 'Selecione UF da SEFAZ-Autorizadora (Emitente):'
@@ -153,8 +133,8 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               ExplicitWidth = 231
             end
             object lSSLLib1: TLabel
-              Left = 466
-              Top = 18
+              Left = 460
+              Top = 15
               Width = 41
               Height = 13
               Alignment = taRightJustify
@@ -163,7 +143,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               ParentColor = False
             end
             object Label66: TLabel
-              Left = 431
+              Left = 427
               Top = 127
               Width = 40
               Height = 13
@@ -308,7 +288,6 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
                 Height = 21
                 DataField = 'WS_PROXY_HOST'
                 DataSource = dtsDefault
-                MaxLength = 200
                 TabOrder = 0
                 EditMask = ''
               end
@@ -330,7 +309,6 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
                 Height = 21
                 DataField = 'WS_PROXY_USUARIO'
                 DataSource = dtsDefault
-                MaxLength = 60
                 TabOrder = 2
                 EditMask = ''
               end
@@ -341,7 +319,6 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
                 Height = 21
                 DataField = 'WS_PROXY_SENHA'
                 DataSource = dtsDefault
-                MaxLength = 60
                 TabOrder = 3
                 EditMask = ''
               end
@@ -441,15 +418,14 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               ValueChecked = 'S'
               ValueUnchecked = 'N'
             end
-            object seTimeOut: TJvSpinEdit
-              Left = 477
+            object seTimeOut2: TJvDBSpinEdit
+              Left = 473
               Top = 124
-              Width = 83
+              Width = 71
               Height = 21
-              MaxValue = 999999.000000000000000000
-              MinValue = 1000.000000000000000000
-              Value = 5000.000000000000000000
               TabOrder = 8
+              DataField = 'WS_TIMEOUT'
+              DataSource = dtsDefault
             end
           end
           object GroupBox3: TGroupBox
@@ -534,7 +510,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             AlignWithMargins = True
             Left = 3
             Top = 3
-            Width = 635
+            Width = 641
             Height = 17
             Align = alTop
             Caption = 'Envia E-Mail Autom'#225'tico'
@@ -549,7 +525,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             AlignWithMargins = True
             Left = 3
             Top = 174
-            Width = 635
+            Width = 641
             Height = 136
             Align = alTop
             Caption = 'TimeZone'
@@ -616,7 +592,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             AlignWithMargins = True
             Left = 3
             Top = 26
-            Width = 635
+            Width = 641
             Height = 142
             Align = alTop
             Caption = 'E-Mail'
@@ -625,7 +601,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               AlignWithMargins = True
               Left = 5
               Top = 18
-              Width = 625
+              Width = 631
               Height = 13
               Align = alTop
               Caption = 'Servidor SMTP'
@@ -724,9 +700,9 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
           Caption = 'CIOT'
           ImageIndex = 2
           object gbxRetornoEnvio: TGroupBox
-            Left = 3
+            Left = 192
             Top = 135
-            Width = 265
+            Width = 257
             Height = 77
             Caption = 'Retorno de Envio'
             TabOrder = 0
@@ -774,9 +750,8 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
                 'nvio'
               DataField = 'AGUARDAR_SEGUNDOS'
               DataSource = dtsDefault
-              MaxLength = 7
               TabOrder = 1
-              EditMask = '9999999;0; '
+              EditMask = ''
             end
             object edtTentativas: TJvDBMaskEdit
               Left = 87
@@ -785,9 +760,8 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               Height = 21
               DataField = 'TENTATIVAS'
               DataSource = dtsDefault
-              MaxLength = 5
               TabOrder = 2
-              EditMask = '99999;1; '
+              EditMask = ''
             end
             object edtIntervalo: TJvDBMaskEdit
               Left = 176
@@ -796,15 +770,14 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               Height = 21
               DataField = 'INTERVALO_SEGUNDOS'
               DataSource = dtsDefault
-              MaxLength = 6
               TabOrder = 3
-              EditMask = '999999;0; '
+              EditMask = ''
             end
           end
           object GroupBox9: TGroupBox
             Left = 3
             Top = 3
-            Width = 461
+            Width = 422
             Height = 126
             Caption = 'Geral'
             TabOrder = 1
@@ -823,22 +796,22 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               Caption = 'Integrardora'
             end
             object Label80: TLabel
-              Left = 195
-              Top = 16
+              Left = 160
+              Top = 21
               Width = 36
               Height = 13
               Caption = 'Usu'#225'rio'
             end
             object Label81: TLabel
-              Left = 328
-              Top = 16
+              Left = 287
+              Top = 21
               Width = 30
               Height = 13
               Caption = 'Senha'
             end
             object Label82: TLabel
-              Left = 195
-              Top = 67
+              Left = 160
+              Top = 70
               Width = 79
               Height = 13
               Caption = 'Hash Integrador'
@@ -887,64 +860,63 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               ListSettings.OutfilteredValueFont.Style = []
             end
             object edtUsuarioWebService: TJvDBMaskEdit
-              Left = 196
+              Left = 160
               Top = 40
               Width = 121
               Height = 21
               DataField = 'GERAL_USUARIO'
               DataSource = dtsDefault
-              MaxLength = 100
               TabOrder = 2
               EditMask = ''
             end
             object edtHashIntegrador: TJvDBMaskEdit
-              Left = 195
+              Left = 160
               Top = 89
               Width = 249
               Height = 21
               DataField = 'GERAL_HASH_INTEGRADOR'
               DataSource = dtsDefault
-              MaxLength = 50
               TabOrder = 3
               EditMask = ''
             end
             object edtSenhaWebService: TJvDBMaskEdit
-              Left = 323
+              Left = 287
               Top = 40
               Width = 121
               Height = 21
               DataField = 'GERAL_SENHA'
               DataSource = dtsDefault
-              MaxLength = 100
+              PasswordChar = '*'
               TabOrder = 4
               EditMask = ''
             end
           end
           object GroupBox10: TGroupBox
-            Left = 3
+            Left = 192
             Top = 218
-            Width = 263
+            Width = 206
             Height = 77
             Caption = 'Calculo de Hash e assinatura'
             TabOrder = 2
-            object Edit1: TEdit
-              Left = 7
+            object EdtHash: TEdit
+              Left = 10
               Top = 16
-              Width = 249
+              Width = 183
               Height = 21
               TabOrder = 0
             end
             object btnSha256: TButton
-              Left = 10
+              Left = 9
               Top = 43
               Width = 99
               Height = 25
               Caption = 'SHA256 + RSA'
               TabOrder = 1
+              OnClick = btnSha256Click
             end
             object cbAssinar: TCheckBox
-              Left = 193
-              Top = 44
+              Left = 116
+              Top = 43
               Width = 54
               Height = 19
               Caption = 'Assinar'
@@ -954,10 +926,10 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             end
           end
           object GroupBox11: TGroupBox
-            Left = 272
+            Left = 3
             Top = 135
-            Width = 190
-            Height = 207
+            Width = 183
+            Height = 250
             Caption = 'Libs'
             TabOrder = 3
             object lSSLLib: TLabel
@@ -972,7 +944,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             end
             object lCryptLib: TLabel
               Left = 19
-              Top = 56
+              Top = 62
               Width = 40
               Height = 13
               Alignment = taRightJustify
@@ -982,7 +954,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             end
             object lHttpLib: TLabel
               Left = 19
-              Top = 100
+              Top = 108
               Width = 34
               Height = 13
               Alignment = taRightJustify
@@ -992,7 +964,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
             end
             object lXmlSign: TLabel
               Left = 19
-              Top = 150
+              Top = 154
               Width = 52
               Height = 13
               Alignment = taRightJustify
@@ -1000,9 +972,19 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               Color = clBtnFace
               ParentColor = False
             end
+            object Label16: TLabel
+              Left = 19
+              Top = 200
+              Width = 41
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'SSLType'
+              Color = clBtnFace
+              ParentColor = False
+            end
             object cbSSLLib: TJvDBComboBox
               Left = 19
-              Top = 33
+              Top = 35
               Width = 145
               Height = 21
               DataField = 'SSL_LIB_INDEX'
@@ -1020,10 +1002,11 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               ListSettings.OutfilteredValueFont.Height = -12
               ListSettings.OutfilteredValueFont.Name = 'Segoe UI'
               ListSettings.OutfilteredValueFont.Style = []
+              OnChange = cbSSLLibChange
             end
             object cbCryptLib: TJvDBComboBox
               Left = 19
-              Top = 73
+              Top = 81
               Width = 145
               Height = 21
               DataField = 'CRYPT_LIB_INDEX'
@@ -1039,10 +1022,11 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               ListSettings.OutfilteredValueFont.Height = -12
               ListSettings.OutfilteredValueFont.Name = 'Segoe UI'
               ListSettings.OutfilteredValueFont.Style = []
+              OnChange = cbCryptLibChange
             end
             object cbHttpLib: TJvDBComboBox
               Left = 19
-              Top = 123
+              Top = 127
               Width = 145
               Height = 21
               DataField = 'HTTP_LIB_INDEX'
@@ -1059,10 +1043,11 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               ListSettings.OutfilteredValueFont.Height = -12
               ListSettings.OutfilteredValueFont.Name = 'Segoe UI'
               ListSettings.OutfilteredValueFont.Style = []
+              OnChange = cbHttpLibChange
             end
             object cbXmlSignLib: TJvDBComboBox
               Left = 19
-              Top = 169
+              Top = 173
               Width = 145
               Height = 21
               DataField = 'XML_SIGN_LIB__INDEX'
@@ -1079,6 +1064,124 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               ListSettings.OutfilteredValueFont.Height = -12
               ListSettings.OutfilteredValueFont.Name = 'Segoe UI'
               ListSettings.OutfilteredValueFont.Style = []
+              OnChange = cbXmlSignLibChange
+            end
+            object cbSSLType: TJvDBComboBox
+              AlignWithMargins = True
+              Left = 19
+              Top = 219
+              Width = 145
+              Height = 21
+              DataField = 'SSL_TYPE_CIOT_INDEX'
+              DataSource = dtsDefault
+              Items.Strings = (
+                'LT_all'
+                'LT_SSLv2'
+                'LT_SSLv3'
+                'LT_TLSv1'
+                'LT_TLSv1_1'
+                'LT_TLSv1_2'
+                'LT_SSHv2')
+              TabOrder = 4
+              Values.Strings = (
+                '0'
+                '1'
+                '2'
+                '3'
+                '4'
+                '5'
+                '6')
+              ListSettings.OutfilteredValueFont.Charset = DEFAULT_CHARSET
+              ListSettings.OutfilteredValueFont.Color = clRed
+              ListSettings.OutfilteredValueFont.Height = -11
+              ListSettings.OutfilteredValueFont.Name = 'Tahoma'
+              ListSettings.OutfilteredValueFont.Style = []
+            end
+          end
+          object GroupBox7: TGroupBox
+            Left = 431
+            Top = 3
+            Width = 214
+            Height = 123
+            Caption = 'Certificado'
+            TabOrder = 4
+            object Label5: TLabel
+              Left = 12
+              Top = 23
+              Width = 79
+              Height = 13
+              Caption = 'N'#250'mero de S'#233'rie'
+            end
+            object Label15: TLabel
+              Left = 12
+              Top = 69
+              Width = 30
+              Height = 13
+              Caption = 'Senha'
+            end
+            object SpeedButton2: TSpeedButton
+              Left = 183
+              Top = 40
+              Width = 23
+              Height = 23
+              Glyph.Data = {
+                76010000424D7601000000000000760000002800000020000000100000000100
+                04000000000000010000130B0000130B00001000000000000000000000000000
+                800000800000008080008000000080008000808000007F7F7F00BFBFBF000000
+                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF0033333333B333
+                333B33FF33337F3333F73BB3777BB7777BB3377FFFF77FFFF77333B000000000
+                0B3333777777777777333330FFFFFFFF07333337F33333337F333330FFFFFFFF
+                07333337F3FF3FFF7F333330F00F000F07333337F77377737F333330FFFFFFFF
+                07333FF7F3FFFF3F7FFFBBB0F0000F0F0BB37777F7777373777F3BB0FFFFFFFF
+                0BBB3777F3FF3FFF77773330F00F000003333337F773777773333330FFFF0FF0
+                33333337F3FF7F37F3333330F08F0F0B33333337F7737F77FF333330FFFF003B
+                B3333337FFFF77377FF333B000000333BB33337777777F3377FF3BB3333BB333
+                3BB33773333773333773B333333B3333333B7333333733333337}
+              NumGlyphs = 2
+              OnClick = SpeedButton2Click
+            end
+            object edtNumeroSerieCertificadoCIOT: TJvDBMaskEdit
+              Left = 12
+              Top = 42
+              Width = 165
+              Height = 21
+              DataField = 'NUMERO_SERIE_CERTIFICADO_CIOT'
+              DataSource = dtsDefault
+              MaxLength = 200
+              TabOrder = 0
+              EditMask = ''
+            end
+            object edtSenhaCertificado: TJvDBMaskEdit
+              Left = 12
+              Top = 88
+              Width = 184
+              Height = 21
+              DataField = 'SENHA_CERTIFICADO'
+              DataSource = dtsDefault
+              TabOrder = 1
+              EditMask = ''
+            end
+          end
+          object GroupBox8: TGroupBox
+            Left = 192
+            Top = 301
+            Width = 181
+            Height = 59
+            Caption = 'Vers'#227'o DF CIOT'
+            TabOrder = 5
+            object cbVersaoDFCIOT: TJvDBComboBox
+              Left = 15
+              Top = 24
+              Width = 154
+              Height = 21
+              TabOrder = 0
+              Values.Strings = (
+                '0')
+              ListSettings.OutfilteredValueFont.Charset = DEFAULT_CHARSET
+              ListSettings.OutfilteredValueFont.Color = clRed
+              ListSettings.OutfilteredValueFont.Height = -12
+              ListSettings.OutfilteredValueFont.Name = 'Segoe UI'
+              ListSettings.OutfilteredValueFont.Style = []
             end
           end
         end
@@ -1087,9 +1190,9 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
   end
   inherited statDefault: TJvStatusBar
     Top = 488
-    Width = 663
+    Width = 669
     ExplicitTop = 488
-    ExplicitWidth = 663
+    ExplicitWidth = 669
   end
   inherited ACBrEnterTab1: TACBrEnterTab
     Left = 517
@@ -1097,8 +1200,8 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
   end
   inherited dtsDefault: TDataSource
     DataSet = dtmDefault.tabCERTIFICADO_CONFIG
-    Left = 302
-    Top = 67
+    Left = 238
+    Top = 19
   end
   object ACBrNFe1: TACBrNFe
     Configuracoes.Geral.SSLLib = libNone
@@ -1112,14 +1215,21 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
     Configuracoes.WebServices.AguardarConsultaRet = 0
     Configuracoes.WebServices.QuebradeLinha = '|'
     Configuracoes.RespTec.IdCSRT = 0
-    Left = 214
+    Left = 142
     Top = 42
   end
   object OpenDialog: TOpenDialog
     Filter = 'Arquivos de imagem|*.jpg;*.jpeg;*.bmp'
     Options = [ofHideReadOnly, ofNoChangeDir, ofEnableSizing]
     Title = 'Procurar logomarca'
-    Left = 372
-    Top = 40
+    Left = 364
+    Top = 16
+  end
+  object FileOpenDialog1: TFileOpenDialog
+    FavoriteLinks = <>
+    FileTypes = <>
+    Options = []
+    Left = 579
+    Top = 219
   end
 end

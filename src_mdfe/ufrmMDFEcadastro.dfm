@@ -1351,7 +1351,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               end
               object VEICULO_TARA: TJvDBMaskEdit
                 Tag = 1
-                Left = 755
+                Left = 748
                 Top = 13
                 Width = 113
                 Height = 21
@@ -2684,6 +2684,22 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                     Visible = True
                   end>
               end
+              object MemoResp: TMemo
+                Left = 0
+                Top = 152
+                Width = 867
+                Height = 163
+                ScrollBars = ssBoth
+                TabOrder = 1
+              end
+              object memoRespWS: TMemo
+                Left = 0
+                Top = 0
+                Width = 441
+                Height = 316
+                ScrollBars = ssBoth
+                TabOrder = 2
+              end
             end
           end
         end
@@ -3454,7 +3470,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Carregamento'
-                  Width = 64
                   Visible = True
                 end>
             end
@@ -3838,7 +3853,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Descarregamento'
-                  Width = 64
                   Visible = True
                 end>
             end
@@ -6420,23 +6434,5 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
     OnDataChange = dtstabMDFE_AQUA_UNID_TRANSDataChange
     Left = 761
     Top = 361
-  end
-  object ACBrCIOT1: TACBrCIOT
-    Configuracoes.Geral.SSLLib = libNone
-    Configuracoes.Geral.SSLCryptLib = cryNone
-    Configuracoes.Geral.SSLHttpLib = httpNone
-    Configuracoes.Geral.SSLXmlSignLib = xsNone
-    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
-    Configuracoes.Geral.Integradora = ieFrete
-    Configuracoes.Arquivos.SepararPorCNPJ = True
-    Configuracoes.Arquivos.OrdenacaoPath = <>
-    Configuracoes.Arquivos.SepararPorAno = True
-    Configuracoes.Arquivos.SepararPorMes = True
-    Configuracoes.Arquivos.SepararPorDia = True
-    Configuracoes.WebServices.UF = 'SP'
-    Configuracoes.WebServices.AguardarConsultaRet = 0
-    Configuracoes.WebServices.QuebradeLinha = '|'
-    Left = 715
-    Top = 139
   end
 end

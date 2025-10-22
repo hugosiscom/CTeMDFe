@@ -316,6 +316,10 @@ type
     tabCERTIFICADO_CONFIGCRYPT_LIB_INDEX: TSmallintField;
     tabCERTIFICADO_CONFIGHTTP_LIB_INDEX: TSmallintField;
     tabCERTIFICADO_CONFIGXML_SIGN_LIB__INDEX: TSmallintField;
+    tabCERTIFICADO_CONFIGSENHA_CERTIFICADO_CIOT: TStringField;
+    tabCERTIFICADO_CONFIGNUMERO_SERIE_CERTIFICADO_CIOT: TStringField;
+    tabCERTIFICADO_CONFIGVERSAO_DF_CIOT_INDEX: TSmallintField;
+    tabCERTIFICADO_CONFIGSSL_TYPE_CIOT_INDEX: TSmallintField;
     procedure cnx_BDBeforeConnect(Sender: TObject);
     procedure tabEMPRESAAfterOpen(DataSet: TDataSet);
     procedure tabEMPRESABeforePost(DataSet: TDataSet);

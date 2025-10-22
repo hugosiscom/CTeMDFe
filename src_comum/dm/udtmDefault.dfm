@@ -540,6 +540,24 @@ object dtmDefault: TdtmDefault
       FieldName = 'XML_SIGN_LIB__INDEX'
       Origin = 'XML_SIGN_LIB__INDEX'
     end
+    object tabCERTIFICADO_CONFIGSENHA_CERTIFICADO_CIOT: TStringField
+      FieldName = 'SENHA_CERTIFICADO_CIOT'
+      Origin = 'SENHA_CERTIFICADO_CIOT'
+      Size = 100
+    end
+    object tabCERTIFICADO_CONFIGNUMERO_SERIE_CERTIFICADO_CIOT: TStringField
+      FieldName = 'NUMERO_SERIE_CERTIFICADO_CIOT'
+      Origin = 'NUMERO_SERIE_CERTIFICADO_CIOT'
+      Size = 40
+    end
+    object tabCERTIFICADO_CONFIGVERSAO_DF_CIOT_INDEX: TSmallintField
+      FieldName = 'VERSAO_DF_CIOT_INDEX'
+      Origin = 'VERSAO_DF_CIOT_INDEX'
+    end
+    object tabCERTIFICADO_CONFIGSSL_TYPE_CIOT_INDEX: TSmallintField
+      FieldName = 'SSL_TYPE_CIOT_INDEX'
+      Origin = 'SSL_TYPE_CIOT_INDEX'
+    end
   end
   object qryTmp: TFDQuery
     Connection = cnx_BD

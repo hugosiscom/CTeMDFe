@@ -25,7 +25,7 @@ uses
   ACBrUtil.Base,
   ACBrCIOTContratos,
   ufrmCERTIFICADOconfig,
-  pcnConversao, Vcl.Samples.Spin, blcksock, System.TypInfo, IniFiles, System.Math;
+  pcnConversao, Vcl.Samples.Spin, blcksock, System.TypInfo, IniFiles, System.Math, Vcl.OleCtrls, SHDocVw;
 
 type
   TfrmMDFEcadastro = class(TfrmDefaultCadastro)
@@ -359,7 +359,8 @@ type
     LkCbxMotorista: TDBLookupComboBox;
     Label91: TLabel;
     VEICULO_MODELO: TJvDBMaskEdit;
-    ACBrCIOT1: TACBrCIOT;
+    MemoResp: TMemo;
+    memoRespWS: TMemo;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -442,8 +443,7 @@ type
     procedure cadastrarProprietarioDoVeiculo(contrato: TContrato);
     procedure cadastrarMotorista(contrato: TContrato);
     procedure adicionarOperacaoTransporte(contrato: TContrato);
-    procedure atualizarSSLLibsCombo;
-    procedure configurarComponente;
+    function gerarLogCadastros: String;
   public
     class function RegistroDefault: TRetornoCadastro;
     procedure CalculaTotal;
@@ -1157,7 +1157,6 @@ procedure TfrmMDFEcadastro.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   TFDQuery(dtsDefault.DataSet).Close;
 
-  ACBrCIOT1.Free;
   inherited;
 end;
 
@@ -1169,7 +1168,7 @@ begin
   pageRodo.TabIndex := 0;
   pagINFdoc.TabIndex := 0;
 
-  configurarComponente;
+  sToken := '';
 end;
 
 procedure TfrmMDFEcadastro.FormShow(Sender: TObject);
@@ -1422,209 +1421,138 @@ begin
 end;
 
 procedure TfrmMDFEcadastro.btnGerarCIOTClick(Sender: TObject);
-var
-  ciotFinal: String;
 begin
   inherited;
+
+  dtmMDFE.configurarCIOT;
+
+  var
   ciotFinal := GerarCIOT;
   edtCIOT.Text := ciotFinal;
 end;
 
 function TfrmMDFEcadastro.GerarCIOT: string;
-var
-  CondutoresDataSet: TDataSet;
-  LogLines: TStringList;
-  LogFilePath: string;
-  contrato: TContrato;
 begin
   Result := '';
-  LogLines := TStringList.Create;
+
   try
     ForceDirectories(ExtractFilePath(ParamStr(0)) + 'log');
-    LogFilePath := ExtractFilePath(ParamStr(0)) + 'log\LOG' + IntToStr(oEmpresa.ID) +
-      FormatDateTime('yyyymmddhhnnss', Now) + '.txt';
 
-    ACBrCIOT1.Contratos.Clear;
-    contrato := ACBrCIOT1.Contratos.Add;
+    var
+    ACBrCIOT := dtmMDFE.ACBrCIOT;
+
+    ACBrCIOT.Contratos.Clear;
+
+    var
+    contrato := ACBrCIOT.Contratos.Add;
 
     solicitarToken(contrato);
+
+    ACBrCIOT.Enviar;
+    gerarLogCadastros;
+
     cadastrarVeiculo(contrato);
     cadastrarProprietarioDoVeiculo(contrato);
 
+    var
     CondutoresDataSet := dtstabMDFE_CONDUTORES.DataSet;
     CondutoresDataSet.First;
+
     while not CondutoresDataSet.Eof do
     begin
       cadastrarMotorista(contrato);
       CondutoresDataSet.Next;
     end;
 
-    adicionarOperacaoTransporte(contrato);
+    // adicionarOperacaoTransporte(contrato);
 
-    ACBrCIOT1.Enviar;
+    ACBrCIOT.Enviar;
 
-    with ACBrCIOT1.WebServices.CIOTEnviar.RetornoEnvio.RetEnvio do
+    MemoResp.Lines.Text := UTF8Encode(ACBrCIOT.WebServices.CIOTEnviar.RetornoWS);
+    memoRespWS.Lines.Text := UTF8Encode(ACBrCIOT.WebServices.CIOTEnviar.RetWS);
+
+    gerarLogCadastros;
+
+  finally
+    //
+  end;
+end;
+
+function TfrmMDFEcadastro.gerarLogCadastros;
+begin
+  var
+  ACBrCIOT := dtmMDFE.ACBrCIOT;
+
+  MemoResp.Lines.Text := UTF8Encode(ACBrCIOT.WebServices.CIOTEnviar.RetornoWS);
+  memoRespWS.Lines.Text := UTF8Encode(ACBrCIOT.WebServices.CIOTEnviar.RetWS);
+
+  var
+  LogLines := TStringList.Create;
+
+  var
+  LogFilePath := ExtractFilePath(ParamStr(0)) + 'log\LOG' + IntToStr(oEmpresa.ID) + FormatDateTime('yyyymmddhhnnss', Now)
+    + '.txt';
+
+  with ACBrCIOT.WebServices.CIOTEnviar.RetornoEnvio.RetEnvio do
+  begin
+    LogLines.Add('Retorno do Envio');
+    LogLines.Add('Versão...........: ' + IntToStr(Versao));
+    LogLines.Add('Sucesso..........: ' + Sucesso);
+    LogLines.Add('Protocolo Serviço: ' + ProtocoloServico);
+    LogLines.Add('');
+
+    if Mensagem <> '' then
     begin
-      LogLines.Add('Retorno do Envio');
-      LogLines.Add('Versão...........: ' + IntToStr(Versao));
-      LogLines.Add('Sucesso..........: ' + Sucesso);
-      LogLines.Add('Protocolo Serviço: ' + ProtocoloServico);
-      LogLines.Add('');
+      LogLines.Add('Retorno do Envio (Exceção)');
+      LogLines.Add('Mensagem: ' + Mensagem);
+      LogLines.Add('Código..: ' + Codigo);
+    end
+    else
+    begin
+      Result := CodigoIdentificacaoOperacao;
+      LogLines.Add('Token........................: ' + Token);
+      LogLines.Add('Código Identificação Operação: ' + CodigoIdentificacaoOperacao);
+      LogLines.Add('Data.........................: ' + DateTimeToStr(Data));
+      LogLines.Add('Protocolo....................: ' + Protocolo);
+      LogLines.Add('Data Retificação.............: ' + DateTimeToStr(DataRetificacao));
+      LogLines.Add('Quantidade Viagens...........: ' + IntToStr(QuantidadeViagens));
+      LogLines.Add('Quantidade Pagamentos........: ' + IntToStr(QuantidadePagamentos));
+      LogLines.Add('Id Pagamento Cliente.........: ' + IdPagamentoCliente);
+      LogLines.Add('Valor Liquido................: ' + FloatToStr(ValorLiquido));
+      LogLines.Add('Valor Quebra.................: ' + FloatToStr(ValorQuebra));
+      LogLines.Add('Valor Diferenca De Frete.....: ' + FloatToStr(ValorDiferencaDeFrete));
 
-      if Mensagem <> '' then
+      sToken := Token;
+
+      if DocumentoViagem.Count > 0 then
       begin
-        LogLines.Add('Retorno do Envio (Exceção)');
-        LogLines.Add('Mensagem: ' + Mensagem);
-        LogLines.Add('Código..: ' + Codigo);
-      end
-      else
+        LogLines.Add('Documento Viagem');
+
+        for var i := 0 to DocumentoViagem.Count - 1 do
+          LogLines.Add('Mensagem: ' + DocumentoViagem[i].Mensagem);
+      end;
+
+      if DocumentoPagamento.Count > 0 then
       begin
-        Result := CodigoIdentificacaoOperacao;
-        LogLines.Add('Token........................: ' + Token);
-        LogLines.Add('Código Identificação Operação: ' + CodigoIdentificacaoOperacao);
-        LogLines.Add('Data.........................: ' + DateTimeToStr(Data));
-        LogLines.Add('Protocolo....................: ' + Protocolo);
-        LogLines.Add('Data Retificação.............: ' + DateTimeToStr(DataRetificacao));
-        LogLines.Add('Quantidade Viagens...........: ' + IntToStr(QuantidadeViagens));
-        LogLines.Add('Quantidade Pagamentos........: ' + IntToStr(QuantidadePagamentos));
-        LogLines.Add('Id Pagamento Cliente.........: ' + IdPagamentoCliente);
-        LogLines.Add('Valor Liquido................: ' + FloatToStr(ValorLiquido));
-        LogLines.Add('Valor Quebra.................: ' + FloatToStr(ValorQuebra));
-        LogLines.Add('Valor Diferenca De Frete.....: ' + FloatToStr(ValorDiferencaDeFrete));
+        LogLines.Add('Documento Pagamento');
 
-        sToken := Token;
+        for var i := 0 to DocumentoPagamento.Count - 1 do
+          LogLines.Add('Mensagem: ' + DocumentoPagamento[i].Mensagem);
+      end;
 
-        if DocumentoViagem.Count > 0 then
-        begin
-          LogLines.Add('Documento Viagem');
+      if TipoCarga.Count > 0 then
+      begin
+        LogLines.Add('  ');
+        LogLines.Add('  ');
+        LogLines.Add('********* Tipos Cargas ***********');
+        LogLines.Add('  ');
 
-          for var i := 0 to DocumentoViagem.Count - 1 do
-            LogLines.Add('Mensagem: ' + DocumentoViagem[i].Mensagem);
-        end;
-
-        if DocumentoPagamento.Count > 0 then
-        begin
-          LogLines.Add('Documento Pagamento');
-
-          for var i := 0 to DocumentoPagamento.Count - 1 do
-            LogLines.Add('Mensagem: ' + DocumentoPagamento[i].Mensagem);
-        end;
-
-        if TipoCarga.Count > 0 then
-        begin
-          LogLines.Add('  ');
-          LogLines.Add('  ');
-          LogLines.Add('********* Tipos Cargas ***********');
-          LogLines.Add('  ');
-
-          for var i := 0 to TipoCarga.Count - 1 do
-            LogLines.Add(IntToStr(TipoCarga[i].Codigo) + ' - ' + TipoCargaToStr(TipoCarga[i].Descricao));
-        end;
+        for var i := 0 to TipoCarga.Count - 1 do
+          LogLines.Add(IntToStr(TipoCarga[i].Codigo) + ' - ' + TipoCargaToStr(TipoCarga[i].Descricao));
       end;
     end;
-    LogLines.SaveToFile(LogFilePath);
-  finally
-    LogLines.Free;
   end;
-end;
-
-procedure TfrmMDFEcadastro.configurarComponente;
-var
-  Ok: Boolean;
-  PathMensal: string;
-begin
-  if dtmDefault.tabCERTIFICADO_CONFIG.Active then
-    dtmDefault.tabCERTIFICADO_CONFIG.Close;
-
-  dtmDefault.tabCERTIFICADO_CONFIG.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
-  dtmDefault.tabCERTIFICADO_CONFIG.ParamByName('ID_MODELO').AsInteger := 58;
-
-  dtmDefault.tabCERTIFICADO_CONFIG.Open;
-
-  ACBrCIOT1.Configuracoes.Certificados.ArquivoPFX := dtmDefault.tabCERTIFICADO_CONFIGCAMINHO_CERTIFICADO.AsString;
-  ACBrCIOT1.Configuracoes.Certificados.Senha := dtmDefault.tabCERTIFICADO_CONFIGCERTIFICADO_SENHA.AsString;
-
-  ACBrCIOT1.SSL.DescarregarCertificado;
-
-  ACBrCIOT1.SSL.UseCertificateHTTP := (dtmDefault.tabCERTIFICADO_CONFIGCAMINHO_CERTIFICADO.AsString <> '') or
-    (dtmDefault.tabCERTIFICADO_CONFIGCERTIFICADO_SENHA.AsString <> '');
-
-  with ACBrCIOT1.Configuracoes.Geral do
-  begin
-    SSLLib := TSSLLib(dtmDefault.tabCertificado_configSSL_LIB_INDEX);
-    SSLCryptLib := TSSLCryptLib(dtmDefault.tabCertificado_configCRYPT_LIB_INDEX);
-    SSLHttpLib := TSSLHttpLib(dtmDefault.tabCertificado_configHTTP_LIB_INDEX);
-    SSLXmlSignLib := TSSLXmlSignLib(dtmDefault.tabCertificado_configXML_SIGN_LIB__INDEX);
-
-    atualizarSSLLibsCombo;
-
-    FormaEmissao := TpcnTipoEmissao(dtmDefault.tabCertificado_configFORMA_EMISSAO_INDEX);
-    VersaoDF := TVersaoCIOT(dtmDefault.tabCERTIFICADO_CONFIGVERSAO_PROCESSO_EMISSAO.AsInteger);
-
-    // iNone, ieFrete, iRepom, iPamcard
-    case dtmDefault.tabCertificado_configINTEGRADORA_INDEX.AsInteger of
-      0:
-        Integradora := TCIOTIntegradora.iNone;
-      1:
-        Integradora := TCIOTIntegradora.ieFrete;
-      2:
-        Integradora := TCIOTIntegradora.iRepom;
-      3:
-        Integradora := TCIOTIntegradora.iPamcard;
-    else
-      raise Exception.Create('Integradora não mapeada!');
-    end;
-
-    Usuario := dtmDefault.tabCertificado_configGERAL_USUARIO.AsString;
-    Senha := dtmDefault.tabCertificado_configGERAL_SENHA.AsString;
-    HashIntegrador := dtmDefault.tabCertificado_configGERAL_HASH_INTEGRADOR.AsString;
-  end;
-
-  with ACBrCIOT1.Configuracoes.WebServices do
-  begin
-    UF := frmCERTIFICADOconfig.WS_UF_DESTINO.GetItemText(dtmDefault.tabCertificado_configWS_UF_DESTINO.AsInteger);
-    Ambiente := StrToTpAmb(Ok, IntToStr(dtmDefault.tabCERTIFICADO_CONFIGID_TIPO_AMBIENTE.AsInteger));
-
-    AjustaAguardaConsultaRet := dtmDefault.tabCertificado_configAJUSTE_AUTOMATICO_AGUARDAR.AsBoolean;
-
-    var
-    aguardar := dtmDefault.tabCertificado_configAGUARDAR_SEGUNDOS.AsString;
-    if NaoEstaVazio(aguardar) then
-      AguardarConsultaRet := ifThen(StrToInt(aguardar) < 1000, StrToInt(aguardar) * 1000, StrToInt(aguardar));
-
-    if NaoEstaVazio(dtmDefault.tabCertificado_configTENTATIVAS.AsString) then
-      Tentativas := dtmDefault.tabCertificado_configTENTATIVAS.AsInteger;
-
-    if NaoEstaVazio(dtmDefault.tabCertificado_configINTERVALO_SEGUNDOS.AsString) then
-      IntervaloTentativas := ifThen(dtmDefault.tabCertificado_configINTERVALO_SEGUNDOS.AsInteger < 1000,
-        dtmDefault.tabCertificado_configINTERVALO_SEGUNDOS.AsInteger * 1000,
-        dtmDefault.tabCertificado_configINTERVALO_SEGUNDOS.AsInteger);
-
-    TimeOut := frmCERTIFICADOconfig.seTimeOut.AsInteger;
-    // ProxyHost := dtmDefault.fdqConfigHOST.AsString;
-    ProxyPort := dtmDefault.tabCERTIFICADO_CONFIGWS_PROXY_PORTA.AsString;
-    ProxyUser := dtmDefault.tabCERTIFICADO_CONFIGWS_PROXY_USUARIO.AsString;
-    ProxyPass := dtmDefault.tabCERTIFICADO_CONFIGWS_PROXY_SENHA.AsString;
-  end;
-
-  ACBrCIOT1.SSL.SSLType := TSSLType(dtmDefault.tabCERTIFICADO_CONFIGID_SSL_TYPE);
-
-  with ACBrCIOT1.Configuracoes.Arquivos do
-  begin
-    PathMensal := GetPathCIOT(0);
-    PathSalvar := PathMensal;
-  end;
-end;
-
-procedure TfrmMDFEcadastro.atualizarSSLLibsCombo;
-begin
-  dtmDefault.tabCERTIFICADO_CONFIG.Edit;
-
-  dtmDefault.tabCERTIFICADO_CONFIGID_SSL_TYPE.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLLib);
-  dtmDefault.tabCertificado_configCRYPT_LIB_INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLCryptLib);
-  dtmDefault.tabCertificado_configHTTP_LIB_INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLHttpLib);
-  dtmDefault.tabCertificado_configXML_SIGN_LIB__INDEX.AsInteger := Integer(ACBrCIOT1.Configuracoes.Geral.SSLXmlSignLib);
-  frmCERTIFICADOconfig.ID_SSL_TYPE.Enabled := (ACBrCIOT1.Configuracoes.Geral.SSLHttpLib in [httpWinHttp, httpOpenSSL]);
+  LogLines.SaveToFile(LogFilePath);
 end;
 
 procedure TfrmMDFEcadastro.cadastrarVeiculo(contrato: TContrato);
@@ -1748,7 +1676,7 @@ begin
       end;
     end;
   finally
-    dtmMDFE.qryMotoristaEspecifico.Free;
+    //
   end;
 end;
 
@@ -1784,12 +1712,6 @@ begin
           Telefones.Celular.DDD := (EMI_N_PROP_CELULAR.toString[1] + EMI_N_PROP_CELULAR.toString[2]).ToInteger;
           Telefones.Celular.Numero := StrToIntDef(EMI_N_PROP_CELULAR.Text, 0);
         end;
-
-        // Telefones.Fixo.DDD := 49;
-        // Telefones.Fixo.Numero := 33661011;
-
-        // Telefones.Fax.DDD := 0;
-        // Telefones.Fax.Numero := 0;
 
       end
       else
@@ -1868,8 +1790,8 @@ begin
         with Viagens.New do
         begin
           DocumentoViagem := 'CTe';
-          CodigoMunicipioOrigem := 4212908; // Pinhalzinho SC
-          CodigoMunicipioDestino := 4217303; // Saudades SC
+          CodigoMunicipioOrigem := OnlyNumber(dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOID_MUNICIPIO.AsString).ToInteger;
+          CodigoMunicipioDestino := OnlyNumber(dtmMDFE.tabMDFE_LOCAL_DESCARREGAMENTOID_CIDADES_IBGE.AsString).ToInteger;
           CepOrigem := '';
           CepDestino := '';
           DistanciaPercorrida := 100;
@@ -1964,17 +1886,17 @@ begin
       // Para o TipoViagem Frota o Contratado será a própria empresa que está declarando a operação.
       with Contratado do
       begin
-        CpfOuCnpj := '27654630182';
-        RNTRC := '00168810';
+        CpfOuCnpj := Contratado.CpfOuCnpj;
+        RNTRC := Contratado.RNTRC;
       end;
 
       with Motorista do
       begin
-        CpfOuCnpj := '27654630182';
-        CNH := '2020917156';
+        CpfOuCnpj := Motorista.CpfOuCnpj;
+        CNH := Motorista.CNH;
 
-        Celular.DDD := 49;
-        Celular.Numero := 123456789;
+        Celular.DDD := Motorista.Celular.DDD;
+        Celular.Numero := Motorista.Celular.Numero;
       end;
 
       // Destinatário da carga.
@@ -2008,7 +1930,7 @@ begin
 
       with Contratante do
       begin
-        NomeOuRazaoSocial := 'teste';
+        NomeOuRazaoSocial := Contratante.NomeOuRazaoSocial;
         CpfOuCnpj := '12345678910';
 
         EMail := 'teste@teste.com.br';

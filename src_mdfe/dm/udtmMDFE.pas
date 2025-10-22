@@ -9,7 +9,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, ACBrBase, ACBrMail, ACBrMDFeDAMDFeClass,
   ACBrMDFeDAMDFeRLClass, ACBrDFe, ACBrMDFe, pcnConversao, FireDAC.Moni.Base,
   FireDAC.Moni.RemoteClient, ACBrDFeReport, ufrmDefaultCadastro, blcksock,
-  ACBrCIOT;
+  ACBrCIOT, ACBrCIOTConversao, ACBrUtil.Base, System.Math;
 
 type
   TdtmMDFE = class(TDataModule)
@@ -804,11 +804,14 @@ type
       ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
     procedure QryMotoristaBeforeOpen(DataSet: TDataSet);
     procedure QryVeiculoBeforeOpen(DataSet: TDataSet);
+
+    procedure atualizarSSLLibsCombo;
   private
   public
 
     FTOperacao: TOperacao;
     procedure Configurar;
+    procedure configurarCIOT;
     function SalvarEvento(vID, vID_SERIE, vNumeroLote: Integer; vDataHoraEvento: TDateTime;
       vJustificativa, vTipo: String): Boolean;
     function GerarMDFE(vID: Integer; vID_SERIE: Integer): String;
@@ -1340,11 +1343,11 @@ begin
 
           case qryMDFEVEICULO_TIPO_RODADO.AsInteger of
             0:
-              rodo.veicTracao.tpRod := trNaoAplicavel;
+              rodo.veicTracao.tpRod := TpcteTipoRodado.trNaoAplicavel;
             1:
-              rodo.veicTracao.tpRod := trTruck;
+              rodo.veicTracao.tpRod := TpcteTipoRodado.trTruck;
             2:
-              rodo.veicTracao.tpRod := trToco;
+              rodo.veicTracao.tpRod := TpcteTipoRodado.trToco;
             3:
               rodo.veicTracao.tpRod := trCavaloMecanico;
             4:
@@ -1357,17 +1360,17 @@ begin
 
           case qryMDFEVEICULO_TIPO_CARROCERIA.AsInteger of
             0:
-              rodo.veicTracao.tpCar := tcNaoAplicavel;
+              rodo.veicTracao.tpCar := TpcteTipoCarroceria.tcNaoAplicavel;
             1:
-              rodo.veicTracao.tpCar := tcAberta;
+              rodo.veicTracao.tpCar := TpcteTipoCarroceria.tcAberta;
             2:
               rodo.veicTracao.tpCar := tcFechada;
             3:
               rodo.veicTracao.tpCar := tcGraneleira;
             4:
-              rodo.veicTracao.tpCar := tcPortaContainer;
+              rodo.veicTracao.tpCar := TpcteTipoCarroceria.tcPortaContainer;
             5:
-              rodo.veicTracao.tpCar := tcSider;
+              rodo.veicTracao.tpCar := TpcteTipoCarroceria.tcSider;
           end;
 
           rodo.veicTracao.UF := qryMDFEVEICULO_UF.AsString.Trim;
@@ -1398,17 +1401,17 @@ begin
 
               case qryMDFE_REBOQUEID_TIPO_RODADO.AsInteger of
                 0:
-                  tpCar := tcNaoAplicavel;
+                  tpCar := TpcteTipoCarroceria.tcNaoAplicavel;
                 1:
-                  tpCar := tcAberta;
+                  tpCar := TpcteTipoCarroceria.tcAberta;
                 2:
                   tpCar := tcFechada;
                 3:
                   tpCar := tcGraneleira;
                 4:
-                  tpCar := tcPortaContainer;
+                  tpCar := TpcteTipoCarroceria.tcPortaContainer;
                 5:
-                  tpCar := tcSider;
+                  tpCar := TpcteTipoCarroceria.tcSider;
               end;
 
               UF := qryMDFE_REBOQUEUF.AsString.Trim;
@@ -2264,6 +2267,108 @@ procedure TdtmMDFE.tabMDFE_VALEPEDAGIOUpdateError(ASender: TDataSet; AException:
   ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
 begin
   dtmDefault.TratarErro(AException);
+end;
+
+procedure TdtmMDFE.configurarCIOT;
+var
+  Ok: Boolean;
+begin
+  if dtmDefault.tabCERTIFICADO_CONFIG.Active then
+    dtmDefault.tabCERTIFICADO_CONFIG.Close;
+
+  dtmDefault.tabCERTIFICADO_CONFIG.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
+  dtmDefault.tabCERTIFICADO_CONFIG.ParamByName('ID_MODELO').AsInteger := 58;
+
+  dtmDefault.tabCERTIFICADO_CONFIG.Open;
+
+  // ACBrCIOT.Configuracoes.Certificados.ArquivoPFX := dtmDefault.tabCERTIFICADO_CONFIGCAMINHO_CERTIFICADO.AsString;
+  ACBrCIOT.Configuracoes.Certificados.NumeroSerie := dtmDefault.tabCERTIFICADO_CONFIGNUMERO_SERIE_CERTIFICADO_CIOT.AsString;
+  ACBrCIOT.Configuracoes.Certificados.Senha := dtmDefault.tabCERTIFICADO_CONFIGSENHA_CERTIFICADO_CIOT.AsString;
+  ACBrCIOT.SSL.DescarregarCertificado;
+
+  ACBrCIOT.SSL.UseCertificateHTTP := (dtmDefault.tabCERTIFICADO_CONFIGNUMERO_SERIE_CERTIFICADO_CIOT.AsString <> '');
+
+  with ACBrCIOT.Configuracoes.Geral do
+  begin
+    SSLLib := TSSLLib(dtmDefault.tabCertificado_configSSL_LIB_INDEX.AsInteger);
+    SSLCryptLib := TSSLCryptLib(dtmDefault.tabCertificado_configCRYPT_LIB_INDEX.AsInteger);
+    SSLHttpLib := TSSLHttpLib(dtmDefault.tabCertificado_configHTTP_LIB_INDEX.AsInteger);
+    SSLXmlSignLib := TSSLXmlSignLib(dtmDefault.tabCertificado_configXML_SIGN_LIB__INDEX.AsInteger);
+    ACBrCIOT.SSL.SSLType := TSSLType(dtmDefault.tabCERTIFICADO_CONFIGID_SSL_TYPE.AsInteger);
+
+    FormaEmissao := TpcnTipoEmissao(dtmDefault.tabCertificado_configFORMA_EMISSAO_INDEX.AsInteger);
+    VersaoDF := TVersaoCIOT(dtmDefault.tabCERTIFICADO_CONFIGVERSAO_DF_CIOT_INDEX.AsInteger);
+
+    // iNone, ieFrete, iRepom, iPamcard
+    case dtmDefault.tabCertificado_configINTEGRADORA_INDEX.AsInteger of
+      0:
+        Integradora := TCIOTIntegradora.iNone;
+      1:
+        Integradora := TCIOTIntegradora.ieFrete;
+      2:
+        Integradora := TCIOTIntegradora.iRepom;
+      3:
+        Integradora := TCIOTIntegradora.iPamcard;
+    else
+      raise Exception.Create('Integradora não mapeada!');
+    end;
+
+    Usuario := dtmDefault.tabCertificado_configGERAL_USUARIO.AsString;
+    Senha := dtmDefault.tabCertificado_configGERAL_SENHA.AsString;
+    HashIntegrador := dtmDefault.tabCertificado_configGERAL_HASH_INTEGRADOR.AsString;
+  end;
+
+  with ACBrCIOT.Configuracoes.WebServices do
+  begin
+    UF := dtmDefault.tabCERTIFICADO_CONFIGWS_UF_DESTINO.AsString;
+    Ambiente := StrToTpAmb(Ok, IntToStr(dtmDefault.tabCERTIFICADO_CONFIGID_TIPO_AMBIENTE.AsInteger + 1));
+    AjustaAguardaConsultaRet := dtmDefault.tabCertificado_configAJUSTE_AUTOMATICO_AGUARDAR.AsBoolean;
+
+    var
+    aguardar := dtmDefault.tabCertificado_configAGUARDAR_SEGUNDOS.AsString;
+    if NaoEstaVazio(aguardar) then
+      AguardarConsultaRet := ifThen(StrToInt(aguardar) < 1000, StrToInt(aguardar) * 1000, StrToInt(aguardar));
+
+    if NaoEstaVazio(dtmDefault.tabCertificado_configTENTATIVAS.AsString) then
+      Tentativas := dtmDefault.tabCertificado_configTENTATIVAS.AsInteger;
+
+    if NaoEstaVazio(dtmDefault.tabCertificado_configINTERVALO_SEGUNDOS.AsString) then
+      IntervaloTentativas := ifThen(dtmDefault.tabCertificado_configINTERVALO_SEGUNDOS.AsInteger < 1000,
+        dtmDefault.tabCertificado_configINTERVALO_SEGUNDOS.AsInteger * 1000,
+        dtmDefault.tabCertificado_configINTERVALO_SEGUNDOS.AsInteger);
+
+    TimeOut := dtmDefault.tabCERTIFICADO_CONFIGWS_TIMEOUT.AsInteger;
+    ProxyHost := dtmDefault.tabCERTIFICADO_CONFIGWS_PROXY_HOST.AsString;
+    ProxyPort := dtmDefault.tabCERTIFICADO_CONFIGWS_PROXY_PORTA.AsString;
+    ProxyUser := dtmDefault.tabCERTIFICADO_CONFIGWS_PROXY_USUARIO.AsString;
+    ProxyPass := dtmDefault.tabCERTIFICADO_CONFIGWS_PROXY_SENHA.AsString;
+  end;
+
+  with ACBrCIOT.Configuracoes.Arquivos do
+  begin
+
+    Salvar := dtmDefault.tabCERTIFICADO_CONFIGMANTER_ARQUIVOS_TEMPORARIOS.AsBoolean;
+    var
+    PathApp := ExtractFilePath(ParamStr(0));
+    PathSchemas := IncludeTrailingPathDelimiter(PathApp + 'SCHEMAS\MDFE');
+    PathCIOT := PathApp;
+
+    SepararPorMes := True;
+    AdicionarLiteral := True;
+    EmissaoPathCIOT := True;
+    SepararPorCNPJ := True;
+    SepararPorModelo := True;
+  end;
+end;
+
+procedure TdtmMDFE.atualizarSSLLibsCombo;
+begin
+  dtmDefault.tabCERTIFICADO_CONFIG.Edit;
+
+  dtmDefault.tabCERTIFICADO_CONFIGID_SSL_TYPE.AsInteger := Integer(ACBrCIOT.Configuracoes.Geral.SSLLib);
+  dtmDefault.tabCertificado_configCRYPT_LIB_INDEX.AsInteger := Integer(ACBrCIOT.Configuracoes.Geral.SSLCryptLib);
+  dtmDefault.tabCertificado_configHTTP_LIB_INDEX.AsInteger := Integer(ACBrCIOT.Configuracoes.Geral.SSLHttpLib);
+  dtmDefault.tabCertificado_configXML_SIGN_LIB__INDEX.AsInteger := Integer(ACBrCIOT.Configuracoes.Geral.SSLXmlSignLib);
 end;
 
 end.
