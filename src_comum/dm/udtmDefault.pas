@@ -320,6 +320,8 @@ type
     tabCERTIFICADO_CONFIGNUMERO_SERIE_CERTIFICADO_CIOT: TStringField;
     tabCERTIFICADO_CONFIGVERSAO_DF_CIOT_INDEX: TSmallintField;
     tabCERTIFICADO_CONFIGSSL_TYPE_CIOT_INDEX: TSmallintField;
+    tabCERTIFICADO_CONFIGRETIRAR_ACENTO: TBooleanField;
+    tabCERTIFICADO_CONFIGFORMATO_ALERTA: TStringField;
     procedure cnx_BDBeforeConnect(Sender: TObject);
     procedure tabEMPRESAAfterOpen(DataSet: TDataSet);
     procedure tabEMPRESABeforePost(DataSet: TDataSet);

@@ -33,7 +33,7 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
         Top = 0
         Width = 655
         Height = 415
-        ActivePage = TabSheet3
+        ActivePage = TabSheet1
         Align = alClient
         MultiLine = True
         TabOrder = 0
@@ -139,15 +139,6 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               Height = 13
               Alignment = taRightJustify
               Caption = 'SSLType'
-              Color = clBtnFace
-              ParentColor = False
-            end
-            object Label66: TLabel
-              Left = 427
-              Top = 127
-              Width = 40
-              Height = 13
-              Caption = 'TimeOut'
               Color = clBtnFace
               ParentColor = False
             end
@@ -370,8 +361,8 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               ParentBiDiMode = False
               TabOrder = 3
               Values.Strings = (
-                '0'
-                '1')
+                '1'
+                '2')
             end
             object DBRadioGroup1: TDBRadioGroup
               Left = 427
@@ -417,15 +408,6 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               TabOrder = 7
               ValueChecked = 'S'
               ValueUnchecked = 'N'
-            end
-            object seTimeOut2: TJvDBSpinEdit
-              Left = 473
-              Top = 124
-              Width = 71
-              Height = 21
-              TabOrder = 8
-              DataField = 'WS_TIMEOUT'
-              DataSource = dtsDefault
             end
           end
           object GroupBox3: TGroupBox
@@ -1182,6 +1164,58 @@ inherited frmCERTIFICADOconfig: TfrmCERTIFICADOconfig
               ListSettings.OutfilteredValueFont.Height = -12
               ListSettings.OutfilteredValueFont.Name = 'Segoe UI'
               ListSettings.OutfilteredValueFont.Style = []
+            end
+          end
+          object GroupBox12: TGroupBox
+            Left = 455
+            Top = 132
+            Width = 93
+            Height = 55
+            Caption = 'TimeOut'
+            TabOrder = 6
+            object seTimeOut2: TJvDBSpinEdit
+              Left = 10
+              Top = 22
+              Width = 71
+              Height = 21
+              TabOrder = 0
+              DataField = 'WS_TIMEOUT'
+              DataSource = dtsDefault
+            end
+          end
+          object GroupBox13: TGroupBox
+            Left = 404
+            Top = 218
+            Width = 240
+            Height = 166
+            Caption = 'Detalhes'
+            TabOrder = 7
+            object Label17: TLabel
+              Left = 16
+              Top = 47
+              Width = 87
+              Height = 13
+              Caption = 'Formato de Alerta'
+            end
+            object edtFormatoAlerta: TJvDBMaskEdit
+              Left = 16
+              Top = 66
+              Width = 209
+              Height = 21
+              DataField = 'FORMATO_ALERTA'
+              DataSource = dtsDefault
+              TabOrder = 0
+              EditMask = ''
+            end
+            object cbxRetirarAcento: TJvDBCheckBox
+              Left = 16
+              Top = 24
+              Width = 97
+              Height = 17
+              Caption = 'Retirar Acentos'
+              DataField = 'RETIRAR_ACENTO'
+              DataSource = dtsDefault
+              TabOrder = 1
             end
           end
         end

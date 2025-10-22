@@ -12,6 +12,7 @@ object dtmDefault: TdtmDefault
       'CharacterSet=WIN1252'
       'DriverID=FB')
     TxOptions.AutoStop = False
+    Connected = True
     LoginPrompt = False
     BeforeConnect = cnx_BDBeforeConnect
     Left = 24
@@ -557,6 +558,15 @@ object dtmDefault: TdtmDefault
     object tabCERTIFICADO_CONFIGSSL_TYPE_CIOT_INDEX: TSmallintField
       FieldName = 'SSL_TYPE_CIOT_INDEX'
       Origin = 'SSL_TYPE_CIOT_INDEX'
+    end
+    object tabCERTIFICADO_CONFIGRETIRAR_ACENTO: TBooleanField
+      FieldName = 'RETIRAR_ACENTO'
+      Origin = 'RETIRAR_ACENTO'
+    end
+    object tabCERTIFICADO_CONFIGFORMATO_ALERTA: TStringField
+      FieldName = 'FORMATO_ALERTA'
+      Origin = 'FORMATO_ALERTA'
+      Size = 100
     end
   end
   object qryTmp: TFDQuery

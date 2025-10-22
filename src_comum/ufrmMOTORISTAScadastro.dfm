@@ -108,7 +108,6 @@
           Height = 21
           DataField = 'NOME'
           DataSource = dtsDefault
-          MaxLength = 50
           TabOrder = 1
           EditMask = ''
         end
@@ -186,13 +185,13 @@
           object NUM_REGISTRO: TJvDBMaskEdit
             Left = 15
             Top = 83
-            Width = 351
+            Width = 349
             Height = 21
             DataField = 'NUMERO_REGISTRO'
             DataSource = dtsDefault
-            MaxLength = 9
+            MaxLength = 10
             TabOrder = 1
-            EditMask = '000000000'
+            EditMask = '0000000000'
           end
           object COD_SEGURANCA: TJvDBMaskEdit
             Left = 15
@@ -235,7 +234,6 @@
           Height = 21
           DataField = 'NOME_SOLTEIRA_MAE'
           DataSource = dtsDefault
-          MaxLength = 50
           TabOrder = 5
           EditMask = ''
         end
@@ -322,7 +320,6 @@
           Height = 21
           DataField = 'BAIRRO'
           DataSource = dtsDefault
-          MaxLength = 60
           TabOrder = 3
           EditMask = ''
         end
@@ -333,7 +330,6 @@
           Height = 21
           DataField = 'RUA'
           DataSource = dtsDefault
-          MaxLength = 60
           TabOrder = 1
           EditMask = ''
         end
@@ -344,7 +340,6 @@
           Height = 21
           DataField = 'COMPLEMENTO'
           DataSource = dtsDefault
-          MaxLength = 60
           TabOrder = 2
           EditMask = ''
         end

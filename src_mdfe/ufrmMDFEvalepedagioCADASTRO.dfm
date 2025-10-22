@@ -4,7 +4,6 @@ inherited frmMDFEvalepedagioCADASTRO: TfrmMDFEvalepedagioCADASTRO
   ClientWidth = 553
   ExplicitWidth = 569
   ExplicitHeight = 368
-  PixelsPerInch = 96
   TextHeight = 13
   inherited pnlComandos: TPanel
     Top = 274
@@ -135,9 +134,9 @@ inherited frmMDFEvalepedagioCADASTRO: TfrmMDFEvalepedagioCADASTRO
           OnChange = TEditMascaraCNPJ
         end
         object VALOR: TJvDBCalcEdit
-          Left = 303
+          Left = 263
           Top = 78
-          Width = 208
+          Width = 248
           Height = 21
           ShowButton = False
           TabOrder = 1

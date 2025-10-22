@@ -2273,8 +2273,7 @@ procedure TdtmMDFE.configurarCIOT;
 var
   Ok: Boolean;
 begin
-  if dtmDefault.tabCERTIFICADO_CONFIG.Active then
-    dtmDefault.tabCERTIFICADO_CONFIG.Close;
+  dtmDefault.tabCERTIFICADO_CONFIG.Close;
 
   dtmDefault.tabCERTIFICADO_CONFIG.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
   dtmDefault.tabCERTIFICADO_CONFIG.ParamByName('ID_MODELO').AsInteger := 58;
@@ -2284,8 +2283,11 @@ begin
   // ACBrCIOT.Configuracoes.Certificados.ArquivoPFX := dtmDefault.tabCERTIFICADO_CONFIGCAMINHO_CERTIFICADO.AsString;
   ACBrCIOT.Configuracoes.Certificados.NumeroSerie := dtmDefault.tabCERTIFICADO_CONFIGNUMERO_SERIE_CERTIFICADO_CIOT.AsString;
   ACBrCIOT.Configuracoes.Certificados.Senha := dtmDefault.tabCERTIFICADO_CONFIGSENHA_CERTIFICADO_CIOT.AsString;
+
   ACBrCIOT.SSL.DescarregarCertificado;
 
+  // Não for informado nenhuma informação a respeito do certificado
+  // o componente será configurado para não carregar o certificado.
   ACBrCIOT.SSL.UseCertificateHTTP := (dtmDefault.tabCERTIFICADO_CONFIGNUMERO_SERIE_CERTIFICADO_CIOT.AsString <> '');
 
   with ACBrCIOT.Configuracoes.Geral do
@@ -2295,6 +2297,10 @@ begin
     SSLHttpLib := TSSLHttpLib(dtmDefault.tabCertificado_configHTTP_LIB_INDEX.AsInteger);
     SSLXmlSignLib := TSSLXmlSignLib(dtmDefault.tabCertificado_configXML_SIGN_LIB__INDEX.AsInteger);
     ACBrCIOT.SSL.SSLType := TSSLType(dtmDefault.tabCERTIFICADO_CONFIGID_SSL_TYPE.AsInteger);
+
+    Salvar := dtmDefault.tabCERTIFICADO_CONFIGMANTER_ARQUIVOS_TEMPORARIOS.AsBoolean;
+    RetirarAcentos := dtmDefault.tabCERTIFICADO_CONFIGRETIRAR_ACENTO.AsBoolean;
+    FormatoAlerta := dtmDefault.tabCERTIFICADO_CONFIGFORMATO_ALERTA.AsString;
 
     FormaEmissao := TpcnTipoEmissao(dtmDefault.tabCertificado_configFORMA_EMISSAO_INDEX.AsInteger);
     VersaoDF := TVersaoCIOT(dtmDefault.tabCERTIFICADO_CONFIGVERSAO_DF_CIOT_INDEX.AsInteger);
@@ -2313,15 +2319,18 @@ begin
       raise Exception.Create('Integradora não mapeada!');
     end;
 
-    Usuario := dtmDefault.tabCertificado_configGERAL_USUARIO.AsString;
-    Senha := dtmDefault.tabCertificado_configGERAL_SENHA.AsString;
-    HashIntegrador := dtmDefault.tabCertificado_configGERAL_HASH_INTEGRADOR.AsString;
+    Usuario := Trim(dtmDefault.tabCertificado_configGERAL_USUARIO.AsString);
+    Senha := Trim(dtmDefault.tabCertificado_configGERAL_SENHA.AsString);
+    HashIntegrador := Trim(dtmDefault.tabCertificado_configGERAL_HASH_INTEGRADOR.AsString);
   end;
 
   with ACBrCIOT.Configuracoes.WebServices do
   begin
     UF := dtmDefault.tabCERTIFICADO_CONFIGWS_UF_DESTINO.AsString;
     Ambiente := StrToTpAmb(Ok, IntToStr(dtmDefault.tabCERTIFICADO_CONFIGID_TIPO_AMBIENTE.AsInteger + 1));
+    Visualizar := True;
+    Salvar := True;
+
     AjustaAguardaConsultaRet := dtmDefault.tabCertificado_configAJUSTE_AUTOMATICO_AGUARDAR.AsBoolean;
 
     var

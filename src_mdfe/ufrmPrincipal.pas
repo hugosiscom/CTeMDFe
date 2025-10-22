@@ -161,7 +161,7 @@ end;
 
 procedure TfrmPrincipal.actFinalizarEmitenteExecute(Sender: TObject);
 begin
-  if Application.MessageBox(PChar('Confirma saida da empresa atual ?' + sLineBreak + sLineBreak + 'Empresa: ' + oEmpresa.RAZAO_SOCIAL),'Confirmação',MB_YESNO + MB_ICONQUESTION) = mrNo then
+  if Application.MessageBox(PChar('Confirmar saída da empresa atual?' + sLineBreak + sLineBreak + 'Empresa: ' + oEmpresa.RAZAO_SOCIAL),'Confirmação',MB_YESNO + MB_ICONQUESTION) = mrNo then
     Exit;
 
   if Assigned(frmDefaultConsulta) then

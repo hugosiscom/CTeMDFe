@@ -438,11 +438,11 @@ type
     sToken: String;
     function GerarCIOT: string;
     procedure InserirRegistroDefault;
-    procedure solicitarToken(contrato: TContrato);
-    procedure cadastrarVeiculo(contrato: TContrato);
-    procedure cadastrarProprietarioDoVeiculo(contrato: TContrato);
-    procedure cadastrarMotorista(contrato: TContrato);
-    procedure adicionarOperacaoTransporte(contrato: TContrato);
+    procedure solicitarToken(contrato: TCIOT);
+    procedure cadastrarVeiculo(contrato: TCIOT);
+    procedure cadastrarProprietarioDoVeiculo(contrato: TCIOT);
+    procedure cadastrarMotorista(contrato: TCIOT);
+    procedure adicionarOperacaoTransporte(contrato: TCIOT);
     function gerarLogCadastros: String;
   public
     class function RegistroDefault: TRetornoCadastro;
@@ -1438,17 +1438,15 @@ begin
   try
     ForceDirectories(ExtractFilePath(ParamStr(0)) + 'log');
 
-    var
-    ACBrCIOT := dtmMDFE.ACBrCIOT;
-
-    ACBrCIOT.Contratos.Clear;
+    dtmMDFE.ACBrCIOT.Contratos.Clear;
 
     var
-    contrato := ACBrCIOT.Contratos.Add;
+    contrato := dtmMDFE.ACBrCIOT.Contratos.Add.CIOT;
 
     solicitarToken(contrato);
 
-    ACBrCIOT.Enviar;
+    dtmMDFE.ACBrCIOT.Enviar;
+
     gerarLogCadastros;
 
     cadastrarVeiculo(contrato);
@@ -1466,11 +1464,7 @@ begin
 
     // adicionarOperacaoTransporte(contrato);
 
-    ACBrCIOT.Enviar;
-
-    MemoResp.Lines.Text := UTF8Encode(ACBrCIOT.WebServices.CIOTEnviar.RetornoWS);
-    memoRespWS.Lines.Text := UTF8Encode(ACBrCIOT.WebServices.CIOTEnviar.RetWS);
-
+    dtmMDFE.ACBrCIOT.Enviar;
     gerarLogCadastros;
 
   finally
@@ -1480,11 +1474,9 @@ end;
 
 function TfrmMDFEcadastro.gerarLogCadastros;
 begin
-  var
-  ACBrCIOT := dtmMDFE.ACBrCIOT;
 
-  MemoResp.Lines.Text := UTF8Encode(ACBrCIOT.WebServices.CIOTEnviar.RetornoWS);
-  memoRespWS.Lines.Text := UTF8Encode(ACBrCIOT.WebServices.CIOTEnviar.RetWS);
+  MemoResp.Lines.Text := UTF8Encode(dtmMDFE.ACBrCIOT.WebServices.CIOTEnviar.RetornoWS);
+  memoRespWS.Lines.Text := UTF8Encode(dtmMDFE.ACBrCIOT.WebServices.CIOTEnviar.RetWS);
 
   var
   LogLines := TStringList.Create;
@@ -1493,7 +1485,7 @@ begin
   LogFilePath := ExtractFilePath(ParamStr(0)) + 'log\LOG' + IntToStr(oEmpresa.ID) + FormatDateTime('yyyymmddhhnnss', Now)
     + '.txt';
 
-  with ACBrCIOT.WebServices.CIOTEnviar.RetornoEnvio.RetEnvio do
+  with dtmMDFE.ACBrCIOT.WebServices.CIOTEnviar.RetornoEnvio.RetEnvio do
   begin
     LogLines.Add('Retorno do Envio');
     LogLines.Add('Versão...........: ' + IntToStr(Versao));
@@ -1522,7 +1514,8 @@ begin
       LogLines.Add('Valor Quebra.................: ' + FloatToStr(ValorQuebra));
       LogLines.Add('Valor Diferenca De Frete.....: ' + FloatToStr(ValorDiferencaDeFrete));
 
-      sToken := Token;
+      if dtmMDFE.ACBrCIOT.WebServices.CIOTEnviar.CodRetorno = 200 then
+        sToken := Token;
 
       if DocumentoViagem.Count > 0 then
       begin
@@ -1555,9 +1548,9 @@ begin
   LogLines.SaveToFile(LogFilePath);
 end;
 
-procedure TfrmMDFEcadastro.cadastrarVeiculo(contrato: TContrato);
+procedure TfrmMDFEcadastro.cadastrarVeiculo(contrato: TCIOT);
 begin
-  with contrato.CIOT do
+  with contrato do
   begin
     // Cadastrar Veiculo
     Integradora.Operacao := opGravarVeiculo;
@@ -1625,13 +1618,12 @@ begin
             Exit;
           end;
         end;
-
       end;
     end;
   end;
 end;
 
-procedure TfrmMDFEcadastro.cadastrarMotorista(contrato: TContrato);
+procedure TfrmMDFEcadastro.cadastrarMotorista(contrato: TCIOT);
 begin
   var
   sCPF := dtstabMDFE_CONDUTORES.DataSet.FieldByName('ID_CPF').AsString;
@@ -1644,7 +1636,7 @@ begin
     if dtmMDFE.qryMotoristaEspecifico.IsEmpty then
       raise Exception.Create('Dados do motorista com CPF ' + sCPF + ' não encontrados.');
 
-    with contrato.CIOT do
+    with contrato do
     begin
       Integradora.Operacao := opGravarMotorista;
 
@@ -1680,9 +1672,9 @@ begin
   end;
 end;
 
-procedure TfrmMDFEcadastro.cadastrarProprietarioDoVeiculo(contrato: TContrato);
+procedure TfrmMDFEcadastro.cadastrarProprietarioDoVeiculo(contrato: TCIOT);
 begin
-  with contrato.CIOT do
+  with contrato do
   begin
     Integradora.Operacao := opGravarProprietario;
 
@@ -1744,9 +1736,9 @@ begin
   end;
 end;
 
-procedure TfrmMDFEcadastro.solicitarToken(contrato: TContrato);
+procedure TfrmMDFEcadastro.solicitarToken(contrato: TCIOT);
 begin
-  with contrato.CIOT do
+  with contrato do
   begin
     // Só é necessario se usar usuario e senha e não o certificado
     Integradora.Token := sToken;
@@ -1756,9 +1748,9 @@ begin
   end;
 end;
 
-procedure TfrmMDFEcadastro.adicionarOperacaoTransporte(contrato: TContrato);
+procedure TfrmMDFEcadastro.adicionarOperacaoTransporte(contrato: TCIOT);
 begin
-  with contrato.CIOT do
+  with contrato do
   begin
     // Adicionar uma operação de transporte
     Integradora.Operacao := opAdicionar;
@@ -1801,10 +1793,10 @@ begin
           Valores.TotalDeAdiantamento := 10;
           Valores.TotalDeQuitacao := 10;
           Valores.Combustivel := 20;
-          Valores.Pedagio := 10;
+          Valores.Pedagio := dtmMDFE.tabMDFE_VALEPEDAGIOVALOR.AsCurrency;
           Valores.OutrosCreditos := 1;
           Valores.JustificativaOutrosCreditos := 'Teste';
-          Valores.Seguro := 10;
+          Valores.Seguro := 0;
           Valores.OutrosDebitos := 1;
           Valores.JustificativaOutrosDebitos := 'Teste outros Debitos';
 
