@@ -261,8 +261,6 @@ type
     tabVEICULOSMODELO: TStringField;
     tabVEICULOSANO_FABRICACAO: TIntegerField;
     tabVEICULOSANO_MODELO: TIntegerField;
-    tabVEICULOSNUMERO_EIXOS: TSmallintField;
-    tabVEICULOSCODIGO_MUNICIPIO: TIntegerField;
     tabMOTORISTASNOME_SOLTEIRA_MAE: TStringField;
     tabCERTIFICADO_CONFIGID_EMPRESA: TIntegerField;
     tabCERTIFICADO_CONFIGID_MODELO: TIntegerField;
@@ -322,6 +320,8 @@ type
     tabCERTIFICADO_CONFIGSSL_TYPE_CIOT_INDEX: TSmallintField;
     tabCERTIFICADO_CONFIGRETIRAR_ACENTO: TBooleanField;
     tabCERTIFICADO_CONFIGFORMATO_ALERTA: TStringField;
+    tabVEICULOSNUMERO_EIXOS: TSmallintField;
+    tabVEICULOSCODIGO_MUNICIPIO: TIntegerField;
     procedure cnx_BDBeforeConnect(Sender: TObject);
     procedure tabEMPRESAAfterOpen(DataSet: TDataSet);
     procedure tabEMPRESABeforePost(DataSet: TDataSet);

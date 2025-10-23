@@ -737,6 +737,28 @@ object dtmMDFE: TdtmMDFE
       FieldName = 'VEICULO_CODIGO_MUNICIPIO'
       Origin = 'VEICULO_CODIGO_MUNICIPIO'
     end
+    object tabMDFETIPO_VIAGEM_INDEX: TSmallintField
+      FieldName = 'TIPO_VIAGEM_INDEX'
+      Origin = 'TIPO_VIAGEM_INDEX'
+    end
+    object tabMDFEDATAHORA_FIM_VIAGEM: TSQLTimeStampField
+      FieldName = 'DATAHORA_FIM_VIAGEM'
+      Origin = 'DATAHORA_FIM_VIAGEM'
+    end
+    object tabMDFETIPO_EMBALAGEM_INDEX: TSmallintField
+      FieldName = 'TIPO_EMBALAGEM_INDEX'
+      Origin = 'TIPO_EMBALAGEM_INDEX'
+    end
+    object tabMDFENCM_NATUREZA_CARGA: TStringField
+      FieldName = 'NCM_NATUREZA_CARGA'
+      Origin = 'NCM_NATUREZA_CARGA'
+      Size = 10
+    end
+    object tabMDFECNPJ_FILIAL: TStringField
+      FieldName = 'CNPJ_FILIAL'
+      Origin = 'CNPJ_FILIAL'
+      Size = 13
+    end
   end
   object updEvento: TFDQuery
     Connection = dtmDefault.cnx_BD
@@ -1458,6 +1480,11 @@ object dtmMDFE: TdtmMDFE
       KeyFields = 'ID_MUNICIPIO'
       Size = 100
       Lookup = True
+    end
+    object tabMDFE_LOCAL_CARREGAMENTOCEP: TStringField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+      Size = 8
     end
   end
   object qryCIDADES_LOCAL_CARREGAMENTO: TFDQuery
@@ -2209,6 +2236,11 @@ object dtmMDFE: TdtmMDFE
       KeyFields = 'ID_CIDADES_IBGE'
       Size = 100
       Lookup = True
+    end
+    object tabMDFE_LOCAL_DESCARREGAMENTOCEP: TStringField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+      Size = 8
     end
   end
   object tabMDFE_CTE: TFDQuery
@@ -3044,7 +3076,7 @@ object dtmMDFE: TdtmMDFE
   end
   object dtstabMDFE_SEGUROS: TDataSource
     DataSet = tabMDFE_SEGUROS
-    Left = 272
+    Left = 328
     Top = 752
   end
   object qryMDFE_SEGUROS_AVERBACAO: TFDQuery
@@ -3187,8 +3219,8 @@ object dtmMDFE: TdtmMDFE
   end
   object dtsqryMDFE_LOCAL_DESCARREGAMENTO: TDataSource
     DataSet = qryMDFE_LOCAL_DESCARREGAMENTO
-    Left = 767
-    Top = 423
+    Left = 807
+    Top = 407
   end
   object qryMDFE_CTE: TFDQuery
     CachedUpdates = True
@@ -3350,7 +3382,7 @@ object dtmMDFE: TdtmMDFE
   object dtsqryMDFE_CTE_UNIDTRANS: TDataSource
     DataSet = qryMDFE_CTE_UNIDTRANS
     Left = 775
-    Top = 549
+    Top = 557
   end
   object qryMDFE_CTE_UNIDTRANS_LACRE: TFDQuery
     CachedUpdates = True
@@ -3530,8 +3562,8 @@ object dtmMDFE: TdtmMDFE
   end
   object dtstabMDFE_CTE_CARGTRANS: TDataSource
     DataSet = tabMDFE_CTE_CARGTRANS
-    Left = 306
-    Top = 645
+    Left = 314
+    Top = 661
   end
   object tabMDFE_CTE_CARGTRANS_LACRE: TFDQuery
     BeforePost = tabMDFE_CTE_CARGTRANS_LACREBeforePost
@@ -3731,7 +3763,7 @@ object dtmMDFE: TdtmMDFE
   object dtsqryMDFE_CTE_CARGTRANS: TDataSource
     DataSet = qryMDFE_CTE_CARGTRANS
     Left = 779
-    Top = 645
+    Top = 661
   end
   object qryMDFE_CTE_CARGTRANS_LACRE: TFDQuery
     CachedUpdates = True
@@ -4223,8 +4255,8 @@ object dtmMDFE: TdtmMDFE
   end
   object dtstabMDFE_NFE_CARGTRANS: TDataSource
     DataSet = tabMDFE_NFE_CARGTRANS
-    Left = 527
-    Top = 645
+    Left = 535
+    Top = 669
   end
   object tabMDFE_NFE_CARGTRANS_LACRE: TFDQuery
     IndexFieldNames = 
@@ -4842,7 +4874,7 @@ object dtmMDFE: TdtmMDFE
   object dtsqryMDFE_NFE_CARGTRANS: TDataSource
     DataSet = qryMDFE_NFE_CARGTRANS
     Left = 1019
-    Top = 645
+    Top = 669
   end
   object qryMDFE_UF_PERCURSO: TFDQuery
     CachedUpdates = True

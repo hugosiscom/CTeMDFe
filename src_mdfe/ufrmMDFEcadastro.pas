@@ -25,7 +25,8 @@ uses
   ACBrUtil.Base,
   ACBrCIOTContratos,
   ufrmCERTIFICADOconfig,
-  pcnConversao, Vcl.Samples.Spin, blcksock, System.TypInfo, IniFiles, System.Math, Vcl.OleCtrls, SHDocVw;
+  pcnConversao, Vcl.Samples.Spin, blcksock, System.TypInfo, IniFiles, System.Math, Vcl.OleCtrls, SHDocVw, JvSpin,
+  JvDBSpinEdit;
 
 type
   TfrmMDFEcadastro = class(TfrmDefaultCadastro)
@@ -94,7 +95,6 @@ type
     Panel1: TPanel;
     btnLocalCarregamentoExcluir: TJvSpeedButton;
     btnLocalCarregamentoIncluir: TJvSpeedButton;
-    gridLocalCarregamento: TJvDBGrid;
     JvgGroupBox1: TJvgGroupBox;
     Label7: TLabel;
     Panel2: TPanel;
@@ -359,8 +359,21 @@ type
     LkCbxMotorista: TDBLookupComboBox;
     Label91: TLabel;
     VEICULO_MODELO: TJvDBMaskEdit;
-    MemoResp: TMemo;
-    memoRespWS: TMemo;
+    cbxTipoViagem: TJvDBComboBox;
+    Label64: TLabel;
+    Label65: TLabel;
+    dtpFimViagem: TJvDBDateTimePicker;
+    GroupBox1: TGroupBox;
+    cbxTipoEmbalagem: TJvDBComboBox;
+    Label66: TLabel;
+    gridLocalCarregamento: TJvDBGrid;
+    GroupBox2: TGroupBox;
+    Label68: TLabel;
+    edtNCMCarga: TJvDBMaskEdit;
+    Label69: TLabel;
+    edtCNPJFilial: TJvDBMaskEdit;
+    edtCEPDestino: TJvDBMaskEdit;
+    Label70: TLabel;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -1277,6 +1290,8 @@ begin
       dtmMDFE.tabMDFEVEICULO_COR_DESCRICAO.Value := dtmMDFE.QryVeiculoCOR_DESCRICAO.Value;
       dtmMDFE.tabMDFEVEICULO_ANO_FABRICACAO.Value := dtmMDFE.QryVeiculoANO_FABRICACAO.Value;
       dtmMDFE.tabMDFEVEICULO_ANO_MODELO.Value := dtmMDFE.QryVeiculoANO_MODELO.Value;
+      dtmMDFE.tabMDFEVEICULO_NUMERO_EIXOS.Value := dtmMDFE.QryVeiculoNUMERO_EIXOS.Value;
+      dtmMDFE.tabMDFEVEICULO_CODIGO_MUNICIPIO.Value := dtmMDFE.QryVeiculoCODIGO_MUNICIPIO.Value;
 
       if dtmMDFE.QryVeiculoTIPO_VEICULO.Value = 0 then
         dtmMDFE.tabMDFEEMI_N_PROP.Value := 'N'
@@ -1444,26 +1459,32 @@ begin
     contrato := dtmMDFE.ACBrCIOT.Contratos.Add.CIOT;
 
     solicitarToken(contrato);
-
     dtmMDFE.ACBrCIOT.Enviar;
-
     gerarLogCadastros;
 
-    cadastrarVeiculo(contrato);
-    cadastrarProprietarioDoVeiculo(contrato);
+    { cadastrarVeiculo(contrato);
 
-    var
-    CondutoresDataSet := dtstabMDFE_CONDUTORES.DataSet;
-    CondutoresDataSet.First;
+      dtmMDFE.ACBrCIOT.Enviar;
+      gerarLogCadastros;
 
-    while not CondutoresDataSet.Eof do
-    begin
+      cadastrarProprietarioDoVeiculo(contrato);
+      dtmMDFE.ACBrCIOT.Enviar;
+      gerarLogCadastros;
+
+      var
+      CondutoresDataSet := dtstabMDFE_CONDUTORES.DataSet;
+      CondutoresDataSet.First;
+
+      while not CondutoresDataSet.Eof do
+      begin
       cadastrarMotorista(contrato);
       CondutoresDataSet.Next;
-    end;
+      end;
 
-    // adicionarOperacaoTransporte(contrato);
+      dtmMDFE.ACBrCIOT.Enviar;
+      gerarLogCadastros; }
 
+    adicionarOperacaoTransporte(contrato);
     dtmMDFE.ACBrCIOT.Enviar;
     gerarLogCadastros;
 
@@ -1474,10 +1495,6 @@ end;
 
 function TfrmMDFEcadastro.gerarLogCadastros;
 begin
-
-  MemoResp.Lines.Text := UTF8Encode(dtmMDFE.ACBrCIOT.WebServices.CIOTEnviar.RetornoWS);
-  memoRespWS.Lines.Text := UTF8Encode(dtmMDFE.ACBrCIOT.WebServices.CIOTEnviar.RetWS);
-
   var
   LogLines := TStringList.Create;
 
@@ -1514,8 +1531,10 @@ begin
       LogLines.Add('Valor Quebra.................: ' + FloatToStr(ValorQuebra));
       LogLines.Add('Valor Diferenca De Frete.....: ' + FloatToStr(ValorDiferencaDeFrete));
 
-      if dtmMDFE.ACBrCIOT.WebServices.CIOTEnviar.CodRetorno = 200 then
+      if Token <> '' then
+      begin
         sToken := Token;
+      end;
 
       if DocumentoViagem.Count > 0 then
       begin
@@ -1555,6 +1574,11 @@ begin
     // Cadastrar Veiculo
     Integradora.Operacao := opGravarVeiculo;
 
+    if (Integradora.Token = '') and (sToken <> '') then
+    begin
+      Integradora.Token := sToken;
+    end;
+
     with GravarVeiculo do
     begin
       Placa := dtmMDFE.tabMDFEVEICULO_PLACA.AsString;
@@ -1562,7 +1586,7 @@ begin
       Chassi := dtmMDFE.tabMDFEVEICULO_CHASSI.AsString;
       RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
       NumeroDeEixos := dtmMDFE.tabMDFEVEICULO_NUMERO_EIXOS.AsInteger;
-      CodigoMunicipio := dtmMDFE.tabMDFEVeiculo_CODIGO_MUNICIPIO.AsInteger;
+      CodigoMunicipio := dtmMDFE.tabMDFEVEICULO_CODIGO_MUNICIPIO.AsInteger;
       Marca := dtmMDFE.tabMDFEVEICULO_MARCA.AsString;
       MODELO := dtmMDFE.tabMDFEVEICULO_MODELO.AsString;
       AnoFabricacao := dtmMDFE.tabMDFEVEICULO_ANO_FABRICACAO.AsInteger;
@@ -1589,7 +1613,7 @@ begin
           TipoRodado := TpTipoRodado.trOutros; } // Tipos Rodado não mapeados pelo ACBr
       else
         showMessage('Tipo Rodado não mapeado!');
-        TipoRodado := TpTipoRodado.trNaoAplicavel;
+        Exit;
       end;
 
       if VEICULO_TIPO_CARROCERIA.ItemIndex = -1 then
@@ -1628,8 +1652,7 @@ begin
   var
   sCPF := dtstabMDFE_CONDUTORES.DataSet.FieldByName('ID_CPF').AsString;
   try
-    if dtmMDFE.qryMotoristaEspecifico.Active then
-      dtmMDFE.qryMotoristaEspecifico.Close;
+    dtmMDFE.qryMotoristaEspecifico.Close;
     dtmMDFE.qryMotoristaEspecifico.ParamByName('CPF').AsString := sCPF;
     dtmMDFE.qryMotoristaEspecifico.Open;
 
@@ -1639,6 +1662,11 @@ begin
     with contrato do
     begin
       Integradora.Operacao := opGravarMotorista;
+
+      if (Integradora.Token = '') and (sToken <> '') then
+      begin
+        Integradora.Token := sToken;
+      end;
 
       with GravarMotorista do
       begin
@@ -1678,39 +1706,55 @@ begin
   begin
     Integradora.Operacao := opGravarProprietario;
 
+    if (Integradora.Token = '') and (sToken <> '') then
+    begin
+      Integradora.Token := sToken;
+    end;
+
     with GravarProprietario do
     begin
-      if EMI_N_PROP.Checked then
+      if dtmMDFE.tabMDFEEMI_N_PROP.AsString = 'S' then
       begin
-        CNPJ := EMI_N_PROP_CPF_CNPJ.Text;
+        CNPJ := dtmMDFE.tabMDFEEMI_N_PROP_CPF_CNPJ.AsString;
 
         if CNPJ.Length = 13 then
           TipoPessoa := tpJuridica
         else if CNPJ.Length = 11 then
           TipoPessoa := tpFisica;
 
-        RazaoSocial := EMI_N_PROP_RZSOCIAL.Text;
-        RNTRC := EMI_N_PROP_RNTRC.Text;
+        RazaoSocial := dtmMDFE.tabMDFEEMI_N_PROP_RZSOCIAL.AsString;
+        RNTRC := dtmMDFE.tabMDFEEMI_N_PROP_RNTRC.AsString;
 
-        Endereco.Bairro := EMI_N_PROP_BAIRRO.Text;
-        Endereco.Rua := EMI_N_PROP_RUA.Text;
-        Endereco.Numero := EMI_N_PROP_NUMERO.Text;
-        Endereco.Complemento := EMI_N_PROP_COMPLEMENTO.Text;
-        Endereco.CEP := EMI_N_PROP_CEP.Text;
-        Endereco.CodigoMunicipio := StrToIntDef(EMI_N_PROP_CODIGO_MUNICIPIO.Text, 0);
+        Endereco.Bairro := dtmMDFE.tabMDFEEMI_N_PROP_BAIRRO.AsString;
+        Endereco.Rua := dtmMDFE.tabMDFEEMI_N_PROP_RUA.AsString;
+        Endereco.Numero := dtmMDFE.tabMDFEEMI_N_PROP_NUMERO.AsString;
+        Endereco.Complemento := dtmMDFE.tabMDFEEMI_N_PROP_COMPLEMENTO.AsString;
+        Endereco.CEP := dtmMDFE.tabMDFEEMI_N_PROP_CEP.AsString;
+        Endereco.CodigoMunicipio := dtmMDFE.tabMDFEEMI_N_PROP_CODIGO_MUNICIPIO.AsInteger;
 
         if EMI_N_PROP_CELULAR.toString <> '' then
         begin
-          Telefones.Celular.DDD := (EMI_N_PROP_CELULAR.toString[1] + EMI_N_PROP_CELULAR.toString[2]).ToInteger;
-          Telefones.Celular.Numero := StrToIntDef(EMI_N_PROP_CELULAR.Text, 0);
-        end;
+          var
+          telefoneSoNumeros := OnlyNumber(dtmMDFE.tabMDFEEMI_N_PROP_CELULAR.AsString);
+          Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
 
+          Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
+        end
+        else
+        begin
+          showMessage('Telefone obrigatório no proprietário!');
+          Exit;
+        end;
       end
       else
       begin
+        dtmMDFE.qryEMPRESA.Close;
+        dtmMDFE.qryEMPRESA.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
+        dtmMDFE.qryEMPRESA.Open;
+
         CNPJ := dtmMDFE.qryEMPRESACNPJ.AsString;
         RazaoSocial := dtmMDFE.qryEMPRESARAZAOSOCIAL.AsString;
-        RNTRC := EMI_N_PROP_RNTRC.Text;
+        RNTRC := dtmMDFE.QryVeiculoRNTRC.AsString;
         TipoPessoa := tpJuridica;
 
         Endereco.Bairro := dtmMDFE.qryEMPRESABAIRRO.AsString;
@@ -1719,15 +1763,14 @@ begin
         Endereco.Complemento := dtmMDFE.qryEMPRESACOMPLEMENTO.AsString;
         Endereco.CEP := dtmMDFE.qryEMPRESACEP.AsString;
 
-        if not''.IsNullOrWhiteSpace(dtmMDFE.qryEMPRESAID_CIDADES_IBGE.AsString) then
+        if not(dtmMDFE.qryEMPRESAID_CIDADES_IBGE.AsString = '') then
           Endereco.CodigoMunicipio := OnlyNumber(dtmMDFE.qryEMPRESAID_CIDADES_IBGE.AsString).ToInteger;
 
-        if not''.IsNullOrWhiteSpace(dtmMDFE.qryEMPRESATELEFONE.AsString) then
+        if not(dtmMDFE.qryEMPRESATELEFONE.AsString = '') then
         begin
           var
           telefoneSoNumeros := OnlyNumber(dtmMDFE.qryEMPRESATELEFONE.AsString);
           Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
-
           Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
         end;
       end;
@@ -1738,13 +1781,14 @@ end;
 
 procedure TfrmMDFEcadastro.solicitarToken(contrato: TCIOT);
 begin
-  with contrato do
+  with contrato.Integradora do
   begin
     // Só é necessario se usar usuario e senha e não o certificado
-    Integradora.Token := sToken;
+    if sToken <> '' then
+      Token := sToken;
 
     // Login - Solicita Token
-    Integradora.Operacao := opLogin;
+    Operacao := opLogin;
   end;
 end;
 
@@ -1755,59 +1799,123 @@ begin
     // Adicionar uma operação de transporte
     Integradora.Operacao := opAdicionar;
 
+    if (Integradora.Token = '') and (sToken <> '') then
+    begin
+      Integradora.Token := sToken;
+    end;
+
     with AdicionarOperacao do
     begin
       (* ***************  DADOS DO CONTRATO  ************* *)
-      TipoViagem := Padrao; // TAC_Agregado;
-      TipoPagamento := eFRETE;
-      EmissaoGratuita := (TipoPagamento = TransferenciaBancaria);
-      BloquearNaoEquiparado := False;
-      MatrizCNPJ := dtmDefault.tabEMPRESACNPJ.AsString;
-      FilialCNPJ := dtmDefault.tabEMPRESACNPJ.AsString;
-      // Id / Chave primária da Tabela do banco de dados do CIOT
-      IdOperacaoCliente := '1';
-      DataInicioViagem := Now;
-      DataFimViagem := Now;
-      // verificar se essa propriedade se refere à o NCM do produto/item que está sendo transportado
-      CodigoNCMNaturezaCarga := 5501;
-      PesoCarga := 10;
+      case cbxTipoViagem.ItemIndex of
+        0:
+          TipoViagem := Padrao;
+        1:
+          TipoViagem := TAC_Agregado;
+        2:
+          TipoViagem := Frota;
 
+      else
+        raise Exception.Create('Deve ser adicionado o Tipo da Viagem!');
+      end;
+
+      TipoPagamento := eFRETE;
+
+      EmissaoGratuita := (TipoPagamento = TransferenciaBancaria);
+
+      BloquearNaoEquiparado := False;
+
+      dtmMDFE.qryEMPRESA.Close;
+      dtmMDFE.qryEMPRESA.ParamByName('ID_EMPRESA').AsInteger := oEmpresa.ID;
+      dtmMDFE.qryEMPRESA.Open;
+
+      MatrizCNPJ := dtmMDFE.qryEMPRESACNPJ.AsString;
+      FilialCNPJ := OnlyNumber(dtmMDFE.tabMDFECNPJ_FILIAL.AsString);
+
+      // Id / Chave primária da Tabela do banco de dados do CIOT
+      IdOperacaoCliente := dtmMDFE.tabMDFEID_MDFE.AsString;
+      DataInicioViagem := dtmMDFE.tabMDFEDATAHORA_INICIO_VIAGEM.AsDateTime;
+      if dtmMDFE.tabMDFEDATAHORA_INICIO_VIAGEM.IsNull then
+        raise Exception.Create('A Data de Início da Viagem é obrigatória.');
+      // verificar!
+      DataFimViagem := dtmMDFE.tabMDFEDATAHORA_FIM_VIAGEM.AsDateTime;
+      if DataFimViagem < DataInicioViagem then
+        raise Exception.Create('A data do fim da viagem não pode ser menor que a data atual!');
+
+      // verificar se essa propriedade se refere à o NCM do produto/item que está sendo transportado
+      if dtmMDFE.tabMDFENCM_NATUREZA_CARGA.IsNull or (dtmMDFE.tabMDFENCM_NATUREZA_CARGA.AsString = '') then
+        raise Exception.Create('O NCM da Natureza da Carga é obrigatório.');
+
+      CodigoNCMNaturezaCarga := OnlyNumber(dtmMDFE.tabMDFENCM_NATUREZA_CARGA.AsString).ToInteger;
+
+      if dtmMDFE.tabMDFETOTF_PES_BRUTO.IsNull or (dtmMDFE.tabMDFETOTF_PES_BRUTO.AsCurrency <= 0) then
+        raise Exception.Create('O Peso Bruto da Carga é obrigatório e deve ser maior que zero.');
+
+      PesoCarga := dtmMDFE.tabMDFETOTF_PES_BRUTO.AsInteger;
+
+      // utilizado somente para as viagens do tipo Padrão
       if TipoViagem = Padrao then
-        // utilizado somente para as viagens do tipo Padrão
-        TipoEmbalagem := tePallet;
+      begin
+        case dtmMDFE.tabMDFETIPO_EMBALAGEM_INDEX.AsInteger of
+          0:
+            TipoEmbalagem := teIndefinido;
+          1:
+            TipoEmbalagem := teBigbag;
+          2:
+            TipoEmbalagem := tePallet;
+          3:
+            TipoEmbalagem := teGranel;
+          4:
+            TipoEmbalagem := teContainer;
+          5:
+            TipoEmbalagem := teSaco;
+          6:
+            TipoEmbalagem := teCaixa;
+          7:
+            TipoEmbalagem := teUnitario;
+          8:
+            TipoEmbalagem := teFardo;
+          9:
+            TipoEmbalagem := teTanque;
+
+        else
+          raise Exception.Create('Tipo da embalagem não mapeado!');
+        end
+      end;
 
       // Somente para TipoViagem TAC_Agregado
       if TipoViagem = TAC_Agregado then
       begin
         with Viagens.New do
         begin
-          DocumentoViagem := 'CTe';
+          DocumentoViagem := 'CTe' + dtmMDFE.tabMDFEID_SERIE.AsString;
           CodigoMunicipioOrigem := OnlyNumber(dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOID_MUNICIPIO.AsString).ToInteger;
           CodigoMunicipioDestino := OnlyNumber(dtmMDFE.tabMDFE_LOCAL_DESCARREGAMENTOID_CIDADES_IBGE.AsString).ToInteger;
-          CepOrigem := '';
-          CepDestino := '';
-          DistanciaPercorrida := 100;
+          CepOrigem := dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOCEP.AsString;
+          CepDestino := dtmMDFE.tabMDFE_LOCAL_DESCARREGAMENTOCEP.AsString;
 
-          Valores.TotalOperacao := 50;
-          Valores.TotalViagem := 50;
-          Valores.TotalDeAdiantamento := 10;
-          Valores.TotalDeQuitacao := 10;
-          Valores.Combustivel := 20;
+          DistanciaPercorrida := 0;
+
+          Valores.TotalOperacao := 0;
+          Valores.TotalViagem := 0;
+          Valores.TotalDeAdiantamento := 0;
+          Valores.TotalDeQuitacao := 0;
+          Valores.Combustivel := 0;
           Valores.Pedagio := dtmMDFE.tabMDFE_VALEPEDAGIOVALOR.AsCurrency;
-          Valores.OutrosCreditos := 1;
-          Valores.JustificativaOutrosCreditos := 'Teste';
+          Valores.OutrosCreditos := 0;
+          Valores.JustificativaOutrosCreditos := '';
           Valores.Seguro := 0;
-          Valores.OutrosDebitos := 1;
-          Valores.JustificativaOutrosDebitos := 'Teste outros Debitos';
+          Valores.OutrosDebitos := 0;
+          Valores.JustificativaOutrosDebitos := '';
 
           TipoPagamento := eFRETE;
 
           with NotasFiscais.New do
           begin
-            Numero := '12345';
-            Serie := '1';
-            Data := Date;
-            ValorTotal := 100;
+            Numero := '';
+            Serie := '';
+            Data := 0;
+            ValorTotal := 0;
 
             ValorDaMercadoriaPorUnidade := 100;
             CodigoNCMNaturezaCarga := 5501;
@@ -1854,7 +1962,7 @@ begin
       begin
         IdPagamentoCliente := '1';
         DataDeLiberacao := Date;
-        Valor := 10;
+        Valor := 0;
         TipoPagamento := eFRETE;
         // TransferenciaBancaria(EmissaoGratuita = true); eFRETE (EmissaoGratuita = false)
         Categoria := tcpSemCategoria;
@@ -1867,10 +1975,11 @@ begin
         InformacoesBancarias.TipoConta := tcContaCorrente;
 
         InformacaoAdicional := '';
+
         // CNPJ que deve ser gerada a Nota Fiscal do abastecimento,
         // sendo da mesma raíz do CNPJ da matriz do contratante,
         // apenas aplicável para Categoria Frota (Abastecimento)
-        CnpjFilialAbastecimento := AdicionarOperacao.MatrizCNPJ;
+        // CnpjFilialAbastecimento := AdicionarOperacao.MatrizCNPJ;
       end;
 
       // TAC ou seu equiparado, que efetuar o transporte rodoviário de cargas por
@@ -1878,51 +1987,66 @@ begin
       // Para o TipoViagem Frota o Contratado será a própria empresa que está declarando a operação.
       with Contratado do
       begin
-        CpfOuCnpj := Contratado.CpfOuCnpj;
-        RNTRC := Contratado.RNTRC;
+        if EMI_N_PROP.Checked then
+          CpfOuCnpj := dtmMDFE.tabMDFEEMI_N_PROP_CPF_CNPJ.AsString
+        else
+          CpfOuCnpj := dtmMDFE.qryEMPRESACNPJ.AsString;
+
+        RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
       end;
 
       with Motorista do
       begin
-        CpfOuCnpj := Motorista.CpfOuCnpj;
-        CNH := Motorista.CNH;
+        CpfOuCnpj := dtmMDFE.qryMotoristaEspecificoCPF.AsString;
+        CNH := dtmMDFE.qryMotoristaEspecificoNUMERO_REGISTRO.AsString;
 
-        Celular.DDD := Motorista.Celular.DDD;
-        Celular.Numero := Motorista.Celular.Numero;
+        if not dtmMDFE.qryMotoristaEspecificoCELULAR.IsNull and (dtmMDFE.qryMotoristaEspecificoCELULAR.AsString <> '') then
+        begin
+          var
+          CelularStr := ACBrUtil.Strings.OnlyNumber(dtmMDFE.qryMotoristaEspecificoCELULAR.AsString);
+          if Length(CelularStr) >= 10 then
+          begin
+            Celular.DDD := StrToIntDef(Copy(CelularStr, 1, 2), 0);
+            Celular.Numero := StrToIntDef(Copy(CelularStr, 3, Length(CelularStr) - 2), 0);
+          end;
+        end;
       end;
 
       // Destinatário da carga.
       // Na emissão com TipoViagem Padrão seu preenchimento é obrigatório.
       // Na emissão com TipoViagem TAC_Agregado o campo não deve ser preenchido.
       // Não esperado para TipoViagem Frota.
-      with Destinatario do
+      if TipoViagem = Padrao then
       begin
-        NomeOuRazaoSocial := 'sisomcosftteste';
-        CpfOuCnpj := '79679396037';
+        with Destinatario do
+        begin
+          NomeOuRazaoSocial := 'sisomcosftteste';
+          CpfOuCnpj := '79679396037';
 
-        EMail := 'teste@gmail.com';
-        ResponsavelPeloPagamento := False;
+          EMail := 'teste@gmail.com';
+          ResponsavelPeloPagamento := False;
 
-        Endereco.Bairro := 'teste 2';
-        Endereco.Rua := 'Alabama';
-        Endereco.Numero := '34';
-        Endereco.Complemento := 'q. 100, l. 2';
-        Endereco.CEP := '74000000';
-        Endereco.CodigoMunicipio := 0;
+          Endereco.Bairro := 'teste 2';
+          Endereco.Rua := 'Alabama';
+          Endereco.Numero := '34';
+          Endereco.Complemento := 'q. 100, l. 2';
+          Endereco.CEP := '74000000';
+          Endereco.CodigoMunicipio := 0;
 
-        { Telefones.Celular.DDD := 0;
+          Telefones.Celular.DDD := 0;
           Telefones.Celular.Numero := 0;
 
           Telefones.Fixo.DDD := 0;
           Telefones.Fixo.Numero := 0;
 
           Telefones.Fax.DDD := 0;
-          Telefones.Fax.Numero := 0; }
+          Telefones.Fax.Numero := 0;
+        end;
       end;
 
       with Contratante do
       begin
-        NomeOuRazaoSocial := Contratante.NomeOuRazaoSocial;
+        NomeOuRazaoSocial := '';
         CpfOuCnpj := '12345678910';
 
         EMail := 'teste@teste.com.br';
@@ -1950,85 +2074,96 @@ begin
       // transporte de cargas para o qual fora anteriormente contratado,
       // indicado no cadastramento da Operação de Transporte.
       // Não esperado para TipoViagem Frota.
-      with Subcontratante do
+
+      if TipoViagem <> Frota then
       begin
-        NomeOuRazaoSocial := '';
-        CpfOuCnpj := '';
+        with Subcontratante do
+        begin
+          NomeOuRazaoSocial := '';
+          CpfOuCnpj := '';
 
-        EMail := '';
-        ResponsavelPeloPagamento := False;
+          EMail := '';
+          ResponsavelPeloPagamento := False;
 
-        Endereco.Bairro := '';
-        Endereco.Rua := '';
-        Endereco.Numero := '';
-        Endereco.Complemento := '';
-        Endereco.CEP := '';
-        Endereco.CodigoMunicipio := 0;
+          Endereco.Bairro := '';
+          Endereco.Rua := '';
+          Endereco.Numero := '';
+          Endereco.Complemento := '';
+          Endereco.CEP := '';
+          Endereco.CodigoMunicipio := 0;
 
-        Telefones.Celular.DDD := 0;
-        Telefones.Celular.Numero := 0;
+          Telefones.Celular.DDD := 0;
+          Telefones.Celular.Numero := 0;
 
-        Telefones.Fixo.DDD := 0;
-        Telefones.Fixo.Numero := 0;
+          Telefones.Fixo.DDD := 0;
+          Telefones.Fixo.Numero := 0;
 
-        Telefones.Fax.DDD := 0;
-        Telefones.Fax.Numero := 0;
+          Telefones.Fax.DDD := 0;
+          Telefones.Fax.Numero := 0;
+        end;
       end;
 
       // Aquele que receberá as mercadorias transportadas em consignação,
       // indicado no cadastramento da Operação de Transporte ou nos respectivos documentos fiscais.
       // Não esperado para TipoViagem Frota
-      with Consignatario do
+
+      if TipoViagem <> Frota then
       begin
-        NomeOuRazaoSocial := '';
-        CpfOuCnpj := '';
+        with Consignatario do
+        begin
+          NomeOuRazaoSocial := '';
+          CpfOuCnpj := '';
 
-        EMail := '';
-        ResponsavelPeloPagamento := False;
+          EMail := '';
+          ResponsavelPeloPagamento := False;
 
-        Endereco.Bairro := '';
-        Endereco.Rua := '';
-        Endereco.Numero := '';
-        Endereco.Complemento := '';
-        Endereco.CEP := '';
-        Endereco.CodigoMunicipio := 0;
+          Endereco.Bairro := '';
+          Endereco.Rua := '';
+          Endereco.Numero := '';
+          Endereco.Complemento := '';
+          Endereco.CEP := '';
+          Endereco.CodigoMunicipio := 0;
 
-        Telefones.Celular.DDD := 0;
-        Telefones.Celular.Numero := 0;
+          Telefones.Celular.DDD := 0;
+          Telefones.Celular.Numero := 0;
 
-        Telefones.Fixo.DDD := 0;
-        Telefones.Fixo.Numero := 0;
+          Telefones.Fixo.DDD := 0;
+          Telefones.Fixo.Numero := 0;
 
-        Telefones.Fax.DDD := 0;
-        Telefones.Fax.Numero := 0;
+          Telefones.Fax.DDD := 0;
+          Telefones.Fax.Numero := 0;
+        end;
       end;
 
       // Pessoa (física ou jurídica) que contratou o frete pela transportadora.
       // Na emissão com TipoViagem Padrão seu preenchimento é obrigatório.
       // Na emissão com TipoViagem TAC_Agregado o campo não deve ser preenchido.
-      with TomadorServico do
+      if TipoViagem <> TAC_Agregado then
       begin
-        NomeOuRazaoSocial := '';
-        CpfOuCnpj := '';
+        with TomadorServico do
+        begin
+          NomeOuRazaoSocial := '';
+          CpfOuCnpj := '';
 
-        EMail := '';
-        ResponsavelPeloPagamento := False;
+          EMail := '';
+          ResponsavelPeloPagamento := False;
 
-        Endereco.Bairro := '';
-        Endereco.Rua := '';
-        Endereco.Numero := '';
-        Endereco.Complemento := '';
-        Endereco.CEP := '';
-        Endereco.CodigoMunicipio := 0;
+          Endereco.Bairro := '';
+          Endereco.Rua := '';
+          Endereco.Numero := '';
+          Endereco.Complemento := '';
+          Endereco.CEP := '';
+          Endereco.CodigoMunicipio := 0;
 
-        Telefones.Celular.DDD := 0;
-        Telefones.Celular.Numero := 0;
+          Telefones.Celular.DDD := 0;
+          Telefones.Celular.Numero := 0;
 
-        Telefones.Fixo.DDD := 0;
-        Telefones.Fixo.Numero := 0;
+          Telefones.Fixo.DDD := 0;
+          Telefones.Fixo.Numero := 0;
 
-        Telefones.Fax.DDD := 0;
-        Telefones.Fax.Numero := 0;
+          Telefones.Fax.DDD := 0;
+          Telefones.Fax.Numero := 0;
+        end;
       end;
 
       with Veiculos.New do
@@ -2039,6 +2174,7 @@ begin
       // Informar um CIOT (se existente) que esteja relacionado à operação de transporte.
       // Por exemplo: No caso da presença de um Subcontratante na operação de transporte
       // informar o CIOT onde o Subcontratante foi o Contratado
+
       CodigoIdentificacaoOperacaoPrincipal := '';
 
       with ObservacoesAoTransportador.New do
@@ -2071,7 +2207,7 @@ begin
       AltoDesempenho := True;
       DestinacaoComercial := True;
       FreteRetorno := False;
-      CepRetorno := '';
+      CepRetorno := dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOCEP.AsString;
       DistanciaRetorno := 100;
     end;
   end;

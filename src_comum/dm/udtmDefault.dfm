@@ -12,7 +12,6 @@ object dtmDefault: TdtmDefault
       'CharacterSet=WIN1252'
       'DriverID=FB')
     TxOptions.AutoStop = False
-    Connected = True
     LoginPrompt = False
     BeforeConnect = cnx_BDBeforeConnect
     Left = 24

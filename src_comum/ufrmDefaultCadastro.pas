@@ -13,7 +13,7 @@ uses
 
 type
   TOperacao = (TIncluir, TEditar, TExcluir, TConsulta, TRegistroDefault);
-  TfrmDefaultCadastroClass  = class of TfrmDefaultCadastro;
+  TfrmDefaultCadastroClass = class of TfrmDefaultCadastro;
 
   TfrmDefaultCadastro = class(TfrmDefaultClean)
     dtsDefault: TDataSource;
@@ -29,16 +29,17 @@ type
 
     procedure AlinharControles;
   public
-    FOperacao: Toperacao;
+    FOperacao: TOperacao;
     FRetornoCadastro: TRetornoCadastro;
-    class function ShowForm:TRetornoConsulta; override;
+    class function ShowForm: TRetornoConsulta; override;
     class function incluir(Sender: TfrmDefaultCadastroClass; ACampoChave: String): TRetornoCadastro;
     class function alterar(Sender: TfrmDefaultCadastroClass; ACampoChave: String; ACampoChaveValor: Variant): TRetornoCadastro;
     class function excluir(Sender: TfrmDefaultCadastroClass; ACampoChave: String; ACampoChaveValor: Variant): TRetornoCadastro;
 
     property TipoOperacao: TOperacao read FOperacao write FOperacao;
-    procedure PosOnShow;virtual;
+    procedure PosOnShow; virtual;
   end;
+
 var
   frmDefaultCadastro: TfrmDefaultCadastro;
 
@@ -79,8 +80,8 @@ begin
   end;
 end;
 
-class function TfrmDefaultCadastro.alterar(Sender: TfrmDefaultCadastroClass;
-  ACampoChave: String; ACampoChaveValor: Variant): TRetornoCadastro;
+class function TfrmDefaultCadastro.alterar(Sender: TfrmDefaultCadastroClass; ACampoChave: String; ACampoChaveValor: Variant)
+  : TRetornoCadastro;
 var
   iFormCadastro: TfrmDefaultCadastro;
 begin
@@ -99,7 +100,8 @@ begin
       FCampoChave := ACampoChave;
       try
         TFDQuery(dtsDefault.DataSet).Close;
-      except on E: Exception do
+      except
+        on E: Exception do
       end;
       TFDQuery(dtsDefault.DataSet).Close;
       TFDQuery(dtsDefault.DataSet).ParamByName(ACampoChave).Value := ACampoChaveValor;
@@ -114,8 +116,8 @@ begin
   end;
 end;
 
-class function TfrmDefaultCadastro.excluir(Sender: TfrmDefaultCadastroClass;
-  ACampoChave: String; ACampoChaveValor: Variant): TRetornoCadastro;
+class function TfrmDefaultCadastro.excluir(Sender: TfrmDefaultCadastroClass; ACampoChave: String; ACampoChaveValor: Variant)
+  : TRetornoCadastro;
 var
   iFormCadastro: TfrmDefaultCadastro;
 begin
@@ -152,11 +154,16 @@ begin
   AlinharControles;
 
   case TipoOperacao of
-    TIncluir :Self.Caption := Self.Caption + ' - Inclusão';
-    TRegistroDefault :Self.Caption := Self.Caption + ' - Registro Default';
-    TEditar  :Self.Caption := Self.Caption + ' - Alteração';
-    TExcluir :Self.Caption := Self.Caption + ' - Exclusão';
-    TConsulta:Self.Caption := Self.Caption + ' - Consulta';
+    TIncluir:
+      Self.Caption := Self.Caption + ' - Inclusão';
+    TRegistroDefault:
+      Self.Caption := Self.Caption + ' - Registro Default';
+    TEditar:
+      Self.Caption := Self.Caption + ' - Alteração';
+    TExcluir:
+      Self.Caption := Self.Caption + ' - Exclusão';
+    TConsulta:
+      Self.Caption := Self.Caption + ' - Consulta';
   end;
   Position := poMainFormCenter;
 
@@ -164,7 +171,7 @@ begin
   Application.ProcessMessages;
 end;
 
-class function TfrmDefaultCadastro.ShowForm:TRetornoConsulta;
+class function TfrmDefaultCadastro.ShowForm: TRetornoConsulta;
 begin
   frmDefaultCadastro := Self.Create(Nil);
   try
@@ -185,8 +192,9 @@ procedure TfrmDefaultCadastro.btnCancelarClick(Sender: TObject);
 begin
   try
     if dtsDefault.State in [dsEdit, dsInsert] then
-       dtsDefault.DataSet.Cancel;
-  except on E: Exception do
+      dtsDefault.DataSet.Cancel;
+  except
+    on E: Exception do
   end;
 
   dtmDefault.cnx_BD.RollbackRetaining;
@@ -204,18 +212,18 @@ begin
   try
     case FOperacao of
       TIncluir, TEditar, TRegistroDefault:
-        if TFDQuery(dtsDefault.DataSet).State in [dsEdit,dsInsert] then
-           begin
+        if TFDQuery(dtsDefault.DataSet).State in [dsEdit, dsInsert] then
+        begin
+          TFDQuery(dtsDefault.DataSet).Post;
+        end;
 
-             TFDQuery(dtsDefault.DataSet).Post;
-           end;
-
-      TExcluir:TFDQuery(dtsDefault.DataSet).Delete;
+      TExcluir:
+        TFDQuery(dtsDefault.DataSet).Delete;
     end;
 
     dtmDefault.cnx_BD.CommitRetaining;
 
-    if FOperacao in [TIncluir,TEditar] then
+    if FOperacao in [TIncluir, TEditar] then
       if FCampoChave.Trim.Length > 0 then
         FRetornoCadastro.Identificador := TFDQuery(dtsDefault.DataSet).FieldByName(FCampoChave).Value;
 
@@ -226,8 +234,7 @@ begin
   except
     on E: Exception do
     begin
-      raise Exception.Create
-        ('Ocorreu o erro abaixo no processo, favor contactar suporte!' + sLineBreak + sLineBreak + e.Message);
+      raise Exception.Create('Ocorreu o erro abaixo no processo, favor contactar suporte!' + sLineBreak + sLineBreak + E.Message);
     end;
   end;
 end;
@@ -248,12 +255,3 @@ begin
 end;
 
 end.
-
-
-
-
-
-
-
-
-
