@@ -754,10 +754,10 @@ object dtmMDFE: TdtmMDFE
       Origin = 'NCM_NATUREZA_CARGA'
       Size = 10
     end
-    object tabMDFECNPJ_FILIAL: TStringField
-      FieldName = 'CNPJ_FILIAL'
-      Origin = 'CNPJ_FILIAL'
-      Size = 13
+    object tabMDFEDESTINATARIO_CELULAR: TStringField
+      FieldName = 'DESTINATARIO_CELULAR'
+      Origin = 'DESTINATARIO_CELULAR'
+      Size = 11
     end
   end
   object updEvento: TFDQuery
@@ -3984,6 +3984,10 @@ object dtmMDFE: TdtmMDFE
       Origin = 'PESO'
       Precision = 18
       Size = 2
+    end
+    object tabMDFE_NFEXML_NFE: TBlobField
+      FieldName = 'XML_NFE'
+      Origin = 'XML_NFE'
     end
   end
   object dtstabMDFE_NFE: TDataSource

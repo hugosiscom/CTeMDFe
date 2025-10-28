@@ -640,6 +640,8 @@ type
     qryMotoristaEspecificoCELULAR: TLargeintField;
     qryMotoristaEspecificoNUMERO: TStringField;
     qryMotoristaEspecificoNOME_SOLTEIRA_MAE: TStringField;
+    tabMDFE_LOCAL_DESCARREGAMENTOCEP: TStringField;
+    tabMDFE_LOCAL_CARREGAMENTOCEP: TStringField;
     tabMDFEID_EMPRESA: TIntegerField;
     tabMDFEID_MDFE: TIntegerField;
     tabMDFEID_SERIE: TIntegerField;
@@ -713,9 +715,8 @@ type
     tabMDFEDATAHORA_FIM_VIAGEM: TSQLTimeStampField;
     tabMDFETIPO_EMBALAGEM_INDEX: TSmallintField;
     tabMDFENCM_NATUREZA_CARGA: TStringField;
-    tabMDFECNPJ_FILIAL: TStringField;
-    tabMDFE_LOCAL_DESCARREGAMENTOCEP: TStringField;
-    tabMDFE_LOCAL_CARREGAMENTOCEP: TStringField;
+    tabMDFEDESTINATARIO_CELULAR: TStringField;
+    tabMDFE_NFEXML_NFE: TBlobField;
     procedure qryCERTIFICADO_CONFIGBeforeOpen(DataSet: TDataSet);
     procedure tabMDFENewRecord(DataSet: TDataSet);
     procedure tabMDFEBeforePost(DataSet: TDataSet);

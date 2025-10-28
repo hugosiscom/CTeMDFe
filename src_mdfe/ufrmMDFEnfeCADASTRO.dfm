@@ -2,14 +2,14 @@
   Caption = 'Nota Fiscal Eletr'#244'nica - NF-e'
   ClientHeight = 542
   ClientWidth = 872
-  ExplicitWidth = 886
-  ExplicitHeight = 577
+  ExplicitWidth = 888
+  ExplicitHeight = 581
   TextHeight = 13
   inherited pnlComandos: TPanel
     Top = 487
     Width = 866
-    ExplicitTop = 483
-    ExplicitWidth = 864
+    ExplicitTop = 487
+    ExplicitWidth = 866
     inherited btnCancelar: TJvSpeedButton
       Left = 753
       Caption = 'Retornar'
@@ -23,8 +23,8 @@
   inherited pageDefault: TJvPageControl
     Width = 866
     Height = 478
-    ExplicitWidth = 864
-    ExplicitHeight = 474
+    ExplicitWidth = 866
+    ExplicitHeight = 478
     inherited tabDefault: TTabSheet
       ExplicitWidth = 858
       ExplicitHeight = 450
@@ -58,8 +58,6 @@
         Gradient.Active = False
         Gradient.Orientation = fgdHorizontal
         Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
-        ExplicitWidth = 850
-        ExplicitHeight = 440
         FullHeight = 0
         object Label16: TLabel
           Left = 9
@@ -175,8 +173,6 @@
           ActivePage = TabSheet1
           Align = alBottom
           TabOrder = 5
-          ExplicitTop = 91
-          ExplicitWidth = 840
           object TabSheet1: TTabSheet
             Caption = 'Unidades de Transporte'
             object JvgGroupBox2: TJvgGroupBox
@@ -209,7 +205,6 @@
               Gradient.Active = False
               Gradient.Orientation = fgdHorizontal
               Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
-              ExplicitWidth = 826
               FullHeight = 0
               object Panel1: TPanel
                 AlignWithMargins = True
@@ -220,7 +215,6 @@
                 Align = alBottom
                 BevelOuter = bvNone
                 TabOrder = 0
-                ExplicitWidth = 816
                 object btnUNIDTRANSexcluir: TJvSpeedButton
                   AlignWithMargins = True
                   Left = 235
@@ -495,14 +489,26 @@
           TabOrder = 6
           OnClick = BitBtn1Click
         end
+        object JvBitBtn1: TJvBitBtn
+          Left = 730
+          Top = 66
+          Width = 110
+          Height = 38
+          Hint = 
+            'Se importado novamente, substituir'#225' as informa'#231#245'es contidas no p' +
+            'rimeiro XML'
+          Caption = 'Importar Nota (XML)'
+          TabOrder = 7
+          OnClick = JvBitBtn1Click
+        end
       end
     end
   end
   inherited statDefault: TJvStatusBar
     Top = 523
     Width = 872
-    ExplicitTop = 519
-    ExplicitWidth = 870
+    ExplicitTop = 523
+    ExplicitWidth = 872
   end
   inherited ACBrEnterTab1: TACBrEnterTab
     Left = 437
@@ -518,5 +524,33 @@
     OnDataChange = dtstabMDFE_NFE_UNIDTRANSDataChange
     Left = 478
     Top = 219
+  end
+  object FileOpenDialog1: TFileOpenDialog
+    DefaultExtension = 'XML'
+    FavoriteLinks = <>
+    FileName = '*-nfe.XML'
+    FileTypes = <
+      item
+        DisplayName = 'XML'
+        FileMask = '*-nfe.XML'
+      end>
+    Options = []
+    Title = 'Selecione a NFe'
+    Left = 731
+    Top = 13
+  end
+  object ACBrNFe1: TACBrNFe
+    Configuracoes.Geral.SSLLib = libNone
+    Configuracoes.Geral.SSLCryptLib = cryNone
+    Configuracoes.Geral.SSLHttpLib = httpNone
+    Configuracoes.Geral.SSLXmlSignLib = xsNone
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Arquivos.OrdenacaoPath = <>
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 0
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Configuracoes.RespTec.IdCSRT = 0
+    Left = 195
+    Top = 285
   end
 end

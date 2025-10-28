@@ -37,6 +37,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
   inherited pageDefault: TJvPageControl
     Width = 899
     Height = 484
+    ActivePage = pageINFdoc
     TabOrder = 0
     ExplicitWidth = 899
     ExplicitHeight = 484
@@ -227,7 +228,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             Transparent = True
           end
           object Label63: TLabel
-            Left = 592
+            Left = 607
             Top = 16
             Width = 31
             Height = 13
@@ -250,9 +251,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           object Label65: TLabel
             Left = 482
             Top = 19
-            Width = 73
+            Width = 109
             Height = 13
-            Caption = 'DataFimViagem'
+            Caption = 'Data do Fim da Viagem'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -432,9 +433,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           end
           object JvDBMaskEdit2: TJvDBMaskEdit
             Tag = 1
-            Left = 592
+            Left = 607
             Top = 35
-            Width = 281
+            Width = 266
             Height = 21
             TabStop = False
             CharCase = ecUpperCase
@@ -474,7 +475,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           object dtpFimViagem: TJvDBDateTimePicker
             Left = 482
             Top = 35
-            Width = 104
+            Width = 119
             Height = 21
             Date = 45945.000000000000000000
             Time = 0.387137430552684200
@@ -493,17 +494,13 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitLeft = 3
-        ExplicitTop = 176
-        DesignSize = (
-          891
-          320)
         object JvgGroupBox2: TJvgGroupBox
           AlignWithMargins = True
           Left = 3
           Top = 3
           Width = 342
-          Height = 201
+          Height = 314
+          Align = alLeft
           Caption = 'Local de Carregamento'
           TabOrder = 0
           Border.Inner = bvSpace
@@ -532,9 +529,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             AlignWithMargins = True
             Left = 5
             Top = 19
-            Width = 332
-            Height = 13
-            Align = alTop
+            Width = 22
+            Height = 145
+            Align = alLeft
             Caption = 'UF *'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
@@ -543,7 +540,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             Font.Style = []
             ParentFont = False
             Transparent = True
-            ExplicitWidth = 22
+            ExplicitHeight = 13
           end
           object Label12: TLabel
             Left = 87
@@ -562,13 +559,12 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           object Panel1: TPanel
             AlignWithMargins = True
             Left = 5
-            Top = 163
+            Top = 276
             Width = 332
             Height = 33
             Align = alBottom
             BevelOuter = bvNone
             TabOrder = 2
-            ExplicitTop = 276
             object btnLocalCarregamentoExcluir: TJvSpeedButton
               AlignWithMargins = True
               Left = 119
@@ -693,7 +689,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           object gridLocalCarregamento: TJvDBGrid
             AlignWithMargins = True
             Left = 5
-            Top = 57
+            Top = 170
             Width = 332
             Height = 100
             Align = alBottom
@@ -719,7 +715,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Expanded = False
                 FieldName = 'lookCIDADE'
                 Title.Caption = 'Munic'#237'pio'
-                Width = 64
                 Visible = True
               end
               item
@@ -733,16 +728,18 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Expanded = False
                 FieldName = 'ID_MUNICIPIO'
                 Title.Caption = 'C'#243'digo Munic'#237'pio'
+                Width = 64
                 Visible = True
               end>
           end
         end
         object JvgGroupBox1: TJvgGroupBox
           AlignWithMargins = True
-          Left = 351
+          Left = 546
           Top = 3
           Width = 342
-          Height = 201
+          Height = 314
+          Align = alRight
           Caption = 'UF'#180's do Percurso'
           TabOrder = 1
           Border.Inner = bvSpace
@@ -771,7 +768,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             AlignWithMargins = True
             Left = 10
             Top = 17
-            Width = 332
+            Width = 22
             Height = 13
             Caption = 'UF *'
             Font.Charset = DEFAULT_CHARSET
@@ -785,13 +782,12 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           object Panel2: TPanel
             AlignWithMargins = True
             Left = 5
-            Top = 161
+            Top = 274
             Width = 332
             Height = 35
             Align = alBottom
             BevelOuter = bvNone
             TabOrder = 1
-            ExplicitTop = 168
             object btnLocalPercursoExcluir: TJvSpeedButton
               AlignWithMargins = True
               Left = 119
@@ -893,7 +889,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           object JvDBGrid1: TJvDBGrid
             AlignWithMargins = True
             Left = 5
-            Top = 55
+            Top = 168
             Width = 332
             Height = 100
             Align = alBottom
@@ -934,162 +930,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             TabOrder = 2
           end
         end
-        object JvgGroupBox7: TJvgGroupBox
-          AlignWithMargins = True
-          Left = 699
-          Top = 3
-          Width = 189
-          Height = 70
-          Caption = 'Local de Descarregamento'
-          TabOrder = 2
-          Border.Inner = bvSpace
-          Border.Outer = bvNone
-          Border.Bold = False
-          CaptionBorder.Inner = bvSpace
-          CaptionBorder.Outer = bvNone
-          CaptionBorder.Bold = False
-          CaptionGradient.Active = False
-          CaptionGradient.Orientation = fgdHorizontal
-          CaptionShift.X = 8
-          CaptionShift.Y = 0
-          Colors.Text = clHighlightText
-          Colors.TextActive = clHighlightText
-          Colors.Caption = clBtnShadow
-          Colors.CaptionActive = clBtnShadow
-          Colors.Client = clBtnFace
-          Colors.ClientActive = clBtnFace
-          Gradient.FromColor = clBlack
-          Gradient.ToColor = clGray
-          Gradient.Active = False
-          Gradient.Orientation = fgdHorizontal
-          Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
-          FullHeight = 0
-          object Label5: TLabel
-            AlignWithMargins = True
-            Left = 11
-            Top = 19
-            Width = 22
-            Height = 13
-            Caption = 'UF *'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Transparent = True
-          end
-          object ID_UF_FINAL: TDBLookupComboBox
-            Left = 11
-            Top = 32
-            Width = 78
-            Height = 21
-            DataField = 'ID_UF_FINAL'
-            DataSource = dtsDefault
-            KeyField = 'ID_CIDADES_UF'
-            ListField = 'ID_CIDADES_UF'
-            ListSource = dtsqryCIDADES_UF
-            TabOrder = 0
-            OnClick = ID_UF_FINALClick
-          end
-        end
-        object GroupBox1: TGroupBox
-          Left = 699
-          Top = 79
-          Width = 184
-          Height = 242
-          Align = alCustom
-          Caption = 'Complementos CIOT 2'
-          TabOrder = 3
-          object Label66: TLabel
-            Left = 16
-            Top = 21
-            Width = 77
-            Height = 13
-            Caption = 'Tipo Embalagem'
-          end
-          object Label68: TLabel
-            Left = 16
-            Top = 67
-            Width = 116
-            Height = 13
-            Caption = 'NCM Natureza da Carga'
-          end
-          object cbxTipoEmbalagem: TJvDBComboBox
-            Left = 16
-            Top = 40
-            Width = 153
-            Height = 21
-            DataField = 'TIPO_EMBALAGEM_INDEX'
-            DataSource = dtsDefault
-            Items.Strings = (
-              'Indefinido'
-              'Bigbag'
-              'Pallet'
-              'Granel'
-              'Container'
-              'Saco'
-              'Caixa'
-              'Unit'#225'io'
-              'Fardo'
-              'Tanque')
-            TabOrder = 0
-            Values.Strings = (
-              '0'
-              '1'
-              '2'
-              '3'
-              '4'
-              '5'
-              '6'
-              '7'
-              '8'
-              '9')
-            ListSettings.OutfilteredValueFont.Charset = DEFAULT_CHARSET
-            ListSettings.OutfilteredValueFont.Color = clRed
-            ListSettings.OutfilteredValueFont.Height = -12
-            ListSettings.OutfilteredValueFont.Name = 'Segoe UI'
-            ListSettings.OutfilteredValueFont.Style = []
-          end
-          object edtNCMCarga: TJvDBMaskEdit
-            Left = 16
-            Top = 86
-            Width = 149
-            Height = 21
-            DataField = 'NCM_NATUREZA_CARGA'
-            DataSource = dtsDefault
-            MaxLength = 10
-            TabOrder = 1
-            EditMask = '9999.99.99;0; '
-          end
-        end
-        object GroupBox2: TGroupBox
-          Left = 3
-          Top = 210
-          Width = 690
-          Height = 111
-          Anchors = [akLeft, akBottom]
-          Caption = 'Complementos CIOT'
-          TabOrder = 4
-          object Label69: TLabel
-            Left = 16
-            Top = 24
-            Width = 48
-            Height = 13
-            Caption = 'CNPJ Filial'
-          end
-          object edtCNPJFilial: TJvDBMaskEdit
-            Left = 16
-            Top = 43
-            Width = 123
-            Height = 21
-            DataField = 'CNPJ_FILIAL'
-            DataSource = dtsDefault
-            MaxLength = 18
-            TabOrder = 0
-            EditMask = '99.999.999/9999-99'
-          end
-        end
       end
     end
     object tabRodoviario: TTabSheet
@@ -1100,7 +940,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Top = 0
         Width = 891
         Height = 456
-        ActivePage = pagVALEpedagio
+        ActivePage = pagCIOT
         Align = alClient
         TabOrder = 0
         object tabVeiculoTracao: TTabSheet
@@ -2732,9 +2572,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               object Label6: TLabel
                 Left = 343
                 Top = 3
-                Width = 238
+                Width = 210
                 Height = 13
-                Caption = 'Documento do respons'#225'vel pela gera'#231#227'o do CIOT'
+                Caption = 'DOC. do respons'#225'vel pela gera'#231#227'o do CIOT'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWindowText
                 Font.Height = -11
@@ -2755,12 +2595,12 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               object CIOT_DOC: TJvMaskEdit
                 Left = 343
                 Top = 17
-                Width = 236
+                Width = 210
                 Height = 21
-                MaxLength = 18
+                EditMask = '999.999.999-99;0;_'
+                MaxLength = 14
                 TabOrder = 1
                 Text = ''
-                OnChange = TEditMascaraCPF
               end
               object opCPF: TJvRadioButton
                 Left = 245
@@ -2777,7 +2617,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               end
               object opCNPJ: TJvRadioButton
                 Left = 291
-                Top = 19
+                Top = 21
                 Width = 46
                 Height = 17
                 Alignment = taLeftJustify
@@ -2805,13 +2645,26 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Align = alClient
               BevelOuter = bvNone
               TabOrder = 1
+              object Label5: TLabel
+                Left = 3
+                Top = 0
+                Width = 77
+                Height = 13
+                Caption = 'Tipo Embalagem'
+              end
+              object Label66: TLabel
+                Left = 157
+                Top = 0
+                Width = 33
+                Height = 13
+                Caption = 'Celular'
+              end
               object JvDBGrid6: TJvDBGrid
                 AlignWithMargins = True
                 Left = 3
-                Top = 3
-                Width = 861
-                Height = 309
-                Align = alClient
+                Top = 46
+                Width = 258
+                Height = 269
                 DataSource = dtstabMDFE_CIOT
                 Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
                 ReadOnly = True
@@ -2833,16 +2686,70 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   item
                     Expanded = False
                     FieldName = 'CIOT'
-                    Width = 200
+                    Width = 113
                     Visible = True
                   end
                   item
                     Expanded = False
                     FieldName = 'CNPJ'
-                    Title.Caption = 'Documento do respons'#225'vel pela gera'#231#227'o do CIOT'
-                    Width = 250
+                    Title.Caption = 'DOC. Respons'#225'vel CIOT'
+                    Width = 129
                     Visible = True
                   end>
+              end
+              object JvDBComboBox1: TJvDBComboBox
+                Left = 3
+                Top = 19
+                Width = 148
+                Height = 21
+                DataField = 'TIPO_EMBALAGEM_INDEX'
+                DataSource = dtsDefault
+                Items.Strings = (
+                  'Indefinido'
+                  'Bigbag'
+                  'Pallet'
+                  'Granel'
+                  'Container'
+                  'Saco'
+                  'Caixa'
+                  'Unit'#225'io'
+                  'Fardo'
+                  'Tanque')
+                TabOrder = 1
+                Values.Strings = (
+                  '0'
+                  '1'
+                  '2'
+                  '3'
+                  '4'
+                  '5'
+                  '6'
+                  '7'
+                  '8'
+                  '9')
+                ListSettings.OutfilteredValueFont.Charset = DEFAULT_CHARSET
+                ListSettings.OutfilteredValueFont.Color = clRed
+                ListSettings.OutfilteredValueFont.Height = -12
+                ListSettings.OutfilteredValueFont.Name = 'Segoe UI'
+                ListSettings.OutfilteredValueFont.Style = []
+              end
+              object JvMaskEdit1: TJvMaskEdit
+                Left = 157
+                Top = 19
+                Width = 119
+                Height = 21
+                EditMask = '(99) 9 9999-9999'
+                MaxLength = 16
+                TabOrder = 2
+                Text = '(  )       -    '
+              end
+              object JvDBCheckBox1: TJvDBCheckBox
+                Left = 400
+                Top = 104
+                Width = 97
+                Height = 17
+                Caption = 'JvDBCheckBox1'
+                TabOrder = 3
               end
             end
           end
@@ -3614,6 +3521,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Carregamento'
+                  Width = 64
                   Visible = True
                 end>
             end
@@ -3997,6 +3905,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Descarregamento'
+                  Width = 64
                   Visible = True
                 end>
             end

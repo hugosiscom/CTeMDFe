@@ -12,7 +12,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, JvBaseEdits, JvDBControls,
   Vcl.StdCtrls, JvExStdCtrls, JvCombobox, JvDBCombobox, JvDBLookup, Vcl.Mask,
   JvExMask, JvToolEdit, JvMaskEdit, JvgGroupBox, Vcl.DBCtrls, JvDBCheckBox,
-  Vcl.Grids, Vcl.DBGrids, JvExDBGrids, JvDBGrid;
+  Vcl.Grids, Vcl.DBGrids, JvExDBGrids, JvDBGrid, Vcl.Buttons;
 
 type
   TfrmMDFEcteCADASTRO = class(TfrmDefaultCadastro)
@@ -31,6 +31,7 @@ type
     gridLocalCarregamento: TJvDBGrid;
     btnUNIDTRANSalterar: TJvSpeedButton;
     dtstabMDFE_CTE_UNIDTRANS: TDataSource;
+    BitBtn1: TBitBtn;
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnUNIDTRANSincluirClick(Sender: TObject);

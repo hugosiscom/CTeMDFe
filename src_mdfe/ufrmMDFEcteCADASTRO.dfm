@@ -373,6 +373,14 @@
             end
           end
         end
+        object BitBtn1: TBitBtn
+          Left = 728
+          Top = 21
+          Width = 107
+          Height = 39
+          Caption = 'Importar XML (CTe)'
+          TabOrder = 4
+        end
       end
     end
   end

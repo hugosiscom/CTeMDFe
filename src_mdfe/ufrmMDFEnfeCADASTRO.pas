@@ -12,7 +12,8 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, JvBaseEdits, JvDBControls,
   Vcl.StdCtrls, JvExStdCtrls, JvCombobox, JvDBCombobox, JvDBLookup, Vcl.Mask,
   JvExMask, JvToolEdit, JvMaskEdit, JvgGroupBox, Vcl.DBCtrls, JvDBCheckBox,
-  Vcl.Grids, Vcl.DBGrids, JvExDBGrids, JvDBGrid, Vcl.Buttons;
+  Vcl.Grids, Vcl.DBGrids, JvExDBGrids, JvDBGrid, Vcl.Buttons, JvExButtons, JvBitBtn,
+  ACBrNFe, pcnNFeRTXT, ACBrDFe;
 
 type
   TfrmMDFEnfeCADASTRO = class(TfrmDefaultCadastro)
@@ -36,17 +37,20 @@ type
     Label1: TLabel;
     Label2: TLabel;
     BitBtn1: TBitBtn;
+    JvBitBtn1: TJvBitBtn;
+    FileOpenDialog1: TFileOpenDialog;
+    ACBrNFe1: TACBrNFe;
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnUNIDTRANSincluirClick(Sender: TObject);
     procedure btnUNIDTRANSalterarClick(Sender: TObject);
     procedure btnUNIDTRANSexcluirClick(Sender: TObject);
-    procedure dtstabMDFE_NFE_UNIDTRANSDataChange(Sender: TObject;
-      Field: TField);
+    procedure dtstabMDFE_NFE_UNIDTRANSDataChange(Sender: TObject; Field: TField);
     procedure FormCreate(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
     procedure BitBtn1Click(Sender: TObject);
     procedure ID_CHAVEExit(Sender: TObject);
+    procedure JvBitBtn1Click(Sender: TObject);
   private
     FOperacao: TOperacao;
     function ValidarChaveNFe(const ChaveNFe: AnsiString): Boolean;
@@ -65,7 +69,6 @@ implementation
 uses udtmMDFE, ufrmMDFEnfeCADASTROunidTRANSPORTE, uclassEMPRESA, udtmDefault,
   uclassMDFE, ufrmConsultaNFe;
 
-
 { TfrmMDFEnfeCADASTRO }
 
 class procedure TfrmMDFEnfeCADASTRO.Alterar;
@@ -73,7 +76,6 @@ begin
   frmMDFEnfeCADASTRO := TfrmMDFEnfeCADASTRO.Create(Nil);
   try
     frmMDFEnfeCADASTRO.FOperacao := TEditar;
-   // frmMDFEnfeCADASTRO.FOperacao := TEditar;
     frmMDFEnfeCADASTRO.ID_CHAVE.Enabled := False;
     frmMDFEnfeCADASTRO.btnConfirmar.Enabled := False;
 
@@ -87,16 +89,16 @@ procedure TfrmMDFEnfeCADASTRO.BitBtn1Click(Sender: TObject);
 begin
   inherited;
   try
-    Application.CreateForm(TFrmConsultaNFe,FrmConsultaNFe);
+    Application.CreateForm(TFrmConsultaNFe, FrmConsultaNFe);
     FrmConsultaNFe.ShowModal;
   finally
     dtmDefault.SqlConsultaNFe.Close;
-    if FrmConsultaNFe.ChaveNFe <>''  then
-       dtmMDFE.tabMDFE_NFEID_CHAVE.value := FrmConsultaNFe.ChaveNFe;
-    if FrmConsultaNFe.Peso >0  then
-       dtmMDFE.tabMDFE_NFEPESO.AsCurrency := FrmConsultaNFe.Peso;
-    if FrmConsultaNFe.Valor >0  then
-       dtmMDFE.tabMDFE_NFEValor.AsCurrency := FrmConsultaNFe.Valor;
+    if FrmConsultaNFe.ChaveNFe <> '' then
+      dtmMDFE.tabMDFE_NFEID_CHAVE.value := FrmConsultaNFe.ChaveNFe;
+    if FrmConsultaNFe.Peso > 0 then
+      dtmMDFE.tabMDFE_NFEPESO.AsCurrency := FrmConsultaNFe.Peso;
+    if FrmConsultaNFe.Valor > 0 then
+      dtmMDFE.tabMDFE_NFEValor.AsCurrency := FrmConsultaNFe.Valor;
 
     FrmConsultaNFe.Release;
   end;
@@ -104,7 +106,7 @@ end;
 
 procedure TfrmMDFEnfeCADASTRO.btnCancelarClick(Sender: TObject);
 begin
-  Self.Perform(WM_NEXTDLGCTL,0,0);
+  Self.Perform(WM_NEXTDLGCTL, 0, 0);
 
   if dtsDefault.DataSet.State in [dsInsert] then
     dtsDefault.DataSet.Cancel;
@@ -117,13 +119,13 @@ end;
 
 procedure TfrmMDFEnfeCADASTRO.btnConfirmarClick(Sender: TObject);
 begin
-  Self.Perform(WM_NEXTDLGCTL,0,0);
+  Self.Perform(WM_NEXTDLGCTL, 0, 0);
 
   try
-  { if FOperacao = TIncluir then
+    { if FOperacao = TIncluir then
       begin
-        dtmMDFE.tabMDFE.FieldByName('ID_MDFE').AsInteger := oMDFE.GetNEW_ID_MDFE;
-      end;}
+      dtmMDFE.tabMDFE.FieldByName('ID_MDFE').AsInteger := oMDFE.GetNEW_ID_MDFE;
+      end; }
 
     if dtsDefault.DataSet.State in [dsInsert] then
       dtsDefault.DataSet.Post;
@@ -136,8 +138,7 @@ begin
   except
     on E: Exception do
     begin
-      raise Exception.Create
-        ('Ocorreu o erro abaixo no processo, favor contactar suporte!' + sLineBreak + sLineBreak + e.Message);
+      raise Exception.Create('Ocorreu o erro abaixo no processo, favor contactar suporte!' + sLineBreak + sLineBreak + E.Message);
     end;
   end;
 end;
@@ -160,8 +161,7 @@ begin
   TfrmMDFEnfeCADASTROunidTRANSPORTEcadastro.Novo;
 end;
 
-procedure TfrmMDFEnfeCADASTRO.dtsDefaultDataChange(Sender: TObject;
-  Field: TField);
+procedure TfrmMDFEnfeCADASTRO.dtsDefaultDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_NFE_UNIDTRANS.DataSet) then
   begin
@@ -170,16 +170,15 @@ begin
   end;
 end;
 
-procedure TfrmMDFEnfeCADASTRO.dtstabMDFE_NFE_UNIDTRANSDataChange(
-  Sender: TObject; Field: TField);
+procedure TfrmMDFEnfeCADASTRO.dtstabMDFE_NFE_UNIDTRANSDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_NFE_UNIDTRANS.DataSet) then
   begin
     btnUNIDTRANSalterar.Enabled := TFDQuery(dtstabMDFE_NFE_UNIDTRANS.DataSet).RecordCount > 0;
     btnUNIDTRANSexcluir.Enabled := TFDQuery(dtstabMDFE_NFE_UNIDTRANS.DataSet).RecordCount > 0;
 
-     btnConfirmar.Enabled := (FOperacao = TIncluir) and (dtstabMDFE_NFE_UNIDTRANS.DataSet.IsEmpty);
-     ID_CHAVE.Enabled     := (FOperacao = TIncluir) and (dtstabMDFE_NFE_UNIDTRANS.DataSet.IsEmpty);
+    btnConfirmar.Enabled := (FOperacao = TIncluir) and (dtstabMDFE_NFE_UNIDTRANS.DataSet.IsEmpty);
+    ID_CHAVE.Enabled := (FOperacao = TIncluir) and (dtstabMDFE_NFE_UNIDTRANS.DataSet.IsEmpty);
   end;
 end;
 
@@ -193,26 +192,91 @@ end;
 
 procedure TfrmMDFEnfeCADASTRO.ID_CHAVEExit(Sender: TObject);
 var
-  Chave:String;
+  Chave: String;
 begin
   if ID_CHAVE.Text = '' then
-     exit;
-  Chave :=StringReplace(ID_CHAVE.Text,' ','',[rfReplaceAll, rfIgnoreCase]);
-  if Length(Chave)<>44 then
-     begin
-       ShowMessage('Tamanho Chave incorreto');
-       exit;
-     end;
+    exit;
+  Chave := StringReplace(ID_CHAVE.Text, ' ', '', [rfReplaceAll, rfIgnoreCase]);
+  if Length(Chave) <> 44 then
+  begin
+    ShowMessage('Tamanho Chave incorreto');
+    exit;
+  end;
 
-  if (Chave<>'') then
-     begin
-       if not ValidarChaveNFe(ID_CHAVE.Text) then
+  if (Chave <> '') then
+  begin
+    if not ValidarChaveNFe(ID_CHAVE.Text) then
+    begin
+      ShowMessage('Chave NFe incorreta!');
+      ID_CHAVE.SetFocus;
+      exit;
+    end;
+  end;
+end;
+
+procedure TfrmMDFEnfeCADASTRO.JvBitBtn1Click(Sender: TObject);
+begin
+  inherited;
+
+  var
+    NFeRTXT: TNFeRTXT;
+
+  FileOpenDialog1.DefaultFolder := ACBrNFe1.Configuracoes.Arquivos.PathSalvar;
+
+  if FileOpenDialog1.Execute then
+  begin
+
+    ACBrNFe1.NotasFiscais.Clear;
+    // tenta TXT
+    ACBrNFe1.NotasFiscais.Add;
+    NFeRTXT := TNFeRTXT.Create(ACBrNFe1.NotasFiscais.Items[0].NFe);
+    NFeRTXT.CarregarArquivo(FileOpenDialog1.FileName);
+    if NFeRTXT.LerTxt then
+    begin
+      NFeRTXT.Free;
+    end
+    else
+    begin
+      NFeRTXT.Free;
+      // tenta XML
+      ACBrNFe1.NotasFiscais.Clear;
+      try
+        ACBrNFe1.NotasFiscais.LoadFromFile(FileOpenDialog1.FileName);
+
+        var
+          pesoBrutoTotal: Double := 0.0;
+
+        for var i := 0 to ACBrNFe1.NotasFiscais.Items[0].NFe.Transp.Vol.Count - 1 do
         begin
-          ShowMessage('Chave NFe incorreta!');
-          ID_CHAVE.SetFocus;
+          if ACBrNFe1.NotasFiscais.Items[0].NFe.Transp.Vol.Items[i].pesoB <> 0.0 then
+            pesoBrutoTotal := pesoBrutoTotal + ACBrNFe1.NotasFiscais.Items[0].NFe.Transp.Vol.Items[i].pesoB
+          else if ACBrNFe1.NotasFiscais.Items[0].NFe.Transp.Vol.Items[i].pesoL <> 0.0 then
+            pesoBrutoTotal := pesoBrutoTotal + ACBrNFe1.NotasFiscais.Items[0].NFe.Transp.Vol.Items[i].pesoL
+        end;
+
+        if dtmMDFE.tabMDFE_NFE.State in [dsBrowse] then
+          dtmMDFE.tabMDFE_NFE.Edit;
+
+        dtmMDFE.tabMDFE_NFEPESO.AsFloat := pesoBrutoTotal;
+        dtmMDFE.tabMDFE_NFEValor.AsFloat := ACBrNFe1.NotasFiscais.Items[0].NFe.Total.ICMSTot.vNF;
+        dtmMDFE.tabMDFE_NFEXML_NFE.LoadFromFile(FileOpenDialog1.FileName);
+        dtmMDFE.tabMDFE_NFEID_CHAVE.AsString := ACBrNFe1.NotasFiscais.Items[0].NFe.procNFe.chNFe;
+
+        dtmMDFE.tabMDFE_NFE.Post;
+
+        if pesoBrutoTotal = 0.0 then
+          ShowMessage('Peso Bruto igual à 0 na nota, verificar');
+        if ACBrNFe1.NotasFiscais.Items[0].NFe.Total.ICMSTot.vNF = 0.0 then
+          ShowMessage('Valor total da nota é 0, verificar');
+      except
+        on E: Exception do
+        begin
+          ShowMessage('Arquivo NFe Inválido: ' + sLineBreak + E.Message);
           exit;
         end;
-     end;
+      end;
+    end;
+  end;
 end;
 
 class procedure TfrmMDFEnfeCADASTRO.Novo;
@@ -228,16 +292,16 @@ begin
   end;
 end;
 
-function TfrmMDFEnfeCADASTRO.ValidarChaveNFe( const ChaveNFe: AnsiString): Boolean;
- const
-    PESO: Array [0 .. 43] of integer = (4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3,
-      2, 9, 8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 0);
- var
-    retorno: Boolean;
-    aChave: Array [0 .. 43] of char;
-    Soma: integer;
-    Verif: integer;
-    i: integer;
+function TfrmMDFEnfeCADASTRO.ValidarChaveNFe(const ChaveNFe: AnsiString): Boolean;
+const
+  Peso: Array [0 .. 43] of integer = (4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6,
+    5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 0);
+var
+  retorno: Boolean;
+  aChave: Array [0 .. 43] of char;
+  soma: integer;
+  Verif: integer;
+  i: integer;
 begin
   retorno := False;
   try
@@ -245,17 +309,17 @@ begin
       if not Length(ChaveNFe) = 44 then
         raise Exception.Create('');
       StrPCopy(aChave, StringReplace(ChaveNFe, ' ', '', [rfReplaceAll]));
-      Soma := 0;
+      soma := 0;
       for i := Low(aChave) to High(aChave) do
-        Soma := Soma + (StrToInt(aChave[i]) * PESO[i]);
-      if Soma = 0 then
+        soma := soma + (StrToInt(aChave[i]) * Peso[i]);
+      if soma = 0 then
         raise Exception.Create('');
 
-      Soma := Soma - (11 * (Trunc(Soma / 11)));
-      if (Soma = 0) or (Soma = 1) then
+      soma := soma - (11 * (Trunc(soma / 11)));
+      if (soma = 0) or (soma = 1) then
         Verif := 0
       else
-        Verif := 11 - Soma;
+        Verif := 11 - soma;
       retorno := Verif = StrToInt(aChave[43]);
     except
       retorno := False;
@@ -267,4 +331,3 @@ begin
 end;
 
 end.
-
