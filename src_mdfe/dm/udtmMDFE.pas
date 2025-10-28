@@ -9,7 +9,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, ACBrBase, ACBrMail, ACBrMDFeDAMDFeClass,
   ACBrMDFeDAMDFeRLClass, ACBrDFe, ACBrMDFe, pcnConversao, FireDAC.Moni.Base,
   FireDAC.Moni.RemoteClient, ACBrDFeReport, ufrmDefaultCadastro, blcksock,
-  ACBrCIOT, ACBrCIOTConversao, ACBrUtil.Base, System.Math;
+  ACBrCIOT, ACBrCIOTConversao, ACBrUtil.Base, System.Math, ACBrCTe;
 
 type
   TdtmMDFE = class(TDataModule)
@@ -717,6 +717,8 @@ type
     tabMDFENCM_NATUREZA_CARGA: TStringField;
     tabMDFEDESTINATARIO_CELULAR: TStringField;
     tabMDFE_NFEXML_NFE: TBlobField;
+    tabMDFE_CTEXML_CTE: TBlobField;
+    ACBrCTe: TACBrCTe;
     procedure qryCERTIFICADO_CONFIGBeforeOpen(DataSet: TDataSet);
     procedure tabMDFENewRecord(DataSet: TDataSet);
     procedure tabMDFEBeforePost(DataSet: TDataSet);

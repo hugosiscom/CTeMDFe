@@ -37,7 +37,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
   inherited pageDefault: TJvPageControl
     Width = 899
     Height = 484
-    ActivePage = pageINFdoc
     TabOrder = 0
     ExplicitWidth = 899
     ExplicitHeight = 484
@@ -728,7 +727,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Expanded = False
                 FieldName = 'ID_MUNICIPIO'
                 Title.Caption = 'C'#243'digo Munic'#237'pio'
-                Width = 64
                 Visible = True
               end>
           end
@@ -2652,18 +2650,11 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Height = 13
                 Caption = 'Tipo Embalagem'
               end
-              object Label66: TLabel
-                Left = 157
-                Top = 0
-                Width = 33
-                Height = 13
-                Caption = 'Celular'
-              end
               object JvDBGrid6: TJvDBGrid
                 AlignWithMargins = True
                 Left = 3
                 Top = 46
-                Width = 258
+                Width = 429
                 Height = 269
                 DataSource = dtstabMDFE_CIOT
                 Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
@@ -2733,22 +2724,18 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 ListSettings.OutfilteredValueFont.Name = 'Segoe UI'
                 ListSettings.OutfilteredValueFont.Style = []
               end
-              object JvMaskEdit1: TJvMaskEdit
-                Left = 157
-                Top = 19
-                Width = 119
-                Height = 21
-                EditMask = '(99) 9 9999-9999'
-                MaxLength = 16
+              object memoObservacoesAoCredenciado: TDBMemo
+                Left = 654
+                Top = 46
+                Width = 210
+                Height = 269
                 TabOrder = 2
-                Text = '(  )       -    '
               end
-              object JvDBCheckBox1: TJvDBCheckBox
-                Left = 400
-                Top = 104
-                Width = 97
-                Height = 17
-                Caption = 'JvDBCheckBox1'
+              object memoObservacoesAoTransportador: TDBMemo
+                Left = 438
+                Top = 46
+                Width = 210
+                Height = 269
                 TabOrder = 3
               end
             end
@@ -3521,7 +3508,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Carregamento'
-                  Width = 64
                   Visible = True
                 end>
             end
@@ -3905,7 +3891,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Descarregamento'
-                  Width = 64
                   Visible = True
                 end>
             end
@@ -4578,7 +4563,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Top = 3
         Width = 885
         Height = 450
-        ActivePage = TabSheet7
+        ActivePage = tabCTe
         Align = alClient
         TabOrder = 0
         object TabSheet7: TTabSheet
@@ -4595,10 +4580,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             object Label23: TLabel
               AlignWithMargins = True
               Left = 3
-              Top = 3
-              Width = 865
+              Top = 0
+              Width = 19
               Height = 13
-              Align = alTop
               Caption = 'UF*'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
@@ -4607,11 +4591,10 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Font.Style = []
               ParentFont = False
               Transparent = True
-              ExplicitWidth = 19
             end
             object Label25: TLabel
-              Left = 82
-              Top = 3
+              Left = 84
+              Top = 0
               Width = 49
               Height = 13
               Caption = 'Munic'#237'pio*'
@@ -4624,7 +4607,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Transparent = True
             end
             object Label70: TLabel
-              Left = 321
+              Left = 323
               Top = 0
               Width = 19
               Height = 13
@@ -4638,38 +4621,38 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               Transparent = True
             end
             object MUNICIPIO_DESCARREGAMENTO: TJvDBLookupCombo
-              Left = 82
+              Left = 84
               Top = 19
               Width = 233
               Height = 21
               LookupField = 'ID_CIDADES_IBGE'
               LookupDisplay = 'DESCRICAO'
               LookupSource = dtsqryCIDADES_MUNICIPIO_DESCARREGAMENTO
-              TabOrder = 1
-            end
-            object UF_DESCARREGAMENTO: TJvDBLookupCombo
-              Left = 3
-              Top = 19
-              Width = 73
-              Height = 21
-              DataField = 'ID_UF_FINAL'
-              DataSource = dtsDefault
-              Enabled = False
-              LookupField = 'ID_CIDADES_UF'
-              LookupDisplay = 'ID_CIDADES_UF'
-              LookupSource = dtsqryCIDADES_UF
               TabOrder = 0
             end
             object edtCEPDestino: TJvDBMaskEdit
-              Left = 321
+              Left = 323
               Top = 19
               Width = 120
               Height = 21
               DataField = 'CEP'
               DataSource = dtstabMDFE_LOCAL_DESCARREGAMENTO
               MaxLength = 9
-              TabOrder = 2
+              TabOrder = 1
               EditMask = '99999-999;0; '
+            end
+            object ID_UF_FINAL: TDBLookupComboBox
+              Left = 0
+              Top = 19
+              Width = 78
+              Height = 21
+              DataField = 'ID_UF_FINAL'
+              DataSource = dtsDefault
+              KeyField = 'ID_CIDADES_UF'
+              ListField = 'ID_CIDADES_UF'
+              ListSource = dtsqryCIDADES_UF
+              TabOrder = 2
+              OnClick = ID_UF_FINALClick
             end
           end
           object Panel25: TPanel
@@ -6518,5 +6501,19 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
     OnDataChange = dtstabMDFE_AQUA_UNID_TRANSDataChange
     Left = 761
     Top = 361
+  end
+  object ACBrCTeMDFE: TACBrCTe
+    Configuracoes.Geral.SSLLib = libNone
+    Configuracoes.Geral.SSLCryptLib = cryNone
+    Configuracoes.Geral.SSLHttpLib = httpNone
+    Configuracoes.Geral.SSLXmlSignLib = xsNone
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Arquivos.OrdenacaoPath = <>
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 0
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Configuracoes.RespTec.IdCSRT = 0
+    Left = 123
+    Top = 285
   end
 end

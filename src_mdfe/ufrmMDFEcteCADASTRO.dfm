@@ -335,9 +335,9 @@
                 AlignWithMargins = True
                 Left = 5
                 Top = 19
-                Width = 818
+                Width = 412
                 Height = 247
-                Align = alClient
+                Align = alLeft
                 DataSource = dtstabMDFE_CTE_UNIDTRANS
                 Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
                 ReadOnly = True
@@ -370,6 +370,66 @@
                     Visible = True
                   end>
               end
+              object JvDBGrid1: TJvDBGrid
+                Left = 423
+                Top = 19
+                Width = 402
+                Height = 247
+                DataSource = dtsDefault
+                TabOrder = 2
+                TitleFont.Charset = DEFAULT_CHARSET
+                TitleFont.Color = clWindowText
+                TitleFont.Height = -11
+                TitleFont.Name = 'Tahoma'
+                TitleFont.Style = []
+                SelectColumnsDialogStrings.Caption = 'Select columns'
+                SelectColumnsDialogStrings.OK = '&OK'
+                SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
+                EditControls = <>
+                RowsHeight = 17
+                TitleRowHeight = 17
+                Columns = <
+                  item
+                    Expanded = False
+                    FieldName = 'ID_EMPRESA'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID_MDFE'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID_SERIE'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID_CHAVE'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID_IND_REENTREGA'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID_CIDADES_UF'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'ID_CIDADES_IBGE'
+                    Visible = True
+                  end
+                  item
+                    Expanded = False
+                    FieldName = 'lookCIDADE'
+                    Visible = True
+                  end>
+              end
             end
           end
         end
@@ -380,6 +440,7 @@
           Height = 39
           Caption = 'Importar XML (CTe)'
           TabOrder = 4
+          OnClick = BitBtn1Click
         end
       end
     end
@@ -404,5 +465,19 @@
     OnDataChange = dtstabMDFE_CTE_UNIDTRANSDataChange
     Left = 478
     Top = 219
+  end
+  object FileOpenDialog1: TFileOpenDialog
+    DefaultExtension = '*-CTe.XML'
+    FavoriteLinks = <>
+    FileName = 'C:\ACBr\trunk2\Exemplos\ACBrDFe\ACBrNFe\Delphi'
+    FileTypes = <
+      item
+        DisplayName = 'CTe (XML)'
+        FileMask = '*-CTe.XML'
+      end>
+    Options = []
+    Title = 'Selecione a CTe'
+    Left = 698
+    Top = 54
   end
 end

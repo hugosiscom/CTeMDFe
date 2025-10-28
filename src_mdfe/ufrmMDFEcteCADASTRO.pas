@@ -12,7 +12,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, JvBaseEdits, JvDBControls,
   Vcl.StdCtrls, JvExStdCtrls, JvCombobox, JvDBCombobox, JvDBLookup, Vcl.Mask,
   JvExMask, JvToolEdit, JvMaskEdit, JvgGroupBox, Vcl.DBCtrls, JvDBCheckBox,
-  Vcl.Grids, Vcl.DBGrids, JvExDBGrids, JvDBGrid, Vcl.Buttons;
+  Vcl.Grids, Vcl.DBGrids, JvExDBGrids, JvDBGrid, Vcl.Buttons, ACBrDFe, ACBrCTe;
 
 type
   TfrmMDFEcteCADASTRO = class(TfrmDefaultCadastro)
@@ -32,14 +32,16 @@ type
     btnUNIDTRANSalterar: TJvSpeedButton;
     dtstabMDFE_CTE_UNIDTRANS: TDataSource;
     BitBtn1: TBitBtn;
+    JvDBGrid1: TJvDBGrid;
+    FileOpenDialog1: TFileOpenDialog;
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnUNIDTRANSincluirClick(Sender: TObject);
     procedure btnUNIDTRANSalterarClick(Sender: TObject);
     procedure btnUNIDTRANSexcluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure dtstabMDFE_CTE_UNIDTRANSDataChange(Sender: TObject;
-      Field: TField);
+    procedure dtstabMDFE_CTE_UNIDTRANSDataChange(Sender: TObject; Field: TField);
+    procedure BitBtn1Click(Sender: TObject);
   private
     FOperacao: TOperacao;
   public
@@ -54,7 +56,7 @@ implementation
 
 {$R *.dfm}
 
-uses udtmMDFE, ufrmMDFEcteCADASTROunidTRANSPORTE;
+uses udtmMDFE, ufrmMDFEcteCADASTROunidTRANSPORTE, uclassEMPRESA, pcteConversaoCTe;
 
 { TfrmMDFEcteCADASTRO }
 
@@ -73,9 +75,62 @@ begin
   end;
 end;
 
+procedure TfrmMDFEcteCADASTRO.BitBtn1Click(Sender: TObject);
+begin
+  inherited;
+
+  FileOpenDialog1.DefaultFolder := dtmMDFE.ACBrCTe.Configuracoes.Arquivos.PathSalvar;
+
+  if FileOpenDialog1.Execute then
+  begin
+    dtmMDFE.ACBrCTe.Conhecimentos.Clear;
+    dtmMDFE.ACBrCTe.Conhecimentos.LoadFromFile(FileOpenDialog1.FileName);
+
+    if dtmMDFE.ACBrCTe.Conhecimentos.Count > 0 then
+    begin
+   {   if dtmMDFE.tabMDFE.State in [dsInsert, dsEdit] then
+      begin
+        dtmMDFE.tabMDFE.Post;
+      end;}
+      with dtmMDFE.ACBrCTe.Conhecimentos[0] do
+      begin
+        //dtmMDFE.tabMDFE_CTE.Append;
+        if dtmMDFE.tabMDFE_CTE.State in [dsBrowse]  then
+           dtmMDFE.tabMDFE_CTE.Edit;
+
+
+        dtmMDFE.tabMDFE_CTEXML_CTE.LoadFromFile(FileOpenDialog1.FileName);
+        dtmMDFE.tabMDFE_CTEID_CHAVE.AsString := NumID;
+        dtmMDFE.tabMDFE_CTElookCIDADE.AsInteger := CTe.Ide.cMunFim;
+
+
+      {  if CTe.Ide.retira = rtSim then
+        begin
+          dtmMDFE.tabMDFE_CTEID_IND_REENTREGA.AsString := 'S'
+        end
+        else if CTe.Ide.retira = rtNao then
+          dtmMDFE.tabMDFE_CTEID_IND_REENTREGA.AsString := 'N'
+        else
+          raise Exception.Create('Não foi possível mapear o indicador de reentrega no cadastro/importação do CTe');}
+
+        // Parâmetros do método Enviar:
+        // 1o = Número do Lote
+        // 2o = Se True imprime automaticamente o DACTE
+        // 3o = True o envio é no modo Síncrono OBRIGATORIAMENTE
+        // Obs: no modo Síncrono só podemos enviar UM CT-e por vez.
+        // ACBrCTe1.Enviar(1, True, True);
+
+        dtmMDFE.tabMDFE_CTE.Post;
+      end;
+    end
+    else
+      ShowMessage('Não foi possível carregar nenhum CT-e do arquivo selecionado.');
+  end;
+end;
+
 procedure TfrmMDFEcteCADASTRO.btnCancelarClick(Sender: TObject);
 begin
-  Self.Perform(WM_NEXTDLGCTL,0,0);
+  Self.Perform(WM_NEXTDLGCTL, 0, 0);
 
   if dtsDefault.DataSet.State in [dsInsert] then
     dtsDefault.DataSet.Cancel;
@@ -88,7 +143,7 @@ end;
 
 procedure TfrmMDFEcteCADASTRO.btnConfirmarClick(Sender: TObject);
 begin
-  Self.Perform(WM_NEXTDLGCTL,0,0);
+  Self.Perform(WM_NEXTDLGCTL, 0, 0);
 
   try
     if dtsDefault.DataSet.State in [dsInsert] then
@@ -101,8 +156,7 @@ begin
   except
     on E: Exception do
     begin
-      raise Exception.Create
-        ('Ocorreu o erro abaixo no processo, favor contactar suporte!' + sLineBreak + sLineBreak + e.Message);
+      raise Exception.Create('Ocorreu o erro abaixo no processo, favor contactar suporte!' + sLineBreak + sLineBreak + E.Message);
     end;
   end;
 end;
@@ -125,16 +179,15 @@ begin
   TfrmMDFEcteCADASTROunidTRANSPORTEcadastro.Novo;
 end;
 
-procedure TfrmMDFEcteCADASTRO.dtstabMDFE_CTE_UNIDTRANSDataChange(
-  Sender: TObject; Field: TField);
+procedure TfrmMDFEcteCADASTRO.dtstabMDFE_CTE_UNIDTRANSDataChange(Sender: TObject; Field: TField);
 begin
   if Assigned(dtstabMDFE_CTE_UNIDTRANS.DataSet) then
   begin
     btnUNIDTRANSalterar.Enabled := TFDQuery(dtstabMDFE_CTE_UNIDTRANS.DataSet).RecordCount > 0;
     btnUNIDTRANSexcluir.Enabled := TFDQuery(dtstabMDFE_CTE_UNIDTRANS.DataSet).RecordCount > 0;
 
-     btnConfirmar.Enabled := (FOperacao = TIncluir) and (dtstabMDFE_CTE_UNIDTRANS.DataSet.IsEmpty);
-     ID_CHAVE.Enabled     := (FOperacao = TIncluir) and (dtstabMDFE_CTE_UNIDTRANS.DataSet.IsEmpty);
+    btnConfirmar.Enabled := (FOperacao = TIncluir) and (dtstabMDFE_CTE_UNIDTRANS.DataSet.IsEmpty);
+    ID_CHAVE.Enabled := (FOperacao = TIncluir) and (dtstabMDFE_CTE_UNIDTRANS.DataSet.IsEmpty);
   end;
 end;
 

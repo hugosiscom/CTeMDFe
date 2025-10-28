@@ -26,7 +26,7 @@ uses
   ACBrCIOTContratos,
   ufrmCERTIFICADOconfig,
   pcnConversao, Vcl.Samples.Spin, blcksock, System.TypInfo, IniFiles, System.Math, Vcl.OleCtrls, SHDocVw, JvSpin,
-  JvDBSpinEdit, JvExButtons, JvBitBtn, ACBrNFe;
+  JvDBSpinEdit, JvExButtons, JvBitBtn, ACBrNFe, ACBrCTe;
 
 type
   TfrmMDFEcadastro = class(TfrmDefaultCadastro)
@@ -105,7 +105,6 @@ type
     Label23: TLabel;
     Label25: TLabel;
     MUNICIPIO_DESCARREGAMENTO: TJvDBLookupCombo;
-    UF_DESCARREGAMENTO: TJvDBLookupCombo;
     Panel25: TPanel;
     JvgGroupBox9: TJvgGroupBox;
     Panel3: TPanel;
@@ -365,9 +364,10 @@ type
     Label70: TLabel;
     Label5: TLabel;
     JvDBComboBox1: TJvDBComboBox;
-    Label66: TLabel;
-    JvMaskEdit1: TJvMaskEdit;
-    JvDBCheckBox1: TJvDBCheckBox;
+    ID_UF_FINAL: TDBLookupComboBox;
+    ACBrCTeMDFE: TACBrCTe;
+    memoObservacoesAoCredenciado: TDBMemo;
+    memoObservacoesAoTransportador: TDBMemo;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -720,12 +720,12 @@ begin
 
   if TFDQuery(dtsDefault.DataSet).State in [dsBrowse, dsEdit] then
   begin
-    if (UF_DESCARREGAMENTO.Text = '') and (MUNICIPIO_DESCARREGAMENTO.Text = '') then
+    if (ID_UF_FINAL.Text = '') and (MUNICIPIO_DESCARREGAMENTO.Text = '') then
       MUNICIPIO_DESCARREGAMENTO.SetFocus;
 
     try
       TFDQuery(dtstabMDFE_LOCAL_DESCARREGAMENTO.DataSet).Append;
-      TFDQuery(dtstabMDFE_LOCAL_DESCARREGAMENTO.DataSet).FieldByName('ID_CIDADES_UF').Value := UF_DESCARREGAMENTO.Text;
+      TFDQuery(dtstabMDFE_LOCAL_DESCARREGAMENTO.DataSet).FieldByName('ID_CIDADES_UF').Value := ID_UF_FINAL.Text;
       TFDQuery(dtstabMDFE_LOCAL_DESCARREGAMENTO.DataSet).FieldByName('ID_CIDADES_IBGE').Value := MUNICIPIO_DESCARREGAMENTO.Value;
       TFDQuery(dtstabMDFE_LOCAL_DESCARREGAMENTO.DataSet).Prepare;
       TFDQuery(dtstabMDFE_LOCAL_DESCARREGAMENTO.DataSet).Post;
@@ -1207,10 +1207,10 @@ procedure TfrmMDFEcadastro.ID_UF_FINALClick(Sender: TObject);
 begin
   if Assigned(dtsqryCIDADES_MUNICIPIO_DESCARREGAMENTO.DataSet) then
   begin
-    if UF_DESCARREGAMENTO.Text <> '' then
+    if ID_UF_FINAL.Text <> '' then
     begin
       TFDQuery(dtsqryCIDADES_MUNICIPIO_DESCARREGAMENTO.DataSet).Close;
-      TFDQuery(dtsqryCIDADES_MUNICIPIO_DESCARREGAMENTO.DataSet).Params[0].Value := UF_DESCARREGAMENTO.Text;
+      TFDQuery(dtsqryCIDADES_MUNICIPIO_DESCARREGAMENTO.DataSet).Params[0].Value := ID_UF_FINAL.Text;
       TFDQuery(dtsqryCIDADES_MUNICIPIO_DESCARREGAMENTO.DataSet).Prepare;
       TFDQuery(dtsqryCIDADES_MUNICIPIO_DESCARREGAMENTO.DataSet).Open;
     end;
@@ -1793,6 +1793,13 @@ end;
 
 procedure TfrmMDFEcadastro.adicionarOperacaoTransporte(contrato: TCIOT);
 begin
+
+  if not ACBrCTeMDFE.Conhecimentos.LoadFromString(dtmMDFE.tabMDFE_CTEXML_CTE.AsString) then
+    raise Exception.Create('Não foi posível recuperar o XML (CTe) do banco de dados!');
+
+  if (ACBrCTeMDFE.Conhecimentos.Count = 0) or not Assigned(ACBrCTeMDFE.Conhecimentos[0].CTe) then
+    raise Exception.Create('Nenhum CT-e válido está carregado na memória.');
+
   with contrato do
   begin
     // Adicionar uma operação de transporte
@@ -1853,7 +1860,15 @@ begin
       if dtmMDFE.tabMDFETOTF_PES_BRUTO.IsNull or (dtmMDFE.tabMDFETOTF_PES_BRUTO.AsCurrency <= 0) then
         raise Exception.Create('O Peso Bruto da Carga é obrigatório e deve ser maior que zero.');
 
-      PesoCarga := dtmMDFE.tabMDFETOTF_PES_BRUTO.AsInteger;
+      var
+      CTe := ACBrCTeMDFE.Conhecimentos[0].CTe;
+
+      if CTe.infCTeNorm.infCarga.infQ.Count > 0 then
+        PesoCarga := Round(CTe.infCTeNorm.infCarga.infQ[0].qCarga)
+      else if dtmMDFE.tabMDFETOTF_PES_BRUTO.AsInteger > 0 then
+        PesoCarga := dtmMDFE.tabMDFETOTF_PES_BRUTO.AsInteger
+      else
+        raise Exception.Create('Peso da Carga não encontrado no CT-e importado e nem no campo dedicado para o peso bruto!');
 
       // utilizado somente para as viagens do tipo Padrão
       if TipoViagem = Padrao then
@@ -1890,11 +1905,13 @@ begin
       begin
         with Viagens.New do
         begin
-          DocumentoViagem := 'CTe' + dtmMDFE.tabMDFEID_SERIE.AsString;
-          CodigoMunicipioOrigem := OnlyNumber(dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOID_MUNICIPIO.AsString).ToInteger;
-          CodigoMunicipioDestino := OnlyNumber(dtmMDFE.tabMDFE_LOCAL_DESCARREGAMENTOID_CIDADES_IBGE.AsString).ToInteger;
-          CepOrigem := dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOCEP.AsString;
-          CepDestino := dtmMDFE.tabMDFE_LOCAL_DESCARREGAMENTOCEP.AsString;
+          DocumentoViagem := 'CTe' + IntToStr(CTe.Ide.serie) + '/' + IntToStr(CTe.Ide.nCT); // + dtmMDFE.tabMDFEID_SERIE.AsString;
+          CodigoMunicipioOrigem := CTe.Ide.cMunIni;
+          // OnlyNumber(dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOID_MUNICIPIO.AsString).ToInteger;
+          CodigoMunicipioDestino := CTe.Ide.cMunFim;
+          // OnlyNumber(dtmMDFE.tabMDFE_LOCAL_DESCARREGAMENTOID_CIDADES_IBGE.AsString).ToInteger;
+          CepOrigem := CTe.Rem.enderReme.CEP.toString; // dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOCEP.AsString;
+          CepDestino := CTe.Dest.enderDest.CEP.toString; // dtmMDFE.tabMDFE_LOCAL_DESCARREGAMENTOCEP.AsString;
 
           DistanciaPercorrida := 0;
 
@@ -1915,7 +1932,7 @@ begin
           with NotasFiscais.New do
           begin
             Numero := '';
-            Serie := '';
+            serie := '';
             Data := 0;
             ValorTotal := 0;
 
@@ -2022,70 +2039,70 @@ begin
       begin
         with Destinatario do
         begin
+          NomeOuRazaoSocial := CTe.Dest.xNome;
+          CpfOuCnpj := CTe.Dest.CNPJCPF;
 
-          // ajustar
-          { with ACBrNFe1.NotasFiscais.Items[0].NFe do
-            begin
-            NomeOuRazaoSocial := Dest.xNome;
-            CpfOuCnpj := Dest.CNPJCPF;
+          EMail := CTe.Dest.EMail;
+          ResponsavelPeloPagamento := false;
 
-            EMail := Dest.EMail;
-            ResponsavelPeloPagamento := false;
+          Endereco.Bairro := CTe.Dest.enderDest.xBairro;
+          Endereco.Rua := CTe.Dest.enderDest.xLgr;
+          Endereco.Numero := CTe.Dest.enderDest.nro;
+          Endereco.Complemento := CTe.Dest.enderDest.xCpl;
+          Endereco.CEP := CTe.Dest.enderDest.CEP.toString;
+          Endereco.CodigoMunicipio := CTe.Dest.enderDest.cMun;
 
-            Endereco.Bairro := Dest.EnderDest.xBairro;
-            Endereco.Rua := Dest.EnderDest.xLgr;
-            Endereco.Numero := Dest.EnderDest.nro;
-            Endereco.Complemento := Dest.EnderDest.xCpl;
-            Endereco.CEP := Dest.EnderDest.CEP.toString;
-            Endereco.CodigoMunicipio := Dest.EnderDest.cMun; }
+          var
+          telefone := OnlyNumber(CTe.Dest.fone); // dtmMDFE.tabMDFEDESTINATARIO_CELULAR.AsString);
 
-          Telefones.Celular.DDD := StrToInt(dtmMDFE.tabMDFEDESTINATARIO_CELULAR.AsString[1] +
-            dtmMDFE.tabMDFEDESTINATARIO_CELULAR.AsString[2]);
-          Telefones.Celular.Numero := dtmMDFE.tabMDFEDESTINATARIO_CELULAR.AsString.Substring(2).ToInteger;
+          Telefones.Celular.DDD := StrToIntDef(Copy(telefone, 1, 2), 0);
+          Telefones.Celular.Numero := StrToIntDef(Copy(telefone, 3, Length(telefone)), 0);
 
           { Telefones.Fixo.DDD := 0;
             Telefones.Fixo.Numero := 0;
 
             Telefones.Fax.DDD := 0;
             Telefones.Fax.Numero := 0; }
-          // end;
         end;
       end;
 
       with Contratante do
       begin
-        NomeOuRazaoSocial := dtmMDFE.qryEMPRESARAZAOSOCIAL.AsString;
-        CpfOuCnpj := dtmMDFE.qryEMPRESACNPJ.AsString;
-
-        EMail := dtmMDFE.qryEMPRESAEMAIL.AsString;
-
-        ResponsavelPeloPagamento := false;
-
-        RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
-
-        Endereco.Bairro := dtmMDFE.qryEMPRESABAIRRO.AsString;
-        Endereco.Rua := dtmMDFE.qryEMPRESAENDERECO.AsString;
-        Endereco.Numero := dtmMDFE.qryEMPRESANUMERO.AsString;
-        Endereco.Complemento := dtmMDFE.qryEMPRESACOMPLEMENTO.AsString;
-        Endereco.CEP := dtmMDFE.qryEMPRESACEP.AsString;
-
-        if not(dtmMDFE.qryEMPRESAID_CIDADES_IBGE.AsString = '') then
-          Endereco.CodigoMunicipio := OnlyNumber(dtmMDFE.qryEMPRESAID_CIDADES_IBGE.AsString).ToInteger;
-
-        if not(dtmMDFE.qryEMPRESATELEFONE.AsString = '') then
+        if CTe.toma.xNome <> '' then
         begin
+          NomeOuRazaoSocial := CTe.toma.xNome; // dtmMDFE.qryEMPRESARAZAOSOCIAL.AsString;
+          CpfOuCnpj := CTe.toma.CNPJCPF; // dtmMDFE.qryEMPRESACNPJ.AsString;
+
+          EMail := CTe.toma.EMail; // dtmMDFE.qryEMPRESAEMAIL.AsString;
+
+          ResponsavelPeloPagamento := True;
+
+          RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
+
+          Endereco.Bairro := CTe.toma.enderToma.xBairro; // dtmMDFE.qryEMPRESABAIRRO.AsString;
+          Endereco.Rua := CTe.toma.enderToma.xLgr; // dtmMDFE.qryEMPRESAENDERECO.AsString;
+          Endereco.Numero := CTe.toma.enderToma.nro; // dtmMDFE.qryEMPRESANUMERO.AsString;
+          Endereco.Complemento := CTe.toma.enderToma.xCpl; // dtmMDFE.qryEMPRESACOMPLEMENTO.AsString;
+          Endereco.CEP := CTe.toma.enderToma.CEP.toString; // dtmMDFE.qryEMPRESACEP.AsString;
+
+          // if not(dtmMDFE.qryEMPRESAID_CIDADES_IBGE.AsString = '') then
+          Endereco.CodigoMunicipio := CTe.toma.enderToma.cMun; // dtmMDFE.qryEMPRESAID_CIDADES_IBGE.AsString).ToInteger;
+
+          // if not(dtmMDFE.qryEMPRESATELEFONE.AsString = '') then
+          // begin
           var
-          telefoneSoNumeros := OnlyNumber(dtmMDFE.qryEMPRESATELEFONE.AsString);
+          telefoneSoNumeros := OnlyNumber(CTe.toma.fone);
           Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
           Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
+          // end;
+
+          { Telefones.Fixo.DDD := 49;
+            Telefones.Fixo.Numero := 33661012;
+
+            Telefones.Fax.DDD := 0;
+            Telefones.Fax.Numero := 0; }
+          // end;
         end;
-
-        { Telefones.Fixo.DDD := 49;
-          Telefones.Fixo.Numero := 33661012;
-
-          Telefones.Fax.DDD := 0;
-          Telefones.Fax.Numero := 0; }
-        // end;
       end;
 
       // É o transportador que contratar outro transportador para realização do
@@ -2160,36 +2177,38 @@ begin
       begin
         with TomadorServico do
         begin
+          if CTe.toma.xNome <> '' then
+          begin
+            NomeOuRazaoSocial := CTe.toma.xNome;
+            CpfOuCnpj := CTe.toma.CNPJCPF;
 
-          // if cbxTomadorServico.checked then
+            EMail := CTe.toma.EMail;
+            ResponsavelPeloPagamento := false;
 
-          NomeOuRazaoSocial := '';
-          CpfOuCnpj := '';
+            Endereco.Bairro := CTe.toma.enderToma.xBairro;
+            Endereco.Rua := CTe.toma.enderToma.xLgr;
+            Endereco.Numero := CTe.toma.enderToma.nro;
+            Endereco.Complemento := CTe.toma.enderToma.xCpl;
+            Endereco.CEP := CTe.toma.enderToma.CEP.toString;
+            Endereco.CodigoMunicipio := CTe.toma.enderToma.cMun;
 
-          EMail := '';
-          ResponsavelPeloPagamento := false;
+            var
+            telefoneSoNumeros := OnlyNumber(CTe.toma.fone);
+            Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
+            Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
 
-          Endereco.Bairro := '';
-          Endereco.Rua := '';
-          Endereco.Numero := '';
-          Endereco.Complemento := '';
-          Endereco.CEP := '';
-          Endereco.CodigoMunicipio := 0;
+            { Telefones.Fixo.DDD := 0;
+              Telefones.Fixo.Numero := 0;
 
-          Telefones.Celular.DDD := 0;
-          Telefones.Celular.Numero := 0;
-
-          Telefones.Fixo.DDD := 0;
-          Telefones.Fixo.Numero := 0;
-
-          Telefones.Fax.DDD := 0;
-          Telefones.Fax.Numero := 0;
+              Telefones.Fax.DDD := 0;
+              Telefones.Fax.Numero := 0; }
+          end;
         end;
       end;
 
       with Veiculos.New do
       begin
-        Placa := 'AAA1234';
+        Placa := dtmMDFE.tabMDFEVEICULO_PLACA.AsString;
       end;
 
       // Informar um CIOT (se existente) que esteja relacionado à operação de transporte.
@@ -2200,12 +2219,12 @@ begin
 
       with ObservacoesAoTransportador.New do
       begin
-        Mensagem := 'teste de obsevação ao transportador';
+        Mensagem := memoObservacoesAoTransportador.Lines.Text;
       end;
 
       with ObservacoesAoCredenciado.New do
       begin
-        Mensagem := 'teste de obsevação ao Credenciado';
+        Mensagem := memoObservacoesAoCredenciado.Lines.Text;
       end;
 
       EntregaDocumentacao := edRedeCredenciada; // Ver como funciona

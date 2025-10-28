@@ -2252,8 +2252,9 @@ object dtmMDFE: TdtmMDFE
     DetailFields = 'ID_EMPRESA;ID_MDFE;ID_SERIE;ID_CIDADES_UF;ID_CIDADES_IBGE'
     OnUpdateError = tabMDFE_CTEUpdateError
     Connection = dtmDefault.cnx_BD
-    FetchOptions.AssignedValues = [evDetailCascade]
+    FetchOptions.AssignedValues = [evDetailCascade, evDetailServerCascade]
     FetchOptions.DetailCascade = True
+    FetchOptions.DetailServerCascade = True
     SQL.Strings = (
       'SELECT'
       '  MDFE_CTE.*'
@@ -2352,6 +2353,10 @@ object dtmMDFE: TdtmMDFE
       KeyFields = 'ID_CIDADES_IBGE'
       Size = 100
       Lookup = True
+    end
+    object tabMDFE_CTEXML_CTE: TBlobField
+      FieldName = 'XML_CTE'
+      Origin = 'XML_CTE'
     end
   end
   object dtstabMDFE_LOCAL_DESCARREGAMENTO: TDataSource
@@ -6304,5 +6309,19 @@ object dtmMDFE: TdtmMDFE
       Origin = 'NOME_SOLTEIRA_MAE'
       Size = 50
     end
+  end
+  object ACBrCTe: TACBrCTe
+    Configuracoes.Geral.SSLLib = libNone
+    Configuracoes.Geral.SSLCryptLib = cryNone
+    Configuracoes.Geral.SSLHttpLib = httpNone
+    Configuracoes.Geral.SSLXmlSignLib = xsNone
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Arquivos.OrdenacaoPath = <>
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 0
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Configuracoes.RespTec.IdCSRT = 0
+    Left = 42
+    Top = 438
   end
 end
