@@ -39,7 +39,6 @@ type
     BitBtn1: TBitBtn;
     JvBitBtn1: TJvBitBtn;
     FileOpenDialog1: TFileOpenDialog;
-    ACBrNFe1: TACBrNFe;
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnUNIDTRANSincluirClick(Sender: TObject);
@@ -221,15 +220,15 @@ begin
   var
     NFeRTXT: TNFeRTXT;
 
-  FileOpenDialog1.DefaultFolder := ACBrNFe1.Configuracoes.Arquivos.PathSalvar;
+  FileOpenDialog1.DefaultFolder := dtmMDFE.ACBrNFe.Configuracoes.Arquivos.PathSalvar;
 
   if FileOpenDialog1.Execute then
   begin
 
-    ACBrNFe1.NotasFiscais.Clear;
+    dtmMDFE.ACBrNFe.NotasFiscais.Clear;
     // tenta TXT
-    ACBrNFe1.NotasFiscais.Add;
-    NFeRTXT := TNFeRTXT.Create(ACBrNFe1.NotasFiscais.Items[0].NFe);
+    dtmMDFE.ACBrNFe.NotasFiscais.Add;
+    NFeRTXT := TNFeRTXT.Create(dtmMDFE.ACBrNFe.NotasFiscais.Items[0].NFe);
     NFeRTXT.CarregarArquivo(FileOpenDialog1.FileName);
     if NFeRTXT.LerTxt then
     begin
@@ -239,34 +238,34 @@ begin
     begin
       NFeRTXT.Free;
       // tenta XML
-      ACBrNFe1.NotasFiscais.Clear;
+      dtmMDFE.ACBrNFe.NotasFiscais.Clear;
       try
-        ACBrNFe1.NotasFiscais.LoadFromFile(FileOpenDialog1.FileName);
+        dtmMDFE.ACBrNFe.NotasFiscais.LoadFromFile(FileOpenDialog1.FileName);
 
         var
           pesoBrutoTotal: Double := 0.0;
 
-        for var i := 0 to ACBrNFe1.NotasFiscais.Items[0].NFe.Transp.Vol.Count - 1 do
+        for var i := 0 to dtmMDFE.ACBrNFe.NotasFiscais.Items[0].NFe.Transp.Vol.Count - 1 do
         begin
-          if ACBrNFe1.NotasFiscais.Items[0].NFe.Transp.Vol.Items[i].pesoB <> 0.0 then
-            pesoBrutoTotal := pesoBrutoTotal + ACBrNFe1.NotasFiscais.Items[0].NFe.Transp.Vol.Items[i].pesoB
-          else if ACBrNFe1.NotasFiscais.Items[0].NFe.Transp.Vol.Items[i].pesoL <> 0.0 then
-            pesoBrutoTotal := pesoBrutoTotal + ACBrNFe1.NotasFiscais.Items[0].NFe.Transp.Vol.Items[i].pesoL
+          if dtmMDFE.ACBrNFe.NotasFiscais.Items[0].NFe.Transp.Vol.Items[i].pesoB <> 0.0 then
+            pesoBrutoTotal := pesoBrutoTotal + dtmMDFE.ACBrNFe.NotasFiscais.Items[0].NFe.Transp.Vol.Items[i].pesoB
+          else if dtmMDFE.ACBrNFe.NotasFiscais.Items[0].NFe.Transp.Vol.Items[i].pesoL <> 0.0 then
+            pesoBrutoTotal := pesoBrutoTotal + dtmMDFE.ACBrNFe.NotasFiscais.Items[0].NFe.Transp.Vol.Items[i].pesoL
         end;
 
         if dtmMDFE.tabMDFE_NFE.State in [dsBrowse] then
           dtmMDFE.tabMDFE_NFE.Edit;
 
         dtmMDFE.tabMDFE_NFEPESO.AsFloat := pesoBrutoTotal;
-        dtmMDFE.tabMDFE_NFEValor.AsFloat := ACBrNFe1.NotasFiscais.Items[0].NFe.Total.ICMSTot.vNF;
+        dtmMDFE.tabMDFE_NFEValor.AsFloat := dtmMDFE.ACBrNFe.NotasFiscais.Items[0].NFe.Total.ICMSTot.vNF;
         dtmMDFE.tabMDFE_NFEXML_NFE.LoadFromFile(FileOpenDialog1.FileName);
-        dtmMDFE.tabMDFE_NFEID_CHAVE.AsString := ACBrNFe1.NotasFiscais.Items[0].NFe.procNFe.chNFe;
+        dtmMDFE.tabMDFE_NFEID_CHAVE.AsString := dtmMDFE.ACBrNFe.NotasFiscais.Items[0].NFe.procNFe.chNFe;
 
         dtmMDFE.tabMDFE_NFE.Post;
 
         if pesoBrutoTotal = 0.0 then
           ShowMessage('Peso Bruto igual à 0 na nota, verificar');
-        if ACBrNFe1.NotasFiscais.Items[0].NFe.Total.ICMSTot.vNF = 0.0 then
+        if dtmMDFE.ACBrNFe.NotasFiscais.Items[0].NFe.Total.ICMSTot.vNF = 0.0 then
           ShowMessage('Valor total da nota é 0, verificar');
       except
         on E: Exception do

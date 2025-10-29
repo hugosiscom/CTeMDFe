@@ -35,6 +35,8 @@ type
     Label5: TLabel;
     NUM_AVERBACAO: TJvMaskEdit;
     dtstabMDFE_SEGUROS_AVERBACAO: TDataSource;
+    GroupBox1: TGroupBox;
+    edtValorSeguro: TJvDBMaskEdit;
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnNUMAVERBACAOincluirClick(Sender: TObject);

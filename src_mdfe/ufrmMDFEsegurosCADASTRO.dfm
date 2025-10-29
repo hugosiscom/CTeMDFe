@@ -4,7 +4,6 @@ inherited frmMDFEsegurosCADASTRO: TfrmMDFEsegurosCADASTRO
   ClientWidth = 597
   ExplicitWidth = 613
   ExplicitHeight = 587
-  PixelsPerInch = 96
   TextHeight = 13
   inherited pnlComandos: TPanel
     Top = 493
@@ -29,11 +28,10 @@ inherited frmMDFEsegurosCADASTRO: TfrmMDFEsegurosCADASTRO
       ExplicitWidth = 583
       ExplicitHeight = 456
       object JvgGroupBox8: TJvgGroupBox
-        AlignWithMargins = True
-        Left = 3
-        Top = 95
-        Width = 577
-        Height = 122
+        Left = 0
+        Top = 92
+        Width = 583
+        Height = 364
         Align = alTop
         Caption = 'Informa'#231#245'es da Seguradora'
         TabOrder = 1
@@ -58,6 +56,7 @@ inherited frmMDFEsegurosCADASTRO: TfrmMDFEsegurosCADASTRO
         Gradient.Active = False
         Gradient.Orientation = fgdHorizontal
         Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
+        ExplicitTop = 99
         FullHeight = 0
         object Label23: TLabel
           AlignWithMargins = True
@@ -129,7 +128,7 @@ inherited frmMDFEsegurosCADASTRO: TfrmMDFEsegurosCADASTRO
         object NOME: TJvDBMaskEdit
           Left = 136
           Top = 24
-          Width = 425
+          Width = 249
           Height = 21
           CharCase = ecUpperCase
           DataField = 'NOME'
@@ -426,6 +425,26 @@ inherited frmMDFEsegurosCADASTRO: TfrmMDFEsegurosCADASTRO
           Text = ''
         end
       end
+      object GroupBox1: TGroupBox
+        Left = 391
+        Top = 104
+        Width = 189
+        Height = 121
+        Anchors = [akTop, akRight]
+        Caption = 'Valor do Seguro'
+        TabOrder = 3
+        object edtValorSeguro: TJvDBMaskEdit
+          Left = 16
+          Top = 24
+          Width = 150
+          Height = 21
+          DataField = 'VALOR_SEGURO'
+          DataSource = dtsDefault
+          MaxLength = 15
+          TabOrder = 0
+          EditMask = '###########0,00;1;_'
+        end
+      end
     end
   end
   inherited statDefault: TJvStatusBar
@@ -435,18 +454,18 @@ inherited frmMDFEsegurosCADASTRO: TfrmMDFEsegurosCADASTRO
     ExplicitWidth = 597
   end
   inherited ACBrEnterTab1: TACBrEnterTab
-    Left = 461
-    Top = 136
+    Left = 485
+    Top = 176
   end
   inherited dtsDefault: TDataSource
     DataSet = dtmMDFE.tabMDFE_SEGUROS
-    Left = 438
-    Top = 91
+    Left = 318
+    Top = 67
   end
   object dtstabMDFE_SEGUROS_AVERBACAO: TDataSource
     DataSet = dtmMDFE.tabMDFE_SEGUROS_AVERBACAO
     OnDataChange = dtsDefaultDataChange
-    Left = 462
-    Top = 107
+    Left = 470
+    Top = 75
   end
 end

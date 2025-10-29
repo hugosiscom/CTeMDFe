@@ -467,13 +467,13 @@
     Top = 219
   end
   object FileOpenDialog1: TFileOpenDialog
-    DefaultExtension = '*-CTe.XML'
+    DefaultExtension = '*CTe.XML'
     FavoriteLinks = <>
     FileName = 'C:\ACBr\trunk2\Exemplos\ACBrDFe\ACBrNFe\Delphi'
     FileTypes = <
       item
         DisplayName = 'CTe (XML)'
-        FileMask = '*-CTe.XML'
+        FileMask = '*CTe.XML'
       end>
     Options = []
     Title = 'Selecione a CTe'

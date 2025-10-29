@@ -9,7 +9,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, ACBrBase, ACBrMail, ACBrMDFeDAMDFeClass,
   ACBrMDFeDAMDFeRLClass, ACBrDFe, ACBrMDFe, pcnConversao, FireDAC.Moni.Base,
   FireDAC.Moni.RemoteClient, ACBrDFeReport, ufrmDefaultCadastro, blcksock,
-  ACBrCIOT, ACBrCIOTConversao, ACBrUtil.Base, System.Math, ACBrCTe;
+  ACBrCIOT, ACBrCIOTConversao, ACBrUtil.Base, System.Math, ACBrCTe, ACBrNFe;
 
 type
   TdtmMDFE = class(TDataModule)
@@ -719,6 +719,19 @@ type
     tabMDFE_NFEXML_NFE: TBlobField;
     tabMDFE_CTEXML_CTE: TBlobField;
     ACBrCTe: TACBrCTe;
+    tabMDFE_SEGUROSVALOR_SEGURO: TFMTBCDField;
+    tabMDFEDISTANCIA_PERCORRIDA: TFMTBCDField;
+    tabMDFETOTAL_VIAGEM: TFMTBCDField;
+    tabMDFETOTAL_ADIANTAMENTO: TFMTBCDField;
+    tabMDFETOTAL_QUITACAO: TFMTBCDField;
+    tabMDFETOTAL_COMBUSTIVEL: TFMTBCDField;
+    tabMDFEOUTROS_CREDITOS: TFMTBCDField;
+    tabMDFEOUTROS_DEBITOS: TFMTBCDField;
+    tabMDFEJUSTIFICATIVA_OUTROS_CREDITOS: TStringField;
+    tabMDFEJUSTIFICATIVA_OUTROS_DEBITOS: TStringField;
+    ACBrNFe: TACBrNFe;
+    tabMDFEOBS_TRANSPORTADOR: TStringField;
+    tabMDFEOBS_CREDENCIADO: TStringField;
     procedure qryCERTIFICADO_CONFIGBeforeOpen(DataSet: TDataSet);
     procedure tabMDFENewRecord(DataSet: TDataSet);
     procedure tabMDFEBeforePost(DataSet: TDataSet);

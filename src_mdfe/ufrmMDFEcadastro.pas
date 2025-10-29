@@ -365,9 +365,28 @@ type
     Label5: TLabel;
     JvDBComboBox1: TJvDBComboBox;
     ID_UF_FINAL: TDBLookupComboBox;
-    ACBrCTeMDFE: TACBrCTe;
     memoObservacoesAoCredenciado: TDBMemo;
     memoObservacoesAoTransportador: TDBMemo;
+    edtDistanciaPercorrida: TJvDBMaskEdit;
+    Label66: TLabel;
+    JvDBMaskEdit1: TJvDBMaskEdit;
+    Label67: TLabel;
+    edtTotalAdiantamento: TJvDBMaskEdit;
+    Label68: TLabel;
+    Label71: TLabel;
+    edtTotalCombustivel: TJvDBMaskEdit;
+    edtOutrosCreditos: TJvDBMaskEdit;
+    Label72: TLabel;
+    Label73: TLabel;
+    edtOutrosDebitos: TJvDBMaskEdit;
+    memoJUSTIFICATIVA_OUTROS_CREDITOS: TDBMemo;
+    memoJUSTIFICATIVA_OUTROS_DEBITOS: TDBMemo;
+    Label69: TLabel;
+    edtTotalQuitacao: TJvDBMaskEdit;
+    Label74: TLabel;
+    Label75: TLabel;
+    Label76: TLabel;
+    Label77: TLabel;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -1794,11 +1813,17 @@ end;
 procedure TfrmMDFEcadastro.adicionarOperacaoTransporte(contrato: TCIOT);
 begin
 
-  if not ACBrCTeMDFE.Conhecimentos.LoadFromString(dtmMDFE.tabMDFE_CTEXML_CTE.AsString) then
+  if not dtmMDFE.ACBrCTe.Conhecimentos.LoadFromString(dtmMDFE.tabMDFE_CTEXML_CTE.AsString) then
     raise Exception.Create('Não foi posível recuperar o XML (CTe) do banco de dados!');
 
-  if (ACBrCTeMDFE.Conhecimentos.Count = 0) or not Assigned(ACBrCTeMDFE.Conhecimentos[0].CTe) then
-    raise Exception.Create('Nenhum CT-e válido está carregado na memória.');
+  if not dtmMDFE.ACBrNFe.NotasFiscais.LoadFromString(dtmMDFE.tabMDFE_NFEXML_NFE.AsString) then
+    raise Exception.Create('Não foi possível recuperar o XML (NFe) do banco de dados!');
+
+  if (dtmMDFE.ACBrCTe.Conhecimentos.Count = 0) or not Assigned(dtmMDFE.ACBrCTe.Conhecimentos[0].CTe) then
+    raise Exception.Create('Nenhum CTe válido está carregado na memória.');
+
+  if (dtmMDFE.ACBrNFe.NotasFiscais.Count = 0) or not Assigned(dtmMDFE.ACBrNFe.NotasFiscais[0].NFe) then
+    raise Exception.Create('Nenhuma NFe válido está carregado na memória.');
 
   with contrato do
   begin
@@ -1838,30 +1863,37 @@ begin
       MatrizCNPJ := OnlyNumber(dtmMDFE.qryEMPRESACNPJ.AsString);
       // FilialCNPJ := OnlyNumber(dtmMDFE.tabMDFECNPJ_FILIAL.AsString);
 
-      // with ACBrNFe1.NotasFiscais.Items[0].NFe do
-      // dtmMDFE.tabMDFENCM_NATUREZA_CARGA.AsString := Det.Items[0].Prod.NCM;
-
       // Id / Chave primária da Tabela do banco de dados do CIOT
       IdOperacaoCliente := dtmMDFE.tabMDFEID_MDFE.AsString;
       DataInicioViagem := dtmMDFE.tabMDFEDATAHORA_INICIO_VIAGEM.AsDateTime;
       if dtmMDFE.tabMDFEDATAHORA_INICIO_VIAGEM.IsNull then
         raise Exception.Create('A Data de Início da Viagem é obrigatória.');
-      // verificar!
+
       DataFimViagem := dtmMDFE.tabMDFEDATAHORA_FIM_VIAGEM.AsDateTime;
       if DataFimViagem < DataInicioViagem then
         raise Exception.Create('A data do fim da viagem não pode ser menor que a data atual!');
 
       // verificar se essa propriedade se refere à o NCM do produto/item que está sendo transportado
+      with dtmMDFE.ACBrNFe.NotasFiscais.Items[0].NFe do
+        if dtmMDFE.tabMDFENCM_NATUREZA_CARGA.AsString = '' then
+        begin
+          dtmMDFE.tabMDFE.Edit;
+          dtmMDFE.tabMDFENCM_NATUREZA_CARGA.AsString := Det.Items[0].Prod.NCM;
+          dtmMDFE.tabMDFE.Post;
+        end;
+
       if dtmMDFE.tabMDFENCM_NATUREZA_CARGA.IsNull or (dtmMDFE.tabMDFENCM_NATUREZA_CARGA.AsString = '') then
-        raise Exception.Create('O NCM da Natureza da Carga é obrigatório.');
+        raise Exception.Create('O NCM da Natureza da Carga é obrigatório. Verifique a importação da nota!');
 
       CodigoNCMNaturezaCarga := OnlyNumber(dtmMDFE.tabMDFENCM_NATUREZA_CARGA.AsString).ToInteger;
 
       if dtmMDFE.tabMDFETOTF_PES_BRUTO.IsNull or (dtmMDFE.tabMDFETOTF_PES_BRUTO.AsCurrency <= 0) then
         raise Exception.Create('O Peso Bruto da Carga é obrigatório e deve ser maior que zero.');
 
+      dtmMDFE.ACBrCTe.Conhecimentos.LoadFromString(dtmMDFE.tabMDFE_CTEXML_CTE.AsString);
+
       var
-      CTe := ACBrCTeMDFE.Conhecimentos[0].CTe;
+      CTe := dtmMDFE.ACBrCTe.Conhecimentos[0].CTe;
 
       if CTe.infCTeNorm.infCarga.infQ.Count > 0 then
         PesoCarga := Round(CTe.infCTeNorm.infCarga.infQ[0].qCarga)
@@ -1905,7 +1937,8 @@ begin
       begin
         with Viagens.New do
         begin
-          DocumentoViagem := 'CTe' + IntToStr(CTe.Ide.serie) + '/' + IntToStr(CTe.Ide.nCT); // + dtmMDFE.tabMDFEID_SERIE.AsString;
+          DocumentoViagem := 'CTe' + IntToStr(CTe.Ide.serie) + '/' + IntToStr(CTe.Ide.nCT);
+          // + dtmMDFE.tabMDFEID_SERIE.AsString;
           CodigoMunicipioOrigem := CTe.Ide.cMunIni;
           // OnlyNumber(dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOID_MUNICIPIO.AsString).ToInteger;
           CodigoMunicipioDestino := CTe.Ide.cMunFim;
@@ -1913,30 +1946,34 @@ begin
           CepOrigem := CTe.Rem.enderReme.CEP.toString; // dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOCEP.AsString;
           CepDestino := CTe.Dest.enderDest.CEP.toString; // dtmMDFE.tabMDFE_LOCAL_DESCARREGAMENTOCEP.AsString;
 
-          DistanciaPercorrida := 0;
+          DistanciaPercorrida := dtmMDFE.tabMDFEDISTANCIA_PERCORRIDA.AsInteger;
 
-          Valores.TotalOperacao := 0;
-          Valores.TotalViagem := 0;
-          Valores.TotalDeAdiantamento := 0;
-          Valores.TotalDeQuitacao := 0;
-          Valores.Combustivel := 0;
+          // custo viagem
+          Valores.TotalOperacao := CTe.vPrest.vTPrest;
+          // custo motorista
+          Valores.TotalViagem := dtmMDFE.tabMDFETOTAL_VIAGEM.AsFloat;
+          Valores.TotalDeAdiantamento := dtmMDFE.tabMDFETOTAL_ADIANTAMENTO.AsFloat;
+          Valores.TotalDeQuitacao := dtmMDFE.tabMDFETOTAL_QUITACAO.AsFloat;
+          Valores.Combustivel := dtmMDFE.tabMDFETOTAL_COMBUSTIVEL.AsFloat;
           Valores.Pedagio := dtmMDFE.tabMDFE_VALEPEDAGIOVALOR.AsCurrency;
-          Valores.OutrosCreditos := 0;
-          Valores.JustificativaOutrosCreditos := '';
-          Valores.Seguro := 0;
-          Valores.OutrosDebitos := 0;
-          Valores.JustificativaOutrosDebitos := '';
+          Valores.OutrosCreditos := dtmMDFE.tabMDFEOUTROS_CREDITOS.AsFloat;
+          Valores.JustificativaOutrosCreditos := dtmMDFE.tabMDFEJUSTIFICATIVA_OUTROS_CREDITOS.AsString;
+          Valores.Seguro := dtmMDFE.tabMDFE_SEGUROSVALOR_SEGURO.AsFloat;
+          Valores.OutrosDebitos := dtmMDFE.tabMDFEOUTROS_DEBITOS.AsFloat;
+          Valores.JustificativaOutrosDebitos := dtmMDFE.tabMDFEJUSTIFICATIVA_OUTROS_DEBITOS.AsString;
 
           TipoPagamento := eFRETE;
 
           with NotasFiscais.New do
           begin
-            Numero := '';
-            serie := '';
-            Data := 0;
-            ValorTotal := 0;
+            var
+            NFe := dtmMDFE.ACBrNFe.NotasFiscais[0].NFe;
+            Numero := NFe.Ide.nNF.ToString;
+            serie := NFe.Ide.serie.ToString;
+            Data := NFe.Ide.dEmi;
+            ValorTotal := NFe.Total.vNFTot;
 
-            ValorDaMercadoriaPorUnidade := 100;
+            ValorDaMercadoriaPorUnidade := Nfe.Ide.;
             CodigoNCMNaturezaCarga := 5501;
             DescricaoDaMercadoria := 'Produto Teste';
             UnidadeDeMedidaDaMercadoria := umKg;
@@ -2068,32 +2105,31 @@ begin
 
       with Contratante do
       begin
-        if CTe.toma.xNome <> '' then
+        if CTe.emit.xNome <> '' then
         begin
-          NomeOuRazaoSocial := CTe.toma.xNome; // dtmMDFE.qryEMPRESARAZAOSOCIAL.AsString;
-          CpfOuCnpj := CTe.toma.CNPJCPF; // dtmMDFE.qryEMPRESACNPJ.AsString;
+          NomeOuRazaoSocial := CTe.emit.xNome; // dtmMDFE.qryEMPRESARAZAOSOCIAL.AsString;
+          CpfOuCnpj := CTe.emit.CNPJ; // dtmMDFE.qryEMPRESACNPJ.AsString;
 
-          EMail := CTe.toma.EMail; // dtmMDFE.qryEMPRESAEMAIL.AsString;
+          // EMail := CTe.emit.EMail; // dtmMDFE.qryEMPRESAEMAIL.AsString;
 
           ResponsavelPeloPagamento := True;
 
           RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
 
-          Endereco.Bairro := CTe.toma.enderToma.xBairro; // dtmMDFE.qryEMPRESABAIRRO.AsString;
-          Endereco.Rua := CTe.toma.enderToma.xLgr; // dtmMDFE.qryEMPRESAENDERECO.AsString;
-          Endereco.Numero := CTe.toma.enderToma.nro; // dtmMDFE.qryEMPRESANUMERO.AsString;
-          Endereco.Complemento := CTe.toma.enderToma.xCpl; // dtmMDFE.qryEMPRESACOMPLEMENTO.AsString;
-          Endereco.CEP := CTe.toma.enderToma.CEP.toString; // dtmMDFE.qryEMPRESACEP.AsString;
+          Endereco.Bairro := CTe.emit.enderEmit.xBairro; // dtmMDFE.qryEMPRESABAIRRO.AsString;
+          Endereco.Rua := CTe.emit.enderEmit.xLgr; // dtmMDFE.qryEMPRESAENDERECO.AsString;
+          Endereco.Numero := CTe.emit.enderEmit.nro; // dtmMDFE.qryEMPRESANUMERO.AsString;
+          Endereco.Complemento := CTe.emit.enderEmit.xCpl; // dtmMDFE.qryEMPRESACOMPLEMENTO.AsString;
+          Endereco.CEP := CTe.emit.enderEmit.CEP.toString; // dtmMDFE.qryEMPRESACEP.AsString;
 
           // if not(dtmMDFE.qryEMPRESAID_CIDADES_IBGE.AsString = '') then
-          Endereco.CodigoMunicipio := CTe.toma.enderToma.cMun; // dtmMDFE.qryEMPRESAID_CIDADES_IBGE.AsString).ToInteger;
-
+          Endereco.CodigoMunicipio := CTe.emit.enderEmit.cMun; // dtmMDFE.qryEMPRESAID_CIDADES_IBGE.AsString).ToInteger;
           // if not(dtmMDFE.qryEMPRESATELEFONE.AsString = '') then
           // begin
-          var
-          telefoneSoNumeros := OnlyNumber(CTe.toma.fone);
-          Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
-          Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
+          { var
+            telefoneSoNumeros := OnlyNumber(CTe.toma.fone);
+            Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
+            Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0); }
           // end;
 
           { Telefones.Fixo.DDD := 49;
@@ -2101,8 +2137,9 @@ begin
 
             Telefones.Fax.DDD := 0;
             Telefones.Fax.Numero := 0; }
-          // end;
-        end;
+        end
+        else
+          raise Exception.Create('Não existem dados no CTe referentes ao Contratante!');
       end;
 
       // É o transportador que contratar outro transportador para realização do

@@ -37,6 +37,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
   inherited pageDefault: TJvPageControl
     Width = 899
     Height = 484
+    ActivePage = tabRodoviario
     TabOrder = 0
     ExplicitWidth = 899
     ExplicitHeight = 484
@@ -727,6 +728,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Expanded = False
                 FieldName = 'ID_MUNICIPIO'
                 Title.Caption = 'C'#243'digo Munic'#237'pio'
+                Width = 64
                 Visible = True
               end>
           end
@@ -2650,11 +2652,88 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Height = 13
                 Caption = 'Tipo Embalagem'
               end
+              object Label66: TLabel
+                Left = 291
+                Top = 0
+                Width = 76
+                Height = 13
+                Caption = 'Total da Viagem'
+              end
+              object Label67: TLabel
+                Left = 157
+                Top = 0
+                Width = 95
+                Height = 13
+                Caption = 'Dist'#226'ncia Percorrida'
+              end
+              object Label68: TLabel
+                Left = 417
+                Top = 0
+                Width = 109
+                Height = 13
+                Caption = 'Total de Adiantamento'
+              end
+              object Label71: TLabel
+                Left = 699
+                Top = 48
+                Width = 85
+                Height = 13
+                Caption = 'Total Combust'#237'vel'
+              end
+              object Label72: TLabel
+                Left = 699
+                Top = 94
+                Width = 76
+                Height = 13
+                Caption = 'Outros Cr'#233'ditos'
+              end
+              object Label73: TLabel
+                Left = 542
+                Top = 0
+                Width = 72
+                Height = 13
+                Caption = 'Outros D'#233'bitos'
+              end
+              object Label69: TLabel
+                Left = 699
+                Top = 140
+                Width = 85
+                Height = 13
+                Caption = 'Total de Quita'#231#227'o'
+              end
+              object Label74: TLabel
+                Left = 291
+                Top = 46
+                Width = 147
+                Height = 13
+                Caption = 'Justificativa de outros cr'#233'ditos'
+              end
+              object Label75: TLabel
+                Left = 495
+                Top = 48
+                Width = 144
+                Height = 13
+                Caption = 'Justificativa de outros d'#233'bitos'
+              end
+              object Label76: TLabel
+                Left = 291
+                Top = 175
+                Width = 150
+                Height = 13
+                Caption = 'Observa'#231#245'es ao Transportador'
+              end
+              object Label77: TLabel
+                Left = 495
+                Top = 175
+                Width = 141
+                Height = 13
+                Caption = 'Observa'#231#245'es ao Credenciado'
+              end
               object JvDBGrid6: TJvDBGrid
                 AlignWithMargins = True
                 Left = 3
                 Top = 46
-                Width = 429
+                Width = 282
                 Height = 269
                 DataSource = dtstabMDFE_CIOT
                 Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
@@ -2725,18 +2804,126 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 ListSettings.OutfilteredValueFont.Style = []
               end
               object memoObservacoesAoCredenciado: TDBMemo
-                Left = 654
-                Top = 46
-                Width = 210
-                Height = 269
+                Left = 495
+                Top = 194
+                Width = 198
+                Height = 121
+                DataField = 'OBS_CREDENCIADO'
+                DataSource = dtsDefault
+                MaxLength = 1024
+                ScrollBars = ssVertical
                 TabOrder = 2
               end
               object memoObservacoesAoTransportador: TDBMemo
-                Left = 438
-                Top = 46
-                Width = 210
-                Height = 269
+                Left = 291
+                Top = 194
+                Width = 198
+                Height = 121
+                DataField = 'OBS_TRANSPORTADOR'
+                DataSource = dtsDefault
+                MaxLength = 1024
+                ScrollBars = ssVertical
                 TabOrder = 3
+              end
+              object edtDistanciaPercorrida: TJvDBMaskEdit
+                Left = 157
+                Top = 19
+                Width = 123
+                Height = 21
+                Hint = 'Dist'#226'ncia percorrida em KM (quil'#244'metros)'
+                DataField = 'DISTANCIA_PERCORRIDA'
+                DataSource = dtsDefault
+                MaxLength = 15
+                TabOrder = 4
+                EditMask = '###########0,00;1;_'
+              end
+              object JvDBMaskEdit1: TJvDBMaskEdit
+                Left = 291
+                Top = 19
+                Width = 120
+                Height = 21
+                DataField = 'TOTAL_VIAGEM'
+                DataSource = dtsDefault
+                MaxLength = 15
+                TabOrder = 5
+                EditMask = '###########0,00;1;_'
+              end
+              object edtTotalAdiantamento: TJvDBMaskEdit
+                Left = 417
+                Top = 19
+                Width = 119
+                Height = 21
+                DataField = 'TOTAL_ADIANTAMENTO'
+                DataSource = dtsDefault
+                MaxLength = 15
+                TabOrder = 6
+                EditMask = '###########0,00;1;_'
+              end
+              object edtTotalCombustivel: TJvDBMaskEdit
+                Left = 699
+                Top = 67
+                Width = 117
+                Height = 21
+                DataField = 'TOTAL_COMBUSTIVEL'
+                DataSource = dtsDefault
+                MaxLength = 15
+                TabOrder = 7
+                EditMask = '###########0,00;1;_'
+              end
+              object edtOutrosCreditos: TJvDBMaskEdit
+                Left = 699
+                Top = 113
+                Width = 117
+                Height = 21
+                DataField = 'OUTROS_CREDITOS'
+                DataSource = dtsDefault
+                MaxLength = 15
+                TabOrder = 8
+                EditMask = '###########0,00;1;_'
+              end
+              object edtOutrosDebitos: TJvDBMaskEdit
+                Left = 542
+                Top = 19
+                Width = 116
+                Height = 21
+                DataField = 'OUTROS_DEBITOS'
+                DataSource = dtsDefault
+                MaxLength = 15
+                TabOrder = 9
+                EditMask = '###########0,00;1;_'
+              end
+              object memoJUSTIFICATIVA_OUTROS_CREDITOS: TDBMemo
+                Left = 291
+                Top = 65
+                Width = 198
+                Height = 104
+                DataField = 'JUSTIFICATIVA_OUTROS_CREDITOS'
+                DataSource = dtsDefault
+                MaxLength = 1024
+                ScrollBars = ssVertical
+                TabOrder = 10
+              end
+              object memoJUSTIFICATIVA_OUTROS_DEBITOS: TDBMemo
+                Left = 495
+                Top = 67
+                Width = 198
+                Height = 102
+                DataField = 'JUSTIFICATIVA_OUTROS_DEBITOS'
+                DataSource = dtsDefault
+                MaxLength = 1024
+                ScrollBars = ssVertical
+                TabOrder = 11
+              end
+              object edtTotalQuitacao: TJvDBMaskEdit
+                Left = 699
+                Top = 159
+                Width = 114
+                Height = 21
+                DataField = 'TOTAL_QUITACAO'
+                DataSource = dtsDefault
+                MaxLength = 15
+                TabOrder = 12
+                EditMask = '###########0,00;1;_'
               end
             end
           end
@@ -3508,6 +3695,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Carregamento'
+                  Width = 64
                   Visible = True
                 end>
             end
@@ -3891,6 +4079,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                   Expanded = False
                   FieldName = 'ID_NOME'
                   Title.Caption = 'Nome Terminal Descarregamento'
+                  Width = 64
                   Visible = True
                 end>
             end
@@ -4563,7 +4752,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Top = 3
         Width = 885
         Height = 450
-        ActivePage = tabCTe
+        ActivePage = TabSheet7
         Align = alClient
         TabOrder = 0
         object TabSheet7: TTabSheet
@@ -6501,19 +6690,5 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
     OnDataChange = dtstabMDFE_AQUA_UNID_TRANSDataChange
     Left = 761
     Top = 361
-  end
-  object ACBrCTeMDFE: TACBrCTe
-    Configuracoes.Geral.SSLLib = libNone
-    Configuracoes.Geral.SSLCryptLib = cryNone
-    Configuracoes.Geral.SSLHttpLib = httpNone
-    Configuracoes.Geral.SSLXmlSignLib = xsNone
-    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
-    Configuracoes.Arquivos.OrdenacaoPath = <>
-    Configuracoes.WebServices.UF = 'SP'
-    Configuracoes.WebServices.AguardarConsultaRet = 0
-    Configuracoes.WebServices.QuebradeLinha = '|'
-    Configuracoes.RespTec.IdCSRT = 0
-    Left = 123
-    Top = 285
   end
 end

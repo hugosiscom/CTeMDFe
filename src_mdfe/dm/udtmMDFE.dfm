@@ -759,6 +759,68 @@ object dtmMDFE: TdtmMDFE
       Origin = 'DESTINATARIO_CELULAR'
       Size = 11
     end
+    object tabMDFEDISTANCIA_PERCORRIDA: TFMTBCDField
+      FieldName = 'DISTANCIA_PERCORRIDA'
+      Origin = 'DISTANCIA_PERCORRIDA'
+      Precision = 18
+      Size = 2
+    end
+    object tabMDFETOTAL_VIAGEM: TFMTBCDField
+      FieldName = 'TOTAL_VIAGEM'
+      Origin = 'TOTAL_VIAGEM'
+      Precision = 18
+      Size = 2
+    end
+    object tabMDFETOTAL_ADIANTAMENTO: TFMTBCDField
+      FieldName = 'TOTAL_ADIANTAMENTO'
+      Origin = 'TOTAL_ADIANTAMENTO'
+      Precision = 18
+      Size = 2
+    end
+    object tabMDFETOTAL_QUITACAO: TFMTBCDField
+      FieldName = 'TOTAL_QUITACAO'
+      Origin = 'TOTAL_QUITACAO'
+      Precision = 18
+      Size = 2
+    end
+    object tabMDFETOTAL_COMBUSTIVEL: TFMTBCDField
+      FieldName = 'TOTAL_COMBUSTIVEL'
+      Origin = 'TOTAL_COMBUSTIVEL'
+      Precision = 18
+      Size = 2
+    end
+    object tabMDFEOUTROS_CREDITOS: TFMTBCDField
+      FieldName = 'OUTROS_CREDITOS'
+      Origin = 'OUTROS_CREDITOS'
+      Precision = 18
+      Size = 2
+    end
+    object tabMDFEOUTROS_DEBITOS: TFMTBCDField
+      FieldName = 'OUTROS_DEBITOS'
+      Origin = 'OUTROS_DEBITOS'
+      Precision = 18
+      Size = 2
+    end
+    object tabMDFEJUSTIFICATIVA_OUTROS_CREDITOS: TStringField
+      FieldName = 'JUSTIFICATIVA_OUTROS_CREDITOS'
+      Origin = 'JUSTIFICATIVA_OUTROS_CREDITOS'
+      Size = 1024
+    end
+    object tabMDFEJUSTIFICATIVA_OUTROS_DEBITOS: TStringField
+      FieldName = 'JUSTIFICATIVA_OUTROS_DEBITOS'
+      Origin = 'JUSTIFICATIVA_OUTROS_DEBITOS'
+      Size = 1024
+    end
+    object tabMDFEOBS_TRANSPORTADOR: TStringField
+      FieldName = 'OBS_TRANSPORTADOR'
+      Origin = 'OBS_TRANSPORTADOR'
+      Size = 1024
+    end
+    object tabMDFEOBS_CREDENCIADO: TStringField
+      FieldName = 'OBS_CREDENCIADO'
+      Origin = 'OBS_CREDENCIADO'
+      Size = 1024
+    end
   end
   object updEvento: TFDQuery
     Connection = dtmDefault.cnx_BD
@@ -1747,6 +1809,12 @@ object dtmMDFE: TdtmMDFE
       Origin = 'APOLICE'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
+    end
+    object tabMDFE_SEGUROSVALOR_SEGURO: TFMTBCDField
+      FieldName = 'VALOR_SEGURO'
+      Origin = 'VALOR_SEGURO'
+      Precision = 18
+      Size = 2
     end
   end
   object tabMDFE_CONDUTORES: TFDQuery
@@ -6321,7 +6389,21 @@ object dtmMDFE: TdtmMDFE
     Configuracoes.WebServices.AguardarConsultaRet = 0
     Configuracoes.WebServices.QuebradeLinha = '|'
     Configuracoes.RespTec.IdCSRT = 0
-    Left = 42
+    Left = 34
     Top = 438
+  end
+  object ACBrNFe: TACBrNFe
+    Configuracoes.Geral.SSLLib = libNone
+    Configuracoes.Geral.SSLCryptLib = cryNone
+    Configuracoes.Geral.SSLHttpLib = httpNone
+    Configuracoes.Geral.SSLXmlSignLib = xsNone
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Arquivos.OrdenacaoPath = <>
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 0
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Configuracoes.RespTec.IdCSRT = 0
+    Left = 35
+    Top = 509
   end
 end

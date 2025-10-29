@@ -88,30 +88,15 @@ begin
 
     if dtmMDFE.ACBrCTe.Conhecimentos.Count > 0 then
     begin
-   {   if dtmMDFE.tabMDFE.State in [dsInsert, dsEdit] then
-      begin
-        dtmMDFE.tabMDFE.Post;
-      end;}
       with dtmMDFE.ACBrCTe.Conhecimentos[0] do
       begin
-        //dtmMDFE.tabMDFE_CTE.Append;
-        if dtmMDFE.tabMDFE_CTE.State in [dsBrowse]  then
-           dtmMDFE.tabMDFE_CTE.Edit;
 
+        if dtmMDFE.tabMDFE_CTE.State in [dsBrowse] then
+          dtmMDFE.tabMDFE_CTE.Edit;
 
         dtmMDFE.tabMDFE_CTEXML_CTE.LoadFromFile(FileOpenDialog1.FileName);
         dtmMDFE.tabMDFE_CTEID_CHAVE.AsString := NumID;
         dtmMDFE.tabMDFE_CTElookCIDADE.AsInteger := CTe.Ide.cMunFim;
-
-
-      {  if CTe.Ide.retira = rtSim then
-        begin
-          dtmMDFE.tabMDFE_CTEID_IND_REENTREGA.AsString := 'S'
-        end
-        else if CTe.Ide.retira = rtNao then
-          dtmMDFE.tabMDFE_CTEID_IND_REENTREGA.AsString := 'N'
-        else
-          raise Exception.Create('Não foi possível mapear o indicador de reentrega no cadastro/importação do CTe');}
 
         // Parâmetros do método Enviar:
         // 1o = Número do Lote
