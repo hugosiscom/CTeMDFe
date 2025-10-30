@@ -811,6 +811,12 @@ object dtmMDFE: TdtmMDFE
       Origin = 'OBS_CREDENCIADO'
       Size = 1024
     end
+    object tabMDFEDISTANCIA_RETORNO: TFMTBCDField
+      FieldName = 'DISTANCIA_RETORNO'
+      Origin = 'DISTANCIA_RETORNO'
+      Precision = 18
+      Size = 2
+    end
   end
   object updEvento: TFDQuery
     Connection = dtmDefault.cnx_BD

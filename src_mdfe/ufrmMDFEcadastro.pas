@@ -387,6 +387,8 @@ type
     Label75: TLabel;
     Label76: TLabel;
     Label77: TLabel;
+    edtDistanciaRetorno: TJvDBMaskEdit;
+    Label78: TLabel;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -1957,45 +1959,62 @@ begin
 
           TipoPagamento := eFRETE;
 
-          with NotasFiscais.New do
+          for var i := 0 to dtmMDFE.ACBrNFe.NotasFiscais.Count do
           begin
-            var
-            NFe := dtmMDFE.ACBrNFe.NotasFiscais[0].NFe;
-            Numero := NFe.Ide.nNF.toString;
-            serie := NFe.Ide.serie.toString;
-            Data := NFe.Ide.dEmi;
-            ValorTotal := NFe.Total.vNFTot;
+            if dtmMDFE.ACBrNFe.NotasFiscais[i].NFe.Det.Count = 0 then
+              continue;
 
-            ValorDaMercadoriaPorUnidade := NFe.Det.Items[0].Prod.vUnCom;
-            CodigoNCMNaturezaCarga := OnlyNumber(NFe.Det.Items[0].Prod.NCM).ToInteger;
-            DescricaoDaMercadoria := NFe.Det.Items[0].Prod.xProd;
+            with NotasFiscais.New do
+            begin
+              var
+              NFe := dtmMDFE.ACBrNFe.NotasFiscais[i].NFe;
+              Numero := NFe.Ide.nNF.toString;
+              serie := NFe.Ide.serie.toString;
+              Data := NFe.Ide.dEmi;
+              ValorTotal := NFe.Total.vNFTot;
 
-            if NFe.Det.Items[0].Prod.uCom = 'kg' then
-              UnidadeDeMedidaDaMercadoria := TpUnidadeDeMedidaDaMercadoria.umKg
-            else if NFe.Det.Items[0].Prod.uCom = 'ton' then
-              UnidadeDeMedidaDaMercadoria := TpUnidadeDeMedidaDaMercadoria.umTonelada
-            else
-              UnidadeDeMedidaDaMercadoria := TpUnidadeDeMedidaDaMercadoria.umIndefinido;
+              var
+              Prod := NFe.Det.Items[0].Prod;
 
-            TipoDeCalculo := SemQuebra;
-            ValorDoFretePorUnidadeDeMercadoria := 0; // Se tiver quebra deve ser informado
-            QuantidadeDaMercadoriaNoEmbarque := NFe.Det.Items[0].Prod.qCom;
+              ValorDaMercadoriaPorUnidade := Prod.vUnCom;
+              CodigoNCMNaturezaCarga := OnlyNumber(Prod.NCM).ToInteger;
+              DescricaoDaMercadoria := Prod.xProd;
 
-            ToleranciaDePerdaDeMercadoria.Tipo := tpPorcentagem;
-            ToleranciaDePerdaDeMercadoria.Valor := 2; // Valor da tolerância admitido.
+              if Prod.uCom = 'kg' then
+                UnidadeDeMedidaDaMercadoria := TpUnidadeDeMedidaDaMercadoria.umKg
+              else if Prod.uCom = 'ton' then
+                UnidadeDeMedidaDaMercadoria := TpUnidadeDeMedidaDaMercadoria.umTonelada
+              else
+                UnidadeDeMedidaDaMercadoria := TpUnidadeDeMedidaDaMercadoria.umIndefinido;
 
-            DiferencaDeFrete.Tipo := Integral;
-            DiferencaDeFrete.Base := QuantidadeDesembarque;
+              TipoDeCalculo := SemQuebra;
+              ValorDoFretePorUnidadeDeMercadoria := 0; // Se tiver quebra deve ser informado
 
-            DiferencaDeFrete.Tolerancia.Tipo := tpPorcentagem;
-            DiferencaDeFrete.Tolerancia.Valor := 5;
-            // Valor da tolerância admitido(Nenhum: 0; Porcentagem: 0.00 – 100.00; Absoluto: Livre)
+              var
+                QtdTotalCarga: Double := 0;
 
-            DiferencaDeFrete.MargemGanho.Tipo := tpPorcentagem;
-            DiferencaDeFrete.MargemGanho.Valor := 5;
+              for var j := 0 to NFe.Det.Count - 1 do
+                QtdTotalCarga := QtdTotalCarga + NFe.Det.Items[j].Prod.qCom;
 
-            DiferencaDeFrete.MargemPerda.Tipo := tpPorcentagem;
-            DiferencaDeFrete.MargemPerda.Valor := 5;
+              QuantidadeDaMercadoriaNoEmbarque := QtdTotalCarga;
+              // QuantidadeDaMercadoriaNoEmbarque := NFe.Det.Items[0].Prod.qCom;
+
+              ToleranciaDePerdaDeMercadoria.Tipo := tpPorcentagem;
+              ToleranciaDePerdaDeMercadoria.Valor := 2; // Valor da tolerância admitido.
+
+              DiferencaDeFrete.Tipo := Integral;
+              DiferencaDeFrete.Base := QuantidadeDesembarque;
+
+              DiferencaDeFrete.Tolerancia.Tipo := tpPorcentagem;
+              DiferencaDeFrete.Tolerancia.Valor := 5;
+              // Valor da tolerância admitido(Nenhum: 0; Porcentagem: 0.00 – 100.00; Absoluto: Livre)
+
+              DiferencaDeFrete.MargemGanho.Tipo := tpPorcentagem;
+              DiferencaDeFrete.MargemGanho.Valor := 5;
+
+              DiferencaDeFrete.MargemPerda.Tipo := tpPorcentagem;
+              DiferencaDeFrete.MargemPerda.Valor := 5;
+            end;
           end;
         end;
       end;
@@ -2268,7 +2287,7 @@ begin
       DestinacaoComercial := True;
       FreteRetorno := false;
       CepRetorno := dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOCEP.AsString;
-      DistanciaRetorno := 100;
+      DistanciaRetorno := dtmMDFE.tabMDFEDISTANCIA_RETORNO.AsInteger;
     end;
   end;
 end;

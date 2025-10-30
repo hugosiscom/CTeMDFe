@@ -730,6 +730,7 @@ type
     tabMDFEJUSTIFICATIVA_OUTROS_DEBITOS: TStringField;
     tabMDFEOBS_TRANSPORTADOR: TStringField;
     tabMDFEOBS_CREDENCIADO: TStringField;
+    tabMDFEDISTANCIA_RETORNO: TFMTBCDField;
     procedure qryCERTIFICADO_CONFIGBeforeOpen(DataSet: TDataSet);
     procedure tabMDFENewRecord(DataSet: TDataSet);
     procedure tabMDFEBeforePost(DataSet: TDataSet);

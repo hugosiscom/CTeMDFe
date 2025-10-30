@@ -940,7 +940,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Top = 0
         Width = 891
         Height = 456
-        ActivePage = tabVeiculoTracao
+        ActivePage = pagCIOT
         Align = alClient
         TabOrder = 0
         object tabVeiculoTracao: TTabSheet
@@ -2595,7 +2595,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               object CIOT_DOC: TJvMaskEdit
                 Left = 343
                 Top = 17
-                Width = 210
+                Width = 98
                 Height = 21
                 EditMask = '999.999.999-99;0;_'
                 MaxLength = 14
@@ -2653,8 +2653,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Caption = 'Tipo Embalagem'
               end
               object Label66: TLabel
-                Left = 291
-                Top = 0
+                Left = 419
+                Top = 2
                 Width = 76
                 Height = 13
                 Caption = 'Total da Viagem'
@@ -2667,8 +2667,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Caption = 'Dist'#226'ncia Percorrida'
               end
               object Label68: TLabel
-                Left = 417
-                Top = 0
+                Left = 575
+                Top = 2
                 Width = 109
                 Height = 13
                 Caption = 'Total de Adiantamento'
@@ -2688,8 +2688,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Caption = 'Outros Cr'#233'ditos'
               end
               object Label73: TLabel
-                Left = 542
-                Top = 0
+                Left = 700
+                Top = 2
                 Width = 72
                 Height = 13
                 Caption = 'Outros D'#233'bitos'
@@ -2728,6 +2728,13 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Width = 141
                 Height = 13
                 Caption = 'Observa'#231#245'es ao Credenciado'
+              end
+              object Label78: TLabel
+                Left = 291
+                Top = 0
+                Width = 85
+                Height = 13
+                Caption = 'Dist'#226'ncia Retorno'
               end
               object JvDBGrid6: TJvDBGrid
                 AlignWithMargins = True
@@ -2838,9 +2845,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 EditMask = '###########0,00;1;_'
               end
               object JvDBMaskEdit1: TJvDBMaskEdit
-                Left = 291
+                Left = 419
                 Top = 19
-                Width = 120
+                Width = 150
                 Height = 21
                 DataField = 'TOTAL_VIAGEM'
                 DataSource = dtsDefault
@@ -2849,8 +2856,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 EditMask = '###########0,00;1;_'
               end
               object edtTotalAdiantamento: TJvDBMaskEdit
-                Left = 417
-                Top = 19
+                Left = 575
+                Top = 21
                 Width = 119
                 Height = 21
                 DataField = 'TOTAL_ADIANTAMENTO'
@@ -2882,8 +2889,8 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 EditMask = '###########0,00;1;_'
               end
               object edtOutrosDebitos: TJvDBMaskEdit
-                Left = 542
-                Top = 19
+                Left = 700
+                Top = 21
                 Width = 116
                 Height = 21
                 DataField = 'OUTROS_DEBITOS'
@@ -2917,12 +2924,24 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               object edtTotalQuitacao: TJvDBMaskEdit
                 Left = 699
                 Top = 159
-                Width = 114
+                Width = 117
                 Height = 21
                 DataField = 'TOTAL_QUITACAO'
                 DataSource = dtsDefault
                 MaxLength = 15
                 TabOrder = 12
+                EditMask = '###########0,00;1;_'
+              end
+              object edtDistanciaRetorno: TJvDBMaskEdit
+                Left = 291
+                Top = 19
+                Width = 122
+                Height = 21
+                Hint = 'Dist'#226'ncia percorrida em KM (quil'#244'metros)'
+                DataField = 'DISTANCIA_RETORNO'
+                DataSource = dtsDefault
+                MaxLength = 15
+                TabOrder = 13
                 EditMask = '###########0,00;1;_'
               end
             end
@@ -3124,7 +3143,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 AlignWithMargins = True
                 Left = 3
                 Top = 3
-                Width = 62
+                Width = 861
                 Height = 13
                 Align = alTop
                 Caption = 'CPF ou CNPJ'
@@ -3135,6 +3154,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Font.Style = []
                 ParentFont = False
                 Transparent = True
+                ExplicitWidth = 62
               end
               object DOC_CONTRATANTE: TJvMaskEdit
                 Left = 0
