@@ -642,6 +642,11 @@ type
     qryMotoristaEspecificoNOME_SOLTEIRA_MAE: TStringField;
     tabMDFE_LOCAL_DESCARREGAMENTOCEP: TStringField;
     tabMDFE_LOCAL_CARREGAMENTOCEP: TStringField;
+    tabMDFE_NFEXML_NFE: TBlobField;
+    tabMDFE_CTEXML_CTE: TBlobField;
+    ACBrCTe: TACBrCTe;
+    tabMDFE_SEGUROSVALOR_SEGURO: TFMTBCDField;
+    ACBrNFe: TACBrNFe;
     tabMDFEID_EMPRESA: TIntegerField;
     tabMDFEID_MDFE: TIntegerField;
     tabMDFEID_SERIE: TIntegerField;
@@ -714,12 +719,6 @@ type
     tabMDFETIPO_VIAGEM_INDEX: TSmallintField;
     tabMDFEDATAHORA_FIM_VIAGEM: TSQLTimeStampField;
     tabMDFETIPO_EMBALAGEM_INDEX: TSmallintField;
-    tabMDFENCM_NATUREZA_CARGA: TStringField;
-    tabMDFEDESTINATARIO_CELULAR: TStringField;
-    tabMDFE_NFEXML_NFE: TBlobField;
-    tabMDFE_CTEXML_CTE: TBlobField;
-    ACBrCTe: TACBrCTe;
-    tabMDFE_SEGUROSVALOR_SEGURO: TFMTBCDField;
     tabMDFEDISTANCIA_PERCORRIDA: TFMTBCDField;
     tabMDFETOTAL_VIAGEM: TFMTBCDField;
     tabMDFETOTAL_ADIANTAMENTO: TFMTBCDField;
@@ -729,7 +728,6 @@ type
     tabMDFEOUTROS_DEBITOS: TFMTBCDField;
     tabMDFEJUSTIFICATIVA_OUTROS_CREDITOS: TStringField;
     tabMDFEJUSTIFICATIVA_OUTROS_DEBITOS: TStringField;
-    ACBrNFe: TACBrNFe;
     tabMDFEOBS_TRANSPORTADOR: TStringField;
     tabMDFEOBS_CREDENCIADO: TStringField;
     procedure qryCERTIFICADO_CONFIGBeforeOpen(DataSet: TDataSet);

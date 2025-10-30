@@ -1861,7 +1861,6 @@ begin
       dtmMDFE.qryEMPRESA.Open;
 
       MatrizCNPJ := OnlyNumber(dtmMDFE.qryEMPRESACNPJ.AsString);
-      // FilialCNPJ := OnlyNumber(dtmMDFE.tabMDFECNPJ_FILIAL.AsString);
 
       // Id / Chave primária da Tabela do banco de dados do CIOT
       IdOperacaoCliente := dtmMDFE.tabMDFEID_MDFE.AsString;
@@ -1873,19 +1872,13 @@ begin
       if DataFimViagem < DataInicioViagem then
         raise Exception.Create('A data do fim da viagem não pode ser menor que a data atual!');
 
-      // verificar se essa propriedade se refere à o NCM do produto/item que está sendo transportado
       with dtmMDFE.ACBrNFe.NotasFiscais.Items[0].NFe do
-        if dtmMDFE.tabMDFENCM_NATUREZA_CARGA.AsString = '' then
-        begin
-          dtmMDFE.tabMDFE.Edit;
-          dtmMDFE.tabMDFENCM_NATUREZA_CARGA.AsString := Det.Items[0].Prod.NCM;
-          dtmMDFE.tabMDFE.Post;
-        end;
+      begin
+        if Det.Items[0].Prod.NCM = '' then
+          raise Exception.Create('O NCM da Natureza da Carga é obrigatório. Verifique a importação da nota!');
 
-      if dtmMDFE.tabMDFENCM_NATUREZA_CARGA.IsNull or (dtmMDFE.tabMDFENCM_NATUREZA_CARGA.AsString = '') then
-        raise Exception.Create('O NCM da Natureza da Carga é obrigatório. Verifique a importação da nota!');
-
-      CodigoNCMNaturezaCarga := OnlyNumber(dtmMDFE.tabMDFENCM_NATUREZA_CARGA.AsString).ToInteger;
+        CodigoNCMNaturezaCarga := OnlyNumber(Det.Items[0].Prod.NCM).ToInteger;
+      end;
 
       if dtmMDFE.tabMDFETOTF_PES_BRUTO.IsNull or (dtmMDFE.tabMDFETOTF_PES_BRUTO.AsCurrency <= 0) then
         raise Exception.Create('O Peso Bruto da Carga é obrigatório e deve ser maior que zero.');
@@ -1938,13 +1931,13 @@ begin
         with Viagens.New do
         begin
           DocumentoViagem := 'CTe' + IntToStr(CTe.Ide.serie) + '/' + IntToStr(CTe.Ide.nCT);
-          // + dtmMDFE.tabMDFEID_SERIE.AsString;
+
           CodigoMunicipioOrigem := CTe.Ide.cMunIni;
-          // OnlyNumber(dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOID_MUNICIPIO.AsString).ToInteger;
+
           CodigoMunicipioDestino := CTe.Ide.cMunFim;
-          // OnlyNumber(dtmMDFE.tabMDFE_LOCAL_DESCARREGAMENTOID_CIDADES_IBGE.AsString).ToInteger;
-          CepOrigem := CTe.Rem.enderReme.CEP.toString; // dtmMDFE.tabMDFE_LOCAL_CARREGAMENTOCEP.AsString;
-          CepDestino := CTe.Dest.enderDest.CEP.toString; // dtmMDFE.tabMDFE_LOCAL_DESCARREGAMENTOCEP.AsString;
+
+          CepOrigem := CTe.Rem.enderReme.CEP.toString;
+          CepDestino := CTe.Dest.enderDest.CEP.toString;
 
           DistanciaPercorrida := dtmMDFE.tabMDFEDISTANCIA_PERCORRIDA.AsInteger;
 
@@ -1968,18 +1961,25 @@ begin
           begin
             var
             NFe := dtmMDFE.ACBrNFe.NotasFiscais[0].NFe;
-            Numero := NFe.Ide.nNF.ToString;
-            serie := NFe.Ide.serie.ToString;
+            Numero := NFe.Ide.nNF.toString;
+            serie := NFe.Ide.serie.toString;
             Data := NFe.Ide.dEmi;
             ValorTotal := NFe.Total.vNFTot;
 
-            ValorDaMercadoriaPorUnidade := Nfe.Ide.;
-            CodigoNCMNaturezaCarga := 5501;
-            DescricaoDaMercadoria := 'Produto Teste';
-            UnidadeDeMedidaDaMercadoria := umKg;
+            ValorDaMercadoriaPorUnidade := NFe.Det.Items[0].Prod.vUnCom;
+            CodigoNCMNaturezaCarga := OnlyNumber(NFe.Det.Items[0].Prod.NCM).ToInteger;
+            DescricaoDaMercadoria := NFe.Det.Items[0].Prod.xProd;
+
+            if NFe.Det.Items[0].Prod.uCom = 'kg' then
+              UnidadeDeMedidaDaMercadoria := TpUnidadeDeMedidaDaMercadoria.umKg
+            else if NFe.Det.Items[0].Prod.uCom = 'ton' then
+              UnidadeDeMedidaDaMercadoria := TpUnidadeDeMedidaDaMercadoria.umTonelada
+            else
+              UnidadeDeMedidaDaMercadoria := TpUnidadeDeMedidaDaMercadoria.umIndefinido;
+
             TipoDeCalculo := SemQuebra;
             ValorDoFretePorUnidadeDeMercadoria := 0; // Se tiver quebra deve ser informado
-            QuantidadeDaMercadoriaNoEmbarque := 1;
+            QuantidadeDaMercadoriaNoEmbarque := NFe.Det.Items[0].Prod.qCom;
 
             ToleranciaDePerdaDeMercadoria.Tipo := tpPorcentagem;
             ToleranciaDePerdaDeMercadoria.Valor := 2; // Valor da tolerância admitido.
@@ -2044,11 +2044,15 @@ begin
       with Contratado do
       begin
         if EMI_N_PROP.Checked then
-          CpfOuCnpj := dtmMDFE.tabMDFEEMI_N_PROP_CPF_CNPJ.AsString
+        begin
+          CpfOuCnpj := dtmMDFE.tabMDFEEMI_N_PROP_CPF_CNPJ.AsString;
+          RNTRC := dtmMDFE.tabMDFEEMI_N_PROP_RNTRC.AsString;
+        end
         else
+        begin
           CpfOuCnpj := dtmMDFE.qryEMPRESACNPJ.AsString;
-
-        RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
+          RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
+        end;
       end;
 
       with Motorista do
@@ -2090,16 +2094,10 @@ begin
           Endereco.CodigoMunicipio := CTe.Dest.enderDest.cMun;
 
           var
-          telefone := OnlyNumber(CTe.Dest.fone); // dtmMDFE.tabMDFEDESTINATARIO_CELULAR.AsString);
+          telefone := OnlyNumber(CTe.Dest.fone);
 
           Telefones.Celular.DDD := StrToIntDef(Copy(telefone, 1, 2), 0);
           Telefones.Celular.Numero := StrToIntDef(Copy(telefone, 3, Length(telefone)), 0);
-
-          { Telefones.Fixo.DDD := 0;
-            Telefones.Fixo.Numero := 0;
-
-            Telefones.Fax.DDD := 0;
-            Telefones.Fax.Numero := 0; }
         end;
       end;
 
@@ -2107,8 +2105,8 @@ begin
       begin
         if CTe.emit.xNome <> '' then
         begin
-          NomeOuRazaoSocial := CTe.emit.xNome; // dtmMDFE.qryEMPRESARAZAOSOCIAL.AsString;
-          CpfOuCnpj := CTe.emit.CNPJ; // dtmMDFE.qryEMPRESACNPJ.AsString;
+          NomeOuRazaoSocial := CTe.emit.xNome;
+          CpfOuCnpj := CTe.emit.CNPJ;
 
           // EMail := CTe.emit.EMail; // dtmMDFE.qryEMPRESAEMAIL.AsString;
 
@@ -2116,27 +2114,18 @@ begin
 
           RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
 
-          Endereco.Bairro := CTe.emit.enderEmit.xBairro; // dtmMDFE.qryEMPRESABAIRRO.AsString;
-          Endereco.Rua := CTe.emit.enderEmit.xLgr; // dtmMDFE.qryEMPRESAENDERECO.AsString;
-          Endereco.Numero := CTe.emit.enderEmit.nro; // dtmMDFE.qryEMPRESANUMERO.AsString;
-          Endereco.Complemento := CTe.emit.enderEmit.xCpl; // dtmMDFE.qryEMPRESACOMPLEMENTO.AsString;
-          Endereco.CEP := CTe.emit.enderEmit.CEP.toString; // dtmMDFE.qryEMPRESACEP.AsString;
+          Endereco.Bairro := CTe.emit.enderEmit.xBairro;
+          Endereco.Rua := CTe.emit.enderEmit.xLgr;
+          Endereco.Numero := CTe.emit.enderEmit.nro;
+          Endereco.Complemento := CTe.emit.enderEmit.xCpl;
+          Endereco.CEP := CTe.emit.enderEmit.CEP.toString;
 
-          // if not(dtmMDFE.qryEMPRESAID_CIDADES_IBGE.AsString = '') then
-          Endereco.CodigoMunicipio := CTe.emit.enderEmit.cMun; // dtmMDFE.qryEMPRESAID_CIDADES_IBGE.AsString).ToInteger;
-          // if not(dtmMDFE.qryEMPRESATELEFONE.AsString = '') then
-          // begin
-          { var
-            telefoneSoNumeros := OnlyNumber(CTe.toma.fone);
-            Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
-            Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0); }
-          // end;
+          Endereco.CodigoMunicipio := CTe.emit.enderEmit.cMun;
 
-          { Telefones.Fixo.DDD := 49;
-            Telefones.Fixo.Numero := 33661012;
-
-            Telefones.Fax.DDD := 0;
-            Telefones.Fax.Numero := 0; }
+          var
+          telefoneSoNumeros := OnlyNumber(CTe.emit.enderEmit.fone);
+          Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
+          Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
         end
         else
           raise Exception.Create('Não existem dados no CTe referentes ao Contratante!');
@@ -2233,12 +2222,6 @@ begin
             telefoneSoNumeros := OnlyNumber(CTe.toma.fone);
             Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
             Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
-
-            { Telefones.Fixo.DDD := 0;
-              Telefones.Fixo.Numero := 0;
-
-              Telefones.Fax.DDD := 0;
-              Telefones.Fax.Numero := 0; }
           end;
         end;
       end;

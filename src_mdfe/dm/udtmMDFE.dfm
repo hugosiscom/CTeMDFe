@@ -749,16 +749,6 @@ object dtmMDFE: TdtmMDFE
       FieldName = 'TIPO_EMBALAGEM_INDEX'
       Origin = 'TIPO_EMBALAGEM_INDEX'
     end
-    object tabMDFENCM_NATUREZA_CARGA: TStringField
-      FieldName = 'NCM_NATUREZA_CARGA'
-      Origin = 'NCM_NATUREZA_CARGA'
-      Size = 10
-    end
-    object tabMDFEDESTINATARIO_CELULAR: TStringField
-      FieldName = 'DESTINATARIO_CELULAR'
-      Origin = 'DESTINATARIO_CELULAR'
-      Size = 11
-    end
     object tabMDFEDISTANCIA_PERCORRIDA: TFMTBCDField
       FieldName = 'DISTANCIA_PERCORRIDA'
       Origin = 'DISTANCIA_PERCORRIDA'

@@ -940,7 +940,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Top = 0
         Width = 891
         Height = 456
-        ActivePage = pagCIOT
+        ActivePage = tabVeiculoTracao
         Align = alClient
         TabOrder = 0
         object tabVeiculoTracao: TTabSheet
@@ -3124,7 +3124,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 AlignWithMargins = True
                 Left = 3
                 Top = 3
-                Width = 861
+                Width = 62
                 Height = 13
                 Align = alTop
                 Caption = 'CPF ou CNPJ'
@@ -3135,7 +3135,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Font.Style = []
                 ParentFont = False
                 Transparent = True
-                ExplicitWidth = 62
               end
               object DOC_CONTRATANTE: TJvMaskEdit
                 Left = 0
