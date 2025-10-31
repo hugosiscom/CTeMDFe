@@ -498,7 +498,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           AlignWithMargins = True
           Left = 3
           Top = 3
-          Width = 342
+          Width = 396
           Height = 314
           Align = alLeft
           Caption = 'Local de Carregamento'
@@ -530,7 +530,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             Left = 5
             Top = 19
             Width = 22
-            Height = 145
+            Height = 34
             Align = alLeft
             Caption = 'UF *'
             Font.Charset = DEFAULT_CHARSET
@@ -560,11 +560,12 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             AlignWithMargins = True
             Left = 5
             Top = 276
-            Width = 332
+            Width = 386
             Height = 33
             Align = alBottom
             BevelOuter = bvNone
             TabOrder = 2
+            ExplicitWidth = 332
             object btnLocalCarregamentoExcluir: TJvSpeedButton
               AlignWithMargins = True
               Left = 119
@@ -667,7 +668,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           object ID_MUNICIPIO_INICIAL: TDBLookupComboBox
             Left = 87
             Top = 32
-            Width = 250
+            Width = 226
             Height = 21
             KeyField = 'ID_CIDADES_IBGE'
             ListField = 'DESCRICAO'
@@ -689,9 +690,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           object gridLocalCarregamento: TJvDBGrid
             AlignWithMargins = True
             Left = 5
-            Top = 170
-            Width = 332
-            Height = 100
+            Top = 59
+            Width = 386
+            Height = 211
             Align = alBottom
             DataSource = dtstabCIDADES_LOCAL_CARREGAMENTO
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
@@ -704,6 +705,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             TitleFont.Style = []
             MultiSelect = True
             AlternateRowColor = clInactiveCaption
+            AutoSizeColumns = True
             SelectColumnsDialogStrings.Caption = 'Select columns'
             SelectColumnsDialogStrings.OK = '&OK'
             SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
@@ -715,29 +717,30 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Expanded = False
                 FieldName = 'lookCIDADE'
                 Title.Caption = 'Munic'#237'pio'
+                Width = 225
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'ID_UF'
                 Title.Caption = 'UF'
-                Width = 33
+                Width = 47
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'ID_MUNICIPIO'
                 Title.Caption = 'C'#243'digo Munic'#237'pio'
-                Width = 64
+                Width = 95
                 Visible = True
               end>
           end
         end
         object JvgGroupBox1: TJvgGroupBox
           AlignWithMargins = True
-          Left = 546
+          Left = 405
           Top = 3
-          Width = 342
+          Width = 266
           Height = 314
           Align = alRight
           Caption = 'UF'#180's do Percurso'
@@ -763,6 +766,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           Gradient.Active = False
           Gradient.Orientation = fgdHorizontal
           Options = [fgoCanCollapse, fgoFilledCaption, fgoFluentlyCollapse, fgoFluentlyExpand, fgoHideChildrenWhenCollapsed, fgoSaveChildFocus]
+          ExplicitLeft = 407
           FullHeight = 0
           object Label7: TLabel
             AlignWithMargins = True
@@ -783,11 +787,12 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             AlignWithMargins = True
             Left = 5
             Top = 274
-            Width = 332
+            Width = 256
             Height = 35
             Align = alBottom
             BevelOuter = bvNone
             TabOrder = 1
+            ExplicitWidth = 332
             object btnLocalPercursoExcluir: TJvSpeedButton
               AlignWithMargins = True
               Left = 119
@@ -889,9 +894,9 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           object JvDBGrid1: TJvDBGrid
             AlignWithMargins = True
             Left = 5
-            Top = 168
-            Width = 332
-            Height = 100
+            Top = 59
+            Width = 256
+            Height = 209
             Align = alBottom
             DataSource = dtstabMDFE_UF_PERCURSO
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
@@ -904,6 +909,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             TitleFont.Style = []
             MultiSelect = True
             AlternateRowColor = clInactiveCaption
+            AutoSizeColumns = True
             SelectColumnsDialogStrings.Caption = 'Select columns'
             SelectColumnsDialogStrings.OK = '&OK'
             SelectColumnsDialogStrings.NoSelectionWarning = 'At least one column must be visible!'
@@ -915,7 +921,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Expanded = False
                 FieldName = 'ID_UF'
                 Title.Caption = 'UF'
-                Width = 70
+                Width = 239
                 Visible = True
               end>
           end
@@ -928,6 +934,30 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
             LookupDisplay = 'ID_CIDADES_UF'
             LookupSource = dtsqryCIDADES_UF
             TabOrder = 2
+          end
+        end
+        object GroupBox1: TGroupBox
+          Left = 674
+          Top = 0
+          Width = 217
+          Height = 320
+          Align = alRight
+          Caption = 'GroupBox1'
+          TabOrder = 2
+          ExplicitTop = 6
+          ExplicitHeight = 314
+          object ID_UF_FINAL: TDBLookupComboBox
+            Left = 5
+            Top = 29
+            Width = 78
+            Height = 21
+            DataField = 'ID_UF_FINAL'
+            DataSource = dtsDefault
+            KeyField = 'ID_CIDADES_UF'
+            ListField = 'ID_CIDADES_UF'
+            ListSource = dtsqryCIDADES_UF
+            TabOrder = 0
+            OnClick = ID_UF_FINALClick
           end
         end
       end
@@ -2652,13 +2682,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Height = 13
                 Caption = 'Tipo Embalagem'
               end
-              object Label66: TLabel
-                Left = 419
-                Top = 2
-                Width = 76
-                Height = 13
-                Caption = 'Total da Viagem'
-              end
               object Label67: TLabel
                 Left = 157
                 Top = 0
@@ -2667,36 +2690,36 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 Caption = 'Dist'#226'ncia Percorrida'
               end
               object Label68: TLabel
-                Left = 575
-                Top = 2
+                Left = 699
+                Top = 232
                 Width = 109
                 Height = 13
                 Caption = 'Total de Adiantamento'
               end
               object Label71: TLabel
                 Left = 699
-                Top = 48
+                Top = 94
                 Width = 85
                 Height = 13
                 Caption = 'Total Combust'#237'vel'
               end
               object Label72: TLabel
                 Left = 699
-                Top = 94
+                Top = 140
                 Width = 76
                 Height = 13
                 Caption = 'Outros Cr'#233'ditos'
               end
               object Label73: TLabel
-                Left = 700
-                Top = 2
+                Left = 699
+                Top = 48
                 Width = 72
                 Height = 13
                 Caption = 'Outros D'#233'bitos'
               end
               object Label69: TLabel
                 Left = 699
-                Top = 140
+                Top = 186
                 Width = 85
                 Height = 13
                 Caption = 'Total de Quita'#231#227'o'
@@ -2844,59 +2867,48 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 TabOrder = 4
                 EditMask = '###########0,00;1;_'
               end
-              object JvDBMaskEdit1: TJvDBMaskEdit
-                Left = 419
-                Top = 19
-                Width = 150
-                Height = 21
-                DataField = 'TOTAL_VIAGEM'
-                DataSource = dtsDefault
-                MaxLength = 15
-                TabOrder = 5
-                EditMask = '###########0,00;1;_'
-              end
               object edtTotalAdiantamento: TJvDBMaskEdit
-                Left = 575
-                Top = 21
+                Left = 699
+                Top = 251
                 Width = 119
                 Height = 21
                 DataField = 'TOTAL_ADIANTAMENTO'
                 DataSource = dtsDefault
                 MaxLength = 15
-                TabOrder = 6
+                TabOrder = 5
                 EditMask = '###########0,00;1;_'
               end
               object edtTotalCombustivel: TJvDBMaskEdit
                 Left = 699
-                Top = 67
+                Top = 113
                 Width = 117
                 Height = 21
                 DataField = 'TOTAL_COMBUSTIVEL'
                 DataSource = dtsDefault
                 MaxLength = 15
-                TabOrder = 7
+                TabOrder = 6
                 EditMask = '###########0,00;1;_'
               end
               object edtOutrosCreditos: TJvDBMaskEdit
                 Left = 699
-                Top = 113
+                Top = 159
                 Width = 117
                 Height = 21
                 DataField = 'OUTROS_CREDITOS'
                 DataSource = dtsDefault
                 MaxLength = 15
-                TabOrder = 8
+                TabOrder = 7
                 EditMask = '###########0,00;1;_'
               end
               object edtOutrosDebitos: TJvDBMaskEdit
-                Left = 700
-                Top = 21
+                Left = 699
+                Top = 67
                 Width = 116
                 Height = 21
                 DataField = 'OUTROS_DEBITOS'
                 DataSource = dtsDefault
                 MaxLength = 15
-                TabOrder = 9
+                TabOrder = 8
                 EditMask = '###########0,00;1;_'
               end
               object memoJUSTIFICATIVA_OUTROS_CREDITOS: TDBMemo
@@ -2908,7 +2920,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 DataSource = dtsDefault
                 MaxLength = 1024
                 ScrollBars = ssVertical
-                TabOrder = 10
+                TabOrder = 9
               end
               object memoJUSTIFICATIVA_OUTROS_DEBITOS: TDBMemo
                 Left = 495
@@ -2919,17 +2931,17 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 DataSource = dtsDefault
                 MaxLength = 1024
                 ScrollBars = ssVertical
-                TabOrder = 11
+                TabOrder = 10
               end
               object edtTotalQuitacao: TJvDBMaskEdit
                 Left = 699
-                Top = 159
+                Top = 205
                 Width = 117
                 Height = 21
                 DataField = 'TOTAL_QUITACAO'
                 DataSource = dtsDefault
                 MaxLength = 15
-                TabOrder = 12
+                TabOrder = 11
                 EditMask = '###########0,00;1;_'
               end
               object edtDistanciaRetorno: TJvDBMaskEdit
@@ -2941,7 +2953,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
                 DataField = 'DISTANCIA_RETORNO'
                 DataSource = dtsDefault
                 MaxLength = 15
-                TabOrder = 13
+                TabOrder = 12
                 EditMask = '###########0,00;1;_'
               end
             end
@@ -4849,18 +4861,18 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
               TabOrder = 1
               EditMask = '99999-999;0; '
             end
-            object ID_UF_FINAL: TDBLookupComboBox
+            object JvDBLookupCombo1: TJvDBLookupCombo
               Left = 0
               Top = 19
               Width = 78
               Height = 21
               DataField = 'ID_UF_FINAL'
               DataSource = dtsDefault
-              KeyField = 'ID_CIDADES_UF'
-              ListField = 'ID_CIDADES_UF'
-              ListSource = dtsqryCIDADES_UF
+              Enabled = False
+              LookupField = 'ID_CIDADES_UF'
+              LookupDisplay = 'ID_CIDADES_UF'
+              LookupSource = dtsqryCIDADES_UF
               TabOrder = 2
-              OnClick = ID_UF_FINALClick
             end
           end
           object Panel25: TPanel

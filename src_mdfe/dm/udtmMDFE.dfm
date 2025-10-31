@@ -755,12 +755,6 @@ object dtmMDFE: TdtmMDFE
       Precision = 18
       Size = 2
     end
-    object tabMDFETOTAL_VIAGEM: TFMTBCDField
-      FieldName = 'TOTAL_VIAGEM'
-      Origin = 'TOTAL_VIAGEM'
-      Precision = 18
-      Size = 2
-    end
     object tabMDFETOTAL_ADIANTAMENTO: TFMTBCDField
       FieldName = 'TOTAL_ADIANTAMENTO'
       Origin = 'TOTAL_ADIANTAMENTO'
