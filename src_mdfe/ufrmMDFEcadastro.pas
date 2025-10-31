@@ -391,6 +391,7 @@ type
     GroupBox1: TGroupBox;
     ID_UF_FINAL: TDBLookupComboBox;
     JvDBLookupCombo1: TJvDBLookupCombo;
+    Label66: TLabel;
     procedure btnLocalCarregamentoExcluirClick(Sender: TObject);
     procedure btnLocalCarregamentoIncluirClick(Sender: TObject);
     procedure dtsDefaultDataChange(Sender: TObject; Field: TField);
@@ -1854,7 +1855,8 @@ begin
         raise Exception.Create('Deve ser adicionado o Tipo da Viagem!');
       end;
 
-      TipoPagamento := eFRETE;
+      // TransferenciaBancaria(EmissaoGratuita = true); eFRETE (EmissaoGratuita = false)
+      TipoPagamento := TransferenciaBancaria;
 
       EmissaoGratuita := (TipoPagamento = TransferenciaBancaria);
 
@@ -2127,33 +2129,54 @@ begin
       begin
 
         // tmRemetente, tmExpedidor, tmRecebedor, tmDestinatario, tmRemetente
+        NomeOuRazaoSocial := 'Siscomsoft Sistemas e Automacao Ltda'; // CTe.Rem.xNome;
+        CpfOuCnpj := '07.237.938/0001-79'; // CTe.Rem.CNPJCPF;
 
-        if CTe.Ide.toma03.Toma = tmRemetente then
-        begin
-          NomeOuRazaoSocial := CTe.Rem.xNome;
-          CpfOuCnpj := CTe.Rem.CNPJCPF;
+        EMail := 'suporte@siscomsoft.com.br'; // CTe.Rem.EMail;
 
-          EMail := CTe.Rem.EMail;
+        ResponsavelPeloPagamento := True;
+
+        RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
+
+        Endereco.Bairro := 'Jardim Santana'; // CTe.Rem.enderReme.xBairro;
+        Endereco.Rua := 'Rua São Sebastião'; // CTe.Rem.enderReme.xLgr;
+        Endereco.Numero := '0'; // 'S/N'; // CTe.Rem.enderReme.nro;
+        Endereco.Complemento := 'Q. 8 L. 14'; // CTe.Rem.enderReme.xCpl;
+        Endereco.CEP := '75195-000'; // CTe.Rem.enderReme.CEP.toString;
+
+        Endereco.CodigoMunicipio := 520355; // CTe.Rem.enderReme.cMun;
+
+        var
+        telefoneSoNumeros := OnlyNumber('62939505085'); // CTe.Rem.fone);
+        Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
+        Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
+
+        { if CTe.Ide.toma03.Toma = tmRemetente then
+          begin
+          NomeOuRazaoSocial := 'Siscomsoft Sistemas e Automacao Ltda'; // CTe.Rem.xNome;
+          CpfOuCnpj := '07.237.938/0001-79'; // CTe.Rem.CNPJCPF;
+
+          EMail := 'suporte@siscomsoft.com.br'; // CTe.Rem.EMail;
 
           ResponsavelPeloPagamento := True;
 
           RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
 
-          Endereco.Bairro := CTe.Rem.enderReme.xBairro;
-          Endereco.Rua := CTe.Rem.enderReme.xLgr;
-          Endereco.Numero := CTe.Rem.enderReme.nro;
-          Endereco.Complemento := CTe.Rem.enderReme.xCpl;
-          Endereco.CEP := CTe.Rem.enderReme.CEP.toString;
+          Endereco.Bairro := 'Jardim Santana'; // CTe.Rem.enderReme.xBairro;
+          Endereco.Rua := 'Rua São Sebastião'; // CTe.Rem.enderReme.xLgr;
+          Endereco.Numero := '0'; // 'S/N'; // CTe.Rem.enderReme.nro;
+          Endereco.Complemento := 'Q. 8 L. 14'; // CTe.Rem.enderReme.xCpl;
+          Endereco.CEP := '75195-000'; // CTe.Rem.enderReme.CEP.toString;
 
-          Endereco.CodigoMunicipio := CTe.Rem.enderReme.cMun;
+          Endereco.CodigoMunicipio := 520355; // CTe.Rem.enderReme.cMun;
 
           var
-          telefoneSoNumeros := OnlyNumber(CTe.Rem.fone);
+          telefoneSoNumeros := OnlyNumber('62939505085'); // CTe.Rem.fone);
           Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
           Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
-        end
-        else if CTe.Ide.toma03.Toma = tmExpedidor then
-        begin
+          end
+          else if CTe.Ide.toma03.Toma = tmExpedidor then
+          begin
           NomeOuRazaoSocial := CTe.exped.xNome;
           CpfOuCnpj := CTe.exped.CNPJCPF;
 
@@ -2175,9 +2198,9 @@ begin
           telefoneSoNumeros := OnlyNumber(CTe.exped.fone);
           Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
           Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
-        end
-        else if CTe.Ide.toma03.Toma = tmRecebedor then
-        begin
+          end
+          else if CTe.Ide.toma03.Toma = tmRecebedor then
+          begin
           NomeOuRazaoSocial := CTe.receb.xNome;
           CpfOuCnpj := CTe.receb.CNPJCPF;
 
@@ -2199,9 +2222,9 @@ begin
           telefoneSoNumeros := OnlyNumber(CTe.receb.fone);
           Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
           Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
-        end
-        else if CTe.Ide.toma03.Toma = tmDestinatario then
-        begin
+          end
+          else if CTe.Ide.toma03.Toma = tmDestinatario then
+          begin
           NomeOuRazaoSocial := CTe.Dest.xNome;
           CpfOuCnpj := CTe.Dest.CNPJCPF;
 
@@ -2223,7 +2246,7 @@ begin
           telefoneSoNumeros := OnlyNumber(CTe.Dest.fone);
           Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
           Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
-        end
+          end }
 
         { else if CTe.Toma.xNome <> '' then
           begin
@@ -2249,8 +2272,8 @@ begin
           Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
           Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
           end }
-        else
-          raise Exception.Create('Não existem dados no CTe referentes ao Contratante!');
+        // else
+        // raise Exception.Create('Não existem dados no CTe referentes ao Contratante!');
       end;
 
       // É o transportador que contratar outro transportador para realização do
@@ -2325,106 +2348,130 @@ begin
       begin
         with TomadorServico do
         begin
-          if CTe.Ide.toma03.Toma = tmRemetente then
+
+          NomeOuRazaoSocial := 'Siscomsoft Sistemas e Automacao Ltda'; // CTe.Rem.xNome;
+          CpfOuCnpj := '07.237.938/0001-79'; // CTe.Rem.CNPJCPF;
+
+          EMail := 'suporte@siscomsoft.com.br'; // CTe.Rem.EMail;
+
+          ResponsavelPeloPagamento := True;
+
+          // RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
+
+          Endereco.Bairro := 'Jardim Santana'; // CTe.Rem.enderReme.xBairro;
+          Endereco.Rua := 'Rua São Sebastião'; // CTe.Rem.enderReme.xLgr;
+          Endereco.Numero := '0'; // 'S/N'; // CTe.Rem.enderReme.nro;
+          Endereco.Complemento := 'Q. 8 L. 14'; // CTe.Rem.enderReme.xCpl;
+          Endereco.CEP := '75195-000'; // CTe.Rem.enderReme.CEP.toString;
+
+          Endereco.CodigoMunicipio := 520355; // CTe.Rem.enderReme.cMun;
+
+          var
+          telefoneSoNumeros := OnlyNumber('62939505085'); // CTe.Rem.fone);
+          Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
+          Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
+
+        end;
+        { if CTe.Ide.toma03.Toma = tmRemetente then
           begin
-            NomeOuRazaoSocial := CTe.Rem.xNome;
-            CpfOuCnpj := CTe.Rem.CNPJCPF;
+          NomeOuRazaoSocial := CTe.Rem.xNome;
+          CpfOuCnpj := CTe.Rem.CNPJCPF;
 
-            EMail := CTe.Rem.EMail;
+          EMail := CTe.Rem.EMail;
 
-            ResponsavelPeloPagamento := false;
+          ResponsavelPeloPagamento := false;
 
-            // RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
+          // RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
 
-            Endereco.Bairro := CTe.Rem.enderReme.xBairro;
-            Endereco.Rua := CTe.Rem.enderReme.xLgr;
-            Endereco.Numero := CTe.Rem.enderReme.nro;
-            Endereco.Complemento := CTe.Rem.enderReme.xCpl;
-            Endereco.CEP := CTe.Rem.enderReme.CEP.toString;
+          Endereco.Bairro := CTe.Rem.enderReme.xBairro;
+          Endereco.Rua := CTe.Rem.enderReme.xLgr;
+          Endereco.Numero := CTe.Rem.enderReme.nro;
+          Endereco.Complemento := CTe.Rem.enderReme.xCpl;
+          Endereco.CEP := CTe.Rem.enderReme.CEP.toString;
 
-            Endereco.CodigoMunicipio := CTe.Rem.enderReme.cMun;
+          Endereco.CodigoMunicipio := CTe.Rem.enderReme.cMun;
 
-            var
-            telefoneSoNumeros := OnlyNumber(CTe.Rem.fone);
-            Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
-            Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
+          var
+          telefoneSoNumeros := OnlyNumber(CTe.Rem.fone);
+          Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
+          Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
           end
           else if CTe.Ide.toma03.Toma = tmExpedidor then
           begin
-            NomeOuRazaoSocial := CTe.exped.xNome;
-            CpfOuCnpj := CTe.exped.CNPJCPF;
+          NomeOuRazaoSocial := CTe.exped.xNome;
+          CpfOuCnpj := CTe.exped.CNPJCPF;
 
-            EMail := CTe.exped.EMail;
+          EMail := CTe.exped.EMail;
 
-            ResponsavelPeloPagamento := false;
+          ResponsavelPeloPagamento := false;
 
-            // RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
+          // RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
 
-            Endereco.Bairro := CTe.exped.enderExped.xBairro;
-            Endereco.Rua := CTe.exped.enderExped.xLgr;
-            Endereco.Numero := CTe.exped.enderExped.nro;
-            Endereco.Complemento := CTe.exped.enderExped.xCpl;
-            Endereco.CEP := CTe.exped.enderExped.CEP.toString;
+          Endereco.Bairro := CTe.exped.enderExped.xBairro;
+          Endereco.Rua := CTe.exped.enderExped.xLgr;
+          Endereco.Numero := CTe.exped.enderExped.nro;
+          Endereco.Complemento := CTe.exped.enderExped.xCpl;
+          Endereco.CEP := CTe.exped.enderExped.CEP.toString;
 
-            Endereco.CodigoMunicipio := CTe.exped.enderExped.cMun;
+          Endereco.CodigoMunicipio := CTe.exped.enderExped.cMun;
 
-            var
-            telefoneSoNumeros := OnlyNumber(CTe.exped.fone);
-            Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
-            Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
+          var
+          telefoneSoNumeros := OnlyNumber(CTe.exped.fone);
+          Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
+          Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
           end
           else if CTe.Ide.toma03.Toma = tmRecebedor then
           begin
-            NomeOuRazaoSocial := CTe.receb.xNome;
-            CpfOuCnpj := CTe.receb.CNPJCPF;
+          NomeOuRazaoSocial := CTe.receb.xNome;
+          CpfOuCnpj := CTe.receb.CNPJCPF;
 
-            EMail := CTe.receb.EMail;
+          EMail := CTe.receb.EMail;
 
-            ResponsavelPeloPagamento := false;
+          ResponsavelPeloPagamento := false;
 
-            // RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
+          // RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
 
-            Endereco.Bairro := CTe.receb.enderReceb.xBairro;
-            Endereco.Rua := CTe.receb.enderReceb.xLgr;
-            Endereco.Numero := CTe.receb.enderReceb.nro;
-            Endereco.Complemento := CTe.receb.enderReceb.xCpl;
-            Endereco.CEP := CTe.receb.enderReceb.CEP.toString;
+          Endereco.Bairro := CTe.receb.enderReceb.xBairro;
+          Endereco.Rua := CTe.receb.enderReceb.xLgr;
+          Endereco.Numero := CTe.receb.enderReceb.nro;
+          Endereco.Complemento := CTe.receb.enderReceb.xCpl;
+          Endereco.CEP := CTe.receb.enderReceb.CEP.toString;
 
-            Endereco.CodigoMunicipio := CTe.receb.enderReceb.cMun;
+          Endereco.CodigoMunicipio := CTe.receb.enderReceb.cMun;
 
-            var
-            telefoneSoNumeros := OnlyNumber(CTe.receb.fone);
-            Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
-            Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
+          var
+          telefoneSoNumeros := OnlyNumber(CTe.receb.fone);
+          Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
+          Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
           end
           else if CTe.Ide.toma03.Toma = tmDestinatario then
           begin
-            NomeOuRazaoSocial := CTe.Dest.xNome;
-            CpfOuCnpj := CTe.Dest.CNPJCPF;
+          NomeOuRazaoSocial := CTe.Dest.xNome;
+          CpfOuCnpj := CTe.Dest.CNPJCPF;
 
-            EMail := CTe.Dest.EMail;
+          EMail := CTe.Dest.EMail;
 
-            ResponsavelPeloPagamento := false;
+          ResponsavelPeloPagamento := false;
 
-            // RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
+          // RNTRC := dtmMDFE.tabMDFEVEICULO_RNTRC.AsString;
 
-            Endereco.Bairro := CTe.Dest.enderDest.xBairro;
-            Endereco.Rua := CTe.Dest.enderDest.xLgr;
-            Endereco.Numero := CTe.Dest.enderDest.nro;
-            Endereco.Complemento := CTe.Dest.enderDest.xCpl;
-            Endereco.CEP := CTe.Dest.enderDest.CEP.toString;
+          Endereco.Bairro := CTe.Dest.enderDest.xBairro;
+          Endereco.Rua := CTe.Dest.enderDest.xLgr;
+          Endereco.Numero := CTe.Dest.enderDest.nro;
+          Endereco.Complemento := CTe.Dest.enderDest.xCpl;
+          Endereco.CEP := CTe.Dest.enderDest.CEP.toString;
 
-            Endereco.CodigoMunicipio := CTe.Dest.enderDest.cMun;
+          Endereco.CodigoMunicipio := CTe.Dest.enderDest.cMun;
 
-            var
-            telefoneSoNumeros := OnlyNumber(CTe.Dest.fone);
-            Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
-            Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
+          var
+          telefoneSoNumeros := OnlyNumber(CTe.Dest.fone);
+          Telefones.Celular.DDD := StrToInt(Copy(telefoneSoNumeros, 1, 2));
+          Telefones.Celular.Numero := StrToIntDef(Copy(telefoneSoNumeros, 3, Length(telefoneSoNumeros)), 0);
           end
 
           else
-            raise Exception.Create('Não existem dados no CTe referentes ao Tomador de Serviço!');
-        end;
+          raise Exception.Create('Não existem dados no CTe referentes ao Tomador de Serviço!');
+          end; }
       end;
 
       with Veiculos.New do

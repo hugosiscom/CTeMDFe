@@ -37,6 +37,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
   inherited pageDefault: TJvPageControl
     Width = 899
     Height = 484
+    ActivePage = tabRodoviario
     TabOrder = 0
     ExplicitWidth = 899
     ExplicitHeight = 484
@@ -941,13 +942,28 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
           Width = 217
           Height = 320
           Align = alRight
-          Caption = 'GroupBox1'
+          Caption = 'UF de Destino/Descarga'
           TabOrder = 2
-          ExplicitTop = 6
-          ExplicitHeight = 314
+          ExplicitLeft = 677
+          ExplicitTop = 3
+          object Label66: TLabel
+            AlignWithMargins = True
+            Left = 13
+            Top = 16
+            Width = 22
+            Height = 13
+            Caption = 'UF *'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            Transparent = True
+          end
           object ID_UF_FINAL: TDBLookupComboBox
-            Left = 5
-            Top = 29
+            Left = 13
+            Top = 35
             Width = 78
             Height = 21
             DataField = 'ID_UF_FINAL'
@@ -969,7 +985,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Top = 0
         Width = 891
         Height = 456
-        ActivePage = tabVeiculoTracao
+        ActivePage = pagCIOT
         Align = alClient
         TabOrder = 0
         object tabVeiculoTracao: TTabSheet
