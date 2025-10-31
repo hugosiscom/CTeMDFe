@@ -37,7 +37,6 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
   inherited pageDefault: TJvPageControl
     Width = 899
     Height = 484
-    ActivePage = tabRodoviario
     TabOrder = 0
     ExplicitWidth = 899
     ExplicitHeight = 484
@@ -970,7 +969,7 @@ inherited frmMDFEcadastro: TfrmMDFEcadastro
         Top = 0
         Width = 891
         Height = 456
-        ActivePage = pagCIOT
+        ActivePage = tabVeiculoTracao
         Align = alClient
         TabOrder = 0
         object tabVeiculoTracao: TTabSheet
